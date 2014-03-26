@@ -7,4 +7,7 @@ angular.module('angulApp')
       'AngularJS',
       'Karma'
     ];
+  })
+  .controller('LoginCtrl', function ($scope, $routeParams) {
+   	$scope.socialNetwork = $routeParams.socialNetwork;
   });
