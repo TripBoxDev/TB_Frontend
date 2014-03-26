@@ -15,7 +15,15 @@
 
         $ npm install
 
+        $ bower install
+
     Esto empezará a instalar todas las dependencias y podremos empezar a trabajar.
+
+    *Si estás instalando el repositorio desde la UAB ejecuta:
+
+    	$ git config --global url."https://".insteadOf git://
+
+	y vuelve a empezar el paso 2.
 
 ## Comandos útiles durante el desarrollo
 
