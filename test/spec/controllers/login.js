@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Controller: LoginCtrl', function () {
 
   // load the controller's module
