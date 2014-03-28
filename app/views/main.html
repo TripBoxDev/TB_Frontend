@@ -10,16 +10,19 @@
         <h1>Tripbox</h1>
         <p>Organiza viajes con tus amigos de forma fácil!</p>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6" ng-controller="LoginCtrl">
         <h2>Accede mediante las redes sociales:</h2>
         <p>
 
-        <a class="btn btn-block btn-social btn-facebook" ng-href="#Login/Facebook">
+          <a class="btn btn-block btn-social btn-facebook" ng-click="login()" >
           <i class="fa fa-facebook"></i> Conecta con Facebook!</a>
         </p>
-                <a class="btn btn-block btn-social btn-google-plus" ng-href="#Login/Google">
+        <p>
+          <a class="btn btn-block btn-social btn-google-plus" ng-href="#Login/Google">
           <i class="fa fa-google-plus"></i> Conecta con Google+!</a>
         </p>
+        <p>
+          >{{dato.isLogged}}<
         </p>
       </div>
     </div>
