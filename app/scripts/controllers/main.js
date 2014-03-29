@@ -11,8 +11,8 @@ angular.module('angulApp')
   .controller('LoginCtrl', function ($scope, $routeParams, $http, authService) {
     $scope.socialNetwork = $routeParams.socialNetwork;
 
-    $scope.dato = authService.data;
-    //$scope.dato = authService.data;
+    $scope.data = authService.data;
+
     $scope.login = function(){
         // De pegote
         var config = {
@@ -33,14 +33,14 @@ angular.module('angulApp')
               authService.data.username = '';
               console.log(authService.data.isLogged);
             }
-            $scope.dato = authService.data;
+            $scope.data = authService.data;
 
           })
           .error(function(data, status, headers, config) {
             authService.data.isLogged = false;
             authService.data.username = '';
             console.log(authService.data.isLogged);
-            $scope.dato = authService.data;
+            $scope.data = authService.data;
 
           });
 
