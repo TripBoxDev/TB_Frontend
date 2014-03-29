@@ -6,38 +6,40 @@
 	<script type="text/javascript" src="styles/main.scss"></script>
 </head>
 <body>
-	<div class="jumbotron">
-		<div class="panel panel-default">
-  			<div class="panel-body">
-    			<div id="logo">
-					<img src="images/yeoman.png" alt="Tripbox Logo" height="50" width="50">
+	<!--navigation-->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      				<ul class="nav navbar-nav">
+						<li><img src="images/yeoman.png" alt="Image group" height="45" width="45"></li>
+						<li><p class="navbar-text">TripBox</p></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><p class="navbar-text">Mario López</p></li>
+						<li><img src="images/yeoman.png" alt="Image group" height="45" width="45"></li>
+					</ul>
 				</div>
-				<div id="company_name">
-					<span>TripBox</span>
-				</div>
-				<div id="user_name">
-					<span>Alejandro</span>
-				</div>
-				<div id="photo">
-					<img src="images/yeoman.png" alt="Tripbox Logo" height="50" width="50">
-				</div>
-  			</div>
+			</div>
 		</div>
+	</nav>
+	<!--center-->
+	<div class="jumbotron">	
 		<div class="page-header">
 			<h1>No esperes más, ¡crea tu grupo en TripBox!</h1>
 		</div>
 		<div class="row">
-  			<div class="col-sm-6 col-md-6">
+  			<div class="col-sm-6 col-md-4">
    				 <div class="thumbnail">
-      				<img src="images/yeoman.png" alt="Image group" height="150" width="150">
-      				<div class="caption">
-        				<h4>Group Name</h4>
-        				<button type="button" class="btn btn-default btn-lg">
-  							<span class="glyphicon glyphicon-plus-sign"></span> Show more details
-						</button>
+   				 	<div id="cardinfo">
+      					<p>Haz click para añadir un nuevo grupo</p>
       				</div>
-  				</div>
+      				<div id"addgroup">
+      					<a href="#" class="glyphicon glyphicon-plus-sign" role="button"></a>
+      				</div>
+  				</div>	
   			</div>
 		</div>
+	</div>
 </body>
 </html>
