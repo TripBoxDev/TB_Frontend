@@ -5,8 +5,7 @@
   
     <title>Tus Grupos!</title>
     <script type="text/javascript" src="./styles/style_groups.scss"></script>
-    <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
     <script type="text/javascript" src="./scripts/controllers/controller.js"></script>
     
 
@@ -38,90 +37,19 @@
         <div class="jumbotron"> 
 
             <!-- Groups -->
-
-            <div ng-controller="'MainCtrl'">
-                
-                <li ng-repeat="group in groups">
-                    <span>{{group.name}}</span>
-                    <img src="images/yeoman.png" alt="Image group" height="45" width="45"/>
-                </li>
-                   
-                
-            </div>
-
-
-
+            <div class="row" ng-controller="getGroup">
+                <div ng-repeat="group in groups">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>
+                            <span>{{group.name}}</span>
+                        </Br>
+                            
+                            <span> → </span>
+                        </div>
+                    </div> 
+                </div> 
             
-            <div class="row">
-
-                <div class="col-md-4">
-                    <div class="thumbnail">
-                        <div id="cardfoto">
-
-                            <center><img src="images/groups/1.jpg" alt="Image group" height="150" width="150"></center>
-                  
-                        </div>
-                      
-                        <div id"cardname">
-                      
-                            <p>{{group.name}}</p>
-                      
-                        </div>
-
-                        <div id="cardinfo">
-
-                            <center><p>→</p></center>
-
-                        </div>
-                    </div>  
-                </div>
-
-                <div class="col-md-4">
-                    <div class="thumbnail">
-                        <div id="cardfoto">
-
-                            <center><img src="images/groups/2.jpg" alt="Image group" height="150" width="150"></center>
-                  
-                        </div>
-                      
-                        <div id"cardname">
-                      
-                            <p>{{groups.name}}</p>
-                      
-                        </div>
-
-                        <div id="cardinfo">
-
-                            <center><p>→</p></center>
-
-                        </div>
-                    </div>  
-                </div>
-
-                <div class="col-md-4">
-                    <div class="thumbnail">
-                        <div id="cardfoto">
-
-                            <center><img src="images/groups/3.jpg" alt="Image group" height="150" width="150"></center>
-                  
-                        </div>
-                      
-                        <div id"cardname">
-                      
-                            <p>{{groups.name}}</p>
-                      
-                        </div>
-
-                        <div id="cardinfo">
-
-                            <center><p>→</p></center>
-
-                        </div>
-                    </div>  
-                </div>
-
-
-           
 
             <!-- New Card -->
            
@@ -141,7 +69,7 @@
                     </div>  
                 </div>
            
-             </div>
+            </div>
         </div>
     </div>
 </body>
