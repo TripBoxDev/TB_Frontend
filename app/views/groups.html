@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html  ng-app="groupApp">
+<html ng-app="groupApp">
 <head>
 <meta charset="UTF-8">
   
     <title>Tus Grupos!</title>
   
     <script type="text/javascript" src="./styles/style_groups.scss"></script>
-    <script type="text/javascript" src="lib/angular/angular.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+    <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="./scripts/controllers/controller.js"></script>
 
 </head>
@@ -21,12 +21,12 @@
                 <div class="navbar-header">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"></li>
+                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
                             <li><p class="navbar-text">TripBox</p></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><p class="navbar-text">Perfil</p></li>
-                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"></li>
+                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
                         </ul>
                     </div>
                 </div>
@@ -40,8 +40,7 @@
             <div ng-controller="controller_group">
                 <li ng-repeat="group in group">
 
-                    {{groups.name}}
-                    {{groups.id}}
+                    {{groups.name}} and {{groups.id}}
                    
                 </li>
             </div>

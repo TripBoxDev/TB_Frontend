@@ -1,6 +1,6 @@
-var app = angular.module('groupApp'),[]);
+var app = angular.module('groupApp'), []);
 
-	app.controller("controller_group", ['$scope', function($scope){
+	app.controller('controller_group', ['$scope', function($scope){
 
 		$scope.groups = [
 		    {id:1, name:'Miami'},
