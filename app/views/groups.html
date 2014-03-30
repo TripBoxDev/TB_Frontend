@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html ng-app="groupApp">
+<html>
 <head>
 <meta charset="UTF-8">
   
     <title>Tus Grupos!</title>
-  
     <script type="text/javascript" src="./styles/style_groups.scss"></script>
     <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="./scripts/controllers/controller.js"></script>
+    
 
 </head>
 <body>
+
   
     <div class="cl_content">
 
@@ -24,57 +25,106 @@
                             <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
                             <li><p class="navbar-text">TripBox</p></li>
                         </ul>
+
                         <ul class="nav navbar-nav navbar-right">
                             <li><p class="navbar-text">Perfil</p></li>
-                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
+                            <li><img src="./scripts/controllers/yeoman.png" alt="Image group" height="45" width="45"/></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
 
-        <div class="jumbotron"> 
+        <div class="jumbotron" ng-app="groupApp"> 
 
             <!-- Groups -->
 
-            <div ng-controller="controller_group">
-                <li ng-repeat="group in group">
+            <div ng-controller="ControllerGroups">
+                
 
-                    {{groups.name}} and {{groups.id}}
+                    <span>{{groups[0].name}}</span>
+                    <img src="images/yeoman.png" alt="Image group" height="45" width="45"/>
                    
-                </li>
+                
             </div>
 
 
 
-            <!--
+            
             <div class="row">
-                <div class="col-sm-6 col-md-4">
+
+                <div class="col-md-4">
                     <div class="thumbnail">
                         <div id="cardfoto">
 
-                            <center><img src="images/groups/yeoman.png" alt="Image group"></center>
+                            <center><img src="images/groups/1.jpg" alt="Image group" height="150" width="150"></center>
                   
                         </div>
                       
                         <div id"cardname">
                       
-                            <h1>{{groups.name}}</h1>
+                            <p>{{groups.name}}</p>
                       
                         </div>
 
                         <div id="cardinfo">
 
-                            <center><h1>-></h1></center>
+                            <center><p>→</p></center>
 
                         </div>
                     </div>  
                 </div>
-            </div>-->
+
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <div id="cardfoto">
+
+                            <center><img src="images/groups/2.jpg" alt="Image group" height="150" width="150"></center>
+                  
+                        </div>
+                      
+                        <div id"cardname">
+                      
+                            <p>{{groups.name}}</p>
+                      
+                        </div>
+
+                        <div id="cardinfo">
+
+                            <center><p>→</p></center>
+
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <div id="cardfoto">
+
+                            <center><img src="images/groups/3.jpg" alt="Image group" height="150" width="150"></center>
+                  
+                        </div>
+                      
+                        <div id"cardname">
+                      
+                            <p>{{groups.name}}</p>
+                      
+                        </div>
+
+                        <div id="cardinfo">
+
+                            <center><p>→</p></center>
+
+                        </div>
+                    </div>  
+                </div>
+
+
+           
 
             <!-- New Card -->
-            <div class="row">
-                <div class="col-sm-6 col-md-4">
+           
+                <div class="col-md-4">
                     <div class="thumbnail">
                         <div id="cardinfo">
 
@@ -89,7 +139,8 @@
                         </div>
                     </div>  
                 </div>
-            </div>
+           
+             </div>
         </div>
     </div>
 </body>
