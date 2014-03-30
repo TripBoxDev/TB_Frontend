@@ -11,7 +11,7 @@
     
 
 </head>
-<body>
+<body ng-app>
 
   
     <div class="cl_content">
@@ -35,15 +35,16 @@
             </div>
         </nav>
 
-        <div class="jumbotron" ng-app="groupApp"> 
+        <div class="jumbotron"> 
 
             <!-- Groups -->
 
-            <div ng-controller="ControllerGroups">
+            <div ng-controller="'MainCtrl'">
                 
-
-                    <span>{{groups[0].name}}</span>
+                <li ng-repeat="group in groups">
+                    <span>{{group.name}}</span>
                     <img src="images/yeoman.png" alt="Image group" height="45" width="45"/>
+                </li>
                    
                 
             </div>
@@ -63,7 +64,7 @@
                       
                         <div id"cardname">
                       
-                            <p>{{groups.name}}</p>
+                            <p>{{group.name}}</p>
                       
                         </div>
 

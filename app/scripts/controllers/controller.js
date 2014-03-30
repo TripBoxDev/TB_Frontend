@@ -1,9 +1,4 @@
-'use strict';
-
-
-
-function ControllerGroups ($scope) {
-
+function MainCtrl ($scope) {
   $scope.groups = [
     {id:1, name:'Miami'},
     {id:2, name:'Berlin'},
@@ -11,19 +6,3 @@ function ControllerGroups ($scope) {
   ];
 
 }
-
-
-
-
-
-
-angular.module('groupApp')
-
-	.controller('ControllerGroup', function ($scope) {
-
-		$scope.groups = [
-		    {id:1, name:'Miami'},
-		    {id:2, name:'Luxenburgo'},
-		    {id:3, name:'Berlin'}
-		];
-	});
