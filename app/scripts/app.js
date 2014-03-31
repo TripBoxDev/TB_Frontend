@@ -10,11 +10,17 @@ angular.module('angulApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        access: {
+          isFree : true
+        }
       })
       .when('/Login/:socialNetwork', {
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+        access: {
+          isFree : true
+        }
       })
       .otherwise({
         redirectTo: '/'

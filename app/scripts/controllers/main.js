@@ -57,4 +57,15 @@ angular.module('angulApp')
     };
     return authManagement;
  
-  });
+  }).run(['$rootScope', 'authService', function(root, auth) {
+    root.$on('$routeChangeStart', function(scope, currRoute, prevRoute) { 
+      console.dir('CurrView: ' +currRoute);
+      console.dir('PrevView: ' + prevRoute);
+      if (!auth.data.isLogged) {
+        console.log('NOT LOGGED IN');
+
+        } else {
+          console.log('logged in! :)');
+        }
+    });
+  }]);
