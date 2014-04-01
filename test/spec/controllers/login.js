@@ -27,7 +27,6 @@ describe('Controller: LoginCtrl', function () {
 
     httpBackend = $httpBackend;
     
-    httpBackend.when('GET', '/').respond({userId: 'userX'}, {'A-Token': 'xxx'});
 
     LoginCtrl = $controller('LoginCtrl', {
       $scope: scope,
@@ -46,7 +45,12 @@ describe('Controller: LoginCtrl', function () {
 
 
   it('should mark as logged in when connection is successful', function() {
+    // Define how will be the query from the controller and what is answered from server
+    httpBackend.when('GET', '/').respond({userId: 'userX'}, {'A-Token': 'xxx'});
+
+    // Set httpBackend to listen for GET queries to defined route, so it'd be mocked.
     httpBackend.expectGET('/');
+    
     scope.login();
 
     httpBackend.flush();
