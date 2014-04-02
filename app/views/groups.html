@@ -14,7 +14,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li><p class="navbar-text">Perfil</p></li>
-                            <li><img src="./scripts/controllers/yeoman.png" alt="Image group" height="45" width="45"/></li>
+                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
                         </ul>
                     </div>
                 </div>
@@ -28,11 +28,17 @@
                 <div ng-repeat="group in groups">
                     <div class="col-md-4">
                         <div class="thumbnail">
-                            <img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>
-                            <span>{{group.name}}</span>
-                        </Br>
-                            
-                            <span> → </span>
+                            <!--Si se incluye la imagen, da error debido a su libre tamaño!-->
+                            <!--<img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>-->
+                            <center>   
+                                <span>{{group.name}}</span>
+                                </Br>
+                                
+                                <span><a class="glyphicon glyphicon-edit" role="button" ng-click="editGroup(group.id)"></a></span>
+
+                                <span><a class="glyphicon glyphicon-remove" role="button" ng-click="unfollowGroup(group.id)"></a></span>
+
+                            </center>
                         </div>
                     </div> 
                 </div> 
@@ -44,7 +50,7 @@
                     <div class="thumbnail">
                         <div id="cardinfo">
 
-                            <center><p>New Group!</p></center>
+                            <center><p>Añadir grupo</p></center>
                   
                         </div>
                       
@@ -53,7 +59,7 @@
                             <center>
 
                                 <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="addGroup()"></a>
-                                <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="unfollowGroup()"></a>
+                                
 
                             </center>
 
