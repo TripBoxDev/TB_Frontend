@@ -2,3 +2,10 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 @import 'sass-bootstrap/lib/bootstrap';
 
+// This variable overrides where is font-awesome
+$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default; // for referencing Bootstrap CDN font files directly
+
+@import 'font-awesome/scss/font-awesome';
+
+
+@import 'bootstrap-social/bootstrap-social';

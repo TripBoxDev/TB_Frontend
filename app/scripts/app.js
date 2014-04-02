@@ -11,6 +11,10 @@ angular.module('angulApp', [
         templateUrl: 'views/groups.html', 
         controller: 'GroupsCtrl' 
       })
+      .when('/Login/:socialNetwork', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

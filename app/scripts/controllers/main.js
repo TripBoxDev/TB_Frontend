@@ -44,5 +44,8 @@ angular.module('angulApp')
     //datosResource lo tenemos disponible en la vista gracias a $scope
     $scope.datosResource = dataResource.get();
     */
-});
+})
+  .controller('LoginCtrl', function ($scope, $routeParams) {
+   	$scope.socialNetwork = $routeParams.socialNetwork;
+  });
 
