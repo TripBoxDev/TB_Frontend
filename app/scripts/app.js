@@ -7,9 +7,9 @@ angular.module('angulApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/groups', {
         templateUrl: 'views/groups.html', 
-        controller: 'MainCtrl' 
+        controller: 'GroupsCtrl' 
       })
       .otherwise({
         redirectTo: '/'
