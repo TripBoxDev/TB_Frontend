@@ -15,8 +15,17 @@ angular.module('angulApp')
 //para hacer uso de $resource debemos colocarlo al crear el modulo
 
 //con dataResource inyectamos la factoría
-.controller("GroupsCtrl", function($scope) {
-    $scope.groups = [
+.controller("GroupsCtrl", function($scope, $http) {
+    $scope.groups = [];
+    $http.get('http://tripbox.uab.cat/TB_Backend/api/group/445566')
+        .then(function(result){
+            $scope.groups = result.data;
+
+        });
+
+    
+
+    /*$scope.groups = [
         {id:1, name:'Miami', description:'País muy bonito pq lo digo yo'},
         {id:2, name:'Berlin', description:'Me encanta la cerveza negra'},
         {id:3, name:'Luxenburgo', description:'Aquí se te ha ido de las manos Correa xd'},
@@ -24,7 +33,7 @@ angular.module('angulApp')
         {id:5, name:'Amsterdam', description:'Aquí se te ha ido de las manos Correa xd'},
         {id:6, name:'Japon', description:'Aquí se te ha ido de las manos Correa xd'},
         {id:7, name:'Hawai', description:'Aquí se te ha ido de las manos Correa xd'}
-    ];
+    ];*/
 
     $scope.addGroup = function() {
         $scope.groups.push({id:7, name:'Hawai', description:'Aquí se te ha ido de las manos Correa xd'});
