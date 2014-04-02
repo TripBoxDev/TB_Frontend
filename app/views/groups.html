@@ -24,7 +24,7 @@
         <div class="jumbotron"> 
 
             <!-- Groups -->
-            <div class="row" ng-controller="getGroup">
+            <div class="row" ng-controller="GroupsCtrl">
                 <div ng-repeat="group in groups">
                     <div class="col-md-4">
                         <div class="thumbnail">
@@ -52,7 +52,8 @@
                       
                             <center>
 
-                                <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="addgroup"></a>
+                                <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="addGroup()"></a>
+                                <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="unfollowGroup()"></a>
 
                             </center>
 
