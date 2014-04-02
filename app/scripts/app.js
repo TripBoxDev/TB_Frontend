@@ -7,6 +7,10 @@ angular.module('angulApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
+      .when('/', {
+        templateUrl: 'views/main.html',
+        controller: 'LoginCtrl'
+      })
       .when('/groups', {
         templateUrl: 'views/groups.html', 
         controller: 'GroupsCtrl' 
