@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('angulApp', [
   'ngCookies',
   'ngResource',
@@ -8,9 +7,9 @@ angular.module('angulApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+      .when('/groups', {
+        templateUrl: 'views/groups.html', 
+        controller: 'GroupsCtrl' 
       })
       .otherwise({
         redirectTo: '/'

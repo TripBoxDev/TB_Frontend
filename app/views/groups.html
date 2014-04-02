@@ -1,0 +1,66 @@
+
+  
+    <div class="cl_content">
+
+        <!-- navigation -->
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
+                            <li><p class="navbar-text">TripBox</p></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><p class="navbar-text">Perfil</p></li>
+                            <li><img src="./scripts/controllers/yeoman.png" alt="Image group" height="45" width="45"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="jumbotron"> 
+
+            <!-- Groups -->
+            <div class="row">
+                <div ng-repeat="group in groups">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>
+                            <span>{{group.name}}</span>
+                        </Br>
+                            
+                            <span> → </span>
+                        </div>
+                    </div> 
+                </div> 
+            
+
+            <!-- New Card -->
+           
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <div id="cardinfo">
+
+                            <center><p>New Group!</p></center>
+                  
+                        </div>
+                      
+                        <div id"addgroup">
+                      
+                            <center>
+
+                                <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="addGroup()"></a>
+                                <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="unfollowGroup()"></a>
+
+                            </center>
+
+                        </div>
+                    </div>  
+                </div>
+           
+            </div>
+        </div>
+    </div>
