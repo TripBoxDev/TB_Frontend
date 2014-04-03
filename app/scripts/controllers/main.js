@@ -23,87 +23,90 @@ angular.module('angulApp')
         };
     })
 
-    /**
-     * Handles authentication with Facebook.
-     */
-    .factory('authService', function($rootScope) {
-        var authManagement = {
-            data: {
-                isLogged: false,
-                username: ''
-            },
-            /**
-             * Sends the query to log in to Facebook
-             */
-            login: function() {
-                FB.login(function(response) {
-                    if (response.status === 'connected') {
-                        var uid = response.authResponse.userID;
-                    }
-                }, {
-                    scope: 'email'
-                });
-            },
-            /**
-             * Sends the query to Facebook to retrieve user info
-             */
-            getUserInfo: function() {
+/**
+ * Handles authentication with Facebook.
+ */
+.factory('authService', function($rootScope) {
+    var authManagement = {
+        data: {
+            isLogged: false,
+            username: ''
+        },
+        /**
+         * Sends the query to log in to Facebook
+         */
+        login: function() {
+            FB.login(function(response) {
+                if (response.status === 'connected') {
+                    var uid = response.authResponse.userID;
+                }
+            }, {
+                scope: 'email'
+            });
+        },
+        /**
+         * Sends the query to Facebook to retrieve user info
+         */
+        getUserInfo: function() {
 
-                var _self = this;
+            var _self = this;
 
-                FB.api('/me', function(response) {
+            FB.api('/me', function(response) {
 
-                    $rootScope.$apply(function() {
+                $rootScope.$apply(function() {
 
-                        $rootScope.user = _self.user = response;
-
-                    });
+                    $rootScope.user = _self.user = response;
 
                 });
 
-            },
+            });
 
-            /**
-             * Attaches a handler to the event triggered whenever Facebook's auth changes
-             */
-            watchAuthStatusChange: function() {
+        },
 
-                var _self = this;
+        /**
+         * Attaches a handler to the event triggered whenever Facebook's auth changes
+         */
+        watchAuthStatusChange: function() {
 
-                FB.Event.subscribe('auth.authResponseChange', function(response) {
+            var _self = this;
 
-                    if (response.status === 'connected') {
+            FB.Event.subscribe('auth.authResponseChange', function(response) {
 
-                        /* 
+                if (response.status === 'connected') {
+                    console.log('CONNECTED!');
+                    /* 
                      The user is already logged, 
                      is possible retrieve his personal info
                     */
-                        _self.getUserInfo();
+                    _self.getUserInfo();
 
-                        /*
+                    _self.data.isLogged = true;
+                    /*
                      This is also the point where you should create a 
                      session for the current user.
                      For this purpose you can use the data inside the 
                      response.authResponse object.
                     */
 
-                    } else {
+                } else {
 
-                        /*
+                    _self.data.isLogged = false;
+
+                    /*
                      The user is not logged to the app, or into Facebook:
                      destroy the session on the server.
                     */
 
-                    }
+                }
 
-                });
+            });
 
-            }
-          };
-        return authManagement;
+        }
+    };
+    return authManagement;
 
-    })
-    .run(function($rootScope, authService) {
+})
+    .run(function($rootScope, authService, $location) {
 
         $rootScope.user = {};
 
@@ -128,21 +131,21 @@ angular.module('angulApp')
                 cookie: true, // enable cookies to allow the server to access the session
                 xfbml: true // parse XFBML
             });
-                    authService.watchAuthStatusChange();
+
+            authService.watchAuthStatusChange();
 
         };
 
-
-        /*
-        $rootScope.$on('$routeChangeStart', function(scope, currRoute, prevRoute) {
+        $rootScope.$on('$routeChangeSuccess', function(scope, currRoute, prevRoute) {
             console.dir('CurrView: ' + currRoute);
             console.dir('PrevView: ' + prevRoute);
-            if (!authService.data.isLogged) {
-                console.log('NOT LOGGED IN');
-
-            } else {
-                console.log('logged in! :)');
+            console.dir(prevRoute);
+            if (!currRoute.isFree && !authService.data.isLogged) {
+                if (currRoute.templateUrl !== 'views/main.html') {
+                    $location.path('/');
+                    console.log('Should be logged in, redirecting to /');
+                }
             }
         });
-        */
+
     });
