@@ -1,72 +1,204 @@
+<div class="cl_content">
 
-  
-    <div class="cl_content">
+    <!-- navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <img src="images/yeoman.png" alt="Image group" height="45" width="45" />
+                        </li>
+                        <li>
+                            <p class="navbar-text">TripBox</p>
+                        </li>
+                    </ul>
 
-        <!-- navigation -->
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
-                            <li><p class="navbar-text">TripBox</p></li>
-                        </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text">Perfil</p>
+                        </li>
+                        <li>
+                            <img src="images/yeoman.png" alt="Image group" height="45" width="45" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><p class="navbar-text">Perfil</p></li>
-                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
-                        </ul>
+    <div class="jumbotron">
+
+        <!-- Groups -->
+        <div class="row">
+            <div ng-repeat="group in groups">
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <!--Si se incluye la imagen, da error debido a su libre tamaño!-->
+                        <!--<img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>-->
+                        <center>
+                            <span>{{group.name}}</span>
+                            </Br>
+
+                            <span>
+                                <a class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#ModificarGrupo"></a>
+                            </span>
+
+                            <span>
+                                <!--
+                                <a class="glyphicon glyphicon-remove" role="button" ng-click="unfollowGroup(group.id)"></a>
+                                -->
+
+                                <a class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#EliminarGrupo"></a>
+                            </span>
+
+                        </center>
                     </div>
                 </div>
             </div>
-        </nav>
 
-        <div class="jumbotron"> 
-
-            <!-- Groups -->
-            <div class="row">
-                <div ng-repeat="group in groups">
-                    <div class="col-md-4">
-                        <div class="thumbnail">
-                            <!--Si se incluye la imagen, da error debido a su libre tamaño!-->
-                            <!--<img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>-->
-                            <center>   
-                                <span>{{group.name}}</span>
-                                </Br>
-                                
-                                <span><a class="glyphicon glyphicon-edit" role="button" ng-click="editGroup(group.id)"></a></span>
-
-                                <span><a class="glyphicon glyphicon-remove" role="button" ng-click="unfollowGroup(group.id)"></a></span>
-
-                            </center>
-                        </div>
-                    </div> 
-                </div> 
-            
 
             <!-- New Card -->
-           
-                <div class="col-md-4">
-                    <div class="thumbnail">
-                        <div id="cardinfo">
 
-                            <center><p>Añadir grupo</p></center>
-                  
-                        </div>
-                      
-                        <div id"addgroup">
-                      
-                            <center>
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <div id="cardinfo">
 
-                                <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="addGroup()"></a>
-                                
+                        <center>
+                            <p>Añadir grupo</p>
+                        </center>
 
-                            </center>
+                    </div>
 
-                        </div>
-                    </div>  
+                    <div id "addgroup">
+
+                        <center>
+
+                            <!--<a class="glyphicon glyphicon-plus-sign" role="button" ng-click="addGroup()"></a>-->
+
+                            <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></a>
+
+
+
+
+                        </center>
+
+                    </div>
                 </div>
-           
             </div>
+
+            <!-- Menu desplegable CrearGrupo -->
+            <div class="modal fade" id="CrearGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Crea un nuevo grupo</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nombre del grupo">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Imagen">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Miembros del grupo">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup()">Crear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu desplegable ModificarGrupo -->
+            <div ng-repeat="group in groups" class="modal fade" id="ModificarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Modificación de grupo</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="{{group.name}}">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nueva imagen">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Añadir miembros">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup()">Crear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu desplegable EliminarGrupo -->
+            <div ng-repeat="group in groups" class="modal fade" id="EliminarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Eliminación de grupo</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="input-group">
+                               Seguro que quiere eliminar {{grupo.name}} definitivamente?
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="unfollowGroup(group.id)">Si</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
+</div>
