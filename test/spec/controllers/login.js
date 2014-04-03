@@ -7,53 +7,40 @@ describe('Controller: LoginCtrl', function () {
 
   var LoginCtrl,
     scope,
-    routeParams,
-    authService,
-    httpBackend;
-
+    authService;
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, $httpBackend) {
+  beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    routeParams = {
-      socialNetwork : 'Google'
-    };
+
     authService = {
       data: {
         isLogged : false,
         username : ''
+      },
+      login : function() {
+        authService.data.isLogged = true;
       }
     };
      
 
-    httpBackend = $httpBackend;
     
 
     LoginCtrl = $controller('LoginCtrl', {
       $scope: scope,
-      $routeParams: routeParams,
       authService: authService
     });
   }));
 
-  it('should have the social network we used to login', function () {
-    expect(scope.socialNetwork).toEqual('Google');
-  });
 
   it('should mark as not logged in when we haven\'t done a login', function() {
     expect(authService.data.isLogged).toBeFalsy();
   });
 
 
-  it('should mark as logged in when connection is successful', function() {
-    // Define how will be the query from the controller and what is answered from server
-    httpBackend.when('GET', '/').respond({userId: 'userX'}, {'A-Token': 'xxx'});
+  it('should mark as logged in when connection with Facebook is successful', function() {
 
-    // Set httpBackend to listen for GET queries to defined route, so it'd be mocked.
-    httpBackend.expectGET('/');
-    
-    scope.login();
+    scope.loginFacebook();
 
-    httpBackend.flush();
     expect(authService.data.isLogged).toBeTruthy();
 
   });
