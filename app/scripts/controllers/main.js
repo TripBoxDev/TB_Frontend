@@ -16,14 +16,38 @@ angular.module('angulApp')
 
 //con dataResource inyectamos la factoría
 .controller("GroupsCtrl", function($scope, $http) {
+
+    //Esta es la id del usuario que nos dará la sesión
+    var user = "123456"
+    //Esta es la lista de grupos
     $scope.groups = [];
+
+    //Intentamos leer los datos del usuario
+    $http.get('http://tripbox.uab.cat/TB_Backend/api/user/'+user)
+        .success(function(result){
+            
+            //Si ha funcionado, recorre cada grupo de viaje al que pertenece el usuario
+            for (var i = result["groups"].length - 1; i >= 0; i--) {
+                //Lee los datos del grupo
+                $http.get('http://tripbox.uab.cat/TB_Backend/api/group/'+ result["groups"][i])
+                .success(function(result){
+
+                    //Y si ha salido todo bien, añade a la lista del grupo los datos del grupo recién leido
+                    $scope.groups.push({id:result["id"], name:result["name"], description:result["description"]})
+
+                });
+            };
+        });
+
+    /*$('html').append(result["groups"][0]);
+    Esta es una utilidad que sirve para añadir al html. Va bien para debug*/
+
+   /* 
     var url = '445566'
     $http.get('http://tripbox.uab.cat/TB_Backend/api/group/'+ url)
         .success(function(result){
             $scope.groups.push({id:result["id"], name:result["name"], description:result["description"]})
-        });
-
-    
+        }); */
 
     /*$scope.groups = [
         {id:1, name:'Miami', description:'País muy bonito pq lo digo yo'},
