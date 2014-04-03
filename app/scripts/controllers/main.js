@@ -16,12 +16,16 @@ angular.module('angulApp')
 
 //con dataResource inyectamos la factoría
 .controller("GroupsCtrl", function($scope, $http) {
-    $scope.groups = [];
-    $http.get('http://tripbox.uab.cat/TB_Backend/api/group/445566')
-        .then(function(result){
-            $scope.groups = result.data;
-
-        });
+    var id = "445566";
+    /*scope.groups = [];*/
+    var url = 'http://tripbox.uab.cat/TB_Backend/api/group/';
+    var url = $url.concat($id);
+    $('html').append(url);
+    /*$http.get('http://tripbox.uab.cat/TB_Backend/api/group/'+$id)
+        .success(function(result){
+            $scope.groups
+            $('html').append(result["name"]);
+        });*/
 
     
 
