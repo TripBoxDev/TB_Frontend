@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('angulApp', [
   'ngCookies',
   'ngResource',
@@ -9,15 +10,14 @@ angular.module('angulApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+	    access: {
+		  isFree : true
+        }
       })
       .when('/groups', {
         templateUrl: 'views/groups.html', 
         controller: 'GroupsCtrl' 
-      })
-      .when('/Login/:socialNetwork', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'
