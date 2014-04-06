@@ -26,7 +26,7 @@ angular.module('angulApp')
 /**
  * Handles authentication with Facebook.
  */
-.factory('authService', function($rootScope) {
+.factory('authService', function(ApiService, $rootScope) {
     var authManagement = {
         data: {
             isLogged: false,
@@ -53,11 +53,17 @@ angular.module('angulApp')
 
             FB.api('/me', function(response) {
 
-                $rootScope.$apply(function() {
+                // Prepares object to be sent to API
+                var apiData = {
+                    //facebookId: response.id,
+                    name: response.first_name,
+                    lastName: response.last_name,
+                    email: response.email
+                }
 
-                    $rootScope.user = _self.user = response;
 
-                });
+                // Send user info for API approval
+                ApiService.loginUser(apiData);
 
             });
 
@@ -73,14 +79,13 @@ angular.module('angulApp')
             FB.Event.subscribe('auth.authResponseChange', function(response) {
 
                 if (response.status === 'connected') {
-                    console.log('CONNECTED!');
                     /* 
                      The user is already logged, 
                      is possible retrieve his personal info
                     */
                     _self.getUserInfo();
 
-                    _self.data.isLogged = true;
+                    
                     /*
                      This is also the point where you should create a 
                      session for the current user.
@@ -142,6 +147,30 @@ angular.module('angulApp')
     $scope.datosResource = dataResource.get();
     */
 })
+
+.factory('ApiService', function($http, $location) {
+        return {
+            endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
+            loginUser: function(data) {
+                console.log(data);
+                $http.put(this.endpoint + '/user', data)
+                    .success(function(data, status, headers, config) {
+                        // TODO Cambiar isLogged
+                        console.log(data);
+                        console.log('Logged in successfully');
+
+                   
+                    })
+                .error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+
+                    console.log('API returned an error');
+                });
+            }
+        }
+    })
+    
     .run(function($rootScope, authService, $location) {
 
         $rootScope.user = {};
