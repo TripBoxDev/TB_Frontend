@@ -38,29 +38,47 @@
                         <!--<img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>-->
                         <center>
 
-                            <span>{{group.name}}</span>
-                            
-                            </br>
-                            
-                            <span>{{group.description}}</span>
+                            <span editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
+                                {{ group.name || 'Vacío' }}
+                            </span>
 
                             </br>
 
+                            <span editable-text="group.description" e-name="description" e-form="rowform" onbeforesave="checkName($data)" e-required>
+                                {{ group.description || 'Vacío' }}
+                            </span>
+
+                            </br>
+
+                            <!--
                             <span>
                                 <a class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#ModificarGrupo"></a>
                             </span>
+                            -->
 
                             <span>
-                                <!--
+
+                                <form editable-form name="rowform" onbeforesave="saveGroup($data, group.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == group">
+                                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
+                                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
+                                </form>
+                                <div class="buttons" ng-show="!rowform.$visible">
+                                    <a class="glyphicon glyphicon-edit" ng-click="rowform.$show()"></a>
+                                    <a class="glyphicon glyphicon-remove" confirmed-click="removeGroup($index)" ng-confirm-click="¿Realmente deseas eliminar el grupo '{{group.name}}'?"></a>
+                                </div>
+
+                            </span>
+                            <!--
                                 <a class="glyphicon glyphicon-remove" role="button" ng-click="unfollowGroup(group.id)"></a>
                                 -->
 
-                                <!--
+                            <!--
                                 <a class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#EliminarGrupo"></a>
                                 -->
 
+                            <!--
                                 <a class="glyphicon glyphicon-remove" confirmed-click="unfollowGroup(group.id)" ng-confirm-click="¿Estás seguro de que quieres eliminar '{{group.name}}' de tu lista de grupos?"></a>
-                            </span>
+                                -->
 
                         </center>
                     </div>
@@ -148,6 +166,7 @@
             </div>
 
             <!-- Menu desplegable ModificarGrupo -->
+            <!--
             <div ng-repeat="group in groups" class="modal fade" id="ModificarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -199,9 +218,11 @@
                     </div>
                 </div>
             </div>
+            -->
 
             <!-- Menu desplegable EliminarGrupo -->
-            <div ng-repeat="group in groups" class="modal fade" id="EliminarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!--
+            <div class="modal fade" id="EliminarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -222,6 +243,7 @@
                     </div>
                 </div>
             </div>
+            -->
         </div>
     </div>
 </div>
