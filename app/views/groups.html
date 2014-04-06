@@ -5,23 +5,18 @@
         <!-- navigation -->
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
-                <div class="navbar-header">
+                <div class="navbar-header" ng-controller="NavBarCtrl">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li><img src="images/yeoman.png" alt="Image group" height="45" width="45"/></li>
-                            <li><p class="navbar-text">TripBox</p></li>
-                        </ul>
 
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><p class="navbar-text">Perfil</p></li>
-                            <li><img src="./scripts/controllers/yeoman.png" alt="Image group" height="45" width="45"/></li>
+                        <ul class="nav navbar-nav navbar-right" ng-repeat="link in links">
+                            <li><p class="navbar-text">{{ link }} </p></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
 
-        <div class="jumbotron"> 
+        <div class="jumbotron" ng-controller="GroupsCtrl"> 
 
             <!-- Groups -->
             <div class="row">

@@ -16,8 +16,7 @@ angular.module('angulApp', [
         }
       })
       .when('/groups', {
-        templateUrl: 'views/groups.html', 
-        controller: 'GroupsCtrl' 
+        templateUrl: 'views/groups.html'
       })
       .otherwise({
         redirectTo: '/'

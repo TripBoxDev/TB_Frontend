@@ -3,6 +3,7 @@
 var FacebookData = {};
 FacebookData.channel = 'https://mysite.com/channel.html';
 FacebookData.fbAppId = '1567668726791128';
+FacebookData.autoFbLogin = true;
 
 angular.module('angulApp')
   .controller('MainCtrl', function ($scope) {
@@ -182,6 +183,9 @@ angular.module('angulApp')
             }
         }
     })
+    .controller('NavBarCtrl', function($scope) {
+      $scope.links = ['Groups', 'Profile', 'Logout'];
+    })
 
     .run(function($rootScope, facebookAuthService, $location, authService) {
 
@@ -202,7 +206,7 @@ angular.module('angulApp')
             FB.init({
                 appId: FacebookData.fbAppId, // App ID
                 //channelUrl: FacebookData.channel, // Channel File
-                status: true, // check login status
+                status: FacebookData.autoFbLogin, // check login status
                 cookie: true, // enable cookies to allow the server to access the session
                 xfbml: true // parse XFBML
             });
