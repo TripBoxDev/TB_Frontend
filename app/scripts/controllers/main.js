@@ -12,26 +12,21 @@ angular.module('angulApp')
       'Karma'
     ];
   })
-  .controller('LoginCtrl', function($scope, $routeParams, authService) {
+  .controller('LoginCtrl', function($scope, $routeParams, facebookAuthService) {
 
         $scope.socialNetwork = $routeParams.socialNetwork;
 
-        $scope.data = authService.data;
 
         $scope.loginFacebook = function() {
-            authService.login();
+            facebookAuthService.login();
         };
     })
 
 /**
  * Handles authentication with Facebook.
  */
-.factory('authService', function($rootScope) {
+.factory('facebookAuthService', function(ApiService) {
     var authManagement = {
-        data: {
-            isLogged: false,
-            username: ''
-        },
         /**
          * Sends the query to log in to Facebook
          */
@@ -53,11 +48,17 @@ angular.module('angulApp')
 
             FB.api('/me', function(response) {
 
-                $rootScope.$apply(function() {
+                // Prepares object to be sent to API
+                var apiData = {
+                    //facebookId: response.id,
+                    name: response.first_name,
+                    lastName: response.last_name,
+                    email: response.email
+                }
 
-                    $rootScope.user = _self.user = response;
 
-                });
+                // Send user info for API approval
+                ApiService.loginUser(apiData);
 
             });
 
@@ -73,14 +74,12 @@ angular.module('angulApp')
             FB.Event.subscribe('auth.authResponseChange', function(response) {
 
                 if (response.status === 'connected') {
-                    console.log('CONNECTED!');
                     /* 
                      The user is already logged, 
                      is possible retrieve his personal info
                     */
                     _self.getUserInfo();
 
-                    _self.data.isLogged = true;
                     /*
                      This is also the point where you should create a 
                      session for the current user.
@@ -102,6 +101,19 @@ angular.module('angulApp')
             });
 
         }
+    };
+    return authManagement;
+
+})
+/**
+ * Stores global status of user, like if it is logged or not.
+ */
+.factory('authService', function() {
+    var authManagement = {
+        data: {
+            isLogged: false
+        }
+        
     };
     return authManagement;
 
@@ -142,9 +154,36 @@ angular.module('angulApp')
     $scope.datosResource = dataResource.get();
     */
 })
-    .run(function($rootScope, authService, $location) {
 
-        $rootScope.user = {};
+.factory('ApiService', function($http, $location, authService) {
+        return {
+            endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
+            loginUser: function(data) {
+                console.log(data);
+                $http.put(this.endpoint + '/user', data)
+                    .success(function(data, status, headers, config) {
+                        // TODO Cambiar isLogged
+                        console.log(data);
+                        console.log('Logged in successfully');
+                        authService.data.isLogged = true;
+
+                        // Redirect to groups
+                        $location.path('/groups');
+
+
+                   
+                    })
+                .error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+
+                    console.log('API returned an error');
+                });
+            }
+        }
+    })
+
+    .run(function($rootScope, facebookAuthService, $location, authService) {
 
         (function(d) {
             var js, id = 'facebook-jssdk',
@@ -168,7 +207,7 @@ angular.module('angulApp')
                 xfbml: true // parse XFBML
             });
 
-            authService.watchAuthStatusChange();
+            facebookAuthService.watchAuthStatusChange();
 
         };
 
