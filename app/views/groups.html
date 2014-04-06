@@ -37,8 +37,14 @@
                         <!--Si se incluye la imagen, da error debido a su libre tamaño!-->
                         <!--<img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>-->
                         <center>
+
                             <span>{{group.name}}</span>
-                            </Br>
+                            
+                            </br>
+                            
+                            <span>{{group.description}}</span>
+
+                            </br>
 
                             <span>
                                 <a class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#ModificarGrupo"></a>
@@ -49,7 +55,11 @@
                                 <a class="glyphicon glyphicon-remove" role="button" ng-click="unfollowGroup(group.id)"></a>
                                 -->
 
+                                <!--
                                 <a class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#EliminarGrupo"></a>
+                                -->
+
+                                <a class="glyphicon glyphicon-remove" confirmed-click="unfollowGroup(group.id)" ng-confirm-click="¿Estás seguro de que quieres eliminar '{{group.name}}' de tu lista de grupos?"></a>
                             </span>
 
                         </center>
@@ -98,51 +108,16 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Nombre del grupo">
+                                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
                             </div>
 
                             </br>
 
                             <div class="input-group">
                                 <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-picture"></span>
+                                    <span class="glyphicon glyphicon-comment"></span>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Imagen">
-                            </div>
-
-                            </br>
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Miembros del grupo">
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup()">Crear</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Menu desplegable ModificarGrupo -->
-            <div ng-repeat="group in groups" class="modal fade" id="ModificarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Modificación de grupo</h4>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="{{group.name}}">
+                                <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription">
                             </div>
 
                             </br>
@@ -166,7 +141,60 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup()">Crear</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)">Crear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu desplegable ModificarGrupo -->
+            <div ng-repeat="group in groups" class="modal fade" id="ModificarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Modificación de grupo</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nueva imagen">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Añadir miembros">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editGroup(group.id,groupName,groupDescription)">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -183,7 +211,7 @@
                         <div class="modal-body">
 
                             <div class="input-group">
-                                Seguro que quiere eliminar {{grupo.name}} definitivamente?
+                                Seguro que quiere eliminar {{group.id}} definitivamente?
                             </div>
 
                         </div>

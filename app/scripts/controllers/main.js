@@ -29,15 +29,15 @@ angular.module('angulApp')
                 .success(function(result){
 
                     //Y si ha salido todo bien, añade a la lista del grupo los datos del grupo recién leido
-                    $scope.groups.push({id:result["id"], name:result["name"]})
+                    $scope.groups.push({id:result["id"], name:result["name"], description:result["description"]})
 
                 });
             };
         });
 
-    $scope.addGroup = function() {
-        
-        $scope.groups.push({id:7, name:'Hawai', description:'Aquí se te ha ido de las manos Correa xd'});
+    $scope.addGroup = function(groupName, groupDescription) {
+
+        $scope.groups.push({id:'12345', name:groupName, description:groupDescription});
         console.log($scope.groups);
         
         //Fututa funcion hacia la API
@@ -47,14 +47,27 @@ angular.module('angulApp')
 
     }
 
+    $scope.editGroup = function(id, groupName, groupDescription) {
+        for (var i = $scope.groups.length - 1; i >= 0; i--){
+            if ($scope.groups[i].id == id){
+                $scope.groups[i].name = groupName;
+                $scope.groups[i].description =  groupDescription;
+
+                //Función hacia la API
+            }
+        }
+    }
+
     $scope.unfollowGroup = function(id){
         
+        console.log(id);
         var user = "123456789"
         var group = "987654321"
 
         for (var i = $scope.groups.length - 1; i >= 0; i--){
             if ($scope.groups[i].id == id){
                 $scope.groups.splice(i,1);
+
                 //Fututa funcion hacia la API
                 /*
                 $http.delete('http://tripbox.uab.cat/TB_Backend/api/group/' + grpup + '/user/' + user)
@@ -65,18 +78,23 @@ angular.module('angulApp')
         }
     }
 
-    //Lista de grupos para utilizar como ejemplo:
-    /*$scope.groups = [
-        {id:1, name:'Miami', description:'País muy bonito pq lo digo yo'},
-        {id:2, name:'Berlin', description:'Me encanta la cerveza negra'},
-        {id:3, name:'Luxenburgo', description:'Aquí se te ha ido de las manos Correa xd'},
-        {id:4, name:'Dublin', description:'Aquí se te ha ido de las manos Correa xd'},
-        {id:5, name:'Amsterdam', description:'Aquí se te ha ido de las manos Correa xd'},
-        {id:6, name:'Japon', description:'Aquí se te ha ido de las manos Correa xd'},
-        {id:7, name:'Hawai', description:'Aquí se te ha ido de las manos Correa xd'}
-    ];*/
-
 })
-  .controller('LoginCtrl', function ($scope, $routeParams) {
+
+.directive('ngConfirmClick', [
+        function(){
+            return {
+                link: function (scope, element, attr) {
+                    var msg = attr.ngConfirmClick;
+                    var clickAction = attr.confirmedClick;
+                    element.bind('click',function (event) {
+                        if ( window.confirm(msg) ) {
+                            scope.$apply(clickAction)
+                        }
+                    });
+                }
+            };
+    }])
+
+.controller('LoginCtrl', function ($scope, $routeParams) {
     $scope.socialNetwork = $routeParams.socialNetwork;
-  });
+});
