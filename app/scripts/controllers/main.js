@@ -12,26 +12,21 @@ angular.module('angulApp')
       'Karma'
     ];
   })
-  .controller('LoginCtrl', function($scope, $routeParams, authService) {
+  .controller('LoginCtrl', function($scope, $routeParams, facebookAuthService) {
 
         $scope.socialNetwork = $routeParams.socialNetwork;
 
-        $scope.data = authService.data;
 
         $scope.loginFacebook = function() {
-            authService.login();
+            facebookAuthService.login();
         };
     })
 
 /**
  * Handles authentication with Facebook.
  */
-.factory('authService', function(ApiService, $rootScope) {
+.factory('facebookAuthService', function(ApiService) {
     var authManagement = {
-        data: {
-            isLogged: false,
-            username: ''
-        },
         /**
          * Sends the query to log in to Facebook
          */
@@ -85,7 +80,6 @@ angular.module('angulApp')
                     */
                     _self.getUserInfo();
 
-                    
                     /*
                      This is also the point where you should create a 
                      session for the current user.
@@ -107,6 +101,19 @@ angular.module('angulApp')
             });
 
         }
+    };
+    return authManagement;
+
+})
+/**
+ * Stores global status of user, like if it is logged or not.
+ */
+.factory('authService', function() {
+    var authManagement = {
+        data: {
+            isLogged: false
+        }
+        
     };
     return authManagement;
 
@@ -148,7 +155,7 @@ angular.module('angulApp')
     */
 })
 
-.factory('ApiService', function($http, $location) {
+.factory('ApiService', function($http, $location, authService) {
         return {
             endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
             loginUser: function(data) {
@@ -158,6 +165,11 @@ angular.module('angulApp')
                         // TODO Cambiar isLogged
                         console.log(data);
                         console.log('Logged in successfully');
+                        authService.data.isLogged = true;
+
+                        // Redirect to groups
+                        $location.path('/groups');
+
 
                    
                     })
@@ -170,10 +182,8 @@ angular.module('angulApp')
             }
         }
     })
-    
-    .run(function($rootScope, authService, $location) {
 
-        $rootScope.user = {};
+    .run(function($rootScope, facebookAuthService, $location, authService) {
 
         (function(d) {
             var js, id = 'facebook-jssdk',
@@ -197,7 +207,7 @@ angular.module('angulApp')
                 xfbml: true // parse XFBML
             });
 
-            authService.watchAuthStatusChange();
+            facebookAuthService.watchAuthStatusChange();
 
         };
 
