@@ -72,13 +72,13 @@ angular.module('angulApp')
                             $http.put('http://tripbox.uab.cat/TB_Backend/api/user/',usuario)
                             .success(function(data, status) {
 
-                                //Esto es solo una anotación para decir que todo está en orden
-                                console.log("Todo correcto");
-
-                                //TODO: Se actualiza la base de datos pero no se muestra
-                                //hasta actualizar la página. Hay que llamar a la función
-                                //de mostrar nuevo grupo visualmente para que se aprecie
-                                //al momento los cambios.
+                                //Ahora que está todo en orden
+                                //muestra gráficamente el grupo nuevo
+                                $scope.groups.push({
+                                id: grupo.id,
+                                name: grupo.name,
+                                description: grupo.description
+                                })
 
                             }); //endPutUser
                         }); //endGetUSer
@@ -103,24 +103,30 @@ angular.module('angulApp')
                 }
             };
 
-            $scope.unfollowGroup = function(id) {
+            $scope.unfollowGroup = function(idGroup) {
 
-                console.log(id);
-                var user = "123456789";
-                var group = "987654321";
+                //Esto está para comprobar que se borra y tal
+                console.log(idGroup);
 
-                for (var i = $scope.groups.length - 1; i >= 0; i--) {
-                    if ($scope.groups[i].id == id) {
-                        $scope.groups.splice(i, 1);
+                //El id del usuario
+                var userId = "123456";
 
-                        //Fututa funcion hacia la API
-                        /*
-                $http.delete('http://tripbox.uab.cat/TB_Backend/api/group/' + group + '/user/' + user)
+                //Se hace una petición de eliminación del usuario determinado al grupo pertinente
+                $http.delete('http://tripbox.uab.cat/TB_Backend/api/group/' + idGroup + '/user/' + userId)
+                .success(function(data, status) {
 
-                */
+                    //Si funciona:
+                    //Representa el borrado gráficamente
+
+                    //Busca en el conjunto de grupos...
+                    for (var i = $scope.groups.length - 1; i >= 0; i--) {
+                        //Uno cuya id sea igual al borrado...
+                        if ($scope.groups[i].id == idGroup) {
+                            //Y lo elimina de la lista
+                            $scope.groups.splice(i, 1);
+                        }
                     }
-
-                }
+                }); 
             };
 
             $scope.checkName = function(data) {
