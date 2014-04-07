@@ -80,6 +80,9 @@ angular.module('angulApp')
                                 description: grupo.description
                                 })
 
+                                //TODO: Esta función es la misma que sale arriba.
+                                //Quizá se pueda poner en una sola y llamarla pasándole parámetros.
+
                             }); //endPutUser
                         }); //endGetUSer
             }). //endPutNewGroup
