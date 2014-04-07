@@ -41,6 +41,8 @@ angular.module('angulApp')
 
     $scope.addGroup = function(groupName, groupDescription) {
 
+	if(groupName != "" && groupDescription != ""){
+
         $scope.groups.push({
             id: '778899',
             name: groupName,
@@ -53,6 +55,7 @@ angular.module('angulApp')
         $http.put('http://tripbox.uab.cat/TB_Backend/api/group', {name:groupName, description:groupDescription, users:'123456'})
         */
 
+	}
     };
 
     $scope.editGroup = function(id, groupName, groupDescription) {

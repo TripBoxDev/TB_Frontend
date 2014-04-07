@@ -42,11 +42,9 @@
                                 {{ group.name || 'Vacío' }}
                             </span>
 
-                            </br>
-
-                            <span editable-text="group.description" e-name="description" e-form="rowform" onbeforesave="checkName($data)" e-required>
+                            <p style="font-size: 15px" editable-text="group.description" e-name="description" e-form="rowform" onbeforesave="checkName($data)" e-required>
                                 {{ group.description || 'Vacío' }}
-                            </span>
+                            </p>
 
                             </br>
 
@@ -120,47 +118,48 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title" id="myModalLabel">Crea un nuevo grupo</h4>
                         </div>
-                        <div class="modal-body">
+                        <form>
+                            <div class="modal-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" required>
+                                </div>
 
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
+                                </br>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-comment"></span>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" required>
+                                </div>
+
+                                </br>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-picture"></span>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Nueva imagen">
+                                </div>
+
+                                </br>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Añadir miembros">
+                                </div>
+
                             </div>
-
-                            </br>
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-comment"></span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)">Crear</button>
                             </div>
-
-                            </br>
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-picture"></span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Nueva imagen">
-                            </div>
-
-                            </br>
-
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Añadir miembros">
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)">Crear</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
