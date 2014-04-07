@@ -41,39 +41,52 @@ angular.module('angulApp')
 
         $scope.addGroup = function(groupName, groupDescription) {
 
-            /*
-        $scope.groups.push({
-            name: groupName,
-            description: groupDescription
-        });
-        console.log($scope.groups);
-        */
-            //Fututa funcion hacia la API .success devuelve un objeto grup con la id
+            var userId = "123456"
 
+            //Inicializa una varaible que representa
+            //el nuevo grupo con las especificaciones dadas
             var newGroup = {
                 name: groupName,
                 description: groupDescription,
-                users: [ "123456" ]
+                users: [ userId ]
             };
 
+            //Crea el nuevo grupo con una petición a BackEnd
             $http.put('http://tripbox.uab.cat/TB_Backend/api/group',newGroup)
-            .success(function(data, status) {
-                console.log("Miau");
-                console.log(data.id);
-                $http.get('http://tripbox.uab.cat/TB_Backend/api/user/123456')
-                        .success(function(result) {
-                            console.log(result.groups);
-                            result.groups.push(data.id);
-                            console.log(result.groups);
-                            $http.put('http://tripbox.uab.cat/TB_Backend/api/user/',result)
-                            .success(function(data, status) {
-                                console.log("pene");
-                            });
-                        });
-            }).
-            error(function(data, status) {
-            });
+            .success(function(grupo) {
 
+                //Si ha funcionado:
+                //Hace get para recuperar el objeto del usuario
+                $http.get('http://tripbox.uab.cat/TB_Backend/api/user/' + userId)
+                        .success(function(usuario) {
+
+                            //Si ha funcionado:
+                            //Coje la array que almacena los grupos
+                            //y añade la id del grupo,
+                            //creando un objeto "User" actualizado
+                            usuario.groups.push(grupo.id);
+
+                            //Finalmente hace put de este nuevo user,
+                            //y como esta Id ya es existente, substituye
+                            //al anterior
+                            $http.put('http://tripbox.uab.cat/TB_Backend/api/user/',usuario)
+                            .success(function(data, status) {
+
+                                //Esto es solo una anotación para decir que todo está en orden
+                                console.log("Todo correcto");
+
+                                //TODO: Se actualiza la base de datos pero no se muestra
+                                //hasta actualizar la página. Hay que llamar a la función
+                                //de mostrar nuevo grupo visualmente para que se aprecie
+                                //al momento los cambios.
+
+                            }); //endPutUser
+                        }); //endGetUSer
+            }). //endPutNewGroup
+            error(function(data, status) {
+                //En caso de error al crear el nuevo grupo
+                //TODO: POR HACER
+            });
         };
 
             $scope.editGroup = function(id, groupName, groupDescription) {
