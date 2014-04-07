@@ -3,16 +3,17 @@
 var FacebookData = {};
 FacebookData.channel = 'https://mysite.com/channel.html';
 FacebookData.fbAppId = '1567668726791128';
+FacebookData.autoFbLogin = true;
 
 angular.module('angulApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  })
-  .controller('LoginCtrl', function($scope, $routeParams, facebookAuthService) {
+    .controller('MainCtrl', function($scope) {
+        $scope.awesomeThings = [
+            'HTML5 Boilerplate',
+            'AngularJS',
+            'Karma'
+        ];
+    })
+    .controller('LoginCtrl', function($scope, $routeParams, facebookAuthService) {
 
         $scope.socialNetwork = $routeParams.socialNetwork;
 
@@ -20,6 +21,10 @@ angular.module('angulApp')
         $scope.loginFacebook = function() {
             facebookAuthService.login();
         };
+
+        $scope.logout = function() {
+          facebookAuthService.logout();
+        }
     })
 
 /**
@@ -89,7 +94,7 @@ angular.module('angulApp')
 
                 } else {
 
-                    _self.data.isLogged = false;
+                    ApiService.data.isLogged = false;
 
                     /*
                      The user is not logged to the app, or into Facebook:
@@ -100,6 +105,11 @@ angular.module('angulApp')
 
             });
 
+        }, 
+        logout: function() {
+          var _self = this;
+
+            FB.logout();
         }
     };
     return authManagement;
@@ -113,7 +123,7 @@ angular.module('angulApp')
         data: {
             isLogged: false
         }
-        
+
     };
     return authManagement;
 
@@ -125,24 +135,48 @@ angular.module('angulApp')
 
 //con dataResource inyectamos la factoría
 .controller("GroupsCtrl", function($scope) {
-	$scope.groups = [
-	    {id:1, name:'Miami', description:'País muy bonito pq lo digo yo'},
-	    {id:2, name:'Berlin', description:'Me encanta la cerveza negra'},
-	    {id:3, name:'Luxenburgo', description:'Aquí se te ha ido de las manos Correa xd'},
-	    {id:4, name:'Dublin', description:'Aquí se te ha ido de las manos Correa xd'},
-	    {id:5, name:'Amsterdam', description:'Aquí se te ha ido de las manos Correa xd'},
-	    {id:6, name:'Japon', description:'Aquí se te ha ido de las manos Correa xd'},
-	    {id:7, name:'Hawai', description:'Aquí se te ha ido de las manos Correa xd'}
-	];
+    $scope.groups = [{
+        id: 1,
+        name: 'Miami',
+        description: 'País muy bonito pq lo digo yo'
+    }, {
+        id: 2,
+        name: 'Berlin',
+        description: 'Me encanta la cerveza negra'
+    }, {
+        id: 3,
+        name: 'Luxenburgo',
+        description: 'Aquí se te ha ido de las manos Correa xd'
+    }, {
+        id: 4,
+        name: 'Dublin',
+        description: 'Aquí se te ha ido de las manos Correa xd'
+    }, {
+        id: 5,
+        name: 'Amsterdam',
+        description: 'Aquí se te ha ido de las manos Correa xd'
+    }, {
+        id: 6,
+        name: 'Japon',
+        description: 'Aquí se te ha ido de las manos Correa xd'
+    }, {
+        id: 7,
+        name: 'Hawai',
+        description: 'Aquí se te ha ido de las manos Correa xd'
+    }];
 
-	$scope.addGroup = function() {
-		$scope.groups.push({id:7, name:'Hawai', description:'Aquí se te ha ido de las manos Correa xd'});
-		console.log($scope.groups);
-	}
+    $scope.addGroup = function() {
+        $scope.groups.push({
+            id: 7,
+            name: 'Hawai',
+            description: 'Aquí se te ha ido de las manos Correa xd'
+        });
+        console.log($scope.groups);
+    }
 
-	$scope.unfollowGroup = function(){
-		$scope.groups.pop();
-	}
+    $scope.unfollowGroup = function() {
+        $scope.groups.pop();
+    }
     /*
     //hacemos uso de $http para obtener los datos del json
     $http.get('data.json').success(function(data) {
@@ -156,71 +190,86 @@ angular.module('angulApp')
 })
 
 .factory('ApiService', function($http, $location, authService) {
-        return {
-            endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
-            loginUser: function(data) {
-                console.log(data);
-                $http.put(this.endpoint + '/user', data)
-                    .success(function(data, status, headers, config) {
-                        // TODO Cambiar isLogged
-                        console.log(data);
-                        console.log('Logged in successfully');
-                        authService.data.isLogged = true;
+    return {
+        endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
+        loginUser: function(data) {
+            console.log(data);
+            $http.put(this.endpoint + '/user', data)
+                .success(function(data, status, headers, config) {
+                    // TODO Cambiar isLogged
+                    console.log(data);
+                    console.log('Logged in successfully');
+                    authService.data.isLogged = true;
 
-                        // Redirect to groups
-                        $location.path('/groups');
+                    // Redirect to groups
+                    $location.path('/groups');
 
 
-                   
-                    })
+
+                })
                 .error(function(data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
 
                     console.log('API returned an error');
                 });
-            }
+        }
+    }
+})
+    .controller('NavBarCtrl', function($scope, facebookAuthService) {
+        $scope.leftLinks = [{
+            name: 'Groups',
+            route: 'groups'
+        }, {
+            name: 'Profile',
+            route: 'profile'
+        }];
+
+
+
+        $scope.logout = function() {
+          facebookAuthService.logout();
         }
     })
 
-    .run(function($rootScope, facebookAuthService, $location, authService) {
+.run(function($rootScope, facebookAuthService, $location, authService) {
 
-        (function(d) {
-            var js, id = 'facebook-jssdk',
-                ref = d.getElementsByTagName('script')[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement('script');
-            js.id = id;
-            js.async = true;
-            js.src = "//connect.facebook.net/it_IT/all.js";
-            ref.parentNode.insertBefore(js, ref);
-        }(document));
+    (function(d) {
+        var js, id = 'facebook-jssdk',
+            ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/it_IT/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
 
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId: FacebookData.fbAppId, // App ID
-                //channelUrl: FacebookData.channel, // Channel File
-                status: true, // check login status
-                cookie: true, // enable cookies to allow the server to access the session
-                xfbml: true // parse XFBML
-            });
-
-            facebookAuthService.watchAuthStatusChange();
-
-        };
-
-        $rootScope.$on('$routeChangeSuccess', function(scope, currRoute, prevRoute) {
-            console.dir('CurrView: ' + currRoute);
-            console.dir('PrevView: ' + prevRoute);
-            console.dir(prevRoute);
-            if (!currRoute.isFree && !authService.data.isLogged) {
-                if (currRoute.templateUrl !== 'views/main.html') {
-                    $location.path('/');
-                    console.log('Should be logged in, redirecting to /');
-                }
-            }
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: FacebookData.fbAppId, // App ID
+            //channelUrl: FacebookData.channel, // Channel File
+            status: FacebookData.autoFbLogin, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true // parse XFBML
         });
 
+        facebookAuthService.watchAuthStatusChange();
+
+    };
+
+    $rootScope.$on('$routeChangeSuccess', function(scope, currRoute, prevRoute) {
+        console.dir('CurrView: ' + currRoute);
+        console.dir('PrevView: ' + prevRoute);
+        console.dir(prevRoute);
+        if (!currRoute.isFree && !authService.data.isLogged) {
+            if (currRoute.templateUrl !== 'views/main.html') {
+                $location.path('/');
+                console.log('Should be logged in, redirecting to /');
+            }
+        }
     });
+
+});
