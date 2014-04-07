@@ -23,7 +23,7 @@ angular.module('angulApp')
         };
 
         $scope.logout = function() {
-          facebookAuthService.logout();
+            facebookAuthService.logout();
         }
     })
 
@@ -94,7 +94,7 @@ angular.module('angulApp')
 
                 } else {
 
-                    ApiService.data.isLogged = false;
+                    ApiService.logoutUser();
 
                     /*
                      The user is not logged to the app, or into Facebook:
@@ -105,9 +105,9 @@ angular.module('angulApp')
 
             });
 
-        }, 
+        },
         logout: function() {
-          var _self = this;
+            var _self = this;
 
             FB.logout();
         }
@@ -213,6 +213,12 @@ angular.module('angulApp')
 
                     console.log('API returned an error');
                 });
+        },
+        logoutUser: function() {
+            authService.data.isLogged = false;
+                                $location.path('/');
+
+
         }
     }
 })
@@ -228,7 +234,7 @@ angular.module('angulApp')
 
 
         $scope.logout = function() {
-          facebookAuthService.logout();
+            facebookAuthService.logout();
         }
     })
 
