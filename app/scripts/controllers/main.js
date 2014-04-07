@@ -21,6 +21,10 @@ angular.module('angulApp')
         $scope.loginFacebook = function() {
             facebookAuthService.login();
         };
+
+        $scope.logout = function() {
+          facebookAuthService.logout();
+        }
     })
 
 /**
@@ -90,7 +94,7 @@ angular.module('angulApp')
 
                 } else {
 
-                    _self.data.isLogged = false;
+                    ApiService.data.isLogged = false;
 
                     /*
                      The user is not logged to the app, or into Facebook:
@@ -101,6 +105,11 @@ angular.module('angulApp')
 
             });
 
+        }, 
+        logout: function() {
+          var _self = this;
+
+            FB.logout();
         }
     };
     return authManagement;
@@ -207,17 +216,20 @@ angular.module('angulApp')
         }
     }
 })
-    .controller('NavBarCtrl', function($scope) {
-        $scope.links = [{
+    .controller('NavBarCtrl', function($scope, facebookAuthService) {
+        $scope.leftLinks = [{
             name: 'Groups',
             route: 'groups'
         }, {
             name: 'Profile',
             route: 'profile'
-        }, {
-            name: 'Log out',
-            route: 'logout'
         }];
+
+
+
+        $scope.logout = function() {
+          facebookAuthService.logout();
+        }
     })
 
 .run(function($rootScope, facebookAuthService, $location, authService) {
