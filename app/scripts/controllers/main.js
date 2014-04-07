@@ -50,22 +50,28 @@ angular.module('angulApp')
         */
             //Fututa funcion hacia la API .success devuelve un objeto grup con la id
 
-            $http.put('http://tripbox.uab.cat/TB_Backend/api/group', {
+            var newGroup = {
                 name: groupName,
                 description: groupDescription,
-                users: '[123456]'
+                users: [ "123456" ]
+            };
 
-            }).success(function(data, status) {
-                $scope.status = status;
-                $scope.newGrup = data;
-                
-                $http.put('http://tripbox.uab.cat/TB_Backend/api/user/' + "123456" , {
-                groups: $scope.newGrup["id"]
-                });
+            $http.put('http://tripbox.uab.cat/TB_Backend/api/group',newGroup)
+            .success(function(data, status) {
+                console.log("Miau");
+                console.log(data.id);
+                $http.get('http://tripbox.uab.cat/TB_Backend/api/user/123456')
+                        .success(function(result) {
+                            console.log(result.groups);
+                            result.groups.push(data.id);
+                            console.log(result.groups);
+                            $http.put('http://tripbox.uab.cat/TB_Backend/api/user/',result)
+                            .success(function(data, status) {
+                                console.log("pene");
+                            });
+                        });
             }).
             error(function(data, status) {
-                $scope.newGrup = data || "Request failed";
-                $scope.status = status;
             });
 
         };
