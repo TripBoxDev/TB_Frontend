@@ -1,6 +1,6 @@
 <div class="cl_content">
 
-    <!-- navigation -->
+    <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -29,14 +29,18 @@
 
     <div class="jumbotron">
 
-        <!-- Groups -->
+        <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
+
         <div class="row">
             <div ng-repeat="group in groups">
                 <div class="col-md-4">
                     <div class="thumbnail">
-                        <!--Si se incluye la imagen, da error debido a su libre tamaño!-->
-                        <!--<img src="images/groups/{{group.id}}.jpg" alt="Image group"  title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>-->
+
+                        <!-- DATOS DE LA CARTA: IMAGEN, NOMBRE DEL GRUPO Y DESCRIPCIÓN -->
+
                         <center>
+
+                            <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
 
                             <span editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
                                 {{ group.name }}
@@ -48,31 +52,14 @@
 
                             </br>
 
-                            <!--
-                            <span>
-                                <a class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#ModificarGrupo"></a>
-                            </span>
-                            -->
+                            <!-- BOTONES PARA ELIMINAR O MODIFICAR (NO FUNCIONAL TODABIA) LOS GRUPOS -->
 
-                            <!--
-                                <form editable-form name="rowform" onbeforesave="saveGroup($data, group.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == group">
-                                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
-                                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <a class="glyphicon glyphicon-edit" ng-click="rowform.$show()"></a>
-                                    <a class="glyphicon glyphicon-remove" confirmed-click="removeGroup($index)" ng-confirm-click="¿Realmente deseas eliminar el grupo '{{group.name}}'?"></a>
-                                </div>
-                                -->
-                            <!--
-                                <a class="glyphicon glyphicon-remove" role="button" ng-click="unfollowGroup(group.id)"></a>
-                                -->
+                            <!--Boton con confirmación estilo navegador -->
+                            <a class="glyphicon glyphicon-remove" confirmed-click="unfollowGroup(group.id)" ng-confirm-click="¿Estás seguro de que quieres eliminar '{{group.name}}' de tu lista de grupos?"></a>
 
-                            <!--
-                                <a class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#EliminarGrupo"></a>
-                                -->
-
-                                <a class="glyphicon glyphicon-remove" confirmed-click="unfollowGroup(group.id)" ng-confirm-click="¿Estás seguro de que quieres eliminar '{{group.name}}' de tu lista de grupos?"></a>
+                            <!--Boton con confirmación estilo boostrap (No funciona con angular todabia)
+                            <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#UnFollowGroup"></a>
+                            -->s
 
                         </center>
                     </div>
@@ -80,89 +67,96 @@
             </div>
 
 
-            <!-- New Card -->
+            <!-- CARTA PARA AÑADIR UN GRUPO -->
 
             <div class="col-md-4">
                 <div class="thumbnail">
                     <div id="cardinfo">
 
                         <center>
+
                             <p>Añadir grupo</p>
+
                         </center>
 
                     </div>
-
                     <div id "addgroup">
 
                         <center>
 
-                            <!--<a class="glyphicon glyphicon-plus-sign" role="button" ng-click="addGroup()"></a>-->
-
                             <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></a>
 
                         </center>
-
                     </div>
                 </div>
             </div>
 
-            <!-- Menu desplegable CrearGrupo -->
+            <!-- MENUS DESPLEGABLES -->
+
+            <!-- MENU PARA CREAR GRUPO -->
             <div class="modal fade" id="CrearGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
+
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
                             <h4 class="modal-title" id="myModalLabel">Crea un nuevo grupo</h4>
+
                         </div>
                         <form>
                             <div class="modal-body">
                                 <div class="input-group">
+
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </span>
                                     <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" required>
+
                                 </div>
-
                                 </br>
-
                                 <div class="input-group">
+
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-comment"></span>
                                     </span>
                                     <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" required>
+
                                 </div>
-
                                 </br>
-
                                 <div class="input-group">
+
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-picture"></span>
                                     </span>
                                     <input type="text" class="form-control" placeholder="Nueva imagen">
+
                                 </div>
-
                                 </br>
-
                                 <div class="input-group">
+
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-user"></span>
                                     </span>
                                     <input type="text" class="form-control" placeholder="Añadir miembros">
-                                </div>
 
+                                </div>
                             </div>
                             <div class="modal-footer">
+
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
                                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)">Crear</button>
+
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Menu desplegable ModificarGrupo -->
+            <!-- MENU PARA MODIFICAR GRUPO (No funciona con angular de momento) -->
             <!--
-            <div ng-repeat="group in groups" class="modal fade" id="ModificarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div ng-repeat="group in groups" class="modal fade" id="ModifierGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -215,9 +209,9 @@
             </div>
             -->
 
-            <!-- Menu desplegable EliminarGrupo -->
+            <!-- MENU PARA ELIMINAR GRUPO (No funciona con angular de momento)-->
             <!--
-            <div class="modal fade" id="EliminarGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="UnFollowGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -227,18 +221,19 @@
                         <div class="modal-body">
 
                             <div class="input-group">
-                                Seguro que quiere eliminar {{group.id}} definitivamente?
+                                ¿Estás seguro de que quieres eliminar ¿{{group.name}}? definitivamente de tu lista de grupos?
                             </div>
 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="unfollowGroup(group.id)">Si</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" confirmed-click="unfollowGroup(group.id)">Si</button>
                         </div>
                     </div>
                 </div>
             </div>
             -->
+
         </div>
     </div>
 </div>
