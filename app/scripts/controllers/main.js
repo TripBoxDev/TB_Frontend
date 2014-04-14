@@ -22,8 +22,8 @@ angular.module('angulApp')
     }
 
     $http.put('http://tripbox.uab.cat/TB_Backend/api/user/', newUser)
-    .success(function(result) {
-        console.log(result.id);
+    .success(function(data) {
+        console.log(data.id);
     });
     */
 
@@ -32,31 +32,39 @@ angular.module('angulApp')
 
     //Lista de grupos del usuario
     $scope.groups = [];
+    $scope.infoUser = [];
 
     //Llamada GET a la API para coger los grupos
     $http.get('http://tripbox.uab.cat/TB_Backend/api/user/' + user)
-        .success(function(result) {
-            
-            if (result.groups != []) {
-                
-                //Recorre todos los grupos
-                for (var i = result.groups.length - 1; i >= 0; i--) {
-                    $http.get('http://tripbox.uab.cat/TB_Backend/api/group/' + result.groups[i])
-                        .success(function(result) {
+        .success(function(data, status) {
 
-                            //Actualizamos la variable groups
-                            $scope.groups.push({
-                                id: result.id,
-                                name: result.name,
-                                description: result.description
-                            })
-                        });
-                }
+            //Recorre todos los grupos
+            for (var i = data.groups.length - 1; i >= 0; i--) {
+                $http.get('http://tripbox.uab.cat/TB_Backend/api/group/' + data.groups[i])
+                    .success(function(data, status) {
+
+                        //Actualizamos la variable groups
+                        $scope.groups.push({
+                            id: data.id,
+                            name: data.name,
+                            description: data.description
+                        })
+                    });
             }
         }).
     error(function(data, status) {
         console.log("error al obtener los grupos del usuario");
     });
+
+    //LLlamada a la API para coger el nombre del usuario
+    $http.get('http://tripbox.uab.cat/TB_Backend/api/user/' + user)
+        .success(function(data, status) {
+            $scope.infoUser = data;
+        }).
+    error(function(data, status) {
+        console.log("error al cargar la información del usuario");
+    });
+
 
     $scope.addGroup = function(groupName, groupDescription) {
 
@@ -72,7 +80,7 @@ angular.module('angulApp')
 
         //Llamada PUT a la API para insertar el nuevo grupo
         $http.put('http://tripbox.uab.cat/TB_Backend/api/group', newGroup)
-            .success(function(data) {
+            .success(function(data, status) {
 
                 var newGroupWithId = {
                     id: data.id,
