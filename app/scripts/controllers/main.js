@@ -108,8 +108,7 @@ angular.module('angulApp')
         },
         logout: function() {
             var _self = this;
-
-            FB.logout();
+            ApiService.logoutUser();
         }
     };
     return authManagement;
@@ -196,9 +195,7 @@ angular.module('angulApp')
             console.log(data);
             $http.put(this.endpoint + '/user', data)
                 .success(function(data, status, headers, config) {
-                    // TODO Cambiar isLogged
-                    console.log(data);
-                    console.log('Logged in successfully');
+
                     authService.data.isLogged = true;
 
                     // Redirect to groups
@@ -216,7 +213,7 @@ angular.module('angulApp')
         },
         logoutUser: function() {
             authService.data.isLogged = false;
-                                $location.path('/');
+            $location.path('/');
 
 
         }
