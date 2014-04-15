@@ -187,8 +187,14 @@ angular.module('angulApp')
     $scope.datosResource = dataResource.get();
     */
 })
-
-.factory('ApiService', function($http, $location, authService) {
+.factory('ErrorHandler', function($location) {
+    return {
+        redirectError : function () {
+            $location.path('/error');
+        }
+    }
+})
+.factory('ApiService', function($http, $location, authService, ErrorHandler) {
     return {
         endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
         loginUser: function(data) {
@@ -209,6 +215,7 @@ angular.module('angulApp')
                     // or server returns response with an error status.
 
                     console.log('API returned an error');
+                    ErrorHandler.redirectError();
                 });
         },
         logoutUser: function() {
