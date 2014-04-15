@@ -264,10 +264,7 @@ angular.module('angulApp')
     };
 
     $rootScope.$on('$routeChangeSuccess', function(scope, currRoute, prevRoute) {
-        console.dir('CurrView: ' + currRoute);
-        console.dir('PrevView: ' + prevRoute);
-        console.dir(prevRoute);
-        if (!currRoute.isFree && !authService.data.isLogged) {
+        if (!currRoute.access.isFree && !authService.data.isLogged) {
             if (currRoute.templateUrl !== 'views/main.html') {
                 $location.path('/');
                 console.log('Should be logged in, redirecting to /');
