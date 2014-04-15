@@ -28,3 +28,5 @@ angular.module('angulApp', [
                 redirectTo: '/'
             });
     });
+
+var app = angular.module('angulApp');
