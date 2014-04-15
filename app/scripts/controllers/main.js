@@ -318,6 +318,13 @@ angular.module('angulApp')
         }
     }
 })
+.factory('ErrorHandler', function($location) {
+    return {
+        redirectError : function () {
+            $location.path('/error');
+        }
+    }
+})
     .controller('NavBarCtrl', function($scope, facebookAuthService) {
         $scope.leftLinks = [{
             name: 'Groups',
