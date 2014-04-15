@@ -1,80 +1,246 @@
 <div class="cl_content">
 
-    <!-- navigation -->
-    <nav class="navbar navbar-default" role="navigation" ng-controller="NavBarCtrl">
+    <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
+    <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">TripBox</a>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <img src="images/logo.png" alt="Image group" height="50" width="42" />
+                        </li>
+                        <li>
+                            <p class="navbar-text">TripBox</p>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text">{{infoUser.name}} {{infoUser.lastName}}</p>
+                        </li>
+                        <li>
+                            <a class="glyphicon glyphicon-user" height="70" width="70"/>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav" ng-repeat="link in leftLinks">
-                    <li class="{{ active : link == activeLink">
-                        <a ng-href="#{{ link.route }}">{{ link.name }}</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a ng-click="logout()">Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-
         </div>
     </nav>
-</div>
 
+    <div class="jumbotron">
 
-<div class="jumbotron" ng-controller="GroupsCtrl">
+        <!-- Si ya hay algún grupo creado -->
+        <div ng-show="groups.length != []">
 
-    <!-- Groups -->
-    <div class="row">
-        <div ng-repeat="group in groups">
+            <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
+            <div class="row">
+                <div ng-repeat="group in groups">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+
+                            <!-- DATOS DE LA CARTA: IMAGEN, NOMBRE DEL GRUPO Y DESCRIPCIÓN -->
+
+                            <center>
+
+                                <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+
+                                <span editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
+                                    {{ group.name }}
+                                </span>
+
+                                <p style="font-size: 15px" editable-text="group.description" e-name="description" e-form="rowform" onbeforesave="checkName($data)" e-required>
+                                    {{ group.description }}
+                                </p>
+
+                                </br>
+
+                                <!-- BOTONES PARA ELIMINAR O MODIFICAR (NO FUNCIONAL TODABIA) LOS GRUPOS -->
+
+                                <!--Boton con confirmación estilo navegador -->
+                                <a class="glyphicon glyphicon-remove" confirmed-click="unfollowGroup(group.id)" ng-confirm-click="¿Estás seguro de que quieres eliminar '{{group.name}}' de tu lista de grupos?"></a>
+
+                                <!--Boton con confirmación estilo boostrap (No funciona con angular todabia)
+                            <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#UnFollowGroup"></a>
+                            -->
+
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARTA PARA AÑADIR UN GRUPO -->
+
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                    <span>{{group.name}}</span>
-                    </Br>
+                    <div id="cardinfo">
 
-                    <span>→</span>
+                        <center>
+
+                            <p>Añadir grupo</p>
+
+                        </center>
+
+                    </div>
+                    <div id "addgroup">
+
+                        <center>
+
+                            <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></a>
+
+                        </center>
+                    </div>
                 </div>
             </div>
         </div>
 
-
-        <!-- New Card -->
-
-        <div class="col-md-4">
+        <!-- Si no hay ningún grupo creado -->
+        <div ng-hide="groups.length != []">
+            <div class="page-header">
+                <h1>¿Aún no tienes ningún grupo? <br> ¡crea uno en TripBox!</h1>
+            </div>
             <div class="thumbnail">
                 <div id="cardinfo">
-
                     <center>
-                        <p>New Group!</p>
+                        <p>Añadir grupo</p>
                     </center>
-
                 </div>
 
                 <div id="addgroup">
 
                     <center>
-
-                        <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="addGroup()"></a>
-                        <a class="glyphicon glyphicon-plus-sign" role="button" ng-click="unfollowGroup()"></a>
-
+                        <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></a>
                     </center>
-
                 </div>
             </div>
         </div>
 
+        <!-- MENUS DESPLEGABLES -->
+
+            <!-- MENU PARA CREAR GRUPO -->
+            <div class="modal fade" id="CrearGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                            <h4 class="modal-title" id="myModalLabel">Crea un nuevo grupo</h4>
+
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                <div class="input-group">
+
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" required>
+
+                                </div>
+                                </br>
+                                <div class="input-group">
+
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-comment"></span>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" required>
+
+                                </div>
+                                </br>
+                                <div class="input-group">
+
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-picture"></span>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Nueva imagen">
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)">Crear</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+           
+            </div>
+
+            <!-- MENU PARA MODIFICAR GRUPO (No funciona con angular de momento) -->
+            <!--
+            <div ng-repeat="group in groups" class="modal fade" id="ModifierGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Modificación de grupo</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription">
+                            </div>
+
+                            </br>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nueva imagen">
+                            </div>
+
+                            </br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editGroup(group.id,groupName,groupDescription)">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+
+            <!-- MENU PARA ELIMINAR GRUPO (No funciona con angular de momento)-->
+            <!--
+            <div class="modal fade" id="UnFollowGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Eliminación de grupo</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="input-group">
+                                ¿Estás seguro de que quieres eliminar ¿{{group.name}}? definitivamente de tu lista de grupos?
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" confirmed-click="unfollowGroup(group.id)">Si</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+
     </div>
-</div>
 </div>
