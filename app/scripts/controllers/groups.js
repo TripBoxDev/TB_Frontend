@@ -1,5 +1,6 @@
 //PETICION JSON HACIA LA API
-app.controller("GroupsCtrl", function($scope, $http) {
+.controller("GroupsCtrl", function($scope, $http) {
+    var endpoint: 'http://tripbox.uab.es/TB_Backend/api/';
 
 //para hacer uso de $resource debemos colocarlo al crear el modulo
 
@@ -10,12 +11,11 @@ app.controller("GroupsCtrl", function($scope, $http) {
         email: "cristiancorrea@gmail.com"  
     }
 
-    $http.put('http://tripbox.uab.cat/TB_Backend/api/user/', newUser)
+    $http.put(endpoint + 'user/', newUser)
     .success(function(data) {
         console.log(data.id);
     });
     */
-
     //Usuario que inicia sesión con Facebook
     var user = "UDmoa62fS4sN";
 
@@ -24,12 +24,12 @@ app.controller("GroupsCtrl", function($scope, $http) {
     $scope.infoUser = [];
 
     //Llamada GET a la API para coger los grupos
-    $http.get('http://tripbox.uab.cat/TB_Backend/api/user/' + user)
+    $http.get(endpoint + 'user/' + user)
         .success(function(data, status) {
 
             //Recorre todos los grupos
             for (var i = data.groups.length - 1; i >= 0; i--) {
-                $http.get('http://tripbox.uab.cat/TB_Backend/api/group/' + data.groups[i])
+                $http.get(endpoint + 'group/' + data.groups[i])
                     .success(function(data, status) {
 
                         //Actualizamos la variable groups
@@ -46,7 +46,7 @@ app.controller("GroupsCtrl", function($scope, $http) {
     });
 
     //LLlamada a la API para coger el nombre del usuario
-    $http.get('http://tripbox.uab.cat/TB_Backend/api/user/' + user)
+    $http.get(endpoint + 'user/' + user)
         .success(function(data, status) {
             $scope.infoUser = data;
         }).
@@ -68,7 +68,7 @@ app.controller("GroupsCtrl", function($scope, $http) {
 
 
         //Llamada PUT a la API para insertar el nuevo grupo
-        $http.put('http://tripbox.uab.cat/TB_Backend/api/group', newGroup)
+        $http.put(endpoint + 'group', newGroup)
             .success(function(data, status) {
 
                 var newGroupWithId = {
@@ -82,7 +82,7 @@ app.controller("GroupsCtrl", function($scope, $http) {
                 console.log("id del grupo creado: " + data.id);
 
                 //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
-                $http.put('http://tripbox.uab.cat/TB_Backend/api/user/' + userId + '/group/' + data.id)
+                $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
                     .success(function(data, status) {
                         console.log("grupo creado correctamente");
                     }).
@@ -119,7 +119,7 @@ app.controller("GroupsCtrl", function($scope, $http) {
         var userId = "UDmoa62fS4sN";
 
         //Se hace una petición de eliminación del usuario determinado al grupo pertinente
-        $http.delete('http://tripbox.uab.cat/TB_Backend/api/group/' + idGroup + '/user/' + userId)
+        $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
             .success(function(data, status) {
 
                 //Si funciona:

@@ -16,7 +16,8 @@ angular.module('angulApp', [
                 }
             })
             .when('/groups', {
-                templateUrl: 'views/groups.html'
+                templateUrl: 'views/groups.html',
+                controller: 'GroupsCtrl'
             })
             .when('/error', {
                 templateUrl: 'views/error.html',
