@@ -263,9 +263,23 @@ angular.module('angulApp')
 
     };
 
-    $rootScope.$on('$routeChangeSuccess', function(scope, currRoute, prevRoute) {
-        if (!currRoute.access.isFree && !authService.data.isLogged) {
-            if (currRoute.templateUrl !== 'views/main.html') {
+    $rootScope.$on('$routeChangeSuccess', function(scope, currentRoute, prevRoute) {
+
+        function isRestrictedView(currentRoute) {
+
+            if(typeof currentRoute.access === "undefined" || typeof currentRoute.access.isFree === "undefined") {
+                console.warn('There\'s a route without restriction policies. Restricted as default.');
+                return true;
+
+            } else if(currentRoute.access.isFree) {
+                return false
+            }
+
+        }
+
+        // Conditions to see a restricted view
+        if (isRestrictedView(currentRoute) && !authService.data.isLogged) {
+            if (currentRoute.templateUrl !== 'views/main.html') {
                 $location.path('/');
                 console.log('Should be logged in, redirecting to /');
             }
