@@ -2,20 +2,31 @@
 
         $scope.rightLinks = [];
 
+        function isInsideGroup() {
+            var splittedRoute = $location.path().split('/');
 
-        var splittedRoute = $location.path().split('/');
+            if (splittedRoute[1] === 'groups' && typeof splittedRoute[2] !== 'undefined') {
+                return true;
 
-        if (splittedRoute[1] === 'groups' && typeof splittedRoute[2] !== 'undefined') {
+            } else {
+                return false;
+            }
+        }
+
+        if (isInsideGroup()) {
             $scope.rightLinks.push({
                 label: 'Invite friends',
                 click: 'showInviteFriends'
             });
-
         }
+
+
+
 
         $scope.rightLinks.push({
             label: 'Name LastName',
-            route: 'profile'
+            href: 'profile',
+            click: ''
         });
 
         $scope.logout = function() {

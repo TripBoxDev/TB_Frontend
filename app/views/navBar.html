@@ -12,8 +12,9 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="navbar-text" ng-repeat="link in rightLinks">
-                            {{ link.label }}
+                        <li ng-repeat="link in rightLinks">
+                            <a class="navbar-text" ng-href="{{ link.href }}">{{ link.label }}</a>
+                            
                         </li>
                     
                     </ul>
