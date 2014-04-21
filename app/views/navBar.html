@@ -12,12 +12,10 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <p class="navbar-text">{{infoUser.name}} {{infoUser.lastName}}</p>
+                        <li class="navbar-text" ng-repeat="link in rightLinks">
+                            {{ link.label }}
                         </li>
-                        <li>
-                            <a class="glyphicon glyphicon-user" height="70" width="70"/>
-                        </li>
+                    
                     </ul>
                 </div>
             </div>

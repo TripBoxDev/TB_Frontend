@@ -2,18 +2,21 @@
 
         $scope.rightLinks = [];
 
-        $scope.rightLinks[] = {
-            label: 'Name LastName',
-            route: 'profile'
-        };
-        var splittedRoute$location.path().split('/');
-        if(splittedRoute[0] === 'groups' && typeof splittedRoute !== 'undefined') {
-            $scope.rightLinks[] = {
+
+        var splittedRoute = $location.path().split('/');
+
+        if (splittedRoute[1] === 'groups' && typeof splittedRoute[2] !== 'undefined') {
+            $scope.rightLinks.push({
                 label: 'Invite friends',
                 click: 'showInviteFriends'
+            });
 
         }
 
+        $scope.rightLinks.push({
+            label: 'Name LastName',
+            route: 'profile'
+        });
 
         $scope.logout = function() {
             facebookAuthService.logout();
