@@ -1,3 +1,27 @@
-<div ng-include="'views/navBar.html'"></div>
+<!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <img src="images/logo.png" alt="Image group" height="50" width="42" />
+                        </li>
+                        <li>
+                            <p class="navbar-text">TripBox</p>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="navbar-text">{{ infoUser.name }} {{ infoUser.lastName }}</a>
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
 {{ groupId }}
