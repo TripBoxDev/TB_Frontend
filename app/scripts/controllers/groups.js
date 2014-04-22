@@ -55,15 +55,15 @@ app.controller("GroupsCtrl", function($scope, $http) {
     });
 
 
-    $scope.addGroup = function(groupName, groupDescription) {
+    $scope.addGroup = function(submittedGroup) {
 
         //Usuario que crea el grupo
         var userId = "UDmoa62fS4sN";
 
-        //Nuevo grupo
+        //Nuevo grupo a partir de los datos del formulario
         var newGroup = {
-            name: groupName,
-            description: groupDescription
+            name: submittedGroup.name,
+            description: submittedGroup.description
         };
 
 
@@ -77,13 +77,13 @@ app.controller("GroupsCtrl", function($scope, $http) {
                     description: data.description
                 }
 
-                $scope.groups.push(newGroupWithId);
-
                 console.log("id del grupo creado: " + data.id);
 
                 //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
                 $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
                     .success(function(data, status) {
+                        $scope.groups.push(newGroupWithId);
+                        //$scope.formAddGroup.$setPristine();
                         console.log("grupo creado correctamente");
                     }).
                 error(function(data, status) {

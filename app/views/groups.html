@@ -148,7 +148,7 @@
                                         class="form-control"
                                         placeholder="Nombre del grupo"
                                         name="nombre"
-                                        ng-model="groupName" required>
+                                        ng-model="newGroup.name" required>
                                         <div class="error" 
                                         ng-show="formAddGroup.nombre.$dirty && formAddGroup.nombre.$invalid">
                                             <small class="error" 
@@ -170,7 +170,7 @@
                                         class="form-control"
                                         placeholder="Descripción del grupo"
                                         name="descripcion"
-                                        ng-model="groupDescription" required>
+                                        ng-model="newGroup.description" required>
                                         <div class="error" 
                                         ng-show="formAddGroup.descripcion.$dirty && formAddGroup.descripcion.$invalid">
                                             <small class="error" 
@@ -195,8 +195,7 @@
 
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)" ng-disabled="formAddGroup.$invalid">Crear</button>
-
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(newGroup)" ng-disabled="formAddGroup.$invalid">Crear</button>
                             </div>
                         </form>
                     </div>
