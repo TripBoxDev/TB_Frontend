@@ -1,5 +1,5 @@
 //PETICION JSON HACIA LA API
-app.controller("GroupsCtrl", function($scope, $http) {
+app.controller("GroupsCtrl", function($scope, $http, authService) {
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
 //para hacer uso de $resource debemos colocarlo al crear el modulo
@@ -45,14 +45,7 @@ app.controller("GroupsCtrl", function($scope, $http) {
         console.log("error al obtener los grupos del usuario");
     });
 
-    //LLlamada a la API para coger el nombre del usuario
-    $http.get(endpoint + 'user/' + user)
-        .success(function(data, status) {
-            $scope.infoUser = data;
-        }).
-    error(function(data, status) {
-        console.log("error al cargar la información del usuario");
-    });
+    $scope.infoUser = authService.data.infoUser;
 
 
     $scope.addGroup = function(groupName, groupDescription) {
