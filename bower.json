@@ -17,6 +17,7 @@
     "angular-scenario": "1.2.6",
     "hello": "~0.1.4",
     "bootstrap-social": "~4.2.1",
-    "font-awesome": "~4.0.3"
+    "font-awesome": "~4.0.3",
+    "angular-bootstrap": "~0.10.0"
   }
 }
