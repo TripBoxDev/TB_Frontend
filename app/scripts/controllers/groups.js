@@ -21,7 +21,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService) {
 
     //Lista de grupos del usuario
     $scope.groups = [];
-    $scope.infoUser = [];
 
     //Llamada GET a la API para coger los grupos
     $http.get(endpoint + 'user/' + user)
@@ -45,7 +44,10 @@ app.controller("GroupsCtrl", function($scope, $http, authService) {
         console.log("error al obtener los grupos del usuario");
     });
 
-    $scope.infoUser = authService.data.infoUser;
+
+    console.log(authService.data);
+    $scope.infoUser = authService.data.userInfo;
+
 
 
     $scope.addGroup = function(groupName, groupDescription) {

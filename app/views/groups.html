@@ -1,7 +1,30 @@
 <div class="cl_content">
 
     <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
-    <div ng-include="'views/navBar.html'"></div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <img src="images/logo.png" alt="Image group" height="50" width="42" />
+                        </li>
+                        <li>
+                            <p class="navbar-text">TripBox</p>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="navbar-text">{{ infoUser.name }} {{ infoUser.lastName }}</a>
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <div class="jumbotron">
 
@@ -73,7 +96,8 @@
         <!-- Si no hay ningún grupo creado -->
         <div ng-hide="groups.length != []">
             <div class="page-header">
-                <h1>¿Aún no tienes ningún grupo? <br> ¡crea uno en TripBox!</h1>
+                <h1>¿Aún no tienes ningún grupo?
+                    <br>¡crea uno en TripBox!</h1>
             </div>
             <div class="thumbnail">
                 <div id="cardinfo">
@@ -93,61 +117,61 @@
 
         <!-- MENUS DESPLEGABLES -->
 
-            <!-- MENU PARA CREAR GRUPO -->
-            <div class="modal fade" id="CrearGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
+        <!-- MENU PARA CREAR GRUPO -->
+        <div class="modal fade" id="CrearGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
 
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                            <h4 class="modal-title" id="myModalLabel">Crea un nuevo grupo</h4>
+                        <h4 class="modal-title" id="myModalLabel">Crea un nuevo grupo</h4>
+
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="input-group">
+
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" required>
+
+                            </div>
+                            </br>
+                            <div class="input-group">
+
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" required>
+
+                            </div>
+                            </br>
+                            <div class="input-group">
+
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Nueva imagen">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)">Crear</button>
 
                         </div>
-                        <form>
-                            <div class="modal-body">
-                                <div class="input-group">
-
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </span>
-                                    <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" required>
-
-                                </div>
-                                </br>
-                                <div class="input-group">
-
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-comment"></span>
-                                    </span>
-                                    <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" required>
-
-                                </div>
-                                </br>
-                                <div class="input-group">
-
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-picture"></span>
-                                    </span>
-                                    <input type="text" class="form-control" placeholder="Nueva imagen">
-
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)">Crear</button>
-
-                            </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
-           
             </div>
 
-            <!-- MENU PARA MODIFICAR GRUPO (No funciona con angular de momento) -->
-            <!--
+        </div>
+
+        <!-- MENU PARA MODIFICAR GRUPO (No funciona con angular de momento) -->
+        <!--
             <div ng-repeat="group in groups" class="modal fade" id="ModifierGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -193,8 +217,8 @@
             </div>
             -->
 
-            <!-- MENU PARA ELIMINAR GRUPO (No funciona con angular de momento)-->
-            <!--
+        <!-- MENU PARA ELIMINAR GRUPO (No funciona con angular de momento)-->
+        <!--
             <div class="modal fade" id="UnFollowGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
