@@ -8,6 +8,8 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
 
                     authService.data.isLogged = true;
 
+                    authService.data.userInfo = data;
+
                     // Redirect to groups
                     $location.path('/groups');
 

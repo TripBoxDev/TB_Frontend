@@ -1,8 +1,11 @@
 app.factory('authService', function() {
     var authManagement = {
         data: {
-            isLogged: false
-        }
+            isLogged: false,
+        	userInfo: {}
+
+        },
+
 
     };
     return authManagement;

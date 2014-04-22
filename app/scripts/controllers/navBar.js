@@ -1,4 +1,4 @@
-    app.controller('NavBarCtrl', function($scope, $location, facebookAuthService) {
+    app.controller('NavBarCtrl', function($scope, $location, facebookAuthService, authService) {
 
         $scope.rightLinks = [];
 
@@ -24,7 +24,7 @@
 
 
         $scope.rightLinks.push({
-            label: 'Name LastName',
+            label: authService.data.userInfo.name + ' ' + authService.data.userInfo.lastName,
             href: 'profile',
             click: ''
         });
