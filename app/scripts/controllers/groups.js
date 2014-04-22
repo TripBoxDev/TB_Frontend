@@ -82,9 +82,20 @@ app.controller("GroupsCtrl", function($scope, $http) {
                 //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
                 $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
                     .success(function(data, status) {
+
+                        //Lo añade a los grupos visibles
                         $scope.groups.push(newGroupWithId);
-                        //$scope.formAddGroup.$setPristine();
+
+                        //Limpia el formulario
+                        $scope.formAddGroup.$setPristine();
+                        var defaultForm = {
+                            name : "",
+                            description : ""
+                        };
+                        $scope.newGroup = defaultForm;
+
                         console.log("grupo creado correctamente");
+
                     }).
                 error(function(data, status) {
                     console.log("error al hacer la llamada a /user/id/group/id");
