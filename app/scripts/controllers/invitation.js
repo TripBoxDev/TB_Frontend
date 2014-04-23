@@ -4,6 +4,8 @@ app.controller('InvitationCtrl', function($scope, ApiService) {
         $scope.users.push({
             mail: $scope.newUser,
         });
+
+        $scope.newUser = '';
     }
 
     $scope.sendInvitations = function() {
