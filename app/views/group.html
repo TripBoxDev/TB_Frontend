@@ -1,32 +1,32 @@
 <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <img src="images/logo.png" alt="Image group" height="50" width="42" />
-                        </li>
-                        <li>
-                            <p class="navbar-text">TripBox</p>
-                        </li>
-                    </ul>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <img src="images/logo.png" alt="Image group" height="50" width="42" />
+                    </li>
+                    <li>
+                        <p class="navbar-text">TripBox</p>
+                    </li>
+                </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">Invita a tus amigos</a>
-                        </li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">Invita a tus amigos</a>
+                    </li>
 
-                        <li>
-                            <a class="navbar-text">{{ infoUser.name }} {{ infoUser.lastName }}</a>
+                    <li>
+                        <a class="navbar-text">{{ infoUser.name }} {{ infoUser.lastName }}</a>
 
-                        </li>
+                    </li>
 
-                    </ul>
-                </div>
+                </ul>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
 {{ groupId }}
 
@@ -41,10 +41,15 @@
             <div class="modal-body">
                 <div>
                     <form role="form" name="formu">
-                        <input type="email" id="email" name="email" ng-model="newUser" required>
-                        <a ng-click="addInvite()">
-                            <span class="glyphicon glyphicon-plus-sign" ng-show="formu.email.$valid"></span>
-                        </a>
+                        <div class="input-group">
+                            <span class="input-group-addon">@</span>
+                            <input class="form-control" placeholder="Mail" type="email" id="email" name="email" ng-model="newUser" required>
+
+                            <span class="input-group-btn" ng-show="formu.email.$valid">
+                                <button ng-click="addInvite()" class="btn btn-default" type="button">Add</button>
+                            </span>
+                        </div>
+
                     </form>
                     <br>
                     <br>
