@@ -1,34 +1,44 @@
 <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <img src="images/logo.png" alt="Image group" height="50" width="42" />
-                    </li>
-                    <li>
-                        <p class="navbar-text">TripBox</p>
-                    </li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">Invita a tus amigos</a>
-                    </li>
-
-                    <li>
-                        <a class="navbar-text">{{ infoUser.name }} {{ infoUser.lastName }}</a>
-
-                    </li>
-
-                </ul>
-            </div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">TripBox</a>
         </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <form class="navbar-form navbar-left">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#basicModal">Invita a tus amigos</button>
+                </form>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a>Salir de la cuenta</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container-fluid -->
 </nav>
 
 {{ groupId }}
+
 
 
 <div ng-controller="InvitationCtrl" class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -55,10 +65,10 @@
                     <br>
                     <ul class="list-group">
                         <li class="list-group-item" ng-repeat="user in users" ng-model="newUsers">{{user.mail}}
-                        <a ng-click="removeUser($index)" class="pull-right" >
-                            <span class="glyphicon glyphicon-remove"> </span>
-                        </a>
-</li>
+                            <a ng-click="removeUser($index)" class="pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </li>
 
                     </ul>
                 </div>
