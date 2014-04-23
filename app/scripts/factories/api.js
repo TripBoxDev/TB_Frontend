@@ -29,6 +29,15 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
             $location.path('/');
 
 
+        },
+        sendInvitations: function(mailsArray, callback) {
+            $http.put(this.endpoint + '/email/invitation', mailsArray)
+            .success(function() {
+                console.log('Successful!');
+            })
+            .error(function() {
+                console.error('Fail absoluto');
+            })
         }
     }
 })
