@@ -19,7 +19,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <form class="navbar-form navbar-left">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#basicModal">Invita a tus amigos</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#invitationModal">Invita a tus amigos</button>
                 </form>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
@@ -41,7 +41,7 @@
 
 
 
-<div ng-controller="InvitationCtrl" class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div ng-controller="InvitationCtrl" class="modal fade" id="invitationModal" tabindex="-1" role="dialog" aria-labelledby="invitationModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
