@@ -31,7 +31,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
 
         },
         sendInvitations: function(mailsArray, callback) {
-            $http.put(this.endpoint + '/email/invitation', mailsArray)
+            $http.put(this.endpoint + '/email/invitation', mailsArray[0].mail.toString())
             .success(function() {
                 console.log('Successful!');
             })

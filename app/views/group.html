@@ -35,21 +35,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" id="yeah" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Introduce los correos</h4>
             </div>
             <div class="modal-body">
                 <div>
                     <form role="form" name="formu">
-                        <input type="email" id="emails2" name="ema" ng-model="newuser" required>
+                        <input type="email" id="email" name="email" ng-model="newUser" required>
                         <a ng-click="addInvite()">
-                            <span class="glyphicon glyphicon-plus-sign" ng-show="formu.ema.$valid"></span>
+                            <span class="glyphicon glyphicon-plus-sign" ng-show="formu.email.$valid"></span>
                         </a>
                     </form>
                     <br>
                     <br>
-                    <div ng-repeat="user in users" ng-model="newusers">
-                        {{user.texto}}
+                    <div ng-repeat="user in users" ng-model="newUsers">
+                        {{user.mail}}
                     </div>
                 </div>
                 <br>
@@ -58,7 +58,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="myFunction1()">Enviar</button>
+                <button type="button" class="btn btn-primary" ng-click="sendInvitations()">Enviar</button>
                 </form>
             </div>
         </div>

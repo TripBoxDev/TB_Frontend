@@ -1,15 +1,14 @@
-app.controller('InvitationCtrl', function($scope, apiService) {
-    $scope.users = [{
-        texto: '',
-    }];
+app.controller('InvitationCtrl', function($scope, ApiService) {
+    $scope.users = [];
     $scope.addInvite = function() {
         $scope.users.push({
-            texto: $scope.newuser,
+            mail: $scope.newUser,
         });
     }
 
-    $scope.sendInvite = function() {
-    	apiService.sendInvitations($scope.users);
+    $scope.sendInvitations = function() {
+        console.log($scope.users);
+    	ApiService.sendInvitations($scope.users);
     }
 
 })
