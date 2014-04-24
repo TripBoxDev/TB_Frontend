@@ -17,8 +17,8 @@ app.controller("GroupsCtrl", function($scope, $http) {
     });
     */
     //Usuario que inicia sesión con Facebook
-    var user = "UDmoa62fS4sN";
-    
+    var user = "meeec";
+
     //Lista de grupos del usuario
     $scope.groups = [];
     $scope.infoUser = [];

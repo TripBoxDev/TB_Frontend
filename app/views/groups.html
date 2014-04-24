@@ -35,7 +35,7 @@
         <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
         <div class="row">
             <div ng-repeat="group in groups">
-                <div class="col-md-2">
+                <div class="col-md-2" color="blue">
                     <div class="thumbnail">
 
                         <!-- DATOS DE LA CARTA: IMAGEN, NOMBRE DEL GRUPO Y DESCRIPCIÓN -->
@@ -115,27 +115,50 @@
 
     <!-- Si no hay ningún grupo creado -->
     <div ng-hide="groups.length != []">
+
         <div class="page-header">
-            <h1>¿Aún no tienes ningún grupo?
-                <br>¡crea uno en TripBox!</h1>
+            <div>
+                <center>
+                    <h1>¿Aún no tienes ningún grupo?
+                        <br>¡Crea uno en TripBox!</h1>
+                </center>
+            </div>
+
         </div>
-        <div class="thumbnail">
-            <div id="cardinfo">
-                <center>
-                    <p>Añadir grupo</p>
-                </center>
+        <div>
+            <img src="images/flecha.png" alt="Image group" title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <div id="cardinfo">
+
+                        <center>
+
+                            <img src="images/groups/default.jpg" alt="Image group" title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+
+                            <p>Añadir grupo</p>
+
+                        </center>
+
+                    </div>
+                    <div id "addgroup">
+
+                        <center>
+
+                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                                <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
+                            </button>
+
+                        </center>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div>
+            <img src="images/flecha2.png" alt="Image group" title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
 
-            <div id="addgroup">
-
-                <center>
-
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
-                        <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
-                    </button>
-
-                </center>
-            </div>
         </div>
     </div>
 
