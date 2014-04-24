@@ -110,7 +110,7 @@ app.controller("GroupsCtrl", function($scope, $http) {
         }
     };
 
-    $scope.unfollowGroup = function(idGroup) {
+    $scope.unFollowGroup = function(idGroup) {
 
         //Esto está para comprobar que se borra y tal
         console.log(idGroup);
