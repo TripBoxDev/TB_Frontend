@@ -51,7 +51,7 @@
                             <div ng-hide="group.image != []">
                                 <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="150" width="150" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
                             </div>
-                            
+
 
                             <span editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
                                 {{ group.name }}
@@ -69,7 +69,10 @@
                             <!-- BOTONES PARA ELIMINAR O MODIFICAR (NO FUNCIONAL TODABIA) LOS GRUPOS -->
 
                             <!--Boton con confirmación estilo navegador -->
-                            <a class="glyphicon glyphicon-remove" confirmed-click="unFollowGroup(group.id)" ng-confirm-click="¿Estás seguro de que quieres eliminar '{{group.name}}' de tu lista de grupos?"></a>
+
+                            <button type="button" class="btn btn-primary btn-xs" confirmed-click="unFollowGroup(group.id)" ng-confirm-click="¿Estás seguro de que quieres eliminar '{{group.name}}' de tu lista de grupos?">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
 
                             <!--Boton con confirmación estilo boostrap (No funciona con angular todabia)
                                 <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#UnFollowGroup"></a>
@@ -98,7 +101,9 @@
 
                         <center>
 
-                            <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></a>
+                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                                <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
+                            </button>
 
                         </center>
                     </div>
@@ -124,7 +129,11 @@
             <div id="addgroup">
 
                 <center>
-                    <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></a>
+
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                        <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
+                    </button>
+
                 </center>
             </div>
         </div>
