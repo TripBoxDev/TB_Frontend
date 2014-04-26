@@ -2,7 +2,7 @@
 app.controller("GroupsCtrl", function($scope, $http, authService) {
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
-//para hacer uso de $resource debemos colocarlo al crear el modulo
+    //para hacer uso de $resource debemos colocarlo al crear el modulo
 
     /*
     var newUser = {
@@ -18,7 +18,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService) {
     */
     //Usuario que inicia sesión con Facebook
     var user = "UDmoa62fS4sN";
-    
+
     //Lista de grupos del usuario
     $scope.groups = [];
 
@@ -106,6 +106,50 @@ app.controller("GroupsCtrl", function($scope, $http, authService) {
     // remove user
     $scope.removeGroup = function(index) {
         $scope.groups.splice(index, 1);
+    };
+
+    $scope.addGroup = function(groupName, groupDescription) {
+
+        //Usuario que crea el grupo
+        var userId = "UDmoa62fS4sN";
+
+        //Nuevo grupo
+        var newGroup = {
+            name: groupName,
+            description: groupDescription
+        };
+
+
+        //Llamada PUT a la API para insertar el nuevo grupo
+        $http.put(endpoint + 'group', newGroup)
+            .success(function(data, status) {
+
+                var newGroupWithId = {
+                    id: data.id,
+                    name: data.name,
+                    description: data.description
+                }
+
+                $scope.groups.push(newGroupWithId);
+
+                console.log("Id del grupo creado: " + data.id);
+
+                //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
+                $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
+                    .success(function(data, status) {
+                        console.log("Grupo creado correctamente!");
+                    }).
+                error(function(data, status) {
+                    console.log("Error al hacer la llamada a /user/id/group/id!");
+                });
+
+            })
+        .error(function(data, status) {
+            console.log("Error al insertar grupo!");
+        });
+
+
+
     };
 
 });
