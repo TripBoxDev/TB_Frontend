@@ -8,6 +8,8 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
 
                     authService.data.isLogged = true;
 
+                    authService.data.userInfo = data;
+
                     // Redirect to groups
                     $location.path('/groups');
 
@@ -124,6 +126,15 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
 
         removeGroup: function(index) {
             $scope.groups.splice(index, 1);
+        },
+        sendInvitations: function(mailsArray, callback) {
+            $http.put(this.endpoint + '/email/invitation', mailsArray[0].mail.toString())
+            .success(function() {
+                console.log('Successful!');
+            })
+            .error(function() {
+                console.error('Fail absoluto');
+            })
         }
     }
 })

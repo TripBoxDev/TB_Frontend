@@ -4,7 +4,8 @@ angular.module('angulApp', [
     'ngCookies',
     'ngResource',
     'ngSanitize',
-    'ngRoute'
+    'ngRoute',
+    'ui.bootstrap'
 ])
     .config(function($routeProvider) {
         $routeProvider
@@ -18,6 +19,10 @@ angular.module('angulApp', [
             .when('/groups', {
                 templateUrl: 'views/groups.html',
                 controller: 'GroupsCtrl'
+            })
+            .when('/groups/:groupId', {
+                templateUrl: 'views/group.html',
+                controller: 'GroupCtrl'
             })
             .when('/error', {
                 templateUrl: 'views/error.html',

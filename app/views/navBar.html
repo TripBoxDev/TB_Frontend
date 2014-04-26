@@ -1,0 +1,24 @@
+    <nav class="navbar navbar-default" ng-controller="NavBarCtrl" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <img src="images/logo.png" alt="Image group" height="50" width="42" />
+                        </li>
+                        <li>
+                            <p class="navbar-text">TripBox</p>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-repeat="link in rightLinks">
+                            <a class="navbar-text" ng-href="{{ link.href }}">{{ link.label }}</a>
+                            
+                        </li>
+                    
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
