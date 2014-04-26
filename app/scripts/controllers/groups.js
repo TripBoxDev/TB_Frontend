@@ -1,5 +1,5 @@
 //PETICION JSON HACIA LA API
-app.controller("GroupsCtrl", function($scope, $http, authService) {
+app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
     //para hacer uso de $resource debemos colocarlo al crear el modulo
@@ -65,6 +65,47 @@ app.controller("GroupsCtrl", function($scope, $http, authService) {
 
     $scope.unFollowGroup = function(idGroup) {
 
+
+
+        var unFollowGroupModalInstance = $modal.open({
+            templateUrl: 'unFollowGroupModalContent.html',
+            controller: 'unFollowGroupModalInstanceCtrl',
+            resolve: {
+                idGroup: function() {
+                    return idGroup;
+                }
+            }
+        });
+
+        unFollowGroupModalInstance.result.then(function(selectedItem) {
+            //Esto está para comprobar que se borra y tal
+            console.log(idGroup);
+
+            //El id del usuario
+            var userId = "UDmoa62fS4sN";
+
+            //Se hace una petición de eliminación del usuario determinado al grupo pertinente
+            $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
+                .success(function(data, status) {
+
+                    //Si funciona:
+                    //Representa el borrado gráficamente
+
+                    //Busca en el conjunto de grupos...
+                    for (var i = $scope.groups.length - 1; i >= 0; i--) {
+                        //Uno cuya id sea igual al borrado...
+                        if ($scope.groups[i].id == idGroup) {
+                            //Y lo elimina de la lista
+                            $scope.groups.splice(i, 1);
+                        }
+                    }
+                });
+        }, function() {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+
+        /*
+
         //Esto está para comprobar que se borra y tal
         console.log(idGroup);
 
@@ -87,7 +128,11 @@ app.controller("GroupsCtrl", function($scope, $http, authService) {
                     }
                 }
             });
+
+*/
     };
+
+
 
     $scope.checkName = function(data) {
         if (data !== '') {
@@ -144,12 +189,25 @@ app.controller("GroupsCtrl", function($scope, $http, authService) {
                 });
 
             })
-        .error(function(data, status) {
-            console.log("Error al insertar grupo!");
-        });
+            .error(function(data, status) {
+                console.log("Error al insertar grupo!");
+            });
 
 
 
     };
 
+});
+
+
+app.controller('unFollowGroupModalInstanceCtrl', function($scope, $modalInstance, ApiService, idGroup) {
+    $scope.idGroup = idGroup;
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.confirmUnFollow = function() {
+        $modalInstance.close();
+
+    }
 });
