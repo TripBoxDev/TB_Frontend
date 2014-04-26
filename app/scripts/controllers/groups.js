@@ -77,7 +77,11 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             }
         });
 
+
         unFollowGroupModalInstance.result.then(function(selectedItem) {
+                // Esta función se ejecuta cuando desde el modalInstance controller
+                // se ejecuta $modalInstance.close().
+
             //Esto está para comprobar que se borra y tal
             console.log(idGroup);
 
@@ -101,35 +105,15 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                     }
                 });
         }, function() {
-            $log.info('Modal dismissed at: ' + new Date());
+
+            // Esta función es la que se ejecuta al cancelar la acción del modal,
+            // llamando a $modalInstance.dismiss();
+            $log.info('Abandono de grupo cancelado');
         });
 
-        /*
+        
 
-        //Esto está para comprobar que se borra y tal
-        console.log(idGroup);
-
-        //El id del usuario
-        var userId = "UDmoa62fS4sN";
-
-        //Se hace una petición de eliminación del usuario determinado al grupo pertinente
-        $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
-            .success(function(data, status) {
-
-                //Si funciona:
-                //Representa el borrado gráficamente
-
-                //Busca en el conjunto de grupos...
-                for (var i = $scope.groups.length - 1; i >= 0; i--) {
-                    //Uno cuya id sea igual al borrado...
-                    if ($scope.groups[i].id == idGroup) {
-                        //Y lo elimina de la lista
-                        $scope.groups.splice(i, 1);
-                    }
-                }
-            });
-
-*/
+    
     };
 
 
