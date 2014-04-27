@@ -75,183 +75,183 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                     console.log(groupName);
                     console.log(groupDescription);
 
-                    for (var i = $scope.groups.length - 1; i >= 0; i--) {
-                        if ($scope.groups[i].id == idGroup) {
-                            $scope.groups[i].name = groupName;
-                            $scope.groups[i].description = groupDescription;
-
-                            //Función hacia la API
-
-                            var newGroup = {
-                                id: idGroup,
-                                name: groupName,
-                                description: groupDescription
-                            };
-
-
-                            //Llamada PUT a la API para insertar el nuevo grupo
-                            $http.put(endpoint + 'group', newGroup)
-                                .success(function(data, status) {
-
-                                        var newGroupWithId = {
-                                            id: data.id,
-                                            name: data.name,
-                                            description: data.description
-                                        }
-
-                                    }
-                            }
-                        });
-
-                }
-
-                $scope.unFollowGroup = function(idGroup, groupName) {
-
-
-
-                    var unFollowGroupModalInstance = $modal.open({
-                        templateUrl: 'unFollowGroupModalContent.html',
-                        controller: 'unFollowGroupModalInstanceCtrl',
-                        resolve: {
-                            idGroup: function() {
-                                return idGroup;
-                            },
-                            groupName: function() {
-                                return groupName;
-                            }
-                        }
-                    });
-
-
-                    unFollowGroupModalInstance.result.then(function(selectedItem) {
-                        // Esta función se ejecuta cuando desde el modalInstance controller
-                        // se ejecuta $modalInstance.close().
-
-                        //Esto está para comprobar que se borra y tal
-                        console.log(idGroup);
-
-                        //El id del usuario
-                        var userId = "UDmoa62fS4sN";
-
-                        //Se hace una petición de eliminación del usuario determinado al grupo pertinente
-                        $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
-                            .success(function(data, status) {
-
-                                //Si funciona:
-                                //Representa el borrado gráficamente
-
-                                //Busca en el conjunto de grupos...
-                                for (var i = $scope.groups.length - 1; i >= 0; i--) {
-                                    //Uno cuya id sea igual al borrado...
-                                    if ($scope.groups[i].id == idGroup) {
-                                        //Y lo elimina de la lista
-                                        $scope.groups.splice(i, 1);
-                                    }
-                                }
-                            });
-                    }, function() {
-
-                        // Esta función es la que se ejecuta al cancelar la acción del modal,
-                        // llamando a $modalInstance.dismiss();
-                        $log.info('Abandono de grupo cancelado');
-                    });
-
-
-
-
-                };
-
-
-
-                $scope.checkName = function(data) {
-                    if (data !== '') {
-                        return "Un grupo debe tener nombre";
-                    }
-                };
-
-                $scope.saveGroup = function(data, id) {
-                    //$scope.user not updated yet
-                    angular.extend(data, {
-                        id: id
-                    });
-                    //return $http.post('/saveUser', data);
-                };
-
-                // remove user
-                $scope.removeGroup = function(index) {
-                    $scope.groups.splice(index, 1);
-                };
-
-                $scope.addGroup = function(groupName, groupDescription) {
-
-                    //Usuario que crea el grupo
-                    var userId = "UDmoa62fS4sN";
-
                     //Nuevo grupo
-                    var newGroup = {
+                    var editGroup = {
+                        id: idGroup,
                         name: groupName,
                         description: groupDescription
                     };
 
+                    console.log(editGroup);
+
 
                     //Llamada PUT a la API para insertar el nuevo grupo
-                    $http.put(endpoint + 'group', newGroup)
+                    $http.put(endpoint + 'group', editGroup)
                         .success(function(data, status) {
 
-                            var newGroupWithId = {
+                            var editGroupWithId = {
                                 id: data.id,
                                 name: data.name,
                                 description: data.description
                             }
 
-                            $scope.groups.push(newGroupWithId);
 
-                            console.log("Id del grupo creado: " + data.id);
+                            $scope.groups.push(editGroupWithId);
 
-                            //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
-                            $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
-                                .success(function(data, status) {
-                                    console.log("Grupo creado correctamente!");
-                                }).
-                            error(function(data, status) {
-                                console.log("Error al hacer la llamada a /user/id/group/id!");
-                            });
+                            console.log("Datos del grupo: " + data.id + data.name + data.description);
 
-                        })
-                        .error(function(data, status) {
-                            console.log("Error al insertar grupo!");
                         });
 
+                });
+            };
+
+            $scope.unFollowGroup = function(idGroup, groupName) {
 
 
+
+                var unFollowGroupModalInstance = $modal.open({
+                    templateUrl: 'unFollowGroupModalContent.html',
+                    controller: 'unFollowGroupModalInstanceCtrl',
+                    resolve: {
+                        idGroup: function() {
+                            return idGroup;
+                        },
+                        groupName: function() {
+                            return groupName;
+                        }
+                    }
+                });
+
+
+                unFollowGroupModalInstance.result.then(function(selectedItem) {
+                    // Esta función se ejecuta cuando desde el modalInstance controller
+                    // se ejecuta $modalInstance.close().
+
+                    //Esto está para comprobar que se borra y tal
+                    console.log(idGroup);
+
+                    //El id del usuario
+                    var userId = "UDmoa62fS4sN";
+
+                    //Se hace una petición de eliminación del usuario determinado al grupo pertinente
+                    $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
+                        .success(function(data, status) {
+
+                            //Si funciona:
+                            //Representa el borrado gráficamente
+
+                            //Busca en el conjunto de grupos...
+                            for (var i = $scope.groups.length - 1; i >= 0; i--) {
+                                //Uno cuya id sea igual al borrado...
+                                if ($scope.groups[i].id == idGroup) {
+                                    //Y lo elimina de la lista
+                                    $scope.groups.splice(i, 1);
+                                }
+                            }
+                        });
+                }, function() {
+
+                    // Esta función es la que se ejecuta al cancelar la acción del modal,
+                    // llamando a $modalInstance.dismiss();
+                    $log.info('Abandono de grupo cancelado');
+                });
+
+
+
+
+            };
+
+
+
+            $scope.checkName = function(data) {
+                if (data !== '') {
+                    return "Un grupo debe tener nombre";
+                }
+            };
+
+            $scope.saveGroup = function(data, id) {
+                //$scope.user not updated yet
+                angular.extend(data, {
+                    id: id
+                });
+                //return $http.post('/saveUser', data);
+            };
+
+            // remove user
+            $scope.removeGroup = function(index) {
+                $scope.groups.splice(index, 1);
+            };
+
+            $scope.addGroup = function(groupName, groupDescription) {
+
+                //Usuario que crea el grupo
+                var userId = "UDmoa62fS4sN";
+
+                //Nuevo grupo
+                var newGroup = {
+                    name: groupName,
+                    description: groupDescription
                 };
 
-            });
+
+                //Llamada PUT a la API para insertar el nuevo grupo
+                $http.put(endpoint + 'group', newGroup)
+                    .success(function(data, status) {
+
+                        var newGroupWithId = {
+                            id: data.id,
+                            name: data.name,
+                            description: data.description
+                        }
+
+                        $scope.groups.push(newGroupWithId);
+
+                        console.log("Id del grupo creado: " + data.id);
+
+                        //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
+                        $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
+                            .success(function(data, status) {
+                                console.log("Grupo creado correctamente!");
+                            }).
+                        error(function(data, status) {
+                            console.log("Error al hacer la llamada a /user/id/group/id!");
+                        });
+
+                    })
+                    .error(function(data, status) {
+                        console.log("Error al insertar grupo!");
+                    });
 
 
-        app.controller('unFollowGroupModalInstanceCtrl', function($scope, $modalInstance, ApiService, idGroup, groupName) {
-            $scope.idGroup = idGroup;
-            $scope.groupName = groupName;
-            $scope.cancel = function() {
-                $modalInstance.dismiss('cancel');
+
             };
 
-            $scope.confirmUnFollow = function() {
-                $modalInstance.close();
-
-            }
         });
 
-        app.controller('editGroupModalInstanceCtrl', function($scope, $modalInstance, ApiService, idGroup, groupName, groupDescription) {
-            $scope.idGroup = idGroup;
-            $scope.groupName = groupName;
-            $scope.groupDescription = groupDescription
-            $scope.cancel = function() {
-                $modalInstance.dismiss('cancel');
-            };
 
-            $scope.confirmEdit = function() {
-                $modalInstance.close();
+    app.controller('unFollowGroupModalInstanceCtrl', function($scope, $modalInstance, ApiService, idGroup, groupName) {
+        $scope.idGroup = idGroup;
+        $scope.groupName = groupName;
+        $scope.cancel = function() {
+            $modalInstance.dismiss('cancel');
+        };
 
-            }
-        });
+        $scope.confirmUnFollow = function() {
+            $modalInstance.close();
+
+        }
+    });
+
+    app.controller('editGroupModalInstanceCtrl', function($scope, $modalInstance, ApiService, idGroup, groupName, groupDescription) {
+        $scope.idGroup = idGroup;
+        $scope.groupName = groupName;
+        $scope.groupDescription = groupDescription
+        $scope.cancel = function() {
+            $modalInstance.dismiss('cancel');
+        };
+
+        $scope.confirmEdit = function() {
+            $modalInstance.close();
+
+        }
+    });
