@@ -63,7 +63,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         }
     };
 
-    $scope.unFollowGroup = function(idGroup) {
+    $scope.unFollowGroup = function(idGroup, groupName) {
 
 
 
@@ -73,6 +73,9 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             resolve: {
                 idGroup: function() {
                     return idGroup;
+                },
+                groupName: function() {
+                    return groupName;
                 }
             }
         });
@@ -184,8 +187,9 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 });
 
 
-app.controller('unFollowGroupModalInstanceCtrl', function($scope, $modalInstance, ApiService, idGroup) {
+app.controller('unFollowGroupModalInstanceCtrl', function($scope, $modalInstance, ApiService, idGroup, groupName) {
     $scope.idGroup = idGroup;
+    $scope.groupName = groupName;
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
