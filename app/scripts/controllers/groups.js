@@ -70,7 +70,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
         editGroupModalInstance.result.then(function(edit) {
 
-        	
+            
             // Esta función se ejecuta cuando desde el modalInstance controller
             // se ejecuta $modalInstance.close().
             console.log("---------------");
@@ -82,10 +82,10 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             $http.put(endpoint + 'group/', edit)
                 .success(function(data, status) {
 
-                	console.log("Se a cambiado en la api?");
-                	console.log(data.id);
-                	console.log(data.name);
-                	console.log(data.description);
+                    console.log("Se a cambiado en la api?");
+                    console.log(data.id);
+                    console.log(data.name);
+                    console.log(data.description);
 
                 });
 
@@ -245,12 +245,12 @@ app.controller('editGroupModalInstanceCtrl', function($scope, $modalInstance, Ap
     };
 
     $scope.confirmEdit = function(groupName, groupDescription) {
-    	
-    	console.log("confirmEdit");
-    	console.log(groupName);
-    	console.log(groupDescription);
-    	var edit = {id: idGroup, name: groupName, description: groupDescription}
-    	console.log(edit);
+        
+        console.log("confirmEdit");
+        console.log(groupName);
+        console.log(groupDescription);
+        var edit = {id: idGroup, name: groupName, description: groupDescription}
+        console.log(edit);
         $modalInstance.close(edit);
 
 
