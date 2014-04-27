@@ -150,7 +150,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     };
 
 
-
+    //NO SE SI SE UTILIZA EN NINGÚN MOMENTO
     $scope.checkName = function(data) {
         if (data !== '') {
             return "Un grupo debe tener nombre";
@@ -170,15 +170,15 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         $scope.groups.splice(index, 1);
     };
 
-    $scope.addGroup = function(groupName, groupDescription) {
+    $scope.addGroup = function(submittedGroup) {
 
         //Usuario que crea el grupo
         var userId = "UDmoa62fS4sN";
 
-        //Nuevo grupo
+        //Nuevo grupo a partir de los datos del formulario
         var newGroup = {
-            name: groupName,
-            description: groupDescription
+            name: submittedGroup.name,
+            description: submittedGroup.description
         };
 
 
@@ -192,14 +192,25 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                     description: data.description
                 }
 
-                $scope.groups.push(newGroupWithId);
-
-                console.log("Id del grupo creado: " + data.id);
+                console.log("id del grupo creado: " + data.id);
 
                 //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
                 $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
                     .success(function(data, status) {
-                        console.log("Grupo creado correctamente!");
+
+                        //Lo añade a los grupos visibles
+                        $scope.groups.push(newGroupWithId);
+
+                        //Limpia el formulario
+                        $scope.formAddGroup.$setPristine();
+                        var defaultForm = {
+                            name : "",
+                            description : ""
+                        };
+                        $scope.newGroup = defaultForm;
+
+                        console.log("grupo creado correctamente");
+
                     }).
                 error(function(data, status) {
                     console.log("Error al hacer la llamada a /user/id/group/id!");
