@@ -127,8 +127,12 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
         removeGroup: function(index) {
             $scope.groups.splice(index, 1);
         },
-        sendInvitations: function(mailsArray, callback) {
-            $http.put(this.endpoint + '/email/invitation', mailsArray[0].mail.toString())
+        sendInvitations: function(mailsArray, groupId, callback) {
+            var data = {
+                "invitationUrl" : "http://tripbox.uab.cat/" + groupId,
+                "emails" : mailsArray
+            };
+            $http.put(this.endpoint + '/email/invitation', data)
             .success(function() {
                 console.log('Successful!');
             })
