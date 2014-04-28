@@ -44,17 +44,23 @@
 
                             <!-- No existe imagen -->
                             <div ng-show="group.image != []">
-                                <img src="images/groups/default.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                <a href="http://localhost:9000/#/groups/{{group.id}}">
+                                    <img src="images/groups/default.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                </a>
                             </div>
 
                             <!-- Existe imagen -->
                             <div ng-hide="group.image != []">
-                                <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                <a href="http://localhost:9000/#/groups/{{group.id}}">
+                                    <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                </a>
                             </div>
 
 
                             <span editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
-                                {{ group.name }}
+                                <a href="http://localhost:9000/#/groups/{{group.id}}">
+                                    {{ group.name }}
+                                </a>
                             </span>
 
 
