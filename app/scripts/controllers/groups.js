@@ -4,7 +4,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
  
     //para hacer uso de $resource debemos colocarlo al crear el modulo
 
-    /*
+    /*    
     var newUser = {
         name: "Cristian",
         lastName: "Correa",
@@ -18,7 +18,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     */
 
     //Usuario que inicia sesión con Facebook
-    var user = "UDmoa62fS4sN";
+    var user = "YELIUWm83mIb";
 
     //Lista de grupos del usuario
     $scope.groups = [];
@@ -125,7 +125,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             console.log(idGroup);
 
             //El id del usuario
-            var userId = "UDmoa62fS4sN";
+            var userId = "YELIUWm83mIb";
 
             //Se hace una petición de eliminación del usuario determinado al grupo pertinente
             $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
@@ -160,7 +160,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     $scope.addGroup = function(groupName, groupDescription) {
 
         //Usuario que crea el grupo
-        var userId = "UDmoa62fS4sN";
+        var userId = "YELIUWm83mIb";
 
         //Nuevo grupo
         var newGroup = {
