@@ -1,36 +1,49 @@
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-
-@import 'sass-bootstrap/lib/bootstrap';
-
-// This variable overrides where is font-awesome
-$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default; // for referencing Bootstrap CDN font files directly
-
-@import 'font-awesome/scss/font-awesome';
-
-
-@import 'bootstrap-social/bootstrap-social';
-
-
-html, body {
-	height: 100%;
-	background-image: url(../images/bg.png);
+$icon-font-path:"/bower_components/sass-bootstrap/fonts/";
+ @import'sass-bootstrap/lib/bootstrap';
+ // This variable overrides where is font-awesome $fa-font-path:"//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default;
+ // for referencing Bootstrap CDN font files directly @import'font-awesome/scss/font-awesome';
+ @import'bootstrap-social/bootstrap-social';
+ html, body {
+    height: 100%;
+    background-image: url(../images/bg.png);
 }
-
 .logo {
-	max-width: 100%;
+    max-width: 100%;
 }
-
 .landing {
-	margin-top: 50px;
-} 
-
-.central-column {
-	@extend .col-lg-4;
-	@extend .col-lg-offset-4; 
-	@extend .col-md-4;
-	@extend .col-md-offset-4;
-	@extend .col-sm-4;
-	@extend .col-sm-offset-4;
+    margin-top: 50px;
 }
-
-
+.central-column {
+    @extend .col-lg-4;
+    @extend .col-lg-offset-4;
+    @extend .col-md-4;
+    @extend .col-md-offset-4;
+    @extend .col-sm-4;
+    @extend .col-sm-offset-4;
+}
+#veil {
+    .sprite-spinner {
+        overflow: hidden;
+        position: relative;
+        display:inline-block;
+        text-align:left;
+        width: 30px;
+        height: 30px;
+    }
+    .spinner-wrap {
+        text-align:center;
+        margin:100px auto;
+    }
+}
+/*
+#veil {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height:100%;
+	width:100%;
+	cursor: not-allowed;
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+	background: #000000 url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat center;
+}*/

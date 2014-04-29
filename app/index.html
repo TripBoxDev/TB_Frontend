@@ -28,9 +28,19 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
 
+
+    <!-- Add your site or application content here -->
+    <div class="container" ng-show="!isLogging" ng-view="">
+    </div>
+
+    <div id="veil" ng-show="isLogging">
+       <div class="spinner-wrap">
+    <div class="sprite-spinner">
+      <img src="images/spiffygif_30x30.png" alt="Loading"/>
+    </div>  
+</div>
+    </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
     (function(i, s, o, g, r, a, m) {

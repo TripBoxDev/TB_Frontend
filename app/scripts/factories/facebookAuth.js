@@ -5,7 +5,7 @@ FacebookData.channel = 'https://mysite.com/channel.html';
 FacebookData.fbAppId = '1567668726791128';
 FacebookData.autoFbLogin = true;
 
-app.factory('facebookAuthService', function(ApiService) {
+app.factory('facebookAuthService', function(ApiService, authService) {
     var authManagement = {
         /**
          * Sends the query to log in to Facebook
@@ -15,6 +15,9 @@ app.factory('facebookAuthService', function(ApiService) {
                 if (response.status === 'connected') {
                     var uid = response.authResponse.userID;
                 }
+                console.log('logueando');
+                console.timeStamp();
+                authService.data.isLogging = true;
             }, {
                 scope: 'email'
             });
@@ -27,7 +30,9 @@ app.factory('facebookAuthService', function(ApiService) {
             var _self = this;
 
             FB.api('/me', function(response) {
-
+                console.log('logueando');
+                console.timeStamp();
+                authService.data.isLogging = true;
                 // Prepares object to be sent to API
                 var apiData = {
                     //facebookId: response.id,
@@ -39,7 +44,7 @@ app.factory('facebookAuthService', function(ApiService) {
 
                 // Send user info for API approval
                 ApiService.loginUser(apiData);
-
+                
             });
 
         },
