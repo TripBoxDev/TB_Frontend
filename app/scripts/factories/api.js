@@ -12,6 +12,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
 
                     // Redirect to groups
                     $location.path('/groups');
+                    authService.setIsLogging(false);
 
 
 
@@ -22,7 +23,10 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
 
                     console.log('API returned an error');
                     ErrorHandler.redirectError();
+                    authService.setIsLogging(false);
+
                 });
+
         },
         logoutUser: function() {
             authService.data.isLogged = false;
