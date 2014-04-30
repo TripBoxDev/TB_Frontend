@@ -4,7 +4,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
     //para hacer uso de $resource debemos colocarlo al crear el modulo
 
-    /*    
+    /*     
     var newUser = {
         name: "Cristian",
         lastName: "Correa",
@@ -196,11 +196,11 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             .error(function(data, status) {
                 console.log("Error al insertar grupo!");
             });
-
+            /*
         $scope.groupName = "";
         
         $scope.groupDescription = "";
-
+*/
 
 
     };
