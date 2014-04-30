@@ -1,5 +1,13 @@
+<!-- Pasar a una hoja de estilos -->
+<style type="text/css">
+    div.error {
+        font-size: 14px;
+        color: #CC0000;
+    }
+</style>
+
 <div class="cl_content">
- 
+
     <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
@@ -101,7 +109,7 @@
                             <button type="button" class="btn btn-primary btn-xs" ng-click="editGroup(group.id, group.name, group.description)">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
-                            
+
 
                             <!--Boton con confirmación estilo boostrap (No funciona con angular todabia)
                                 <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#UnFollowGroup"></a>
@@ -202,24 +210,39 @@
                     <h4 class="modal-title" id="myModalLabel">Crea un nuevo grupo</h4>
 
                 </div>
-                <form>
+                <form name="formAddGroup" novalidate ng-submit="addGroupForm()">
                     <div class="modal-body">
                         <div class="input-group">
 
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </span>
-                            <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" required>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Nombre del grupo" name="nombre" ng-model="newGroup.name" required>
+                                
+                            </fieldset>
 
                         </div>
+                        <div class="error" ng-show="formAddGroup.nombre.$dirty && formAddGroup.nombre.$invalid">
+                                    <small class="error" ng-show="formAddGroup.nombre.$error.required">
+                                        El grupo necesita un nombre.
+                                    </small>
+                                </div>
                         </br>
                         <div class="input-group">
 
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-comment"></span>
                             </span>
-                            <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" required>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Descripción del grupo" name="descripcion" ng-model="newGroup.description" required>
+                            </fieldset>
 
+                        </div>
+                        <div class="error" ng-show="formAddGroup.descripcion.$dirty && formAddGroup.descripcion.$invalid">
+                            <small class="error" ng-show="formAddGroup.descripcion.$error.required">
+                                Por favor, haz una descripción breve del grupo.
+                            </small>
                         </div>
                         </br>
                         <div class="input-group">
@@ -235,16 +258,15 @@
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(groupName,groupDescription)">Crear</button>
-
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(newGroup)" ng-disabled="formAddGroup.$invalid">Crear</button>
                     </div>
                 </form>
             </div>
         </div>
-
     </div>
+</div>
 
-    <!-- MENU PARA ELIMINAR GRUPO -->
+<!-- MENU PARA ELIMINAR GRUPO -->
             
     <script type="text/ng-template" id="unFollowGroupModalContent.html">
     

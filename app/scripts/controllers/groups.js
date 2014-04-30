@@ -157,15 +157,15 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         $scope.groups.splice(index, 1);
     };
 
-    $scope.addGroup = function(groupName, groupDescription) {
+    $scope.addGroup = function(submittedGroup) {
 
         //Usuario que crea el grupo
         var userId = user;
 
         //Nuevo grupo
         var newGroup = {
-            name: groupName,
-            description: groupDescription
+            name: submittedGroup.name,
+            description: submittedGroup.description
         };
 
 
@@ -179,7 +179,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                     description: data.description
                 }
 
-                $scope.groups.push(newGroupWithId);
 
                 console.log("Id del grupo creado: " + data.id);
 
@@ -187,6 +186,16 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                 $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
                     .success(function(data, status) {
                         console.log("Grupo creado correctamente!");
+
+                        //Limpia el formulario
+                        $scope.formAddGroup.$setPristine();
+                        var defaultForm = {
+                            name : "",
+                            description : ""
+                        };
+                        $scope.newGroup = defaultForm;
+
+                        $scope.groups.push(newGroupWithId);
                     }).
                 error(function(data, status) {
                     console.log("Error al hacer la llamada a /user/id/group/id!");
@@ -196,11 +205,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             .error(function(data, status) {
                 console.log("Error al insertar grupo!");
             });
-            /*
-        $scope.groupName = "";
         
-        $scope.groupDescription = "";
-*/
+
 
 
     };
