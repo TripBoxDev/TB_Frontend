@@ -1,10 +1,10 @@
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
- 
+
     //para hacer uso de $resource debemos colocarlo al crear el modulo
 
-    /*
+    /*     
     var newUser = {
         name: "Cristian",
         lastName: "Correa",
@@ -18,7 +18,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     */
 
     //Usuario que inicia sesión con Facebook
-    var user = "UDmoa62fS4sN";
+    var user = "YELIUWm83mIb";
 
     //Lista de grupos del usuario
     $scope.groups = [];
@@ -125,7 +125,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             console.log(idGroup);
 
             //El id del usuario
-            var userId = "UDmoa62fS4sN";
+            var userId = user;
 
             //Se hace una petición de eliminación del usuario determinado al grupo pertinente
             $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
@@ -160,7 +160,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     $scope.addGroup = function(groupName, groupDescription) {
 
         //Usuario que crea el grupo
-        var userId = "UDmoa62fS4sN";
+        var userId = user;
 
         //Nuevo grupo
         var newGroup = {
@@ -196,7 +196,11 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             .error(function(data, status) {
                 console.log("Error al insertar grupo!");
             });
-
+            /*
+        $scope.groupName = "";
+        
+        $scope.groupDescription = "";
+*/
 
 
     };
