@@ -20,7 +20,7 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
         $scope.newUser = '';
     }
 
-    $scope.sendInvitations = function() {
+    $scope.sendInvitations = function() { 
         console.log($scope.users);
         ApiService.sendInvitations($scope.users, 21);
         $modalInstance.close();

@@ -23,7 +23,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     //Lista de grupos del usuario
     $scope.groups = [];
 
-    //Llamada GET a la API para coger los grupos
+    //Llamada GET a la API para coger los grupos 
     $http.get(endpoint + 'user/' + user)
         .success(function(data, status) {
 
