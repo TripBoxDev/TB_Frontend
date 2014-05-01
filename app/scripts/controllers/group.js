@@ -31,6 +31,17 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     });
     */
 
+    $scope.infoGroup = [];
+
+    $http.get(endpoint + 'group/' + $scope.groupId)
+        .success(function(data, status) {
+            $scope.infoGroup = data;
+            console.log("información del grupo recibida");
+        }).
+    error(function(data, status) {
+        console.log("error al recibir información del grupo");
+    });
+
 });
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {

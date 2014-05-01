@@ -37,8 +37,6 @@
     <!-- /.container-fluid -->
 </nav>
 
-{{ groupId }}
-
     <script type="text/ng-template" id="myModalContent.html">
 <div class="modal-header">
                 <button type="button" class="close" ng-click="cancel()">&times;</button>
@@ -80,3 +78,20 @@
             </div>
         </div>
     </script>
+
+    <!--MENÚ DE DESTINOS-->
+    <div>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active" ng-repeat="destino in infoGroup.destinations">
+                <a href="#">
+                    <span class="badge pull-right">%</span>
+                    {{destino}}
+                </a>
+            </li>
+                 <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                    <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
+                </button>
+            <li>
+            </li>
+        </ul>
+    </div>
