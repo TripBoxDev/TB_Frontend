@@ -1,4 +1,7 @@
-app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal) {
+app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http) {
+    
+    var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
+
     $scope.groupId = $routeParams.groupId;
     $scope.infoUser = authService.data.userInfo;
 
@@ -10,6 +13,24 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal) 
         });
 
     };
+
+    /*
+    <!--Añadir nuevo destino-->
+    var destino = "Valladolid";
+
+    $http.put(endpoint + 'group/' + $scope.groupId + '/destination', destino, {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    })
+        .success(function(data, status) {
+            console.log("destino insertado");
+        }).
+    error(function(data, status) {
+        console.log("error al insertar");
+    });
+    */
+
 });
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {
@@ -20,7 +41,7 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
         $scope.newUser = '';
     }
 
-    $scope.sendInvitations = function() { 
+    $scope.sendInvitations = function() {
         console.log($scope.users);
         ApiService.sendInvitations($scope.users, 21);
         $modalInstance.close();
