@@ -1,4 +1,4 @@
-app.factory('authService', function($rootScope) {
+app.factory('authService', function($rootScope, $log) {
     var authManagement = {
         data: {
         	/* Flag to check if we are during a login process */
@@ -8,7 +8,9 @@ app.factory('authService', function($rootScope) {
 
         },
         setIsLogging : function(isLogging) {
-        	this.isLogging = isLogging;
+        	
+            $log.info('Logging status: ' + isLogging);
+            this.isLogging = isLogging;
 
         	$rootScope.isLogging = isLogging;
         }
