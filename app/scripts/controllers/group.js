@@ -1,5 +1,5 @@
 app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http) {
-    
+
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
     $scope.groupId = $routeParams.groupId;
@@ -14,22 +14,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     };
 
-    /*
-    <!--Añadir nuevo destino-->
-    var destino = "Valladolid";
-
-    $http.put(endpoint + 'group/' + $scope.groupId + '/destination', destino, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }
-    })
-        .success(function(data, status) {
-            console.log("destino insertado");
-        }).
-    error(function(data, status) {
-        console.log("error al insertar");
-    });
-    */
+    <!--Leer información del grupo-->
 
     $scope.infoGroup = [];
 
@@ -41,6 +26,27 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     error(function(data, status) {
         console.log("error al recibir información del grupo");
     });
+
+
+    <!--Añadir nuevo destino-->
+
+    $scope.addDestination = function(destino) {
+
+        $http.put(endpoint + 'group/' + $scope.groupId + '/destination', destino, {
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+        })
+            .success(function(data, status) {
+                console.log("destino insertado");
+                $scope.infoGroup.destinations.push(destino);
+
+            }).
+        error(function(data, status) {
+            console.log("error al insertar");
+        });
+
+    }
 
 });
 
