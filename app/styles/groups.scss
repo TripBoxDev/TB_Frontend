@@ -4,18 +4,19 @@
     color: #CC0000;
 }
 .fleche-left{
-	position: absolute;
-	width: 15em;
-	height: 10em;
-	margin-top: 3em;
-	margin-left: 20%;
+	background: red;
+	position: relative;
+	margin-left: -16em;
+	margin-top:	5em;
 }
 .fleche-right{
-	position: absolute;
-	width: 15em;
-	height: 10em;
-	margin-top: 3em;
-	margin-left: 51.5%;
+	background: blue;
+	position: relative;
+	
+}
+.cardtuto{
+	position: relative;
+	margin-top: -15em;
 }
 .fondo{
 	background: black;
@@ -27,4 +28,6 @@
 	left: 0%;
   	opacity:0.4;	
 }
-
+.title-tutorial{
+	color: #2E64FE;
+}
