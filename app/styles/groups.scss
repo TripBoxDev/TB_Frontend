@@ -1,33 +1,50 @@
-//Color Rojo para los mensajes de error en el popup
-.error {
+/* Color Rojo para los mensajes de error en el popup */
+ .error {
     font-size: 14px;
     color: #CC0000;
 }
-.fleche-left{
-	background: red;
-	position: relative;
-	margin-left: -16em;
-	margin-top:	5em;
+@media (min-width: 1200px) {
+    .fleche-left {
+        position: relative;
+        margin-left: -16em;
+        margin-top: 5em;
+    }
+    .fleche-right {
+        position: relative;
+        margin-left: 13em;
+        margin-top: -11.5em;
+    }
+    .cardtuto {
+        position: relative;
+        margin-top: -15em;
+    }
 }
-.fleche-right{
-	background: blue;
-	position: relative;
-	
+@media (max-width: 1199px) /*and (min-width: 992px)*/ {
+    .fleche-left {
+        position: relative;
+        margin-left: -16em;
+        margin-top: 3em;
+    }
+    .fleche-right {
+        position: relative;
+        margin-left: 10.5em;
+        margin-top: -11em;
+    }
+    .cardtuto {
+        position: relative;
+        margin-top: -13em;
+    }
 }
-.cardtuto{
-	position: relative;
-	margin-top: -15em;
+.fondo {
+    background: black;
+    position: absolute;
+    margin-top: -5.2em;
+    margin-left: 0em;
+    height: 100%;
+    width: 100%;
+    left: 0%;
+    opacity:0.4;
 }
-.fondo{
-	background: black;
-	position: absolute;
-	margin-top: -5.2em;
-	margin-left: 0em;
-	height: 100%;
-	width: 100%;
-	left: 0%;
-  	opacity:0.4;	
-}
-.title-tutorial{
-	color: #2E64FE;
+.title-tutorial {
+    color: #2E64FE;
 }
