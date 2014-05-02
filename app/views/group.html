@@ -137,3 +137,89 @@
             </div>
         </div>
     </div>
+
+    <!--Cards-->
+<div class="row">
+
+    <div class="col-md-2">
+        <!--Quitar para ver
+        <div ng-repeat="card in cards">
+        -->
+            <div class="thumbnail">
+                <div id="cardinfo">
+                    <div id="userCreator">
+                        Nombre Apellio
+                        {{card.nameCreator}} {{card.lastNameCreator}}
+                    </div>
+                    <div id="line">
+                        <img src="images/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                    </div>
+                    <div id="typeCard">
+                        <div id="type" ng-show="card.type != []">
+                            Tipo:</br>
+                            {{card.cardType}} Vieaje</br>
+                        </div>
+                        <div id="name" ng-show="card.name != []">
+                            Nombre:</br>
+                            {{card.name}} Avión</br>
+                        </div>
+                        <div id="description" ng-show="card.description != []">
+                            Descripción:</br>
+                            {{card.description}} Avion a gran Canario</br>
+                        </div>
+                        <div id="price" ng-show="card.price != []">
+                            Precio:</br>
+                            {{card.price}} 25</br>
+                        </div>
+                        <div id="link" ng-show="card.link != []">
+                            Link:</br>
+                            <a href="{{card.link}}">Clic aqui</a></br>
+                        </div>
+                    </div>
+                    <div id="Votation">
+                        <img src="images/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                        <center>
+                            <div id="noVotation">
+                                <p>
+                                    <a class="glyphicon glyphicon-star-empty"></a>
+                                    <a class="glyphicon glyphicon-star-empty"></a>
+                                    <a class="glyphicon glyphicon-star-empty"></a>
+                                    <a class="glyphicon glyphicon-star-empty"></a>
+                                    <a class="glyphicon glyphicon-star-empty"></a>
+                                </p>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        <!-- Div del ng-repeat!
+        </div> -->
+    </div>
+
+    <!-- Nueva Card -->
+
+    <div class="col-md-2">
+        <!--<div ng-repeat="group in groups">-->
+        <div class="thumbnail">
+            <div id="cardinfo">
+
+                <center>
+
+                    <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir carta
+
+                </center>
+
+            </div>
+            <div id="addcard">
+
+                <center>
+
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#¿?">
+                        <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#¿?"></span>
+                    </button>
+
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
