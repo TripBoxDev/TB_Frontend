@@ -1,3 +1,30 @@
-#prueba{
-	color:blue;
-}	
+//Color Rojo para los mensajes de error en el popup
+.error {
+    font-size: 14px;
+    color: #CC0000;
+}
+.fleche-left{
+	position: absolute;
+	width: 15em;
+	height: 10em;
+	margin-top: 3em;
+	margin-left: 20%;
+}
+.fleche-right{
+	position: absolute;
+	width: 15em;
+	height: 10em;
+	margin-top: 3em;
+	margin-left: 51.5%;
+}
+.fondo{
+	background: black;
+	position: absolute;
+	margin-top: -5.2em;
+	margin-left: 0em;
+	height: 100%;
+	width: 100%;
+	left: 0%;
+  	opacity:0.4;	
+}
+

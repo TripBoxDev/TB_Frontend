@@ -1,10 +1,4 @@
-<!-- Pasar a una hoja de estilos -->
-<style type="text/css">
-    div.error {
-        font-size: 14px;
-        color: #CC0000;
-    }
-</style>
+
 
 <div class="cl_content">
 
@@ -44,7 +38,9 @@
         <!-- /.container-fluid -->
     </nav>
 
-
+    <div class="fondo" ng-hide="groups.length != []">
+                    
+    </div>
 
     <!-- Si ya hay algún grupo creado -->
     <div ng-show="groups.length != []">
@@ -151,47 +147,53 @@
     <!-- Si no hay ningún grupo creado -->
     <div ng-hide="groups.length != []">
 
-        <div class="page-header">
-            <div>
-                <center>
-                    <h1>¿Aún no tienes ningún grupo?
-                        <br>¡Crea uno en TripBox!</h1>
-                </center>
+        <div id="tutorial">
+            <div class="title-tutorial">
+                <div>
+                    <center>
+                        <h1>¿Aún no tienes ningún grupo?
+                            <br>¡Crea uno en TripBox!</h1>
+                    </center>
+                </div>
             </div>
 
-        </div>
-        <div>
-            <img src="images/flecha.png" alt="Image group" height="150" width="200" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+            <div class="cartatutorial">
+                <div class="row-fluid">
+                    <div class="col-md-2 col-md-offset-5">
+                        <div class="thumbnail">
+                            <div id="cardinfo">
 
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <div id="cardinfo">
+                                <center>
 
-                        <center>
+                                    <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
 
-                            <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
+                                </center>
 
-                        </center>
+                            </div>
+                            <div id="addgroup">
 
-                    </div>
-                    <div id="addgroup">
+                                <center>
 
-                        <center>
+                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                                        <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
+                                    </button>
 
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
-                                <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
-                            </button>
-
-                        </center>
+                                </center>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <img src="images/flecha2.png" alt="Image group" height="150" width="200" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
 
+            <div class="fleche-left">
+                <img src="images/system/groups/flechas1/flechaleft.png" height="150" width="200" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+            </div>
+
+            <div class="fleche-right">
+                <img src="images/system/groups/flechas1/flecharight.png" height="150" width="200" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+            </div>
+
+            
         </div>
     </div>
 
@@ -217,15 +219,15 @@
                             </span>
                             <fieldset>
                                 <input type="text" class="form-control" placeholder="Nombre del grupo" name="nombre" ng-model="newGroup.name" required>
-                                
+
                             </fieldset>
 
                         </div>
                         <div class="error" ng-show="formAddGroup.nombre.$dirty && formAddGroup.nombre.$invalid">
-                                    <small class="error" ng-show="formAddGroup.nombre.$error.required">
-                                        El grupo necesita un nombre.
-                                    </small>
-                                </div>
+                            <small class="error" ng-show="formAddGroup.nombre.$error.required">
+                                El grupo necesita un nombre.
+                            </small>
+                        </div>
                         </br>
                         <div class="input-group">
 
@@ -263,6 +265,35 @@
         </div>
     </div>
 </div>
+
+<!-- MENU PARA ELIMINAR GRUPO -->
+
+<script type="text/ng-template" id="unFollowGroupModalContent.html">
+< div class = "modal-header" >
+
+< button type = "button"
+class = "close"
+ng - click = "cancel()" > & times; < /button>
+            <h4 class="modal-title" id="myModalLabel">Confirmar eliminación</h4 >
+
+< /div>
+        <div class="modal-body">
+            
+            <div class="input-group">
+               
+                ¿Estás seguro de que quieres eliminar "{{groupName}}" definitivamente de tu lista de grupos?
+            
+            </div >
+
+< /div>
+        <div class="modal-footer">
+            
+            <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button > < button type = "button"
+class = "btn btn-primary"
+ng - click = "confirmUnFollow()" > Abandonar < /button>
+            
+        </div >
+</script>
 
 <!-- MENU PARA ELIMINAR GRUPO -->
             
