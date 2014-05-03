@@ -49,7 +49,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     }
     <!--Añadir nueva Card Other-->
     /*
-    $scope.addCard = function(submittedCard) {
+    $scope.addCard = function(submittedCard) { 
 
         
 
