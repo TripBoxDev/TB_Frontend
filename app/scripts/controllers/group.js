@@ -12,7 +12,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             controller: 'InvitationModalInstanceCtrl'
         });
 
-    };
+    }; 
 
     <!--Leer información del grupo-->
 
