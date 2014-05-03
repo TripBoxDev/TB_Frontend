@@ -47,6 +47,63 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         });
 
     }
+    <!--Añadir nueva Card Other-->
+    /*
+    $scope.addCard = function(submittedCard) {
+
+        
+
+        //Nueva Card 
+
+        var newCard = {
+            cardType: "other",
+            name: submittedCard.name,
+            description: submittedCard.description
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: ,
+            nameCreator: ,
+            lastNameCreator: ,
+            eventDate: submittedCard.eventDate
+
+
+        };
+
+
+        //Llamada PUT a la API para insertar el nuevo grupo
+        $http.put(endpoint + 'group'+ $scope.groupId + '/otherCard', newCard,)
+            .success(function(data, status) {
+
+                var newCard = {
+                    cardId: data.cardId,
+                    creationDate: data.creationDate
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    eventDate: data.eventDate
+
+
+                };
+
+
+                console.log("Id del grupo creado: " + data.id);
+
+                
+            })
+
+                .error(function(data, status) {
+                 console.log("Error al insertar grupo!");
+                });
+        
+    };
+    */
 
 });
 

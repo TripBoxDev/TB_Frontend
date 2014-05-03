@@ -80,9 +80,9 @@
     </script>
 
     <!--MENÚ DE DESTINOS-->
-    <div id="left-menu">
-        <ul class="nav nav-pills nav-stacked">
-            <li class="active" ng-repeat="destino in infoGroup.destinations">
+    <div id="left-menu" >
+        <ul class="nav nav-pills nav-stacked" style= "max-width: 210px;" >
+            <li class="active"  ng-repeat="destino in infoGroup.destinations">
                 <a href="#">
                     <span class="glyphicon glyphicon-plane"></span>
                     <span class="badge pull-right">%</span>
@@ -214,8 +214,8 @@
 
                 <center>
 
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#¿?">
-                        <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#¿?"></span>
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCard">
+                        <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearCard"></span>
                     </button>
 
                 </center>
@@ -223,3 +223,135 @@
         </div>
     </div>
 </div>
+
+
+<!--MODAL ADD CARD-->
+    <div class="modal fade" id="CrearCard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title" id="myModalLabel">Añadir una nueva Card</h4>
+
+                    <ul class="nav nav-pills">
+                        <li class="active"  ><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardTransport">Transporte</button></li>
+                        <li><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardPlaceToSleep">Alojamiento</button></li>
+                        <li><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardOther">Otros</button></li>
+                    </ul>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!--MODAL ADD CARD OTHER-->
+    <div class="modal fade" id="CrearCardOther" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title" id="myModalLabel">Añadir nueva card</h4>
+
+                </div>
+                <form name="formAddCard" novalidate ng-submit="addCard()">
+                    <div class="modal-body">
+                        <div class="input-group">
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </span>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Nombre" name="nombre" ng-model="newCard.name" required>
+                                
+                            </fieldset>
+
+                        </div>
+
+                        </br>
+                        <div class="input-group">
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-comment"></span>
+                            </span>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" ng-model="newCard.description" required>
+                                
+                            </fieldset>
+
+                        </div>
+                            </br>
+                        
+                        <div class="input-group">
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-tag"></span>
+                            </span>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Link" name="link" ng-model="newCard.link" required>
+                                
+                            </fieldset>
+
+                        </div>
+
+                        </br>
+                        <div class="input-group">
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-usd"></span>
+                            </span>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Precio" name="precio" ng-model="newCard.price" required>
+                                
+                            </fieldset>
+
+                        </div>
+
+                        </br>
+                        <div class="input-group">
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-plane"></span>
+                            </span>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="newCard.destination" required>
+                                
+                            </fieldset>
+
+                        </div>
+
+                        <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
+                                    <small class="error" ng-show="formAddDestination.destino.$error.required">
+                                        La card necesita un destino.
+                                    </small>
+                        </div>
+                        <div class="input-group">
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-comment"></span>
+                            </span>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Fecha Evento" name="fechaEvento" ng-model="newCard.eventDate" required>
+                                
+                            </fieldset>
+
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardOther(newCard)" ng-disabled="formAddCard.$invalid">Crear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
