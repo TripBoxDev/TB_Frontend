@@ -17,7 +17,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     <!--Leer información del grupo-->
 
     $scope.infoGroup = [];
-
+ 
     $http.get(endpoint + 'group/' + $scope.groupId)
         .success(function(data, status) {
             $scope.infoGroup = data;
