@@ -142,13 +142,11 @@
 <div class="row">
 
     <div class="col-md-2">
-        <!--Quitar para ver
-        <div ng-repeat="card in cards">
-        -->
+        <div ng-repeat="card in infoGroup.placeToSleepCards">
             <div class="thumbnail">
                 <div id="cardinfo">
                     <div id="userCreator">
-                        Nombre Apellio
+                        Nombre Apellido
                         {{card.nameCreator}} {{card.lastNameCreator}}
                     </div>
                     <div id="line">
@@ -157,19 +155,19 @@
                     <div id="typeCard">
                         <div id="type" ng-show="card.type != []">
                             Tipo:</br>
-                            {{card.cardType}} Vieaje</br>
+                            {{card.cardType}}</br>
                         </div>
                         <div id="name" ng-show="card.name != []">
                             Nombre:</br>
-                            {{card.name}} Avión</br>
+                            {{card.name}}</br>
                         </div>
                         <div id="description" ng-show="card.description != []">
                             Descripción:</br>
-                            {{card.description}} Avion a gran Canario</br>
+                            {{card.description}}</br>
                         </div>
                         <div id="price" ng-show="card.price != []">
                             Precio:</br>
-                            {{card.price}} 25</br>
+                            {{card.price}}</br>
                         </div>
                         <div id="link" ng-show="card.link != []">
                             Link:</br>

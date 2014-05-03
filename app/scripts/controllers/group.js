@@ -12,12 +12,12 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             controller: 'InvitationModalInstanceCtrl'
         });
 
-    }; 
+    };
 
     <!--Leer información del grupo-->
 
     $scope.infoGroup = [];
- 
+
     $http.get(endpoint + 'group/' + $scope.groupId)
         .success(function(data, status) {
             $scope.infoGroup = data;
@@ -43,12 +43,35 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
             }).
         error(function(data, status) {
-            console.log("error al insertar");
+            console.log("error al insertar destino");
         });
 
     }
-    <!--Añadir nueva Card Other-->
+
     /*
+    <!--Añadir place to sleep de forma manual-->
+
+    var newPlaceToSleep = {
+        cardType: "placeToSleep",
+        destination: "Barcelona",
+        userIdCreator: $scope.infoUser.id
+    }
+
+    $http.put(endpoint + 'group/' + $scope.groupId + '/placeToSleepCard', newPlaceToSleep)
+        .success(function(data, status) {
+            console.log("place to sleep insertado");
+            $scope.infoGroup.placeToSleepCards.push(newPlaceToSleep);
+
+        }).
+    error(function(data, status) {
+        console.log("error al insertar place to sleep");
+    });
+    */
+
+
+    /*
+    <!--Añadir nueva Card Other-->
+
     $scope.addCard = function(submittedCard) { 
 
         
