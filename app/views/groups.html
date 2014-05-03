@@ -276,118 +276,91 @@
     </div>
 </div>
 
+
 <!-- MENU PARA ELIMINAR GRUPO -->
-
-<script type="text/ng-template" id="unFollowGroupModalContent.html">
-< div class = "modal-header" >
-
-< button type = "button"
-class = "close"
-ng - click = "cancel()" > & times; < /button>
-            <h4 class="modal-title" id="myModalLabel">Confirmar eliminación</h4 >
-
-< /div>
+            
+    <script type="text/ng-template" id="unFollowGroupModalContent.html">
+    
+        <div class="modal-header">
+           
+            <button type="button" class="close" ng-click="cancel()">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Confirmar eliminación</h4>
+        
+        </div>
         <div class="modal-body">
             
             <div class="input-group">
                
                 ¿Estás seguro de que quieres eliminar "{{groupName}}" definitivamente de tu lista de grupos?
             
-            </div >
+            </div>
 
-< /div>
+        </div>
         <div class="modal-footer">
             
-            <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button > < button type = "button"
-class = "btn btn-primary"
-ng - click = "confirmUnFollow()" > Abandonar < /button>
+            <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-primary" ng-click="confirmUnFollow()">Abandonar</button>
             
-        </div >
-</script>
-
-<!-- MENU PARA ELIMINAR GRUPO -->
-
-<script type="text/ng-template" id="unFollowGroupModalContent.html">
-< div class = "modal-header" >
-
-< button type = "button"
-class = "close"
-ng - click = "cancel()" > & times; < /button>
-            <h4 class="modal-title" id="myModalLabel">Confirmar eliminación</h4 >
-
-< /div>
-        <div class="modal-body">
-            
-            <div class="input-group">
-               
-                ¿Estás seguro de que quieres eliminar "{{groupName}}" definitivamente de tu lista de grupos?
-            
-            </div >
-
-< /div>
-        <div class="modal-footer">
-            
-            <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button > < button type = "button"
-class = "btn btn-primary"
-ng - click = "confirmUnFollow()" > Abandonar < /button>
-            
-        </div >
-</script>
+        </div>
+    
+    </script>
 
 
-<!-- MENU PARA MODIFICAR GRUPO (EN DESARROLLO)-->
+    <!-- MENU PARA MODIFICAR GRUPO (EN DESARROLLO)-->
 
-<script type="text/ng-template" id="editGroupModalContent.html">
-< div class = "modal-header" >
-
-< button type = "button"
-class = "close"
-ng - click = "cancel()" > & times; < /button>
-            <h4 class="modal-title" id="myModalLabel">Edición de Grupo {{groupName}}</h4 >
-
-< /div>
+    <script type="text/ng-template" id="editGroupModalContent.html">
+    
+        <div class="modal-header">
+    
+            <button type="button" class="close" ng-click="cancel()">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Edición de Grupo {{groupName}}</h4>
+      
+        </div>
         <div class="modal-body">
      
             <div class="input-group">
 
                 <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-pencil"></span > < /span>
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </span>
                 
                 <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
                             
-            </div >
+            </div>
 
-< /br>
+            </br>
 
             <div class="input-group">
                         
                 <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-comment"></span > < /span>
+                    <span class="glyphicon glyphicon-comment"></span>
+                </span>
                             
                 <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription">
                 
-            </div >
+            </div>
 
-< /br>
+            </br>
 
             <div class="input-group">
                     
                 <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-picture"></span > < /span>
+                    <span class="glyphicon glyphicon-picture"></span>
+                </span>
                     
                 <input type="text" class="form-control" placeholder="Nueva imagen">
                 
-            </div >
+            </div>
 
-< /div>
+        </div>
 
         <div class="modal-footer">
                 
-                <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button > < button type = "button"
-class = "btn btn-primary"
-ng - click = "confirmEdit(groupName, groupDescription)" > Editar < /button>
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)">Editar</button>
                 
-        </div >
-</script>
+        </div>
+
+    </script>
 
 </div>
