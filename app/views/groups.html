@@ -304,51 +304,63 @@
             <h4 class="modal-title" id="myModalLabel">Edición de Grupo {{groupName}}</h4>
       
         </div>
-        <div class="modal-body">
-     
-            <div class="input-group">
+        <form name="formModGroup" novalidate ng-submit="modGroupForm()">
+            <div class="modal-body">
+         
+                <div class="input-group">
 
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </span>
-                
-                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </span>
+                    <fieldset>
+                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" required>
+                    </fieldset>
+                </div>
+                <div class="error" ng-show="formModGroup.nombre.$dirty && formModGroup.nombre.$invalid">
+                            <small class="error" ng-show="formModGroup.nombre.$error.required">
+                                El grupo necesita un nombre.
+                            </small>
+                        </div>
+                </br>
+
+                <div class="input-group">
                             
-            </div>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-comment"></span>
+                    </span>
+                               
+                    <fieldset> 
+                        <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" name="descripcion" required>
+                    </fieldset>
+                    
+                </div>
+                <div class="error" ng-show="formModGroup.descripcion.$dirty && formModGroup.descripcion.$invalid">
+                    <small class="error" ng-show="formModGroup.descripcion.$error.required">
+                        Por favor, haz una descripción breve del grupo.
+                    </small>
+                </div>
 
-            </br>
+                </br>
 
-            <div class="input-group">
+                <div class="input-group">
                         
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-comment"></span>
-                </span>
-                            
-                <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription">
-                
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-picture"></span>
+                    </span>
+                        
+                    <input type="text" class="form-control" placeholder="Nueva imagen">
+                    
+                </div>
+
             </div>
 
-            </br>
-
-            <div class="input-group">
+            <div class="modal-footer">
                     
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-picture"></span>
-                </span>
+                    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)" ng-disabled="formModGroup.$invalid">Editar</button>
                     
-                <input type="text" class="form-control" placeholder="Nueva imagen">
-                
             </div>
-
-        </div>
-
-        <div class="modal-footer">
-                
-                <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-                <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)">Editar</button>
-                
-        </div>
-
+        </form>
     </script>
 
 </div>
