@@ -269,7 +269,7 @@ ng - click = "cancel()" > Cerrar < /button>
                     <h4 class="modal-title" id="myModalLabel">Añadir nueva card - Otros</h4>
 
                 </div>
-                <form name="formAddCard" novalidate ng-submit="addCard()">
+                <form name="formAddCardOther" novalidate ng-submit="addCard()">
                     <div class="modal-body">
                         <div class="input-group">
 
@@ -335,8 +335,8 @@ ng - click = "cancel()" > Cerrar < /button>
 
                         </div>
 
-                        <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
-                            <small class="error" ng-show="formAddDestination.destino.$error.required">
+                        <div class="error" ng-show="formAddCardOther.destino.$dirty && formAddCardOther.destino.$invalid">
+                            <small class="error" ng-show="formAddCardOther.destino.$error.required">
                                 La card necesita un destino.
                             </small>
                         </div>
@@ -360,7 +360,7 @@ ng - click = "cancel()" > Cerrar < /button>
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardOther(newCard)" ng-disabled="formAddCard.$invalid">Crear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardOther(newCard)" ng-disabled="formAddCardOther.$invalid">Crear</button>
                     </div>
                 </form>
             </div>
@@ -378,7 +378,7 @@ ng - click = "cancel()" > Cerrar < /button>
                     <h4 class="modal-title" id="myModalLabel">Añadir nueva card - Transporte</h4>
 
                 </div>
-                <form name="formAddCard" novalidate ng-submit="addCard()">
+                <form name="formAddCardTransport" novalidate ng-submit="addCard()">
                     <div class="modal-body">
                         <div class="input-group">
 
@@ -444,10 +444,21 @@ ng - click = "cancel()" > Cerrar < /button>
 
                         </div>
 
-                        <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
-                            <small class="error" ng-show="formAddDestination.destino.$error.required">
+                        <div class="error" ng-show="formAddCardTransport.destino.$dirty && formAddCardTransport.destino.$invalid">
+                            <small class="error" ng-show="formAddCardTransport.destino.$error.required">
                                 La card necesita un destino.
                             </small>
+                        </div>
+                        </br>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-home"></span>
+                            </span>
+                            <fieldset>
+                                <select class="form-control" ng-model="newCard.transportType" ng-options="f for f in transportTypes">
+                                    <option></option>
+                                </select>
+                            </fieldset>
                         </div>
                         </br>
                         <div ng-controller="DatepickerDemoCtrl">
@@ -477,27 +488,19 @@ ng - click = "cancel()" > Cerrar < /button>
                                 </div>
                             </div>
                         </div>
-                        </br>
-                        <div class="col-md-6">
-                            <label>Tipo de transporte:</label>
-                            <select class="form-control" ng-model="newCard.transportType" ng-options="f for f in transportTypes">
-                                <option></option>
-                            </select>
-                        </div>
-
-
                     </div>
                     <div class="modal-footer">
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardTransport(newCard)" ng-disabled="formAddCard.$invalid">Crear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardTransport(newCard)" ng-disabled="formAddCardTransport.$invalid">Crear</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!--MODAL ADD CARD TRANSPORT-->
+
+    <!--MODAL ADD CARD ALOJAMIENTO-->
     <div class="modal fade" id="CrearCardPlaceToSleep" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -508,7 +511,7 @@ ng - click = "cancel()" > Cerrar < /button>
                     <h4 class="modal-title" id="myModalLabel">Añadir nueva card - Alojamiento</h4>
 
                 </div>
-                <form name="formAddCard" novalidate ng-submit="addCard()">
+                <form name="formAddCardPlace" novalidate ng-submit="addCard()">
                     <div class="modal-body">
                         <div class="input-group">
 
@@ -574,10 +577,21 @@ ng - click = "cancel()" > Cerrar < /button>
 
                         </div>
 
-                        <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
-                            <small class="error" ng-show="formAddDestination.destino.$error.required">
+                        <div class="error" ng-show="formAddCardPlace.destino.$dirty && formAddCardPlace.destino.$invalid">
+                            <small class="error" ng-show="formAddCardPlace.destino.$error.required">
                                 La card necesita un destino.
                             </small>
+                        </div>
+                        </br>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-home"></span>
+                            </span>
+                            <fieldset>
+                                <select class="form-control" ng-model="newCard.placeType" ng-options="f for f in placeTypes">
+                                    <option></option>
+                                </select>
+                            </fieldset>
                         </div>
                         </br>
                         <div ng-controller="DatepickerDemoCtrl">
@@ -607,21 +621,12 @@ ng - click = "cancel()" > Cerrar < /button>
                                 </div>
                             </div>
                         </div>
-                        </br>
-                        <div class="col-md-6">
-                            <label>Tipo de alojamiento:</label>
-                            <select class="form-control" ng-model="newCard.placeType" ng-options="f for f in placeTypes">
-                                <option></option>
-                            </select>
-                        </div>
-
-
                     </div>
                     <div class="modal-footer">
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCard.$invalid">Crear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
                     </div>
                 </form>
             </div>

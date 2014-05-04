@@ -155,7 +155,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             lastNameCreator: $scope.infoUser.lastName,
             initDate: submittedCard.dtInit.getTime(),
             finalDate: submittedCard.dtFinal.getTime(),
-            transportType: submittedCard.type
+            transportType: submittedCard.transportType
 
 
         }
