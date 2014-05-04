@@ -16,12 +16,14 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     <!--Leer información del grupo-->
 
-    $scope.infoGroup = [];
+    //$scope.infoGroup = {"id":"","name":"","description":"","users":[],"userId":"","destinations":[],"transportCards":[],"placeToSleepCards":[],"otherCards":[]};
+    $scope.infoGroup = {};
 
     $http.get(endpoint + 'group/' + $scope.groupId)
         .success(function(data, status) {
             $scope.infoGroup = data;
             console.log("información del grupo recibida");
+            console.log($scope.infoGroup);
         }).
     error(function(data, status) {
         console.log("error al recibir información del grupo");
