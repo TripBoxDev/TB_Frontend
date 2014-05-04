@@ -69,41 +69,42 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     */
 
 
-    /*
+
     <!--Añadir nueva Card Other-->
 
-    $scope.addCard = function(submittedCard) { 
+    $scope.addCardOther = function(submittedCard) {
 
         
+
 
         //Nueva Card 
 
         var newCard = {
             cardType: "other",
             name: submittedCard.name,
-            description: submittedCard.description
+            description: submittedCard.description,
             link: submittedCard.link,
             price: submittedCard.price,
             destination: submittedCard.destination,
-            userIdCreator: ,
-            nameCreator: ,
-            lastNameCreator: ,
-            eventDate: submittedCard.eventDate
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName,
+            eventDate: submittedCard.dt.getTime()
 
 
-        };
+        }
 
 
         //Llamada PUT a la API para insertar el nuevo grupo
-        $http.put(endpoint + 'group'+ $scope.groupId + '/otherCard', newCard,)
+        $http.put(endpoint + 'group/' + $scope.groupId + '/otherCard', newCard)
             .success(function(data, status) {
 
-                var newCard = {
+                var newCardReturn = {
                     cardId: data.cardId,
-                    creationDate: data.creationDate
+                    creationDate: data.creationDate,
                     cardType: data.cardType,
                     name: data.name,
-                    description: data.description
+                    description: data.description,
                     link: data.link,
                     price: data.price,
                     destination: data.destination,
@@ -113,22 +114,183 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                     eventDate: data.eventDate
 
 
-                };
+                }
 
 
-                console.log("Id del grupo creado: " + data.id);
+                console.log("Card de tipus Other Card creada" );
+                $scope.infoGroup.otherCards.push(newCardReturn);
 
-                
+
             })
 
-                .error(function(data, status) {
-                 console.log("Error al insertar grupo!");
-                });
-        
+        .error(function(data, status) {
+            console.log("Error al insertar OtherCard!");
+        });
+
     };
-    */
+
+    $scope.types = ['Autobús', 'Avión', 'Coche', 'Tren','Barco','Otro'];
+  $scope.type = $scope.types[0];
+  $scope.placeTypes = ['Hotel', 'Couchsurfing', 'Apartamento', 'Camping','Modo Aventura','Refugio','Otro'];
+  $scope.placeType = $scope.types[0];
+
+  // Añadir nueva Card Transporte
+
+    $scope.addCardTransport = function(submittedCard) {
+
+        
+
+
+        //Nueva Card 
+
+        var newCard = {
+            cardType: "transport",
+            name: submittedCard.name,
+            description: submittedCard.description,
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName,
+            initDate: submittedCard.dtInit.getTime(),
+            finalDate: submittedCard.dtFinal.getTime(),
+            transportType: submittedCard.type
+
+
+        }
+
+
+        //Llamada PUT a la API para insertar la nueva Card
+        $http.put(endpoint + 'group/' + $scope.groupId + '/transportCard', newCard)
+            .success(function(data, status) {
+
+                var newCardReturn = {
+                    cardId: data.cardId,
+                    creationDate: data.creationDate,
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description,
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    initDate: data.initDate,
+                    finalDate: data.finalDate,
+                    transportType: data.transportType
+
+
+                }
+
+
+                console.log("Card de tipus Transport Card creada" );
+                $scope.infoGroup.transportCards.push(newCardReturn);
+
+
+            })
+
+        .error(function(data, status) {
+            console.log("Error al insertar Transport Card!");
+        });
+
+    };
+
+    $scope.addCardPlaceToSleep = function(submittedCard) {
+
+        
+
+
+        //Nueva Card 
+
+        var newCard = {
+            cardType: "placeToSleep",
+            name: submittedCard.name,
+            description: submittedCard.description,
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName,
+            initDate: submittedCard.dtInit.getTime(),
+            finalDate: submittedCard.dtFinal.getTime(),
+            placeType: submittedCard.type
+
+
+        }
+
+
+        //Llamada PUT a la API para insertar el nuevo grupo
+        $http.put(endpoint + 'group/' + $scope.groupId + '/placeToSleepCard', newCard)
+            .success(function(data, status) {
+
+                var newCardReturn = {
+                    cardId: data.cardId,
+                    creationDate: data.creationDate,
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description,
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    initDate: data.initDate,
+                    finalDate: data.finalDate,
+                    placeType: data.placeType
+
+
+                }
+
+
+                console.log("Card de tipus placeToSleep Card creada" );
+                $scope.infoGroup.placeToSleepCards.push(newCardReturn);
+
+
+            })
+
+        .error(function(data, status) {
+            console.log("Error al insertar placeToSleepCard!");
+        });
+
+    };
+
 
 });
+
+<!-- Controlador calendario -->
+var DatepickerDemoCtrl = function($scope) {
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    
+
+    
+
+    $scope.toggleMin = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+
+    $scope.initDate = new Date('2016-15-20');
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+};
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {
     $scope.users = [];
