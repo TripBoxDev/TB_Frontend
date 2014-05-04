@@ -18,7 +18,7 @@ angular.module('angulApp', [
             })
             .when('/groups', {
                 templateUrl: 'views/groups.html',
-                controller: 'GroupsCtrl'
+                controller: 'GroupsCtrl',
             })
             .when('/groups/:groupId', {
                 templateUrl: 'views/group.html',

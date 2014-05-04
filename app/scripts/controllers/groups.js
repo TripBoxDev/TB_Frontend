@@ -4,12 +4,12 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
     //para hacer uso de $resource debemos colocarlo al crear el modulo
 
-    /*     
+        
     var newUser = {
         name: "Cristian",
         lastName: "Correa",
         email: "cristiancorrea@gmail.com"  
-    }
+    }/* 
 
     $http.put(endpoint + 'user/', newUser)
     .success(function(data) {
@@ -18,8 +18,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     */
 
     //Usuario que inicia sesión con Facebook
-    var infoUser = authService.data.userInfo;
-    var user = infoUser.id;
+    //var infoUser = authService.data.userInfo;
+    var user = "MZmYP1NeUap7"; //nfoUser.id;
     
     //Lista de grupos del usuario
     $scope.groups = [];
@@ -46,8 +46,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         console.log("error al obtener los grupos del usuario");
     });
 
-    console.log(authService.data);
-    $scope.infoUser = authService.data.userInfo;
+    //console.log(authService.data);
+    $scope.infoUser = newUser; //authService.data.userInfo;
 
 
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
