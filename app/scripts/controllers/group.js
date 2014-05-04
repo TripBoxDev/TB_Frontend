@@ -74,7 +74,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     $scope.addCardOther = function(submittedCard) {
 
-        
+
 
 
         //Nueva Card 
@@ -117,7 +117,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                 }
 
 
-                console.log("Card de tipus Other Card creada" );
+                console.log("Card de tipus Other Card creada");
                 $scope.infoGroup.otherCards.push(newCardReturn);
 
 
@@ -129,16 +129,16 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     };
 
-    $scope.types = ['Autobús', 'Avión', 'Coche', 'Tren','Barco','Otro'];
-  $scope.type = $scope.types[0];
-  $scope.placeTypes = ['Hotel', 'Couchsurfing', 'Apartamento', 'Camping','Modo Aventura','Refugio','Otro'];
-  $scope.placeType = $scope.types[0];
+    $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
+    $scope.transportType = $scope.transportTypes[0];
+    $scope.placeTypes = ['Apartamento','Cámping','Couchsurfing','Hotel','Modo Aventura','Refugio','Otro'];
+    $scope.placeType = $scope.placeTypes[0];
 
-  // Añadir nueva Card Transporte
+    // Añadir nueva Card Transporte
 
     $scope.addCardTransport = function(submittedCard) {
 
-        
+
 
 
         //Nueva Card 
@@ -185,7 +185,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                 }
 
 
-                console.log("Card de tipus Transport Card creada" );
+                console.log("Card de tipus Transport Card creada");
                 $scope.infoGroup.transportCards.push(newCardReturn);
 
 
@@ -199,7 +199,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     $scope.addCardPlaceToSleep = function(submittedCard) {
 
-        
+
 
 
         //Nueva Card 
@@ -246,7 +246,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                 }
 
 
-                console.log("Card de tipus placeToSleep Card creada" );
+                console.log("Card de tipus placeToSleep Card creada");
                 $scope.infoGroup.placeToSleepCards.push(newCardReturn);
 
 
@@ -266,9 +266,9 @@ var DatepickerDemoCtrl = function($scope) {
     $scope.today = function() {
         $scope.dt = new Date();
     };
-    
 
-    
+
+
 
     $scope.toggleMin = function() {
         $scope.minDate = $scope.minDate ? null : new Date();
