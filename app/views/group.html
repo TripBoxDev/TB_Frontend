@@ -1,75 +1,77 @@
-<!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">TripBox</a>
+<div class="cl_content">
+
+    <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">TripBox</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <form class="navbar-form navbar-left">
+                        <button class="btn btn-primary" ng-click="openInviteModal()">Invita a tus amigos</button>
+                    </form>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a>Salir de la cuenta</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container-fluid -->
+    </nav>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <form class="navbar-form navbar-left">
-                    <button class="btn btn-primary" ng-click="openInviteModal()">Invita a tus amigos</button>
-                </form>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a>Salir de la cuenta</a>
-                        </li>
-
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-
-<script type="text/ng-template" id="myModalContent.html">
-< div class = "modal-header" > < button type = "button"
-class = "close"
-ng - click = "cancel()" > & times; < /button>
+    <script type="text/ng-template" id="myModalContent.html">
+    < div class = "modal-header" > < button type = "button"
+    class = "close"
+    ng - click = "cancel()" > & times; < /button>
                 <h4 class="modal-title" id="myModalLabel">Introduce los correos</h4 > < /div>
             <div class="modal-body">
                 <div>
                     <form ng-submit="formu.$valid && submit()" role="form" name="formu">
                         <div class="input-group">
                             <span class="input-group-addon">@</span > < input class = "form-control"
-placeholder = "Mail"
-type = "email"
-id = "email"
-name = "email"
-ng - model = "newUser"
-required autofocus = "true" >
+    placeholder = "Mail"
+    type = "email"
+    id = "email"
+    name = "email"
+    ng - model = "newUser"
+    required autofocus = "true" >
 
-< span class = "input-group-btn"
-ng - show = "formu.email.$valid" >
+    < span class = "input-group-btn"
+    ng - show = "formu.email.$valid" >
 
-< button type = "submit"
-class = "btn btn-default"
-type = "button" > Add < /button>
+    < button type = "submit"
+    class = "btn btn-default"
+    type = "button" > Add < /button>
                             </span > < /div>
 
                     </form > < br > < br > < ul class = "list-group" > < li class = "list-group-item"
-ng - repeat = "user in users"
-ng - model = "newUsers" > {
-    {
-        user
-    }
-} < a ng - click = "removeUser($index)"
-class = "pull-right" > < span class = "glyphicon glyphicon-remove" > < /span>
+    ng - repeat = "user in users"
+    ng - model = "newUsers" > {
+        {
+            user
+        }
+    } < a ng - click = "removeUser($index)"
+    class = "pull-right" > < span class = "glyphicon glyphicon-remove" > < /span>
                             </a > < /li>
 
                     </ul > < /div>
@@ -77,125 +79,129 @@ class = "pull-right" > < span class = "glyphicon glyphicon-remove" > < /span>
                 <br>
 
             </div > < div class = "modal-footer" > < button type = "button"
-class = "btn btn-default"
-ng - click = "cancel()" > Cerrar < /button>
+    class = "btn btn-default"
+    ng - click = "cancel()" > Cerrar < /button>
                 <button type="button" class="btn btn-primary" ng-click="sendInvitations()">Enviar</button > < /form>
             </div > < /div>
-</script>
+    </script>
 
-<!--MENÚ DE DESTINOS-->
-<div id="left-menu">
-    <ul class="nav nav-pills nav-stacked" style="max-width: 210px;">
-        <li class="active" ng-repeat="destino in infoGroup.destinations">
-            <a href="#">
-                <span class="glyphicon glyphicon-plane"></span>
-                <span class="badge pull-right">%</span>
-                {{destino}}
-            </a>
-        </li>
-    </ul>
-    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearDestino">
-        <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span>
-    </button>
-</div>
+    <!--MENÚ DE DESTINOS-->
+    <div id="left-menu">
+        <ul class="nav nav-pills nav-stacked" style="max-width: 210px;">
+            <li class="active" ng-repeat="destino in infoGroup.destinations">
+                <a href="#">
+                    <span class="glyphicon glyphicon-plane"></span>
+                    <span class="badge pull-right">%</span>
+                    {{destino}}
+                </a>
+            </li>
+            <li class="active">
+                <a>
+                    <center>
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearDestino">
+                            <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span>
+                        </button>
+                    </center>
+                </a>
+            </li>
+        </ul>
+    </div>
 
-<!--MODAL ADD DESTINATION-->
-<div class="modal fade" id="CrearDestino" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+    <!--MODAL ADD DESTINATION-->
+    <div class="modal fade" id="CrearDestino" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                <h4 class="modal-title" id="myModalLabel">Añadir un nuevo destino</h4>
+                    <h4 class="modal-title" id="myModalLabel">Añadir un nuevo destino</h4>
 
+                </div>
+                <form name="formAddDestination" novalidate ng-submit="addDestination()">
+                    <div class="modal-body">
+                        <div class="input-group">
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-plane"></span>
+                            </span>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="destino" required>
+
+                            </fieldset>
+
+                        </div>
+
+                        <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
+                            <small class="error" ng-show="formAddDestination.destino.$error.required">
+                                El destino necesita un nombre.
+                            </small>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDestination(destino)" ng-disabled="formAddDestination.$invalid">Crear</button>
+                    </div>
+                </form>
             </div>
-            <form name="formAddDestination" novalidate ng-submit="addDestination()">
-                <div class="modal-body">
-                    <div class="input-group">
-
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-plane"></span>
-                        </span>
-                        <fieldset>
-                            <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="destino" required>
-
-                        </fieldset>
-
-                    </div>
-
-                    <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
-                        <small class="error" ng-show="formAddDestination.destino.$error.required">
-                            El destino necesita un nombre.
-                        </small>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDestination(destino)" ng-disabled="formAddDestination.$invalid">Crear</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
-<!--Cards-->
-<div class="row">
-
-    <div class="col-md-2">
-        <div ng-repeat="card in infoGroup.placeToSleepCards">
-            <div class="thumbnail">
-                <div id="cardinfo">
-                    <div id="userCreator">
-                        Nombre Apellido {{card.nameCreator}} {{card.lastNameCreator}}
-                    </div>
-                    <div id="line">
-                        <img src="images/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                    </div>
-                    <div id="typeCard">
-                        <div id="type" ng-show="card.type != []">
-                            Tipo:</br>
-                            {{card.cardType}}</br>
+    <!--Cards-->
+    <div class="row">
+        <div class="col-md-2">
+            <div ng-repeat="card in infoGroup.placeToSleepCards">
+                <div class="thumbnail">
+                    <div id="cardinfo">
+                        <div id="userCreator">
+                            {{card.nameCreator}} {{card.lastNameCreator}}
                         </div>
-                        <div id="name" ng-show="card.name != []">
-                            Nombre:</br>
-                            {{card.name}}</br>
+                        <div id="line">
+                            <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
                         </div>
-                        <div id="description" ng-show="card.description != []">
-                            Descripción:</br>
-                            {{card.description}}</br>
-                        </div>
-                        <div id="price" ng-show="card.price != []">
-                            Precio:</br>
-                            {{card.price}}</br>
-                        </div>
-                        <div id="link" ng-show="card.link != []">
-                            Link:</br>
-                            <a href="{{card.link}}">Clic aqui</a>
-                            </br>
-                        </div>
-                    </div>
-                    <div id="Votation">
-                        <img src="images/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                        <center>
-                            <div id="noVotation">
-                                <p>
-                                    <a class="glyphicon glyphicon-star-empty"></a>
-                                    <a class="glyphicon glyphicon-star-empty"></a>
-                                    <a class="glyphicon glyphicon-star-empty"></a>
-                                    <a class="glyphicon glyphicon-star-empty"></a>
-                                    <a class="glyphicon glyphicon-star-empty"></a>
-                                </p>
+                        <div id="typeCard">
+                            <div id="type">
+                                Tipo:</br>
+                                {{card.cardType}}</br>
                             </div>
-                        </center>
+                            <div id="name">
+                                Nombre:</br>
+                                {{card.name}}</br>
+                            </div>
+                            <div id="description">
+                                Descripción:</br>
+                                {{card.description}}</br>
+                            </div>
+                            <div id="price">
+                                Precio:</br>
+                                {{card.price}}</br>
+                            </div>
+                            <div id="link">
+                                Link:</br>
+                                <a href="{{card.link}}">Clic aqui</a>
+                                </br>
+                            </div>
+                        </div>
+                        <div id="Votation">
+                            <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                            <center>
+                                <div id="noVotation">
+                                    <p>
+                                        <a class="glyphicon glyphicon-star-empty"></a>
+                                        <a class="glyphicon glyphicon-star-empty"></a>
+                                        <a class="glyphicon glyphicon-star-empty"></a>
+                                        <a class="glyphicon glyphicon-star-empty"></a>
+                                        <a class="glyphicon glyphicon-star-empty"></a>
+                                    </p>
+                                </div>
+                            </center>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Div del ng-repeat!
-        </div> -->
         </div>
 
         <!-- Nueva Card -->
@@ -235,17 +241,17 @@ ng - click = "cancel()" > Cerrar < /button>
 
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                    <h4 class="modal-title" id="myModalLabel">Añadir una nueva card</h4>
+                    <h4 class="modal-title" id="myModalLabel">Añadir una nueva card</h4></br>
 
                     <ul class="nav nav-pills">
                         <li class="active">
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardTransport">Transporte</button>
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardTransport">Transporte</button>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardPlaceToSleep">Alojamiento</button>
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardPlaceToSleep">Alojamiento</button>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardOther">Otros</button>
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardOther">Otros</button>
                         </li>
                     </ul>
 
@@ -254,8 +260,6 @@ ng - click = "cancel()" > Cerrar < /button>
             </div>
         </div>
     </div>
-
-
 
 
     <!--MODAL ADD CARD OTHER-->
@@ -632,3 +636,4 @@ ng - click = "cancel()" > Cerrar < /button>
             </div>
         </div>
     </div>
+</div>

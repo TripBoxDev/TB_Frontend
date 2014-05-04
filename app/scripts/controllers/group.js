@@ -27,7 +27,6 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         console.log("error al recibir información del grupo");
     });
 
-
     <!--Añadir nuevo destino-->
 
     $scope.addDestination = function(destino) {
@@ -74,11 +73,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     $scope.addCardOther = function(submittedCard) {
 
-
-
-
         //Nueva Card 
-
         var newCard = {
             cardType: "other",
             name: submittedCard.name,
@@ -90,12 +85,9 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             nameCreator: $scope.infoUser.name,
             lastNameCreator: $scope.infoUser.lastName,
             eventDate: submittedCard.dt.getTime()
-
-
         }
 
-
-        //Llamada PUT a la API para insertar el nuevo grupo
+        //Llamada PUT a la API para insertar la card de tipo other
         $http.put(endpoint + 'group/' + $scope.groupId + '/otherCard', newCard)
             .success(function(data, status) {
 
@@ -112,37 +104,25 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                     nameCreator: data.nameCreator,
                     lastNameCreator: data.lastNameCreator,
                     eventDate: data.eventDate
-
-
                 }
-
 
                 console.log("Card de tipus Other Card creada");
                 $scope.infoGroup.otherCards.push(newCardReturn);
-
-
             })
-
-        .error(function(data, status) {
-            console.log("Error al insertar OtherCard!");
-        });
-
+            .error(function(data, status) {
+                console.log("Error al insertar OtherCard!");
+            });
     };
 
+    //Tipos de transporte 
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
-    $scope.placeTypes = ['Apartamento','Cámping','Couchsurfing','Hotel','Modo Aventura','Refugio','Otro'];
-    $scope.placeType = $scope.placeTypes[0];
 
-    // Añadir nueva Card Transporte
+    <!--Añadir nueva Card Transporte-->
 
     $scope.addCardTransport = function(submittedCard) {
 
-
-
-
         //Nueva Card 
-
         var newCard = {
             cardType: "transport",
             name: submittedCard.name,
@@ -156,12 +136,9 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             initDate: submittedCard.dtInit.getTime(),
             finalDate: submittedCard.dtFinal.getTime(),
             transportType: submittedCard.transportType
-
-
         }
 
-
-        //Llamada PUT a la API para insertar la nueva Card
+        //Llamada PUT a la API para insertar la card de tipo transporte
         $http.put(endpoint + 'group/' + $scope.groupId + '/transportCard', newCard)
             .success(function(data, status) {
 
@@ -180,15 +157,10 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                     initDate: data.initDate,
                     finalDate: data.finalDate,
                     transportType: data.transportType
-
-
                 }
-
 
                 console.log("Card de tipus Transport Card creada");
                 $scope.infoGroup.transportCards.push(newCardReturn);
-
-
             })
 
         .error(function(data, status) {
@@ -197,13 +169,15 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     };
 
+    //Tipos de alojamiento
+    $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
+    $scope.placeType = $scope.placeTypes[0];
+
+    <!--Añadir nueva Card Alojamiento-->
+
     $scope.addCardPlaceToSleep = function(submittedCard) {
 
-
-
-
         //Nueva Card 
-
         var newCard = {
             cardType: "placeToSleep",
             name: submittedCard.name,
@@ -217,12 +191,9 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             initDate: submittedCard.dtInit.getTime(),
             finalDate: submittedCard.dtFinal.getTime(),
             placeType: submittedCard.type
-
-
         }
 
-
-        //Llamada PUT a la API para insertar el nuevo grupo
+        //Llamada PUT a la API para insertar la card de tipo alojamiento
         $http.put(endpoint + 'group/' + $scope.groupId + '/placeToSleepCard', newCard)
             .success(function(data, status) {
 
@@ -241,23 +212,15 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                     initDate: data.initDate,
                     finalDate: data.finalDate,
                     placeType: data.placeType
-
-
                 }
-
 
                 console.log("Card de tipus placeToSleep Card creada");
                 $scope.infoGroup.placeToSleepCards.push(newCardReturn);
-
-
             })
-
-        .error(function(data, status) {
-            console.log("Error al insertar placeToSleepCard!");
-        });
-
+            .error(function(data, status) {
+                console.log("Error al insertar placeToSleepCard!");
+            });
     };
-
 
 });
 
@@ -266,9 +229,6 @@ var DatepickerDemoCtrl = function($scope) {
     $scope.today = function() {
         $scope.dt = new Date();
     };
-
-
-
 
     $scope.toggleMin = function() {
         $scope.minDate = $scope.minDate ? null : new Date();
@@ -321,7 +281,6 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 
         $scope.users.splice(index, 1);
     }
-
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
