@@ -138,6 +138,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -248,13 +249,19 @@
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-picture"></span>
                             </span>
-                                <h1>Upload File with RESTFul WebService</h1>
-                                <form action="rest/fileupload" method="post" enctype="multipart/form-data">
+
+                                <!--METODO 1: Pagina del tutorial -->
+                                <!--<h1>Upload File with RESTFul WebService</h1>
+                                zrUN09crbNSE
+                                <form action="http://tripbox.uab.cat/TB_Backend2/api/group/zrUN09crbNSE/image" method="post" enctype="multipart/form-data">
                                     <p>
                                     Choose a file : <input type="file" name="file" />
                                     </p>
                                     <input type="submit" value="Upload" />
-    </form>
+                                </form> -->
+
+                                <!--METODO 2: Stackoverflow -->
+                                <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
 
                         </div>
                     </div>
@@ -354,7 +361,7 @@
                         <span class="glyphicon glyphicon-picture"></span>
                     </span>
                         
-                    <input type="text" class="form-control" placeholder="Nueva imagen">
+                    
                     
                 </div>
 
