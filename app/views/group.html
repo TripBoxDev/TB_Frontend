@@ -433,17 +433,15 @@
 
                         </br>
                         <div class="input-group">
-
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-plane"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="newCard.destination" required>
-
+                                <select class="form-control" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                    <option></option>
+                                </select>
                             </fieldset>
-
                         </div>
-
                         <div class="error" ng-show="formAddCardTransport.destino.$dirty && formAddCardTransport.destino.$invalid">
                             <small class="error" ng-show="formAddCardTransport.destino.$error.required">
                                 La card necesita un destino.
@@ -566,15 +564,14 @@
 
                         </br>
                         <div class="input-group">
-
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-plane"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="newCard.destination" required>
-
+                                <select class="form-control" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                    <option></option>
+                                </select>
                             </fieldset>
-
                         </div>
 
                         <div class="error" ng-show="formAddCardPlace.destino.$dirty && formAddCardPlace.destino.$invalid">
