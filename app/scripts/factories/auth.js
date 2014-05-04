@@ -8,8 +8,9 @@ app.factory('authService', function($rootScope, $log) {
 
         },
         setIsLogging : function(isLogging) {
-        	
             $log.info('Logging status: ' + isLogging);
+                        debugger;
+
             this.isLogging = isLogging;
 
         	$rootScope.isLogging = isLogging;
