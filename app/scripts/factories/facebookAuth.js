@@ -1,23 +1,54 @@
+/**
+ * Nombre:          facebookAuthService
+ * Descripcion:     Este Service se encarga de controlar la sesión con Facebook.
+ *                  Incluye los métodos para escuchar los cambios en el estado de FB,
+ *                  obtener información del usuario, etc.
+ */
+
 'use strict';
 
 var FacebookData = {};
 FacebookData.channel = 'https://mysite.com/channel.html';
 FacebookData.fbAppId = '1567668726791128';
-FacebookData.autoFbLogin = true;
+FacebookData.autoFbLogin = false;
 
-app.factory('facebookAuthService', function(ApiService, authService) {
+app.factory('facebookAuthService', function(ApiService, authService, $log) {
     var authManagement = {
         /**
          * Sends the query to log in to Facebook
          */
         login: function() {
+            $log.info('Haciendo login en FB');
+            authService.setIsLogging(true);
+
             FB.login(function(response) {
+            $log.info('Facebook login response status: ' + response.status);
+
                 if (response.status === 'connected') {
-                    var uid = response.authResponse.userID;
+                    /* 
+                     The user is already logged, 
+                     is possible retrieve his personal info
+                    */
+                    _self.getUserInfo();
+
+                    /*
+                     This is also the point where you should create a 
+                     session for the current user.
+                     For this purpose you can use the data inside the 
+                     response.authResponse object.
+                    */
+
+                } else {
+
+                    ApiService.logoutUser();
+
+                    /*
+                     The user is not logged to the app, or into Facebook:
+                     destroy the session on the server.
+                    */
+
                 }
-                console.log('logueando');
-                console.timeStamp();
-                authService.data.isLogging = true;
+
             }, {
                 scope: 'email'
             });
@@ -30,9 +61,7 @@ app.factory('facebookAuthService', function(ApiService, authService) {
             var _self = this;
 
             FB.api('/me', function(response) {
-                console.log('logueando');
-                console.timeStamp();
-                authService.data.isLogging = true;
+
                 // Prepares object to be sent to API
                 var apiData = {
                     //facebookId: response.id,
@@ -54,10 +83,11 @@ app.factory('facebookAuthService', function(ApiService, authService) {
          */
         watchAuthStatusChange: function() {
 
+
             var _self = this;
-
+            $log.info('Suscribe a cambios en estado del Facebook');
             FB.Event.subscribe('auth.authResponseChange', function(response) {
-
+                $log.info('Facebook status change detected: ' + response.status);
                 if (response.status === 'connected') {
                     /* 
                      The user is already logged, 
@@ -85,6 +115,19 @@ app.factory('facebookAuthService', function(ApiService, authService) {
 
             });
 
+        },
+        getLoginStatus: function() {
+            var _self = this;
+            FB.getLoginStatus(function(response) {
+                $log.info('Facebook login status: ' + response.status);
+                if (response.status === 'unknown') {
+                    ApiService.logoutUser();
+                    _self.watchAuthStatusChange();
+                } else if(response.status === 'connected') {
+                    _self.getUserInfo();
+                }
+
+            });
         },
         logout: function() {
             var _self = this;

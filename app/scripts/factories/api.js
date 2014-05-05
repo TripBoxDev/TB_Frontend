@@ -1,4 +1,4 @@
-app.factory('ApiService', function($http, $location, authService, ErrorHandler) {
+app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log) {
     return {
         endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
         loginUser: function(data) {
@@ -29,8 +29,13 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler) 
 
         },
         logoutUser: function() {
+            $log.info('API logout user');
             authService.data.isLogged = false;
+
             $location.path('/');
+
+            authService.setIsLogging(false);
+
 
 
         },
