@@ -1,5 +1,4 @@
 app.run(function($rootScope, facebookAuthService, $location, authService, $log) {
-    authService.setIsLogging(true);
 
 
     $log.info('Carga sprite spinner plugin');
@@ -61,18 +60,19 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
     }(document));
 
     window.fbAsyncInit = function() {
+        authService.setIsLogging(true);
+
         $log.info('Carga SDK Facebook, autoFbLogin: ' + FacebookData.autoFbLogin);
         FB.init({
             appId: FacebookData.fbAppId, // App ID
             //channelUrl: FacebookData.channel, // Channel File
-            status: true, // check login status
+            status: false, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true // parse XFBML
         });
 
-        debugger;
 
-        //facebookAuthService.watchAuthStatusChange();
+        facebookAuthService.watchAuthStatusChange();
         facebookAuthService.getLoginStatus();
 
 

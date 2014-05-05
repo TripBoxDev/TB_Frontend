@@ -8,6 +8,14 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     background-image: url(../images/bg.png);
 }
 
+/*
+    ng-cloack oculta las vistas antes de ser compiladas (tratadas por un controlador).
+    El objetivo es ocultar el parpadeo 
+*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
 .logo {
     max-width: 100%;
 }
@@ -38,13 +46,13 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 }
 /*
 #veil {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height:100%;
-	width:100%;
-	cursor: not-allowed;
-	filter: alpha(opacity=60);
-	opacity: 0.6;
-	background: #000000 url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:100%;
+    width:100%;
+    cursor: not-allowed;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    background: #000000 url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat center;
 }*/
