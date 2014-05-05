@@ -1,3 +1,22 @@
+app.directive('file', function(){
+    return {
+        scope: {
+            file: '='
+        },
+        link: function(scope, el, attrs){
+            el.bind('change', function(event){
+                var files = event.target.files;
+                var file = files[0];
+                scope.file = file ? file.name : undefined;
+                scope.$apply();
+            });
+        }
+    };
+});
+function MainController($scope){
+    $scope.param = {};
+}
+
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
@@ -50,7 +69,10 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     $scope.infoUser = newUser; //authService.data.userInfo;
 
     $scope.uploadFile = function(files) {
-        $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/dXSK6mGvgTdI/image", files[0], {headers: {"Content-Type":"image/jpeg"}});
+
+        console.log(files);
+
+        //$http.put("http://tripbox.uab.cat/TB_Backend2/api/group/dXSK6mGvgTdI/image", files[0], {headers: {"Content-Type":"image/jpeg"}});
     };
 
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
@@ -161,7 +183,11 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         $scope.groups.splice(index, 1);
     };
 
-    $scope.addGroup = function(submittedGroup) {
+    $scope.addGroup = function(submittedGroup, img) {
+
+        console.log(img);
+
+        /*
 
         //Usuario que crea el grupo
         var userId = user;
@@ -209,10 +235,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             .error(function(data, status) {
                 console.log("Error al insertar grupo!");
             });
-        
-
-
-
+        */
     };
 
 });
