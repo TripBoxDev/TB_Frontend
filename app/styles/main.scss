@@ -85,7 +85,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 .click a:link {
     display:inline;
     text-decoration: none;
-    color:#FFFFFF;
+    color:#ffffff;
     left: 0;
     text-align:center;
     height: 2em;
@@ -93,18 +93,33 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 }
 /*enlace con raton encima.*/
 .click a:visited {
-    text-decoration:none;
+    display:inline;
+    text-decoration: none;
     color:#ffffff;
+    left: 0;
+    text-align:center;
+    height: 2em;
+    width: 100%;
 }
 /*enlace cuando se hace clic en el.*/
 .click a:hover {
-    text-decoration:none;
+    display:inline;
+    text-decoration: none;
     color:#ffffff;
+    left: 0;
+    text-align:center;
+    height: 2em;
+    width: 100%;
 }
 /*Mause sobre el link*/
 .click a:active {
-    text-decoration:none;
+    display:inline;
+    text-decoration: none;
     color:#ffffff;
+    left: 0;
+    text-align:center;
+    height: 2em;
+    width: 100%;
 }
 .info1{
     position: relative;
