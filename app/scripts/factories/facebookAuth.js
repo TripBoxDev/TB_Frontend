@@ -1,3 +1,10 @@
+/**
+ * Nombre:          facebookAuthService
+ * Descripcion:     Este Service se encarga de controlar la sesión con Facebook.
+ *                  Incluye los métodos para escuchar los cambios en el estado de FB,
+ *                  obtener información del usuario, etc.
+ */
+
 'use strict';
 
 var FacebookData = {};
