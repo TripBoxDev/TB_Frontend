@@ -173,6 +173,17 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         $scope.groups.splice(index, 1);
     };
 
+    //Limpia el formulario de añadir grupo
+    $scope.cleanFormAddGroup = function(){
+
+        $scope.formAddGroup.$setPristine();
+        var defaultForm = {
+            name : "",
+            description : ""
+        };
+        $scope.newGroup = defaultForm;
+    }
+
     $scope.addGroup = function(submittedGroup) {
 
         //Usuario que crea el grupo
@@ -208,12 +219,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                         $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}});
 
                         //Limpia el formulario
-                        $scope.formAddGroup.$setPristine();
-                        var defaultForm = {
-                            name : "",
-                            description : ""
-                        };
-                        $scope.newGroup = defaultForm;
+                        $scope.cleanFormAddGroup();
 
                         $scope.groups.push(newGroupWithId);
                     }).
