@@ -51,12 +51,14 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
     $scope.uploadFile = function(files) {
         //METODO 1: Pasa la imagen directamente
-        $http.post("http://tripbox.uab.cat/TB_Backend2/api/group/zrUN09crbNSE/image", files[0]);
+        $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/dXSK6mGvgTdI/image", files[0], {headers: {"Content-Type":"image/jpeg"}});
+
+        console.log(files);
 
         //METODO 2: Pasa encabezado
-        var fd = new FormData();
+        //var fd = new FormData();
         //Take the first selected file
-        fd.append("file", files[0]);
+        //fd.append("file", files[0]);
         
         //http://tripbox.uab.es/TB_Backend2/api/group/zrUN09crbNSE
         /*$http.post("http://tripbox.uab.cat/TB_Backend2/api/group/zrUN09crbNSE/image", fd, {
