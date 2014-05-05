@@ -10,8 +10,9 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
                     authService.data.userInfo = data;
 
-                    // Redirect to groups
-                    $location.path('/groups');
+                    $log.info(authService.data.redirectUrl);
+                    $location.path(authService.data.redirectUrl);
+
                     authService.setIsLogging(false);
 
 
@@ -40,6 +41,10 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
         },
 
+        addUserToGroup : function(groupId) {
+            $log.info('Añade usuario a grupo ' + groupId);
+            // TODO Hacer llamada a la API para añadir el usuario actual al grupo correspondiente
+        },
         addGroup: function(groupName, groupDescription) {
 
             //Usuario que crea el grupo

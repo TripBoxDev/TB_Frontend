@@ -4,17 +4,24 @@ app.factory('authService', function($rootScope, $log) {
         	/* Flag to check if we are during a login process */
         	isLogging: false,
             isLogged: false,
-        	userInfo: {}
+        	userInfo: {},
+            /* Contiene la url a la que se redireccionará despues de hacer login */
+            redirectUrl: '/groups'
 
         },
         setIsLogging : function(isLogging) {
             $log.info('Logging status: ' + isLogging);
-                        debugger;
-
-            this.isLogging = isLogging;
+            this.data.isLogging = isLogging;
 
         	$rootScope.isLogging = isLogging;
+        },
+
+        setRedirectUrl : function(redirectUrl) {
+            this.data.redirectUrl = redirectUrl;
+            $log.info('RedirectUrl is now: ' + this.data.redirectUrl);
         }
+
+
 
 
     };

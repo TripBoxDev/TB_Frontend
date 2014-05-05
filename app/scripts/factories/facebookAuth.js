@@ -17,7 +17,7 @@ app.factory('facebookAuthService', function(ApiService, authService, $log) {
         /**
          * Sends the query to log in to Facebook
          */
-        login: function() {
+        login: function(callback) {
             $log.info('Haciendo login en FB');
             authService.setIsLogging(true);
 
@@ -29,8 +29,8 @@ app.factory('facebookAuthService', function(ApiService, authService, $log) {
                      The user is already logged, 
                      is possible retrieve his personal info
                     */
-                    _self.getUserInfo();
 
+                    callback();
                     /*
                      This is also the point where you should create a 
                      session for the current user.

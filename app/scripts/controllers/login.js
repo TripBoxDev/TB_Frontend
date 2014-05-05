@@ -6,7 +6,7 @@ app.controller('LoginCtrl', function($rootScope, $scope, $routeParams, facebookA
 
         $scope.loginFacebook = function() {
         	$scope.loading = true;
-            facebookAuthService.login();
+            facebookAuthService.login(facebookAuthService.getUserInfo);
         };
 
         $scope.logout = function() {

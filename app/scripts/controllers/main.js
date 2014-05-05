@@ -89,7 +89,9 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
                 return true;
 
             } else if (currentRoute.access.isFree) {
-                return false
+                return false;
+            } else if (!currentRoute.access.isFree) {
+                return true;
             }
 
         }
@@ -97,6 +99,7 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
         // Conditions to see a restricted view
         if (isRestrictedView(currentRoute) && !authService.data.isLogged) {
             if (currentRoute.templateUrl !== 'views/main.html') {
+                authService.setRedirectUrl($location.path());
                 $location.path('/');
                 console.log('Should be logged in, redirecting to /');
             }
