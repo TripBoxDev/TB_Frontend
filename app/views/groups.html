@@ -249,23 +249,17 @@
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-picture"></span>
                             </span>
-
-                                <input type="file" name="file" ng-model="imagen" onchange="angular.element(this).scope().uploadFile(this.files)" />
-
-                                <div
-    data-ng-app="angularjstutorial.blogspot.com/2012/12/angularjs-input-file-directive.html"
-    data-ng-controller="MainController">
-    <input type="file" data-file="param.file"/>
-    <div>param.file: {{param.file}}</div>            
-</div>
-
+                                <div>
+                                    <input type="file" data-file="param.file"/>
+                                    <div>param.file: {{param.file}}</div>            
+                                </div>
                         </div>
                     </div>
                     <div class="modal-footer">
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(newGroup, imagen)" ng-disabled="formAddGroup.$invalid">Crear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(newGroup)" ng-disabled="formAddGroup.$invalid">Crear</button>
                     </div>
                 </form>
             </div>

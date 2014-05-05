@@ -1,3 +1,4 @@
+//Directivas para el correcto funcionamiento de subidas de ficheros con angularJS
 app.directive('file', function(){
     return {
         scope: {
@@ -6,16 +7,12 @@ app.directive('file', function(){
         link: function(scope, el, attrs){
             el.bind('change', function(event){
                 var files = event.target.files;
-                var file = files[0];
-                scope.file = file ? file.name : undefined;
+                scope.file = files[0];
                 scope.$apply();
             });
         }
     };
 });
-function MainController($scope){
-    $scope.param = {};
-}
 
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
@@ -70,9 +67,9 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
     $scope.uploadFile = function(files) {
 
-        console.log(files);
+        console.log(files[0]);
 
-        //$http.put("http://tripbox.uab.cat/TB_Backend2/api/group/dXSK6mGvgTdI/image", files[0], {headers: {"Content-Type":"image/jpeg"}});
+        
     };
 
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
@@ -183,9 +180,13 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         $scope.groups.splice(index, 1);
     };
 
-    $scope.addGroup = function(submittedGroup, img) {
+    $scope.addGroup = function(submittedGroup) {
 
-        console.log(img);
+        //La imagen se saca de scope.param.file
+        var imagen = $scope.param.file;
+
+        //Se sube la imagen al servidor
+        $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/dXSK6mGvgTdI/image", imagen, {headers: {"Content-Type":"image/jpeg"}});
 
         /*
 
