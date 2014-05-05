@@ -65,13 +65,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     //console.log(authService.data);
     $scope.infoUser = newUser; //authService.data.userInfo;
 
-    $scope.uploadFile = function(files) {
-
-        console.log(files[0]);
-
-        
-    };
-
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
 
         var editGroupModalInstance = $modal.open({
@@ -182,14 +175,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
     $scope.addGroup = function(submittedGroup) {
 
-        //La imagen se saca de scope.param.file
-        var imagen = $scope.param.file;
-
-        //Se sube la imagen al servidor
-        $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/dXSK6mGvgTdI/image", imagen, {headers: {"Content-Type":"image/jpeg"}});
-
-        /*
-
         //Usuario que crea el grupo
         var userId = user;
 
@@ -199,24 +184,28 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             description: submittedGroup.description
         };
 
-
         //Llamada PUT a la API para insertar el nuevo grupo
         $http.put(endpoint + 'group', newGroup)
-            .success(function(data, status) {
+            .success(function(createdGroup, status) {
 
                 var newGroupWithId = {
-                    id: data.id,
-                    name: data.name,
-                    description: data.description
+                    id: createdGroup.id,
+                    name: createdGroup.name,
+                    description: createdGroup.description
                 }
 
-
-                console.log("Id del grupo creado: " + data.id);
+                console.log("Id del grupo creado: " + createdGroup.id);
 
                 //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
-                $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
+                $http.put(endpoint + 'user/' + userId + '/group/' + createdGroup.id)
                     .success(function(data, status) {
                         console.log("Grupo creado correctamente!");
+
+                        //La imagen se saca de scope.param.file
+                        var imagen = $scope.param.file;
+
+                        //Se sube la imagen al servidor
+                        $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}});
 
                         //Limpia el formulario
                         $scope.formAddGroup.$setPristine();
@@ -236,7 +225,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             .error(function(data, status) {
                 console.log("Error al insertar grupo!");
             });
-        */
     };
 
 });
