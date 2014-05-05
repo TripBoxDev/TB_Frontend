@@ -50,23 +50,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     $scope.infoUser = newUser; //authService.data.userInfo;
 
     $scope.uploadFile = function(files) {
-        //METODO 1: Pasa la imagen directamente
         $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/dXSK6mGvgTdI/image", files[0], {headers: {"Content-Type":"image/jpeg"}});
-
-        console.log(files);
-
-        //METODO 2: Pasa encabezado
-        //var fd = new FormData();
-        //Take the first selected file
-        //fd.append("file", files[0]);
-        
-        //http://tripbox.uab.es/TB_Backend2/api/group/zrUN09crbNSE
-        /*$http.post("http://tripbox.uab.cat/TB_Backend2/api/group/zrUN09crbNSE/image", fd, {
-            withCredentials: true,
-            headers: {'Content-Type': undefined },
-            transformRequest: angular.identity
-        });*/
-
     };
 
     $scope.editGroup = function(idGroup, groupName, groupDescription) {

@@ -55,7 +55,7 @@
 
                             <div>
                                 <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="images/groups/default.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                    <img src="http://tripbox.uab.cat/groupImgs/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
                                 </a>
                             </div>
 
@@ -250,17 +250,6 @@
                                 <span class="glyphicon glyphicon-picture"></span>
                             </span>
 
-                                <!--METODO 1: Pagina del tutorial -->
-                                <!--<h1>Upload File with RESTFul WebService</h1>
-                                zrUN09crbNSE
-                                <form action="http://tripbox.uab.cat/TB_Backend2/api/group/zrUN09crbNSE/image" method="post" enctype="multipart/form-data">
-                                    <p>
-                                    Choose a file : <input type="file" name="file" />
-                                    </p>
-                                    <input type="submit" value="Upload" />
-                                </form> -->
-
-                                <!--METODO 2: Stackoverflow -->
                                 <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
 
                         </div>
