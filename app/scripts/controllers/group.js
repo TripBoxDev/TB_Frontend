@@ -1,7 +1,8 @@
-app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal) {
+app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, ApiService) {
     $scope.groupId = $routeParams.groupId;
     $scope.infoUser = authService.data.userInfo;
 
+    $scope.logoutUser = ApiService.logoutUser;
     $scope.openInviteModal = function() {
 
         var invitationModalInstance = $modal.open({
