@@ -234,14 +234,9 @@
                                 <span class="glyphicon glyphicon-comment"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Descripción del grupo (obligatorio)" name="descripcion" ng-model="newGroup.description" required>
+                                <input type="text" class="form-control" placeholder="Descripción del grupo" name="descripcion" ng-model="newGroup.description">
                             </fieldset>
 
-                        </div>
-                        <div class="error" ng-show="formAddGroup.descripcion.$dirty && formAddGroup.descripcion.$invalid">
-                            <small class="error" ng-show="formAddGroup.descripcion.$error.required">
-                                Por favor, haz una descripción breve del grupo.
-                            </small>
                         </div>
                         </br>
                         <div class="input-group">
@@ -333,16 +328,10 @@
                     </span>
                                
                     <fieldset> 
-                        <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" name="descripcion" required>
+                        <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" name="descripcion">
                     </fieldset>
                     
                 </div>
-                <div class="error" ng-show="formModGroup.descripcion.$dirty && formModGroup.descripcion.$invalid">
-                    <small class="error" ng-show="formModGroup.descripcion.$error.required">
-                        Por favor, haz una descripción breve del grupo.
-                    </small>
-                </div>
-
                 </br>
 
                 <div class="input-group">
@@ -351,7 +340,10 @@
                         <span class="glyphicon glyphicon-picture"></span>
                     </span>
                         
-                    
+                    <div>
+                        <input type="file" data-file="param.file"/>
+                        <small>Sólo son validos ficheros JPEG</small>
+                    </div>
                     
                 </div>
 
