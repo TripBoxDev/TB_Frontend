@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">TripBox</a>
+                <a class="navbar-brand" href="#">TripBox</a> 
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -133,6 +133,11 @@
                                 El destino necesita un nombre.
                             </small>
                         </div>
+                        <div class="error" ng-show="formAddDestination.destino == infoGroup.destiantions">
+                            <small class="error" ng-show="formAddDestination.destino.$error.required">
+                                El destino necesita un nombre.
+                            </small>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -143,6 +148,13 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <div ng-show="alertDestinationRepeat">
+        <div class="alert alert-danger">
+            <span>El destino que usted intenta añadir, ya se encuentra en la lista de destinos.</span>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeAlert()">Aceptar</button>
         </div>
     </div>
 
@@ -278,7 +290,6 @@
                             </span>
                             <fieldset>
                                 <input type="text" class="form-control" placeholder="Nombre" name="nombre" ng-model="newCard.name" required>
-
                             </fieldset>
 
                         </div>
@@ -328,9 +339,13 @@
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-plane"></span>
                             </span>
-                            <fieldset>
-                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="newCard.destination" required>
 
+                            <fieldset>
+                                <fieldset>
+                                <select class="form-control" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                    <option value="" disabled selected>Selecciona el destino</option>
+                                    <option></option>
+                                </select>
                             </fieldset>
 
                         </div>
@@ -438,6 +453,7 @@
                             </span>
                             <fieldset>
                                 <select class="form-control" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                    <option value="" disabled selected>Selecciona el destino</option>
                                     <option></option>
                                 </select>
                             </fieldset>
@@ -450,10 +466,11 @@
                         </br>
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-home"></span>
+                                <span class="glyphicon glyphicon-road"></span>
                             </span>
                             <fieldset>
                                 <select class="form-control" ng-model="newCard.transportType" ng-options="f for f in transportTypes">
+                                    <option value="" disabled selected>Selecciona el método de transporte</option>
                                     <option></option>
                                 </select>
                             </fieldset>
@@ -569,6 +586,7 @@
                             </span>
                             <fieldset>
                                 <select class="form-control" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                    <option value="" disabled selected>Selecciona el destino</option>
                                     <option></option>
                                 </select>
                             </fieldset>
@@ -586,6 +604,7 @@
                             </span>
                             <fieldset>
                                 <select class="form-control" ng-model="newCard.placeType" ng-options="f for f in placeTypes">
+                                    <option value="" disabled selected>Selecciona el tipo de alojamiento</option>
                                     <option></option>
                                 </select>
                             </fieldset>

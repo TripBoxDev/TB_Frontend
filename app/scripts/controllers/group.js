@@ -8,7 +8,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     $scope.openInviteModal = function() {
 
         var invitationModalInstance = $modal.open({
-            templateUrl: 'myModalContent.html',
+            templateUrl: 'myModalContent.html', 
             controller: 'InvitationModalInstanceCtrl'
         });
 
@@ -18,7 +18,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     //$scope.infoGroup = {"id":"","name":"","description":"","users":[],"userId":"","destinations":[],"transportCards":[],"placeToSleepCards":[],"otherCards":[]};
     $scope.infoGroup = {};
-
+    
     $http.get(endpoint + 'group/' + $scope.groupId)
         .success(function(data, status) {
             $scope.infoGroup = data;
@@ -33,21 +33,32 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     $scope.addDestination = function(destino) {
 
-        $http.put(endpoint + 'group/' + $scope.groupId + '/destination', destino, {
-            headers: {
-                'Content-Type': 'text/plain'
-            }
-        })
-            .success(function(data, status) {
-                console.log("destino insertado");
-                $scope.infoGroup.destinations.push(destino);
+        $scope.alertDestinationRepeat = false;
 
-            }).
-        error(function(data, status) {
-            console.log("error al insertar destino");
-        });
+        if ($scope.infoGroup.destinations.indexOf(destino) == -1) {
+        
+            $http.put(endpoint + 'group/' + $scope.groupId + '/destination', destino, {
+                headers: {
+                    'Content-Type': 'text/plain'
+                }
+            })
+                .success(function(data, status) {
+                    console.log("destino insertado");
+                    $scope.infoGroup.destinations.push(destino);
+
+                }).
+            error(function(data, status) {
+                console.log("error al insertar destino");
+            });
+        }else {
+            $scope.alertDestinationRepeat = true;
+        }
 
     }
+
+    $scope.closeAlert = function() {
+        $scope.alertDestinationRepeat = false;
+    };
 
     /*
     <!--Añadir place to sleep de forma manual-->
