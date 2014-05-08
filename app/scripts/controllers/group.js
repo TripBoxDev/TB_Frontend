@@ -55,7 +55,12 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         }
 
     }
+    function myFunction()
+    {   
+        
+        document.getElementById("demo").innerHTML="Hello World";
 
+    }
     $scope.closeAlert = function() {
         $scope.alertDestinationRepeat = false;
     };

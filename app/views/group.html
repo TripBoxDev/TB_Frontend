@@ -103,53 +103,7 @@
         </ul>
     </div>
 
-    <!--MODAL ADD DESTINATION-->
-    <div class="modal fade" id="CrearDestino" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                    <h4 class="modal-title" id="myModalLabel">Añadir un nuevo destino</h4>
-
-                </div>
-                <form name="formAddDestination" novalidate ng-submit="addDestination()">
-                    <div class="modal-body">
-                        <div class="input-group">
-
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-plane"></span>
-                            </span>
-                            <fieldset>
-                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="destino" required>
-
-                            </fieldset>
-
-                        </div>
-
-                        <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
-                            <small class="error" ng-show="formAddDestination.destino.$error.required">
-                                El destino necesita un nombre.
-                            </small>
-                        </div>
-                        <div class="error" ng-show="formAddDestination.destino == infoGroup.destiantions">
-                            <small class="error" ng-show="formAddDestination.destino.$error.required">
-                                El destino necesita un nombre.
-                            </small>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDestination(destino)" ng-disabled="formAddDestination.$invalid">Crear</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    
 
     <div ng-show="alertDestinationRepeat">
         <div class="alert alert-danger">
@@ -253,13 +207,13 @@
 
                     <ul class="nav nav-pills">
                         <li class="active">
-                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardTransport">Transporte</button>
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardTransport" data-dismiss="modal">Transporte</button>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardPlaceToSleep">Alojamiento</button>
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardPlaceToSleep" data-dismiss="modal">Alojamiento</button>
                         </li>
                         <li>
-                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardOther">Otros</button>
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CrearCardOther" data-dismiss="modal">Otros</button>
                         </li>
                     </ul>
 
@@ -342,11 +296,21 @@
 
                             <fieldset>
                                 <fieldset>
-                                <select class="form-control" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+
                                     <option value="" disabled selected>Selecciona el destino</option>
-                                    <option></option>
+                                    
                                 </select>
+                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#CrearDestino">
+                                    <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span> Nuevo Destino
+
+                                </button>
+                                
+                               
+
+                                
                             </fieldset>
+                            
 
                         </div>
 
@@ -452,10 +416,15 @@
                                 <span class="glyphicon glyphicon-plane"></span>
                             </span>
                             <fieldset>
-                                <select class="form-control" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
                                     <option value="" disabled selected>Selecciona el destino</option>
                                     <option></option>
                                 </select>
+                                </select>
+                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#CrearDestino">
+                                    <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span> Nuevo Destino
+
+                                </button>
                             </fieldset>
                         </div>
                         <div class="error" ng-show="formAddCardTransport.destino.$dirty && formAddCardTransport.destino.$invalid">
@@ -585,10 +554,15 @@
                                 <span class="glyphicon glyphicon-plane"></span>
                             </span>
                             <fieldset>
-                                <select class="form-control" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
                                     <option value="" disabled selected>Selecciona el destino</option>
                                     <option></option>
                                 </select>
+                                </select>
+                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#CrearDestino">
+                                    <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span> Nuevo Destino
+
+                                </button>
                             </fieldset>
                         </div>
 
@@ -649,3 +623,50 @@
         </div>
     </div>
 </div>
+<!--MODAL ADD DESTINATION-->
+    <div class="modal fade" id="CrearDestino" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title" id="myModalLabel">Añadir un nuevo destino</h4>
+
+                </div>
+                <form name="formAddDestination" novalidate ng-submit="addDestination()">
+                    <div class="modal-body">
+                        <div class="input-group">
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-plane"></span>
+                            </span>
+                            <fieldset>
+                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="destino" required>
+
+                            </fieldset>
+
+                        </div>
+
+                        <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
+                            <small class="error" ng-show="formAddDestination.destino.$error.required">
+                                El destino necesita un nombre.
+                            </small>
+                        </div>
+                        <div class="error" ng-show="formAddDestination.destino == infoGroup.destiantions">
+                            <small class="error" ng-show="formAddDestination.destino.$error.required">
+                                El destino necesita un nombre.
+                            </small>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDestination(destino)" ng-disabled="formAddDestination.$invalid">Crear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
