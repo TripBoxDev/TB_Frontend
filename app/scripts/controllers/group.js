@@ -55,12 +55,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         }
 
     }
-    function myFunction()
-    {   
-        
-        document.getElementById("demo").innerHTML="Hello World";
-
-    }
+    
     $scope.closeAlert = function() {
         $scope.alertDestinationRepeat = false;
     };
@@ -85,7 +80,35 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     });
     */
 
+    <!-- Borrar destino -->
+ /*   
+$scope.deleteDestination= function(destino) {
 
+            console.log(destino);
+        
+            $http.delete(endpoint + 'group/' + $scope.groupId+ '/destination' ,destino, {
+                headers: {
+                    'Content-Type': 'text/plain'
+                }
+            })
+                .success(function(data, status) {
+                    for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
+                        //Uno cuya id sea igual al borrado...
+                        if ($scope.infoGroup.destinations[i] == destino) {
+                            //Y lo elimina de la lista
+                            $scope.infoGroup.destinations.splice(i, 1);
+                        }
+                    }
+
+                    console.log("destino borrado");
+                    
+                });
+        
+
+    }*/
+                
+
+     
 
     <!--Añadir nueva Card Other-->
 

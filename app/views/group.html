@@ -85,7 +85,11 @@
     <div id="left-menu">
         <ul class="nav nav-pills nav-stacked" style="max-width: 210px;">
             <li class="active" ng-repeat="destino in infoGroup.destinations">
+
                 <a href="#">
+                    <button type="button" class="btn btn-primary btn-xs" ng-click="deleteDestination(destino)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
                     <span class="glyphicon glyphicon-plane"></span>
                     <span class="badge pull-right">%</span>
                     {{destino}}
