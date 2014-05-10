@@ -91,7 +91,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 5px;
+    height: 8px;
     width: 100%;
 }
 .position-tripbox{
@@ -121,14 +121,19 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         height: auto;
     }
 }
-.click {
+.click{
+    position: absolute;
     text-align:center;
+    bottom: 2em;
+    left: 0;
+    height: 5px;
+    width: 100%;
 }
 /*enlace ya visitado.*/
  .click a:link {
     display:inline;
     text-decoration: none;
-    color:#ffffff;
+    color:#013ADF;
     left: 0;
     text-align:center;
     height: -2em;
@@ -137,35 +142,58 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 /*enlace con raton encima.*/
  .click a:visited {
     text-decoration:none;
-    color:#ffffff;
+    color:#013ADF;
 }
 /*enlace cuando se hace clic en el.*/
  .click a:hover {
     text-decoration:none;
-    color:#ffffff;
+    color:#013ADF;
 }
 /*Mause sobre el link*/
  .click a:active {
     text-decoration:none;
-    color:#ffffff;
+    color:#013ADF;
 }
-.info1 {
-    position: relative;
-    width: 45%;
-    margin-left: 10%;
-    margin-top: 5em;
+@media (min-width: 800px) {
+    .info1 {
+        position: relative;
+        width: 45%;
+        margin-left: 10%;
+        margin-top: 5em;
+    }
+    .info2 {
+        position: relative;
+        width: 45%;
+        margin-left: 45%;
+        margin-top: 5em;
+    }
+    .info3 {
+        position: relative;
+        width: 45%;
+        margin-left: 10%;
+        margin-top: 5em;
+    }
 }
-.info2 {
-    position: relative;
-    width: 45%;
-    margin-left: 45%;
-    margin-top: 5em;
-}
-.info3 {
-    position: relative;
-    width: 45%;
-    margin-left: 10%;
-    margin-top: 5em;
+@media (max-width: 800px) {
+    .info1 {
+        position: relative;
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 5em;
+    }
+    .info2 {
+        position: relative;
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 20em;
+    }
+    .info3 {
+        position: relative;
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 20em;
+        margin-bottom: 20em;
+    }
 }
 .title {
     font-size: 175%;
