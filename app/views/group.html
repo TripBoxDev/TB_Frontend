@@ -88,8 +88,8 @@
 
                 <a href="#">
                     <button type="button" class="btn btn-primary btn-xs" ng-click="deleteDestination(destino)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
                     <span class="glyphicon glyphicon-plane"></span>
                     <span class="badge pull-right">%</span>
                     {{destino}}
@@ -153,17 +153,7 @@
                         </div>
                         <div id="Votation">
                             <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                            <center>
-                                <div id="noVotation">
-                                    <p>
-                                        <a class="glyphicon glyphicon-star-empty"></a>
-                                        <a class="glyphicon glyphicon-star-empty"></a>
-                                        <a class="glyphicon glyphicon-star-empty"></a>
-                                        <a class="glyphicon glyphicon-star-empty"></a>
-                                        <a class="glyphicon glyphicon-star-empty"></a>
-                                    </p>
-                                </div>
-                            </center>
+                            <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                         </div>
                     </div>
                 </div>
@@ -305,7 +295,7 @@
                                     <option value="" disabled selected>Selecciona el destino</option>
                                     
                                 </select>
-                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#CrearDestino">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#CrearDestino">
                                     <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span> Nuevo Destino
 
                                 </button>
@@ -328,7 +318,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <p class="input-group">
-                                        <input type="text" placeholder="Fecha" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                        <input type="text" placeholder="Fecha" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
                                             </button>
@@ -343,7 +333,7 @@
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardOther(newCard)" ng-disabled="formAddCardOther.$invalid">Crear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardOther(newCard)" ng-disabled="formAddCardOther.destino.$invalid">Crear</button>
                     </div>
                 </form>
             </div>
@@ -425,7 +415,7 @@
                                     <option></option>
                                 </select>
                                 </select>
-                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#CrearDestino">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#CrearDestino">
                                     <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span> Nuevo Destino
 
                                 </button>
@@ -481,7 +471,7 @@
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardTransport(newCard)" ng-disabled="formAddCardTransport.$invalid">Crear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardTransport(newCard)" ng-disabled="formAddCardTransport.destino.$invalid">Crear</button>
                     </div>
                 </form>
             </div>
@@ -563,7 +553,7 @@
                                     <option></option>
                                 </select>
                                 </select>
-                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#CrearDestino">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#CrearDestino">
                                     <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span> Nuevo Destino
 
                                 </button>
@@ -620,13 +610,14 @@
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.destino.$invalid">Crear</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 <!--MODAL ADD DESTINATION-->
     <div class="modal fade" id="CrearDestino" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -646,7 +637,7 @@
                                 <span class="glyphicon glyphicon-plane"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-model="destino" required>
+                                <input type="text" class="form-control" placeholder="Destino" name="destino" ng-pattern="/^([a-zA-Z ])+$/" ng-model="destino" required>
 
                             </fieldset>
 

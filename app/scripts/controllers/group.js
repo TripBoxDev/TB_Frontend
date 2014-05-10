@@ -8,7 +8,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     $scope.openInviteModal = function() {
 
         var invitationModalInstance = $modal.open({
-            templateUrl: 'myModalContent.html', 
+            templateUrl: 'myModalContent.html',
             controller: 'InvitationModalInstanceCtrl'
         });
 
@@ -16,9 +16,8 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     <!--Leer información del grupo-->
 
-    //$scope.infoGroup = {"id":"","name":"","description":"","users":[],"userId":"","destinations":[],"transportCards":[],"placeToSleepCards":[],"otherCards":[]};
     $scope.infoGroup = {};
-    
+
     $http.get(endpoint + 'group/' + $scope.groupId)
         .success(function(data, status) {
             $scope.infoGroup = data;
@@ -36,7 +35,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         $scope.alertDestinationRepeat = false;
 
         if ($scope.infoGroup.destinations.indexOf(destino) == -1) {
-        
+
             $http.put(endpoint + 'group/' + $scope.groupId + '/destination', destino, {
                 headers: {
                     'Content-Type': 'text/plain'
@@ -50,12 +49,12 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             error(function(data, status) {
                 console.log("error al insertar destino");
             });
-        }else {
+        } else {
             $scope.alertDestinationRepeat = true;
         }
 
-    }
-    
+    };
+
     $scope.closeAlert = function() {
         $scope.alertDestinationRepeat = false;
     };
@@ -80,35 +79,32 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     });
     */
 
+    /*
     <!-- Borrar destino -->
- /*   
-$scope.deleteDestination= function(destino) {
 
-            console.log(destino);
-        
-            $http.delete(endpoint + 'group/' + $scope.groupId+ '/destination' ,destino, {
-                headers: {
-                    'Content-Type': 'text/plain'
+    $scope.deleteDestination = function(destino) {
+
+        $http.delete(endpoint + 'group/' + $scope.groupId + '/destination/', destino, {
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+        })
+            .success(function(data, status) {
+                console.log(data);
+                for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
+                    //Uno cuya id sea igual al borrado...
+                    if ($scope.infoGroup.destinations[i] == destino) {
+                        //Y lo elimina de la lista
+                        $scope.infoGroup.destinations.splice(i, 1);
+                    }
                 }
             })
-                .success(function(data, status) {
-                    for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
-                        //Uno cuya id sea igual al borrado...
-                        if ($scope.infoGroup.destinations[i] == destino) {
-                            //Y lo elimina de la lista
-                            $scope.infoGroup.destinations.splice(i, 1);
-                        }
-                    }
+            .error(function(data, status) {
+                console.log(data);
+            });
+    };
+    */
 
-                    console.log("destino borrado");
-                    
-                });
-        
-
-    }*/
-                
-
-     
 
     <!--Añadir nueva Card Other-->
 
@@ -266,31 +262,35 @@ $scope.deleteDestination= function(destino) {
 });
 
 <!-- Controlador calendario -->
-var DatepickerDemoCtrl = function($scope) {
-    $scope.today = function() {
-        $scope.dt = new Date();
-    };
+var DatepickerDemoCtrl = function ($scope) {
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
+  $scope.today();
 
-    $scope.toggleMin = function() {
-        $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
 
-    $scope.open = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
+  $scope.toggleMin = function() {
+    $scope.minDate = $scope.minDate ? null : new Date();
+  };
+  $scope.toggleMin();
 
-        $scope.opened = true;
-    };
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
 
-    $scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1
-    };
+    $scope.opened = true;
+  };
 
-    $scope.initDate = new Date('2016-15-20');
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  $scope.initDate = new Date('2013-05-05');
+  $scope.format = ['dd-MMMM-yyyy'];
 };
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {
