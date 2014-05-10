@@ -95,7 +95,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                                         })
                                     });
                             }
-                        });
+                        }
+                    );
 
                 });
 
