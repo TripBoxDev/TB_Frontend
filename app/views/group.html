@@ -128,30 +128,29 @@
                         <div id="line">
                             <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
                         </div>
-                        <div id="typeCard">
-                            <div id="type">
-                                Tipo:</br>
-                                {{card.cardType}}</br>
-                            </div>
-                            <div id="name">
-                                Nombre:</br>
+                        <div id="typeCard" align = "center">
+                            
+                            <div id="name" >
+                                
                                 {{card.name}}</br>
                             </div>
-                            <div id="description">
-                                Descripción:</br>
-                                {{card.description}}</br>
-                            </div>
+                           
+                           
                             <div id="price">
-                                Precio:</br>
-                                {{card.price}}</br>
+                               
+                                {{card.price}}€</br>
                             </div>
                             <div id="link">
-                                Link:</br>
-                                <a href="{{card.link}}">Clic aqui</a>
+                                <p popover="Descripcion:  {{card.description}}
+                                Precio:    {{card.price}}€  
+                                Destino:     {{card.destination}}   
+                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}   
+                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
+                                <a href="{{card.link}}">Link de la card</a>
                                 </br>
                             </div>
                         </div>
-                        <div id="Votation">
+                        <div id="Votation" align = "center">
                             <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
                             
                                 <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="hoveringLeave(card.cardId,rate)"></rating>
