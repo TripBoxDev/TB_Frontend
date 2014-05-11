@@ -3,7 +3,7 @@
 
 	<div class="cardsRow" id="transportCardsRow">
 		<ul>
-			<li ng-repeat="card in group.transportCards">
+			<li ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}">
 				<div class="fakeCard">
 					{{card.name}}
 				</div>
@@ -12,7 +12,7 @@
 	</div>
 	<div class="cardsRow" id="placeToCardsRow">
 		<ul>
-			<li ng-repeat="card in group.placeToSleepCards ">
+			<li ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}">
 				<div class="fakeCard">
 					{{card.name}}
 				</div>
@@ -21,7 +21,7 @@
 	</div>
 	<div class="cardsRow" id="otherCardsRow">
 		<ul>
-			<li ng-repeat="card in group.otherCards "> <!-- 	| filter:{destination: destinationChoosed} -->
+			<li ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed} "> 
 				<div class="fakeCard">
 					{{card.name}}
 				</div>
