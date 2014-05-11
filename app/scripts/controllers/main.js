@@ -79,7 +79,7 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
     };
 
 
-    $rootScope.$on('$routeChangeSuccess', function(scope, currentRoute, prevRoute) {
+    $rootScope.$on('$routeChangeStart', function(scope, currentRoute, prevRoute) {
 
 
         function isRestrictedView(currentRoute) {
