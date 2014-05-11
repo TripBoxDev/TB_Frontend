@@ -1,9 +1,11 @@
 app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log) {
+    
+    var endpoint = 'http://tripbox.uab.cat/TB_Backend/api/';
     return {
-        endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
+        
         loginUser: function(data) {
             console.log(data);
-            $http.put(this.endpoint + '/user', data)
+            $http.put(endpoint + 'user', data)
                 .success(function(data, status, headers, config) {
 
                     authService.data.isLogged = true;
@@ -37,6 +39,10 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
             authService.setIsLogging(false);
 
 
+
+        }, getGroup: function(groupId){
+             return $http.get(endpoint + 'group/' + groupId);
+           
 
         },
 

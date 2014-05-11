@@ -1,0 +1,31 @@
+<div class="destContent">
+	Destination: {{destinationChoosed}}
+
+	<div class="cardsRow" id="transportCardsRow">
+		<ul>
+			<li ng-repeat="card in group.transportCards">
+				<div class="fakeCard">
+					{{card.name}}
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="cardsRow" id="placeToCardsRow">
+		<ul>
+			<li ng-repeat="card in group.placeToSleepCards ">
+				<div class="fakeCard">
+					{{card.name}}
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="cardsRow" id="otherCardsRow">
+		<ul>
+			<li ng-repeat="card in group.otherCards "> <!-- 	| filter:{destination: destinationChoosed} -->
+				<div class="fakeCard">
+					{{card.name}}
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

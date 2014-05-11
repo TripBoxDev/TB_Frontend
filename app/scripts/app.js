@@ -24,6 +24,10 @@ angular.module('angulApp', [
                 templateUrl: 'views/group.html',
                 controller: 'GroupCtrl'
             })
+            .when('/groups/:groupId/:destination', {
+                templateUrl: 'views/destination.html',
+                controller: 'DestinationCtrl'
+            })
             .when('/error', {
                 templateUrl: 'views/error.html',
                 access: {
