@@ -2,15 +2,15 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
     return {
         endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
         loginUser: function(data) {
+            
             console.log(data);
             $http.put(this.endpoint + '/user', data)
                 .success(function(data, status, headers, config) {
-
+                    debugger;
                     authService.data.isLogged = true;
 
                     authService.data.userInfo = data;
 
-                    $log.info(authService.data.redirectUrl);
                     $location.path(authService.data.redirectUrl);
 
                     authService.setIsLogging(false);
@@ -41,8 +41,18 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
         },
 
-        addUserToGroup : function(groupId) {
+        addUserToGroup : function(groupId, callback) {
             $log.info('Añade usuario a grupo ' + groupId);
+            $http.put(this.endpoint + '/user/' + authService.data.userInfo.id + '/group/' + groupId)
+            /*.success(function(data, status, headers, config) {
+                debugger;
+                $log.info('Añadido usuario al grupo exitosamente');
+                //callback();
+            })*/
+            .success(callback)
+            .error(function(data, status, headers, config) {
+                ErrorHandler.redirectError();
+            });
             // TODO Hacer llamada a la API para añadir el usuario actual al grupo correspondiente
         },
         addGroup: function(groupName, groupDescription) {
@@ -106,7 +116,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
         unFollowGroup: function(idGroup) {
 
             //Esto está para comprobar que se borra y tal
-            console.log(idGroup);
+            console.log('Unfollow group: ' + idGroup);
 
             //El id del usuario
             var userId = "UDmoa62fS4sN";
@@ -143,7 +153,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
         },
         sendInvitations: function(mailsArray, groupId, callback) {
             var data = {
-                "invitationUrl" : "http://tripbox.uab.cat/" + groupId,
+                "invitationUrl" : "http://tripbox.uab.cat/#/groups/" + groupId + "/invitation/true",
                 "emails" : mailsArray
             };
             $http.put(this.endpoint + '/email/invitation', data)

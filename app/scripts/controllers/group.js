@@ -17,7 +17,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     };
 });
 
-app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {
+app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams) {
     $scope.users = [];
     $scope.addInvite = function() {
         $scope.users.push($scope.newUser);
@@ -27,7 +27,7 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 
     $scope.sendInvitations = function() {
         console.log($scope.users);
-        ApiService.sendInvitations($scope.users, 21);
+        ApiService.sendInvitations($scope.users, $routeParams.groupId);
         $modalInstance.close();
 
     }
