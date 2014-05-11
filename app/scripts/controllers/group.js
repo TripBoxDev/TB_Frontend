@@ -136,13 +136,14 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     };
     */
 
-
+ 
     <!--Añadir nueva Card Other-->
 
     $scope.addCardOther = function(submittedCard) {
 
         //Nueva Card 
         var newCard = {
+
             cardType: "other",
             name: submittedCard.name,
             description: submittedCard.description,
@@ -244,9 +245,10 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     <!--Añadir nueva Card Alojamiento-->
 
     $scope.addCardPlaceToSleep = function(submittedCard) {
-
+        console.log(submittedCard.parentCardId);
         //Nueva Card 
         var newCard = {
+            parentCardIds: [submittedCard.parentCardId],
             cardType: "placeToSleep",
             name: submittedCard.name,
             description: submittedCard.description,
@@ -266,6 +268,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             .success(function(data, status) {
 
                 var newCardReturn = {
+                    parentCardIds: data.parentCardIds,
                     cardId: data.cardId,
                     creationDate: data.creationDate,
                     cardType: data.cardType,
@@ -283,6 +286,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                 }
 
                 console.log("Card de tipus placeToSleep Card creada");
+                console.log(newCardReturn.parentCardIds);
                 $scope.infoGroup.placeToSleepCards.push(newCardReturn);
             })
             .error(function(data, status) {
