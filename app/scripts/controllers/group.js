@@ -28,6 +28,37 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         console.log("error al recibir información del grupo");
     });
 
+
+    <!--Voting-->
+
+    $scope.max = 5;
+    $scope.isReadonly = false;
+
+    $scope.hoveringOver = function(value) {
+        $scope.overStar = value;
+    };
+
+    $scope.hoveringLeave = function(cardId, rate) {
+
+        console.log("rate: ", rate);
+        console.log("cardId: ", cardId);
+
+        var newVote = {
+            "userId": $scope.infoUser.id,
+            "value": rate
+        }
+
+        $http.put(endpoint + 'group/' + $scope.groupId + '/card/' + cardId + '/vote', newVote)
+            .success(function(data, status) {
+                console.log("votación realizada");
+                //Devuelve la card con la puntuación (habría que mostrar la card con las estrellas sombreadas)
+            }).
+        error(function(data, status) {
+            console.log("error al insertar votación");
+        });
+    };
+
+
     <!--Añadir nuevo destino-->
 
     $scope.addDestination = function(destino) {
@@ -262,36 +293,38 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 });
 
 <!-- Controlador calendario -->
-var DatepickerDemoCtrl = function ($scope) {
-  $scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
 
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
+var DatepickerDemoCtrl = function($scope) {
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    $scope.today();
 
-  $scope.toggleMin = function() {
-    $scope.minDate = $scope.minDate ? null : new Date();
-  };
-  $scope.toggleMin();
+    $scope.clear = function() {
+        $scope.dt = null;
+    };
 
-  $scope.open = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
+    $scope.toggleMin = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
 
-    $scope.opened = true;
-  };
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
 
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
+        $scope.opened = true;
+    };
 
-  $scope.initDate = new Date('2013-05-05');
-  $scope.format = ['dd-MMMM-yyyy'];
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+
+    $scope.initDate = new Date('2013-05-05');
+    $scope.format = ['dd-MMMM-yyyy'];
 };
+
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {
     $scope.users = [];

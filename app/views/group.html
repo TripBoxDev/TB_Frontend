@@ -153,7 +153,8 @@
                         </div>
                         <div id="Votation">
                             <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                            <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                            
+                                <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="hoveringLeave(card.cardId,rate)"></rating>
                         </div>
                     </div>
                 </div>
