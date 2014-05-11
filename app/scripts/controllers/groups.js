@@ -195,6 +195,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
     $scope.addGroup = function(submittedGroup) {
 
+        
         //Usuario que crea el grupo
         var userId = user;
 
@@ -221,11 +222,20 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                     .success(function(data, status) {
                         console.log("Grupo creado correctamente!");
 
-                        //La imagen se saca de scope.param.file
-                        var imagen = $scope.param.file;
+                        //Se comprueba si existe imagen
+                        var imagen = $scope.param;
 
-                        //Se sube la imagen al servidor
-                        $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}});
+                        //Si se ha tratado de subir una imagen
+                        if(imagen != undefined){
+                            //La imagen se saca de scope.param.file
+                            imagen = $scope.param.file;
+
+                            //Se sube la imagen al servidor
+                            $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}});
+
+                            //Se borra la referencia a la imagen para poder subir otras en el futuro
+                            $scope.param = undefined;
+                        }
 
                         //Limpia el formulario
                         $scope.cleanFormAddGroup();
