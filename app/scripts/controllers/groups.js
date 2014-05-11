@@ -115,7 +115,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                                         //Actualizamos la variable groups
                                         $scope.groups.push({
                                             id: data.id,
-                                            name: data.name
+                                            name: data.name,
+                                            description: data.description
                                         })
                                     });
                             }
@@ -184,13 +185,20 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
     //Limpia el formulario de añadir grupo
     $scope.cleanFormAddGroup = function(){
-
+        
+        //Limpia los datos internos del navegador del formulario
         $scope.formAddGroup.$setPristine();
+
+        //Limpia la parte visible del formulario
         var defaultForm = {
             name : "",
             description : ""
         };
         $scope.newGroup = defaultForm;
+
+        //NOTA: Como en defaultForm no se define nada para el
+        //campo de imagen, también se limpia. Es una forma fea
+        //de hacerlo pero eh, funciona.
     }
 
     $scope.addGroup = function(submittedGroup) {
