@@ -31,8 +31,7 @@ angular.module('angulApp', [
                 }
             })
             .when('/groups/:groupId/invitation/:invitation', {
-                                templateUrl: 'views/group.html',
-
+                templateUrl: 'views/group.html',
                 controller: 'ReceiveInvitationCtrl',
                 access: {
                     isFree: false
