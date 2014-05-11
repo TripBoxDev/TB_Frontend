@@ -16,7 +16,8 @@ app.directive('file', function(){
 
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
-    var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
+    var endpoint = 'http://tripbox.uab.es/TB_Backend2/api/';
+    var imageDirectory = "http://tripbox.uab.cat/groupImgs/";
 
     //para hacer uso de $resource debemos colocarlo al crear el modulo
 
@@ -49,11 +50,20 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                 $http.get(endpoint + 'group/' + data.groups[i])
                     .success(function(data, status) {
 
+                        //Determina si es imagen personalizada o no
+                        var ImagePath;
+                        if(data.image == true){
+                            ImagePath = imageDirectory + data.id;
+                        } else {
+                            ImagePath = imageDirectory + "default_img.png"
+                        }
+
                         //Actualizamos la variable groups
                         $scope.groups.push({
                             id: data.id,
                             name: data.name,
-                            description: data.description
+                            description: data.description,
+                            imagePath: ImagePath
                         })
                     });
             }
@@ -105,8 +115,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                                         //Actualizamos la variable groups
                                         $scope.groups.push({
                                             id: data.id,
-                                            name: data.name,
-                                            description: data.description
+                                            name: data.name
                                         })
                                     });
                             }
