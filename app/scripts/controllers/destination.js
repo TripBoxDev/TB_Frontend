@@ -2,14 +2,17 @@ app.controller("DestinationCtrl", function($scope,$routeParams,  authService, Ap
 
 $scope.group={};
 $scope.destinationChoosed= $routeParams.destination;
+$scope.selectedCard=true;
 
 var getGroup=function(){
 
 	return ApiService.getGroup($routeParams.groupId).success(function(response){
-console.log(response);
+
 		$scope.group=angular.copy(response);
 	});
 }
 
 getGroup();
+
+
 });
