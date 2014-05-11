@@ -1,4 +1,4 @@
-app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log) {
+app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log, $q) {
     return {
         endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
         loginUser: function(data) {
@@ -41,18 +41,24 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
         },
 
-        addUserToGroup : function(groupId, callback) {
+        addUserToGroup : function(groupId) {
+            
+            var deferred = $q.defer();
+
+
             $log.info('Añade usuario a grupo ' + groupId);
             $http.put(this.endpoint + '/user/' + authService.data.userInfo.id + '/group/' + groupId)
-            /*.success(function(data, status, headers, config) {
-                debugger;
+            .success(function(data, status, headers, config) {
                 $log.info('Añadido usuario al grupo exitosamente');
-                //callback();
-            })*/
-            .success(callback)
+                deferred.resolve(data);
+            })
             .error(function(data, status, headers, config) {
                 ErrorHandler.redirectError();
+                deferred.reject(data);
             });
+            
+            return deferred.promise;
+
             // TODO Hacer llamada a la API para añadir el usuario actual al grupo correspondiente
         },
         addGroup: function(groupName, groupDescription) {
