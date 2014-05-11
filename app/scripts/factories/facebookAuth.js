@@ -93,7 +93,8 @@ app.factory('facebookAuthService', function(ApiService, authService, $log) {
                      The user is already logged, 
                      is possible retrieve his personal info
                     */
-                    _self.getUserInfo();
+                    $log.info('Get user info inside watchAuthStatusChange');
+                    if(authService.data.userInfo === {}) _self.getUserInfo();
 
                     /*
                      This is also the point where you should create a 
@@ -124,6 +125,8 @@ app.factory('facebookAuthService', function(ApiService, authService, $log) {
                     ApiService.logoutUser();
                     _self.watchAuthStatusChange();
                 } else if(response.status === 'connected') {
+                    $log.info('Get user info inside getLoginStatus');
+
                     _self.getUserInfo();
                 }
 
