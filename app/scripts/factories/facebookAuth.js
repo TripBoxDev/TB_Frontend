@@ -59,8 +59,6 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
         login: function(callback) {
             var deferred = $q.defer();
             $log.info('Haciendo login en FB');
-            authService.setIsLogging(true);
-
             FB.login(function(response) {
                 $log.info('Facebook login response status: ' + response.status);
                 if (response.status === 'connected') {
