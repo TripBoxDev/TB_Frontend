@@ -61,6 +61,11 @@ angular.module('angulApp', [
                 }
             });
     });
+
+/**
+ * Serie de promises que controlan si el usuario tiene permisos para ver 
+ * la vista restringida. Este método se utiliza en los resolve de las routes
+ */
 var checkAccess = function(facebookAuthService, ApiService, authService, $location) {
     return facebookAuthService.loadSdk()
         .then(facebookAuthService.getLoginStatus, function() {
