@@ -3,7 +3,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     $scope.groupId = $routeParams.groupId;
     $scope.infoUser = authService.data.userInfo;
 
-    if($routeParams.invitation) {
+    if ($routeParams.invitation) {
         ApiService.addUserToGroup($scope.groupId);
     }
     $scope.logoutUser = ApiService.logoutUser;
@@ -50,5 +50,10 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
+    };
+    $scope.checkUsers = function() {
+        console.log()
+        return ($scope.users.length === 0) ? true : false;
+
     };
 });
