@@ -10,7 +10,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     $scope.openInviteModal = function() {
 
         var invitationModalInstance = $modal.open({
-            templateUrl: 'myModalContent.html',
+            templateUrl: '/views/modals/sendInvitations.html',
             controller: 'InvitationModalInstanceCtrl'
         });
 
