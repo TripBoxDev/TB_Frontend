@@ -44,15 +44,8 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         margin:100px auto;
     }
 }
-/*
-#veil {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height:100%;
-	width:100%;
-	cursor: not-allowed;
-	filter: alpha(opacity=60);
-	opacity: 0.6;
-	background: #000000 url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat center;
-}*/
+
+/* Muestra la navbar por encima del tutorial del uso de cards */
+.navbar {
+    z-index: 1;
+}
