@@ -178,9 +178,11 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
             name: submittedGroup.name,
             description: submittedGroup.description
         };
-        
+
+        //Hacemos la llamada de putGroup para añadir el grupo de api.js
         ApiService.putGroup(newGroup).success(function(data, status) {
 
+            //Crea el nuevo grupoy lso datos necesarios
             var newGroupWithId = {
                 id: data.id,
                 name: data.name,
@@ -192,9 +194,10 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                 userId: userId
             };
 
+            //Hacemos la llamada de putGroupUser para añadir el usuario a el grupo creado de api.js
             ApiService.putUserGroup(datos).success(function(data, status) {
 
-                //Limpia el formulario
+                //Limpiamos elformulario para dejarlo vacio
                 $scope.formAddGroup.$setPristine();
                 var defaultForm = {
                     name: "",
@@ -202,18 +205,21 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                 };
                 $scope.newGroup = defaultForm;
 
+                //Insertamos el grupo sin refresco en la pagina
                 $scope.groups.push(newGroupWithId);
 
             //Fin del parentesis del 2o success
             })
 
+            //Error al incluir un grupo
             .error(function(data, status) {
-                console.log("Error al hacer la llamada a /user/id/group/id!");
+                console.log("Error al unir al usuario en el grupo creado!");
             });
 
         //Fin del parentesis del 1er success
         })
-
+    
+        //Error al crear un grupo
         .error(function(data, status) {
             console.log("Error al insertar grupo!");
         });
@@ -224,7 +230,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
 
 
-    //Fin del parentesis app.controller y function
+//Fin del parentesis app.controller y function
 });
 
 
