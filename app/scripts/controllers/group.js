@@ -17,7 +17,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     };
 });
 
-app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams) {
+app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams, notificationFactory) {
     $scope.users = [];
 
 
@@ -33,6 +33,7 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
         $scope.isSending = true;
         ApiService.sendInvitations($scope.users, $routeParams.groupId)
             .success(function() {
+                notificationFactory.success('Se han invitado a tus amigos.');
                 $scope.isSending = false;
                 $modalInstance.close();
             });
