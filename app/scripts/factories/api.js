@@ -62,58 +62,25 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
             
         },
 
-        editGroup: function(id, groupName, groupDescription) {
-            for (var i = $scope.groups.length - 1; i >= 0; i--) {
-                if ($scope.groups[i].id == id) {
-                    $scope.groups[i].name = groupName;
-                    $scope.groups[i].description = groupDescription;
+        putEditGroup: function(edit) {
 
-                    //Función hacia la API
-                    /*
-                $http.put('http://tripbox.uab.cat/TB_Backend/api/group', {name:groupName, description:groupDescription})
-                */
-                }
-            }
+            //Llamada PUT a la API para modificar el grupo deseado
+            return $http.put(endpoint + 'group/', edit)
+
         },
 
-        unFollowGroup: function(idGroup) {
-
-            //Esto está para comprobar que se borra y tal
-            console.log(idGroup);
-
-            //El id del usuario
-            var userId = "UDmoa62fS4sN";
+        deleteGroupUser: function(datos) {
 
             //Se hace una petición de eliminación del usuario determinado al grupo pertinente
-            $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
-                .success(function(data, status) {
-
-                    //Si funciona:
-                    //Representa el borrado gráficamente
-
-                    //Busca en el conjunto de grupos...
-                    for (var i = $scope.groups.length - 1; i >= 0; i--) {
-                        //Uno cuya id sea igual al borrado...
-                        if ($scope.groups[i].id == idGroup) {
-                            //Y lo elimina de la lista
-                            $scope.groups.splice(i, 1);
-                        }
-                    }
-                });
+            return $http.delete(endpoint + 'group/' + datos.groupId + '/user/' + datos.userId);
+            
         },
 
-        saveGroup: function(data, id) {
-            //$scope.user not updated yet
-            angular.extend(data, {
-                id: id
-            });
 
 
-        },
 
-        removeGroup: function(index) {
-            $scope.groups.splice(index, 1);
-        },
+
+
         sendInvitations: function(mailsArray, groupId, callback) {
             var data = {
                 "invitationUrl" : "http://tripbox.uab.cat/" + groupId,
