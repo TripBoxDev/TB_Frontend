@@ -104,7 +104,7 @@ debugger;
                 debugger;
                 // Prepares object to be sent to API
                 var apiData = {
-                    //facebookId: response.id,
+                    facebookId: response.id,
                     name: response.first_name,
                     lastName: response.last_name,
                     email: response.email
