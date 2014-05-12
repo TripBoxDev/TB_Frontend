@@ -102,17 +102,16 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                                         })
                                     });
                             }
-                        }
-                    );
+                        });
 
                 });
 
         });
 
     };
-    
 
-    
+
+
     $scope.unFollowGroup = function(idGroup, groupName) {
 
         var unFollowGroupModalInstance = $modal.open({
@@ -153,7 +152,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
         });
 
     };
-    
+
 
     $scope.checkName = function(data) {
         if (data !== '') {
@@ -161,14 +160,14 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
         }
     };
 
-    
+
     // remove user
     $scope.removeGroup = function(index) {
         $scope.groups.splice(index, 1);
     };
-    
 
-    
+
+
     $scope.addGroup = function(submittedGroup) {
 
         //Usuario que crea el grupo
@@ -179,51 +178,53 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
             name: submittedGroup.name,
             description: submittedGroup.description
         };
-
-
-        //Llamada PUT a la API para insertar el nuevo grupo
-        $http.put(endpoint + 'group', newGroup)
-            .success(function(data, status) {
-
-                var newGroupWithId = {
-                    id: data.id,
-                    name: data.name,
-                    description: data.description
-                }
-
-
-                console.log("Id del grupo creado: " + data.id);
-
-                //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
-                $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
-                    .success(function(data, status) {
-                        console.log("Grupo creado correctamente!");
-
-                        //Limpia el formulario
-                        $scope.formAddGroup.$setPristine();
-                        var defaultForm = {
-                            name : "",
-                            description : ""
-                        };
-                        $scope.newGroup = defaultForm;
-
-                        $scope.groups.push(newGroupWithId);
-                    }).
-                error(function(data, status) {
-                    console.log("Error al hacer la llamada a /user/id/group/id!");
-                });
-
-            })
-            .error(function(data, status) {
-                console.log("Error al insertar grupo!");
-            });
         
+        ApiService.putGroup(newGroup).success(function(data, status) {
 
+            var newGroupWithId = {
+                id: data.id,
+                name: data.name,
+                description: data.description
+            };
 
+            var datos = {
+                groupId: newGroupWithId.id,
+                userId: userId
+            };
 
+            ApiService.putUserGroup(datos).success(function(data, status) {
+
+                //Limpia el formulario
+                $scope.formAddGroup.$setPristine();
+                var defaultForm = {
+                    name: "",
+                    description: ""
+                };
+                $scope.newGroup = defaultForm;
+
+                $scope.groups.push(newGroupWithId);
+
+            //Fin del parentesis del 2o success
+            })
+
+            .error(function(data, status) {
+                console.log("Error al hacer la llamada a /user/id/group/id!");
+            });
+
+        //Fin del parentesis del 1er success
+        })
+
+        .error(function(data, status) {
+            console.log("Error al insertar grupo!");
+        });
+
+    //Fin del parentesis addGroup
     };
-    
 
+
+
+
+    //Fin del parentesis app.controller y function
 });
 
 
