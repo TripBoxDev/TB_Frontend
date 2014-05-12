@@ -33,7 +33,7 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="cancel()">Cerrar</button>
-    <button type="button" class="btn btn-primary" ng-click="sendInvitations()" ng-disabled="checkUsers()">Enviar</button>
+    <button type="button" btn-loading="{{ isSending }}" data-loading-text="Enviando" class="btn btn-primary" ng-click="sendInvitations()" ng-disabled="checkUsers()">Enviar</button>
     </form>
 </div>
 </div>

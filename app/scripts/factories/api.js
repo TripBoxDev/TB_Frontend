@@ -133,13 +133,8 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
                 "invitationUrl": "http://tripbox.uab.cat/#/groups/" + groupId + "/invitation/true",
                 "emails": mailsArray
             };
-            $http.put(this.endpoint + '/email/invitation', data)
-                .success(function() {
-                    console.log('Successful!');
-                })
-                .error(function() {
-                    console.error('Fail absoluto');
-                })
+            return $http.put(this.endpoint + '/email/invitation', data);
+                
         }
     }
 })
