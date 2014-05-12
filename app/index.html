@@ -32,10 +32,10 @@
 
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-show="!isLogging" ng-view="">
+    <div class="container" ng-show="!loadingView" ng-view="">
     </div>
 
-    <div id="veil" ng-show="isLogging">
+    <div id="veil" ng-show="loadingView">
        <div class="spinner-wrap">
     <div class="sprite-spinner">
       <img src="images/spiffygif_30x30.png" alt="Loading"/>
