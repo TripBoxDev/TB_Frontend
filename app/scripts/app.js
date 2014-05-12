@@ -8,6 +8,7 @@ angular.module('angulApp', [
     'ui.bootstrap'
 ])
     .config(function($routeProvider) {
+
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
@@ -15,12 +16,16 @@ angular.module('angulApp', [
                 access: {
                     isFree: true
                 }
+
             })
             .when('/groups', {
                 templateUrl: 'views/groups.html',
                 controller: 'GroupsCtrl',
                 access: {
                     isFree: false
+                },
+                resolve: {
+                    checkAccess: checkAccess
                 }
             })
             .when('/groups/:groupId', {
@@ -28,6 +33,9 @@ angular.module('angulApp', [
                 controller: 'GroupCtrl',
                 access: {
                     isFree: false
+                },
+                resolve: {
+                    checkAccess: checkAccess
                 }
             })
             .when('/groups/:groupId/invitation/:invitation', {
@@ -35,6 +43,9 @@ angular.module('angulApp', [
                 controller: 'ReceiveInvitationCtrl',
                 access: {
                     isFree: false
+                },
+                resolve: {
+                    checkAccess: checkAccess
                 }
             })
             .when('/error', {
@@ -50,5 +61,25 @@ angular.module('angulApp', [
                 }
             });
     });
+var checkAccess = function(facebookAuthService, ApiService, authService, $location) {
+    return facebookAuthService.loadSdk()
+        .then(facebookAuthService.getLoginStatus, function() {
+            console.log('errrorr!');
+        })
+        .then(facebookAuthService.getUserInfo, function() {
+            authService.setRedirectUrl($location.path());
+            ApiService.logoutUser();
+            facebookAuthService.watchAuthStatusChange();
 
+            $location.path('/');
+
+        })
+        .then(ApiService.loginUser).then(function(apiResponse) {
+            authService.data.isLogged = true;
+            authService.data.userInfo = apiResponse;
+        }, function() {
+
+        });
+
+}
 var app = angular.module('angulApp');

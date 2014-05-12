@@ -10,15 +10,20 @@ app.factory('authService', function($rootScope, $log) {
 
         },
         setIsLogging : function(isLogging) {
-            $log.info('Logging status: ' + isLogging);
-            this.data.isLogging = isLogging;
+            $log.info('Is the app logging? ' + isLogging);
+            //this.data.isLogging = isLogging;
 
-        	$rootScope.isLogging = isLogging;
+        	//$rootScope.isLogging = isLogging;
         },
 
         setRedirectUrl : function(redirectUrl) {
             this.data.redirectUrl = redirectUrl;
             $log.info('RedirectUrl is now: ' + this.data.redirectUrl);
+        },
+        getRedirectUrl : function() {
+            debugger;
+            console.log('redirect url inside authservice: ' + this.data.redirectUrl);
+            return (this.data.redirectUrl === "undefined") ? '/groups' : this.data.redirectUrl;
         }
 
 
