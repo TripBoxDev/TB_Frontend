@@ -23,6 +23,8 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             $scope.infoGroup = data;
             console.log("información del grupo recibida");
             console.log($scope.infoGroup);
+
+
         }).
     error(function(data, status) {
         console.log("error al recibir información del grupo");
@@ -135,6 +137,28 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             });
     };
     */
+     $scope.posibleMatching = [];
+
+    
+        
+        
+      
+ 
+    
+
+    $scope.nombre=function(){
+        $scope.posibleMatching = [];
+        
+        var destination= $scope.infoGroup.destinations[document.getElementById('newCard.destination').value];
+        for (var i = $scope.infoGroup.transportCards.length - 1; i >= 0; i--) {
+            if($scope.infoGroup.transportCards[i].destination == destination){
+                
+                $scope.posibleMatching.push($scope.infoGroup.transportCards[i]);
+                
+            }
+        }
+    
+    };
 
  
     <!--Añadir nueva Card Other-->
@@ -237,6 +261,10 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         });
 
     };
+
+    
+    
+
 
     //Tipos de alojamiento
     $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];

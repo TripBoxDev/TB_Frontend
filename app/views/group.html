@@ -286,7 +286,7 @@
                                 <span class="glyphicon glyphicon-euro"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Precio" name="precio" ng-model="newCard.price" required>
+                                <input type="text"  class="form-control" placeholder="Precio" name="precio" ng-model="newCard.price" required>
 
                             </fieldset>
 
@@ -300,8 +300,8 @@
                             </span>
 
                             <fieldset>
-                                <fieldset>
-                                    <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                <fieldset >
+                                    <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination"  ng-options="f for f in infoGroup.destinations" required>
 
                                         <option value="" disabled selected>Selecciona el destino</option>
 
@@ -560,7 +560,7 @@
                                 <span class="glyphicon glyphicon-plane"></span>
                             </span>
                             <fieldset>
-                                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in infoGroup.destinations" required>
+                                <select class="form-control" id = "newCard.destination" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-change="nombre()" ng-options="f for f in infoGroup.destinations" required>
                                     <option value="" disabled selected>Selecciona el destino</option>
                                     <option></option>
                                 </select>
@@ -598,12 +598,13 @@
 
                            
                                 <fieldset>
-                                    <select class="form-control"  name="destino" ng-model="newCard.parentCardId" ng-options="f.cardId as f.name for f in infoGroup.transportCards" required>
+                                    <select class="form-control"  name="destino" ng-model="newCard.parentCardId" ng-options="f.cardId as f.name for f in posibleMatching" required>
 
                                         <option value="" disabled selected>Selecciona un transporte asociado con la card</option>
  
                                     </select>
                                 </fieldset>
+                                 
                             </div>
                         </br>
                         <div ng-controller="DatepickerDemoCtrl">
