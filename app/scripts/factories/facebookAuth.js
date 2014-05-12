@@ -16,35 +16,40 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
     var authManagement = {
 
         loadSdk: function() {
+            
+            debugger;
             var deferred = $q.defer();
 
-            (function(d) {
-                var js, id = 'facebook-jssdk',
-                    ref = d.getElementsByTagName('script')[0];
-                if (d.getElementById(id)) {
-                    return;
-                }
-                js = d.createElement('script');
-                js.id = id;
-                js.async = true;
-                js.src = "//connect.facebook.net/it_IT/all.js";
-                ref.parentNode.insertBefore(js, ref);
-            }(document));
+            if(typeof FB === "undefined") {
+                (function(d) {
+                    var js, id = 'facebook-jssdk',
+                        ref = d.getElementsByTagName('script')[0];
+                    if (d.getElementById(id)) {
+                        return;
+                    }
+                    js = d.createElement('script');
+                    js.id = id;
+                    js.async = true;
+                    js.src = "//connect.facebook.net/it_IT/all.js";
+                    ref.parentNode.insertBefore(js, ref);
+                }(document));
 
-            window.fbAsyncInit = function() {
-                authService.setIsLogging(true);
+                window.fbAsyncInit = function() {
 
-                $log.info('Carga SDK Facebook, autoFbLogin: ' + FacebookData.autoFbLogin);
-                FB.init({
-                    appId: FacebookData.fbAppId, // App ID
-                    //channelUrl: FacebookData.channel, // Channel File
-                    status: false, // check login status
-                    cookie: true, // enable cookies to allow the server to access the session
-                    xfbml: true // parse XFBML
-                });
-                            deferred.resolve();
+                    $log.info('Carga SDK Facebook, autoFbLogin: ' + FacebookData.autoFbLogin);
+                    FB.init({
+                        appId: FacebookData.fbAppId, // App ID
+                        //channelUrl: FacebookData.channel, // Channel File
+                        status: false, // check login status
+                        cookie: true, // enable cookies to allow the server to access the session
+                        xfbml: true // parse XFBML
+                    });
+                                deferred.resolve();
 
-            };
+                };
+            } else {
+                deferred.resolve();
+            } 
 
             return deferred.promise;
         },
@@ -52,7 +57,6 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
          * Sends the query to log in to Facebook
          */
         login: function(callback) {
-            debugger;
             var deferred = $q.defer();
             $log.info('Haciendo login en FB');
             authService.setIsLogging(true);
@@ -60,7 +64,8 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
             FB.login(function(response) {
                 $log.info('Facebook login response status: ' + response.status);
                 if (response.status === 'connected') {
-                    /* 
+                    debugger;
+                    /*
                      The user is already logged, 
                      is possible retrieve his personal info
                     */
@@ -74,7 +79,7 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
                     */
 
                 } else {
-
+debugger;
                     deferred.reject(response);
 
                     /*
@@ -159,8 +164,8 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
             FB.getLoginStatus(function(response) {
                 $log.info('Facebook login status: ' + response.status);
                 if (response.status === 'unknown') {
-                    ApiService.logoutUser();
-                    _self.watchAuthStatusChange();
+                    
+                    deferred.reject();
                 } else if (response.status === 'connected') {
                     deferred.resolve();
                 }

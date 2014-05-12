@@ -25,14 +25,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
             return deferred.promise;
         },
         logoutUser: function() {
-            $log.info('API logout user');
             authService.data.isLogged = false;
-
-            $location.path('/');
-
-            authService.setIsLogging(false);
-
-
 
         },
 

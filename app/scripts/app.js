@@ -8,6 +8,7 @@ angular.module('angulApp', [
     'ui.bootstrap'
 ])
     .config(function($routeProvider) {
+
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
@@ -32,6 +33,9 @@ angular.module('angulApp', [
                 controller: 'GroupCtrl',
                 access: {
                     isFree: false
+                },
+                resolve: {
+                    checkAccess: checkAccess
                 }
             })
             .when('/groups/:groupId/invitation/:invitation', {
@@ -39,6 +43,9 @@ angular.module('angulApp', [
                 controller: 'ReceiveInvitationCtrl',
                 access: {
                     isFree: false
+                },
+                resolve: {
+                    checkAccess: checkAccess
                 }
             })
             .when('/error', {
@@ -55,25 +62,24 @@ angular.module('angulApp', [
             });
     });
 var checkAccess = function(facebookAuthService, ApiService, authService, $location) {
-                        return facebookAuthService.loadSdk()
-                            .then(facebookAuthService.getLoginStatus)
-                            .then(facebookAuthService.getUserInfo, function() {
-                                console.log('getUserInFAIIIIL');
-                                ApiService.logoutUser();
-                                facebookAuthService.watchAuthStatusChange();
-                            })
-                            .then(ApiService.loginUser).then(function(apiResponse) {
+    return facebookAuthService.loadSdk()
+        .then(facebookAuthService.getLoginStatus, function() {
+            console.log('errrorr!');
+        })
+        .then(facebookAuthService.getUserInfo, function() {
+            authService.setRedirectUrl($location.path());
+            ApiService.logoutUser();
+            facebookAuthService.watchAuthStatusChange();
 
-                                authService.data.isLogged = true;
-                                debugger;
-                                authService.data.userInfo = apiResponse;
+            $location.path('/');
 
-                                $location.path(authService.data.redirectUrl);
+        })
+        .then(ApiService.loginUser).then(function(apiResponse) {
+            authService.data.isLogged = true;
+            authService.data.userInfo = apiResponse;
+        }, function() {
 
-                                authService.setIsLogging(false);
-                            }, function() {
-                                console.log('API ERROR');
-                            });
+        });
 
-                    }
+}
 var app = angular.module('angulApp');

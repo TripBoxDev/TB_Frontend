@@ -1,12 +1,17 @@
-/*describe('Tripbox', function() {
+describe('Tripbox', function() {
     describe('sin estar logueado', function() {
         it('redirecciona a la pantalla de login al acceder a vista restringida sin estar logueado', function() {
             // Carga la vista de grupos
-            browser.get('/#/groups');
-            loginUrl = browser.getCurrentUrl();
+            browser.get('/#/groups').then(function() {
+                groupUrl = browser.getCurrentUrl();
+                browser.get('/#/').then(function() {
+                    expect(browser.getCurrentUrl()).toEqual(groupUrl);
 
-            browser.get('/#/');
-            expect(browser.getCurrentUrl()).toEqual(loginUrl);
+                });
+            });
+
+
+
 
         });
 
@@ -33,28 +38,30 @@
     });
 
 
-}); */
+});
 
 describe('estando logueado', function() {
     it('permite crear un grupo', function() {
-        // Falla por que al navegar a groups retorna a / (BUG)
-        browser.get('/#/groups').then(function() {
-            expect(browser.getCurrentUrl()).toEqual('http://localhost:9000/#/groups');
-            browser.waitForAngular();
-            element(by.css('#addgroup button')).click().then(function() {
-                // browser.wait(function() {
-                //     return isElementPresent(by.css('.edit-group-name'));
-                // }, 8000);
-                element(by.css('.edit-group-name')).sendKeys('GenteGuapa');
-                element(by.name('descripcion')).sendKeys('Pues eso');
-                element(by.css('.modal-footer .btn-primary')).click().then(function() {
-                    var groups = element.all(by.repeater('group in groups'));
-                    expect(elems.count()).toBe(1);
+        browser.get('/#/groups');
+
+        browser.driver.wait(function() {
+            return browser.isElementPresent(by.css('.add-group'));
+        });
+        expect(browser.getCurrentUrl()).toEqual('http://localhost:9000/#/groups');
+        element(by.css('.add-group')).click().then(function() {
+            // browser.wait(function() {
+            //     return isElementPresent(by.css('.edit-group-name'));
+            // }, 8000);
+            element(by.css('.edit-group-name')).sendKeys('GenteGuapa');
+            element(by.name('descripcion')).sendKeys('Pues eso');
+            element(by.css('.modal-footer .btn-primary')).click().then(function() {
+                var groups = element.all(by.repeater('group in groups'));
+                expect(elems.count()).toBe(1);
 
 
 
-                });
             });
         });
+
     });
 });

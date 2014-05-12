@@ -45,10 +45,36 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
     });
 
 
+    (function(d) {
+        var js, id = 'facebook-jssdk',
+            ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/it_IT/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+
+    window.fbAsyncInit = function() {
+
+        $log.info('Carga SDK Facebook, autoFbLogin: ' + FacebookData.autoFbLogin);
+        FB.init({
+            appId: FacebookData.fbAppId, // App ID
+            //channelUrl: FacebookData.channel, // Channel File
+            status: false, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true // parse XFBML
+        });
+
+    };
 
 
 
-/*
+
+    /*
     $rootScope.$on('$routeChangeSuccess', function(scope, currentRoute, prevRoute) {
 
 

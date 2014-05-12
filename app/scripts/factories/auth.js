@@ -21,8 +21,9 @@ app.factory('authService', function($rootScope, $log) {
             $log.info('RedirectUrl is now: ' + this.data.redirectUrl);
         },
         getRedirectUrl : function() {
-            console.log('redirect url inside authservice: ' + this.redirectUrl);
-            return (this.redirectUrl === "undefined") ? '/groups' : this.redirectUrl;
+            debugger;
+            console.log('redirect url inside authservice: ' + this.data.redirectUrl);
+            return (this.data.redirectUrl === "undefined") ? '/groups' : this.data.redirectUrl;
         }
 
 

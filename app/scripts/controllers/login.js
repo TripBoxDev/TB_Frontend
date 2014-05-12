@@ -5,9 +5,21 @@ app.controller('LoginCtrl', function($rootScope, $scope, $routeParams, facebookA
     $scope.socialNetwork = $routeParams.socialNetwork;
 
     $scope.loginFacebook = function() {
-        facebookAuthService.login().then(facebookAuthService.getUserInfo, function(error) {
-            console.log(error);
-        });
+
+        facebookAuthService.login()
+            .then(facebookAuthService.getUserInfo, function(error) {
+                console.log(error);
+            })
+            .then(ApiService.loginUser).then(function(apiResponse) {
+                authService.data.isLogged = true;
+                authService.data.userInfo = apiResponse;
+
+                $location.path(authService.getRedirectUrl());
+
+            }, function() {
+
+            });
+
     };
 
     $scope.logout = function() {
