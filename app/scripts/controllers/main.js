@@ -45,7 +45,6 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
     });
 
 
-
     (function(d) {
         var js, id = 'facebook-jssdk',
             ref = d.getElementsByTagName('script')[0];
@@ -60,7 +59,6 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
     }(document));
 
     window.fbAsyncInit = function() {
-        authService.setIsLogging(true);
 
         $log.info('Carga SDK Facebook, autoFbLogin: ' + FacebookData.autoFbLogin);
         FB.init({
@@ -71,14 +69,12 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
             xfbml: true // parse XFBML
         });
 
-
-        facebookAuthService.watchAuthStatusChange();
-        facebookAuthService.getLoginStatus();
-
-
     };
 
 
+
+
+    /*
     $rootScope.$on('$routeChangeSuccess', function(scope, currentRoute, prevRoute) {
 
 
@@ -89,18 +85,22 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
                 return true;
 
             } else if (currentRoute.access.isFree) {
-                return false
+                return false;
+            } else if (!currentRoute.access.isFree) {
+                return true;
             }
 
         }
-
         // Conditions to see a restricted view
         if (isRestrictedView(currentRoute) && !authService.data.isLogged) {
+            $log.info('Islogged:' + authService.data.isLogged);
             if (currentRoute.templateUrl !== 'views/main.html') {
+                $log.warn('now redirect url will be: ' + $location.path());
+                if($location.path() !== "" && $location.path() !== "/#/" ) authService.setRedirectUrl($location.path());
                 $location.path('/');
                 console.log('Should be logged in, redirecting to /');
             }
         }
     });
-
+*/
 });

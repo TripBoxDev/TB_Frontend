@@ -54,7 +54,7 @@
                         <center>
 
                             <div>
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
+                                <a id="{{ group.id }}" href="http://localhost:9000/#/groups/{{group.id}}">
                                     <img src="images/groups/default.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
                                 </a>
                             </div>
@@ -130,7 +130,7 @@
 
                         <center>
 
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                            <button type="button" class="add-group btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
                                 <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
                             </button>
 
@@ -312,7 +312,7 @@
                     <span class="glyphicon glyphicon-pencil"></span>
                 </span>
                 
-                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
+                <input class="edit-group-name" type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
                             
             </div>
 

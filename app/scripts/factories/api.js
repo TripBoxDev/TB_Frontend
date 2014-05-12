@@ -1,46 +1,39 @@
-app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log) {
+app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log, $q) {
     
     var endpoint = 'http://tripbox.uab.cat/TB_Backend/api/';
     return {
         
         loginUser: function(data) {
-            console.log(data);
+            debugger;
+            var deferred = $q.defer();
+            $log.info('Haciendo loginUser en API');
             $http.put(endpoint + 'user', data)
                 .success(function(data, status, headers, config) {
-
-                    authService.data.isLogged = true;
-
-                    authService.data.userInfo = data;
-
-                    // Redirect to groups
-                    $location.path('/groups');
-                    authService.setIsLogging(false);
-
-
-
+                    $log.info('Dentro de success loginuser API');
+                    deferred.resolve(data);
                 })
                 .error(function(data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
+                    $log.info('Dentro de error loginuser API');
 
                     console.log('API returned an error');
                     ErrorHandler.redirectError();
                     authService.setIsLogging(false);
+                    deferred.reject();
 
                 });
-
+            return deferred.promise;
         },
         logoutUser: function() {
             $log.info('API logout user');
             authService.data.isLogged = false;
 
-            $location.path('/');
+        },
 
-            authService.setIsLogging(false);
-
-
-
-        }, 
+        addUserToGroup: function(groupId) {
+            return $http.put(endpoint + 'user/' + authService.data.userInfo.id + '/group/' + groupId);
+        },
 
         getUser: function(user) {
 
@@ -89,13 +82,8 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
                 "invitationUrl" : "http://tripbox.uab.cat/" + groupId,
                 "emails" : mailsArray
             };
-            $http.put(this.endpoint + '/email/invitation', data)
-            .success(function() {
-                console.log('Successful!');
-            })
-            .error(function() {
-                console.error('Fail absoluto');
-            })
+            return $http.put(endpoint + 'email/invitation', data);
+                
         }
     }
 })

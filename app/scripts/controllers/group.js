@@ -1,20 +1,27 @@
 app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, ApiService) {
+
     $scope.groupId = $routeParams.groupId;
     $scope.infoUser = authService.data.userInfo;
 
+    if ($routeParams.invitation) {
+        ApiService.addUserToGroup($scope.groupId);
+    }
     $scope.logoutUser = ApiService.logoutUser;
     $scope.openInviteModal = function() {
 
         var invitationModalInstance = $modal.open({
-            templateUrl: 'myModalContent.html',
+            templateUrl: '/views/modals/sendInvitations.html',
             controller: 'InvitationModalInstanceCtrl'
         });
 
     };
 });
 
-app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {
+app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams) {
     $scope.users = [];
+
+
+    $scope.isSending = false;
     $scope.addInvite = function() {
         $scope.users.push($scope.newUser);
 
@@ -23,8 +30,15 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 
     $scope.sendInvitations = function() {
         console.log($scope.users);
-        ApiService.sendInvitations($scope.users, 21);
-        $modalInstance.close();
+        $scope.isSending = true;
+        ApiService.sendInvitations($scope.users, $routeParams.groupId)
+            .success(function() {
+                $scope.isSending = false;
+                $modalInstance.close();
+            });
+
+
+
 
     }
 
@@ -46,5 +60,10 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
+    };
+    $scope.checkUsers = function() {
+        console.log()
+        return ($scope.users.length === 0) ? true : false;
+
     };
 });
