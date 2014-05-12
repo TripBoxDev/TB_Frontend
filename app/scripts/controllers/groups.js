@@ -1,5 +1,5 @@
 //PETICION JSON HACIA LA API
-app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
+app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal) {
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
     //para hacer uso de $resource debemos colocarlo al crear el modulo
@@ -20,7 +20,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     //Usuario que inicia sesión con Facebook
     var infoUser = authService.data.userInfo;
     var user = infoUser.id;
-    
+
+    $scope.infoUser = authService.data.userInfo;
     //Lista de grupos del usuario
     $scope.groups = [];
 
@@ -45,10 +46,16 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
     error(function(data, status) {
         console.log("error al obtener los grupos del usuario");
     });
+    /*
+    $scope.addGroup = function(submittedGroup) {
+        
+        console.log(submittedGroup);
+        console.log("Entre en funcion addGroup groups.js")
+        ApiService.addGroup(submittedGroup);
+        console.log("Vuelve a groups.js");
+    }
 
-    console.log(authService.data);
-    $scope.infoUser = authService.data.userInfo;
-
+    */
 
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
 
@@ -103,7 +110,9 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         });
 
     };
+    
 
+    
     $scope.unFollowGroup = function(idGroup, groupName) {
 
         var unFollowGroupModalInstance = $modal.open({
@@ -123,16 +132,13 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
             // Esta función se ejecuta cuando desde el modalInstance controller
             // se ejecuta $modalInstance.close().
 
-            //Esto está para comprobar que se borra y tal
-            console.log(idGroup);
-
             //El id del usuario
             var userId = user;
 
             //Se hace una petición de eliminación del usuario determinado al grupo pertinente
             $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
                 .success(function(data, status) {
-
+                    console.log("Grupo eliminado");
                     //Representa el borrado gráficamente
 
                     //Busca en el conjunto de grupos...
@@ -147,6 +153,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         });
 
     };
+    
 
     $scope.checkName = function(data) {
         if (data !== '') {
@@ -154,11 +161,14 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         }
     };
 
+    
     // remove user
     $scope.removeGroup = function(index) {
         $scope.groups.splice(index, 1);
     };
+    
 
+    
     $scope.addGroup = function(submittedGroup) {
 
         //Usuario que crea el grupo
@@ -212,6 +222,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
 
 
     };
+    
 
 });
 
