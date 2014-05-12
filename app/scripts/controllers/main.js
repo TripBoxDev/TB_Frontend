@@ -79,7 +79,7 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
     };
 
 
-    $rootScope.$on('$routeChangeStart', function(scope, currentRoute, prevRoute) {
+    $rootScope.$on('$routeChangeSuccess', function(scope, currentRoute, prevRoute) {
 
 
         function isRestrictedView(currentRoute) {
@@ -95,11 +95,12 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
             }
 
         }
-
         // Conditions to see a restricted view
         if (isRestrictedView(currentRoute) && !authService.data.isLogged) {
+            $log.info('Islogged:' + authService.data.isLogged);
             if (currentRoute.templateUrl !== 'views/main.html') {
-                authService.setRedirectUrl($location.path());
+                $log.warn('now redirect url will be: ' + $location.path());
+                if($location.path() !== "" && $location.path() !== "/#/" ) authService.setRedirectUrl($location.path());
                 $location.path('/');
                 console.log('Should be logged in, redirecting to /');
             }

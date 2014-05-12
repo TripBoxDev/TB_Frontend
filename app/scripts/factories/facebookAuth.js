@@ -12,25 +12,25 @@ FacebookData.channel = 'https://mysite.com/channel.html';
 FacebookData.fbAppId = '1567668726791128';
 FacebookData.autoFbLogin = false;
 
-app.factory('facebookAuthService', function(ApiService, authService, $log) {
+app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
     var authManagement = {
         /**
          * Sends the query to log in to Facebook
          */
         login: function(callback) {
+            var deferred = $q.defer();
             $log.info('Haciendo login en FB');
             authService.setIsLogging(true);
 
             FB.login(function(response) {
             $log.info('Facebook login response status: ' + response.status);
-
                 if (response.status === 'connected') {
                     /* 
                      The user is already logged, 
                      is possible retrieve his personal info
                     */
 
-                    callback();
+                    deferred.resolve();
                     /*
                      This is also the point where you should create a 
                      session for the current user.
@@ -40,7 +40,7 @@ app.factory('facebookAuthService', function(ApiService, authService, $log) {
 
                 } else {
 
-                    ApiService.logoutUser();
+                    deferred.reject(response);
 
                     /*
                      The user is not logged to the app, or into Facebook:
@@ -52,12 +52,13 @@ app.factory('facebookAuthService', function(ApiService, authService, $log) {
             }, {
                 scope: 'email'
             });
+            return deferred.promise;
         },
         /**
          * Sends the query to Facebook to retrieve user info
          */
         getUserInfo: function() {
-
+            var deferred = $q.defer();
             var _self = this;
 
             FB.api('/me', function(response) {
@@ -70,11 +71,19 @@ app.factory('facebookAuthService', function(ApiService, authService, $log) {
                     email: response.email
                 }
 
+                deferred.resolve()
+
 
                 // Send user info for API approval
-                ApiService.loginUser(apiData);
+                ApiService.loginUser(apiData).then(function() {
+                    return deferred.resolve('Ok');
+                });
+
+
                 
             });
+
+            return deferred.promise;
 
         },
 

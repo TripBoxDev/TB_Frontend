@@ -7,8 +7,12 @@
 app.controller("ReceiveInvitationCtrl", function($scope, $routeParams, ApiService, $log, $location) {
     $log.info('Inside receiveInvitationCtrl');
     if ($routeParams.invitation) {
-        ApiService.addUserToGroup($routeParams.groupId).then(function() {
+        ApiService.addUserToGroup($routeParams.groupId)
+        .success(function(data) {
             $location.path('groups/' + $routeParams.groupId);
+        })
+        .error(function(data) {
+        	$log.error('data');
         });
     }
 });

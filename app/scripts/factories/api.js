@@ -2,11 +2,11 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
     return {
         endpoint: 'http://tripbox.uab.cat/TB_Backend/api',
         loginUser: function(data) {
-            
-            console.log(data);
+            var deferred = $q.defer();
+            $log.info('Haciendo loginUser en API');
             $http.put(this.endpoint + '/user', data)
                 .success(function(data, status, headers, config) {
-                    debugger;
+                    $log.info('Logueado exitosamente en API');
                     authService.data.isLogged = true;
 
                     authService.data.userInfo = data;
@@ -15,6 +15,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
                     authService.setIsLogging(false);
 
+                    deferred.resolve();
 
 
                 })
@@ -25,9 +26,10 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
                     console.log('API returned an error');
                     ErrorHandler.redirectError();
                     authService.setIsLogging(false);
+                    deferred.reject();
 
                 });
-
+                return deferred.promise;
         },
         logoutUser: function() {
             $log.info('API logout user');
@@ -42,24 +44,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
         },
 
         addUserToGroup : function(groupId) {
-            
-            var deferred = $q.defer();
-
-
-            $log.info('Añade usuario a grupo ' + groupId);
-            $http.put(this.endpoint + '/user/' + authService.data.userInfo.id + '/group/' + groupId)
-            .success(function(data, status, headers, config) {
-                $log.info('Añadido usuario al grupo exitosamente');
-                deferred.resolve(data);
-            })
-            .error(function(data, status, headers, config) {
-                ErrorHandler.redirectError();
-                deferred.reject(data);
-            });
-            
-            return deferred.promise;
-
-            // TODO Hacer llamada a la API para añadir el usuario actual al grupo correspondiente
+            return $http.put(this.endpoint + '/user/' + authService.data.userInfo.id + '/group/' + groupId);
         },
         addGroup: function(groupName, groupDescription) {
 
