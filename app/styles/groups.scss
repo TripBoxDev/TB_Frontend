@@ -35,6 +35,25 @@
         margin-top: -13em;
     }
 }
+.groupName a:link {
+    text-decoration: none;
+    color:black;
+}
+/*enlace ya visitado.*/
+.groupName a:visited {
+    text-decoration:none;
+    color:black;
+}
+/*enlace con raton encima.*/
+.groupName a:hover {
+    text-decoration:none;
+    color:black;
+}
+/*enlace cuando se hace clic en el.*/
+.groupName a:active {
+    text-decoration:none;
+    color:black;
+}
 .fondo {
     background: black;
     position: absolute;

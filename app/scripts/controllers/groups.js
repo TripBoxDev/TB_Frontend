@@ -1,5 +1,5 @@
 //PETICION JSON HACIA LA API
-app.controller("GroupsCtrl", function($scope, $http, authService, $modal, ApiService) {
+app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal) {
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
     //para hacer uso de $resource debemos colocarlo al crear el modulo
@@ -20,18 +20,21 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal, ApiSer
     //Usuario que inicia sesión con Facebook
     var infoUser = authService.data.userInfo;
     var user = infoUser.id;
-    
-    $scope.logoutUser = ApiService.logoutUser;
+
+    $scope.infoUser = authService.data.userInfo;
     //Lista de grupos del usuario
     $scope.groups = [];
 
     //Llamada GET a la API para coger los grupos
-    $http.get(endpoint + 'user/' + user)
+    ApiService.getUser(user)
         .success(function(data, status) {
 
             //Recorre todos los grupos
             for (var i = data.groups.length - 1; i >= 0; i--) {
-                $http.get(endpoint + 'group/' + data.groups[i])
+                    
+                var groupId = data.groups[i];
+                
+                ApiService.getGroup(groupId)
                     .success(function(data, status) {
 
                         //Actualizamos la variable groups
@@ -47,9 +50,65 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal, ApiSer
         console.log("error al obtener los grupos del usuario");
     });
 
-    console.log(authService.data);
-    $scope.infoUser = authService.data.userInfo;
+    //funcion para crear grupos
+    $scope.addGroup = function(submittedGroup) {
 
+        //Usuario que crea el grupo
+        var userId = user;
+
+        //Nuevo grupo
+        var newGroup = {
+            name: submittedGroup.name,
+            description: submittedGroup.description
+        };
+
+        //Hacemos la llamada de putGroup para añadir el grupo de api.js
+        ApiService.putGroup(newGroup).success(function(data, status) {
+
+            //Crea el nuevo grupo y los datos necesarios
+            var newGroupWithId = {
+                id: data.id,
+                name: data.name,
+                description: data.description
+            };
+
+            var datos = {
+                groupId: newGroupWithId.id,
+                userId: userId
+            };
+
+            //Hacemos la llamada de putGroupUser para añadir el usuario a el grupo creado de api.js
+            ApiService.putUserGroup(datos).success(function(data, status) {
+
+                //Limpiamos elformulario para dejarlo vacio
+                $scope.formAddGroup.$setPristine();
+                var defaultForm = {
+                    name: "",
+                    description: ""
+                };
+                $scope.newGroup = defaultForm;
+
+                //Insertamos el grupo sin refresco en la pagina
+                $scope.groups.push(newGroupWithId);
+
+            //Fin del parentesis del 2o success
+            })
+
+            //Error al incluir un grupo
+            .error(function(data, status) {
+                console.log("Error al unir al usuario en el grupo creado!");
+            });
+
+        //Fin del parentesis del 1er success
+        })
+    
+        //Error al crear un grupo
+        .error(function(data, status) {
+            console.log("Error al insertar grupo!");
+        });
+
+    //Fin del parentesis addGroup
+    };
 
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
 
@@ -73,13 +132,16 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal, ApiSer
         editGroupModalInstance.result.then(function(edit) {
 
             //Llamada PUT a la API para insertar el nuevo grupo
-            $http.put(endpoint + 'group/', edit)
+            ApiService.putEditGroup(edit)
                 .success(function(data, status) {
 
                     //Lista de grupos del usuario
                     $scope.groups = [];
 
                     //Llamada GET a la API para coger los grupos
+
+                    //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
+
                     $http.get(endpoint + 'user/' + user)
                         .success(function(data, status) {
 
@@ -104,6 +166,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal, ApiSer
 
     };
 
+
     $scope.unFollowGroup = function(idGroup, groupName) {
 
         var unFollowGroupModalInstance = $modal.open({
@@ -123,30 +186,37 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal, ApiSer
             // Esta función se ejecuta cuando desde el modalInstance controller
             // se ejecuta $modalInstance.close().
 
-            //Esto está para comprobar que se borra y tal
-            console.log(idGroup);
-
             //El id del usuario
             var userId = user;
 
-            //Se hace una petición de eliminación del usuario determinado al grupo pertinente
-            $http.delete(endpoint + 'group/' + idGroup + '/user/' + userId)
-                .success(function(data, status) {
+            datos = {
+                groupId: idGroup,
+                userId: userId
+            };
 
+            //Hacemos la llamada de deleteGroupUser para eliminar un user de un grupo de api.js
+            ApiService.unFollowGroupUser(datos).success(function(data, status) {
+                   
                     //Representa el borrado gráficamente
-
                     //Busca en el conjunto de grupos...
                     for (var i = $scope.groups.length - 1; i >= 0; i--) {
+                       
                         //Uno cuya id sea igual al borrado...
                         if ($scope.groups[i].id == idGroup) {
+                       
                             //Y lo elimina de la lista
                             $scope.groups.splice(i, 1);
+                       
                         }
+                    
                     }
-                });
+           
+            });
+
         });
 
     };
+
 
     $scope.checkName = function(data) {
         if (data !== '') {
@@ -154,65 +224,13 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal, ApiSer
         }
     };
 
+
     // remove user
     $scope.removeGroup = function(index) {
         $scope.groups.splice(index, 1);
     };
 
-    $scope.addGroup = function(submittedGroup) {
-
-        //Usuario que crea el grupo
-        var userId = user;
-
-        //Nuevo grupo
-        var newGroup = {
-            name: submittedGroup.name,
-            description: submittedGroup.description
-        };
-
-
-        //Llamada PUT a la API para insertar el nuevo grupo
-        $http.put(endpoint + 'group', newGroup)
-            .success(function(data, status) {
-
-                var newGroupWithId = {
-                    id: data.id,
-                    name: data.name,
-                    description: data.description
-                }
-
-
-                console.log("Id del grupo creado: " + data.id);
-
-                //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
-                $http.put(endpoint + 'user/' + userId + '/group/' + data.id)
-                    .success(function(data, status) {
-                        console.log("Grupo creado correctamente!");
-
-                        //Limpia el formulario
-                        $scope.formAddGroup.$setPristine();
-                        var defaultForm = {
-                            name : "",
-                            description : ""
-                        };
-                        $scope.newGroup = defaultForm;
-
-                        $scope.groups.push(newGroupWithId);
-                    }).
-                error(function(data, status) {
-                    console.log("Error al hacer la llamada a /user/id/group/id!");
-                });
-
-            })
-            .error(function(data, status) {
-                console.log("Error al insertar grupo!");
-            });
-        
-
-
-
-    };
-
+//Fin del parentesis app.controller y function
 });
 
 
