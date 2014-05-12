@@ -45,6 +45,18 @@ app.run(function($rootScope, facebookAuthService, $location, authService, $log) 
     });
 
 
+            $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
+                if (curr.$$route && curr.$$route.resolve) {
+                    // Show a loading message until promises are not resolved
+                    $rootScope.loadingView = true;
+                }
+            });
+            $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
+                // Hide loading message
+                $rootScope.loadingView = false;
+            });
+       
+
     (function(d) {
         var js, id = 'facebook-jssdk',
             ref = d.getElementsByTagName('script')[0];
