@@ -42,9 +42,18 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
         }, 
 
-        getGroup: function(groupId){
-             
-             return $http.get(endpoint + 'group/' + groupId);
+        getUser: function(user) {
+
+            //Llamada GET para pedir los datos de un usuario
+            return $http.get(endpoint + 'user/' + user);
+
+        },
+
+
+        getGroup: function(groupId) {
+
+            //Llamada GET para consultar los grupos de un usuario
+            return $http.get(endpoint + 'group/' + groupId);
            
         },
         
@@ -69,7 +78,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
         },
 
-        deleteGroupUser: function(datos) {
+        unFollowGroupUser: function(datos) {
 
             //Se hace una petición de eliminación del usuario determinado al grupo pertinente
             return $http.delete(endpoint + 'group/' + datos.groupId + '/user/' + datos.userId);

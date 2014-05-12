@@ -26,12 +26,15 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     $scope.groups = [];
 
     //Llamada GET a la API para coger los grupos
-    $http.get(endpoint + 'user/' + user)
+    ApiService.getUser(user)
         .success(function(data, status) {
 
             //Recorre todos los grupos
             for (var i = data.groups.length - 1; i >= 0; i--) {
-                $http.get(endpoint + 'group/' + data.groups[i])
+                    
+                var groupId = data.groups[i];
+                
+                ApiService.getGroup(groupId)
                     .success(function(data, status) {
 
                         //Actualizamos la variable groups
@@ -192,7 +195,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
             };
 
             //Hacemos la llamada de deleteGroupUser para eliminar un user de un grupo de api.js
-            ApiService.deleteGroupUser(datos).success(function(data, status) {
+            ApiService.unFollowGroupUser(datos).success(function(data, status) {
                    
                     //Representa el borrado gráficamente
                     //Busca en el conjunto de grupos...
