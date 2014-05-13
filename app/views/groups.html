@@ -23,7 +23,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a>Salir de la cuenta</a>
+                            <li><a ng-click="logoutUser()">Salir de la cuenta</a>
                             </li>
 
                         </ul>
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Si ya hay algún grupo creado -->
-    <div ng-show="groups.length != []">
+    <div ng-show="groups.length != []" ng-cloak>
 
         <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
         <div class="row">
@@ -54,7 +54,7 @@
                         <center>
 
                             <div>
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
+                                <a id="{{ group.id }}" href="http://localhost:9000/#/groups/{{group.id}}">
                                     <img src="{{group.imagePath}}" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
                                 </a>
                             </div>
@@ -76,7 +76,7 @@
                             -->
 
 
-                            <span editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
+                            <span class="groupName" editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
                                 <a href="http://localhost:9000/#/groups/{{group.id}}">
                                     {{ group.name }}
                                 </a>
@@ -95,7 +95,7 @@
 
                             <!--Boton con confirmación estilo navegador -->
 
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="unFollowGroup(group.id, group.name)">
+                            <button type="button" data-name="{{ group.name }}"class="unfollow btn btn-primary btn-xs" ng-click="unFollowGroup(group.id, group.name)">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
                             <button type="button" class="btn btn-primary btn-xs" ng-click="editGroup(group.id, group.name, group.description)">
@@ -130,7 +130,7 @@
 
                         <center>
 
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                            <button type="button" class="add-group btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
                                 <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
                             </button>
 
@@ -144,7 +144,7 @@
     </div>
 
     <!-- Si no hay ningún grupo creado -->
-    <div ng-hide="groups.length != []">
+    <div ng-hide="groups.length != []" ng-cloak>
 
         <div id="tutorial">
             <div class="title-tutorial">
@@ -217,7 +217,7 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" ng-maxlength=10 required>
+                                <input type="text" class="edit-group-name form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" ng-maxlength=10 required>
                             </fieldset>
 
                         </div>
@@ -287,7 +287,7 @@
         <div class="modal-footer">
             
             <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="confirmUnFollow()">Abandonar</button>
+            <button type="button" class="btn btn-danger" ng-click="confirmUnFollow()">Abandonar</button>
             
         </div>
     
@@ -313,7 +313,7 @@
                         <span class="glyphicon glyphicon-pencil"></span>
                     </span>
                     <fieldset>
-                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
+                        <input type="text" class="edit-group-name" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
                     </fieldset>
                 </div>
                 <div class="error" ng-show="formModGroup.nombre.$dirty && formModGroup.nombre.$invalid">
@@ -326,8 +326,7 @@
                         </small>
                 </br>
 
-                <div class="input-group">
-                            
+                <div class="input-group">                
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-comment"></span>
                     </span>

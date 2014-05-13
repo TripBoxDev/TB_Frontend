@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Introduce los correos</h4>
+</div>
+<div class="modal-body">
+    <div>
+        <form ng-submit="formu.$valid && submit()" role="form" name="formu">
+            <div class="input-group">
+                <span class="input-group-addon">@</span>
+                <input class="form-control" placeholder="Mail" type="email" id="email" name="email" ng-model="newUser" required autofocus="true">
+
+                <span class="input-group-btn" ng-show="formu.email.$valid">
+
+                    <button type="submit" class="btn btn-default" type="button">+</button>
+                </span>
+            </div>
+
+        </form>
+        <br>
+        <br>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="user in users" ng-model="newUsers">{{user}}
+                <a ng-click="removeUser($index)" class="pull-right">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <br>
+    <br>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cerrar</button>
+    <button type="button" btn-loading="{{ isSending }}" data-loading-text="Enviando" class="btn btn-primary" ng-click="sendInvitations()" ng-disabled="checkUsers()">Enviar</button>
+    </form>
+</div>
+</div>

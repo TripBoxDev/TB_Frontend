@@ -16,6 +16,7 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
@@ -24,7 +25,7 @@
     <!-- endbuild -->
 </head>
 
-<body ng-app="angulApp">
+<body ng-app="angulApp" class="ng-cloak" ng-cloak>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -32,10 +33,10 @@
 
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-show="!isLogging" ng-view="">
+    <div class="container" ng-show="!loadingView" ng-view="">
     </div>
 
-    <div id="veil" ng-show="isLogging">
+    <div id="veil" ng-show="loadingView">
        <div class="spinner-wrap">
     <div class="sprite-spinner">
       <img src="images/spiffygif_30x30.png" alt="Loading"/>
@@ -75,6 +76,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/toastr/toastr.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -84,11 +86,18 @@
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/groups.js"></script>
     <script src="scripts/controllers/group.js"></script>
+        <script src="scripts/controllers/receiveInvitation.js"></script>
+
 
     <script src="scripts/factories/api.js"></script>
     <script src="scripts/factories/auth.js"></script>
     <script src="scripts/factories/errorHandler.js"></script>
     <script src="scripts/factories/facebookAuth.js"></script>
+    <script src="scripts/factories/notification.js"></script>
+    
+    <script src="scripts/directives/btnLoading.js"></script>
+
+
     <!-- endbuild -->
 </body>
 
