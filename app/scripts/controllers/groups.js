@@ -201,6 +201,27 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         //de hacerlo pero eh, funciona.
     }
 
+    //Muestra un nuevo grupo al crearlo. Se ha puesto como función a parte porque la subia de imagenes
+    //incluye un nuevo sucess si se sube una, pero no lo incluye si no se hace.
+    //Como éste codigo debe estar dentro del success pero también debe estar fuera para la excepción a
+    //la vez, se llama en forma de función para ambos.
+    $scope.showNewGroup = function(createdGroup, ImagePath){
+         //Limpia el formulario
+        $scope.cleanFormAddGroup();
+
+        //Objeto visible de grupo
+        var newGroupWithId = {
+            id: createdGroup.id,
+            name: createdGroup.name,
+            description: createdGroup.description,
+            imagePath: ImagePath
+        }
+
+        console.log(newGroupWithId.imagePath);
+
+        $scope.groups.push(newGroupWithId);
+    };
+
     $scope.addGroup = function(submittedGroup) {
 
         
@@ -217,12 +238,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
         $http.put(endpoint + 'group', newGroup)
             .success(function(createdGroup, status) {
 
-                var newGroupWithId = {
-                    id: createdGroup.id,
-                    name: createdGroup.name,
-                    description: createdGroup.description
-                }
-
                 console.log("Id del grupo creado: " + createdGroup.id);
 
                 //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
@@ -233,22 +248,35 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                         //Se comprueba si existe imagen
                         var imagen = $scope.param;
 
+                        //Path de la imagen del grupo que se crea
+                        var ImagePath;
+
                         //Si se ha tratado de subir una imagen
                         if(imagen != undefined){
                             //La imagen se saca de scope.param.file
                             imagen = $scope.param.file;
 
                             //Se sube la imagen al servidor
-                            $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}});
+                            $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
+                                
+                                //Se borra la referencia a la imagen para poder subir otras en el futuro
+                                $scope.param = undefined;
 
-                            //Se borra la referencia a la imagen para poder subir otras en el futuro
-                            $scope.param = undefined;
+                                //El path a la imagen es el directorio de la imagen y el ID
+                                ImagePath = imageDirectory + createdGroup.id + ".jpg";
+
+                                //Muestra el grupo nuevo
+                                $scope.showNewGroup(createdGroup, ImagePath);
+
+                            });
+                        } else {
+
+                            //La imagen es la de defecto, y eso es todo
+                            ImagePath = imageDirectory + "default_img.png"
+
+                            //Muestra el grupo nuevo
+                            $scope.showNewGroup(createdGroup, ImagePath);
                         }
-
-                        //Limpia el formulario
-                        $scope.cleanFormAddGroup();
-
-                        $scope.groups.push(newGroupWithId);
                     }).
                 error(function(data, status) {
                     console.log("Error al hacer la llamada a /user/id/group/id!");
