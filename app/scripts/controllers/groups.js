@@ -112,11 +112,20 @@ app.controller("GroupsCtrl", function($scope, $http, authService, $modal) {
                                 $http.get(endpoint + 'group/' + data.groups[i])
                                     .success(function(data, status) {
 
+                                        //Determina si es imagen personalizada o no
+                                        var ImagePath;
+                                        if(data.image == true){
+                                            ImagePath = imageDirectory + data.id;
+                                        } else {
+                                            ImagePath = imageDirectory + "default_img.png"
+                                        }
+
                                         //Actualizamos la variable groups
                                         $scope.groups.push({
                                             id: data.id,
                                             name: data.name,
-                                            description: data.description
+                                            description: data.description,
+                                            imagePath: ImagePath
                                         })
                                     });
                             }
