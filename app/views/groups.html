@@ -217,8 +217,7 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" required>
-
+                                <input type="text" class="form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" ng-maxlength=10 required>
                             </fieldset>
 
                         </div>
@@ -227,6 +226,9 @@
                                 El grupo necesita un nombre.
                             </small>
                         </div>
+                        <small class="error" ng-show="formAddGroup.nombre.$error.maxlength">
+                            El nombre no puede tener mas de 10 letras.
+                        </small>
                         </br>
                         <div class="input-group">
 
@@ -311,7 +313,7 @@
                         <span class="glyphicon glyphicon-pencil"></span>
                     </span>
                     <fieldset>
-                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" required>
+                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
                     </fieldset>
                 </div>
                 <div class="error" ng-show="formModGroup.nombre.$dirty && formModGroup.nombre.$invalid">
@@ -319,6 +321,9 @@
                                 El grupo necesita un nombre.
                             </small>
                         </div>
+                        <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
+                            El nombre no puede tener mas de 10 letras.
+                        </small>
                 </br>
 
                 <div class="input-group">
