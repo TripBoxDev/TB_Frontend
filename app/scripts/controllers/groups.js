@@ -210,9 +210,13 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
         editGroupModalInstance.result.then(function(edit) {
 
+            console.log(edit);
+
             //Llamada PUT a la API para insertar el nuevo grupo
             ApiService.putEditGroup(edit)
                 .success(function(data, status) {
+
+                    console.log(data);
 
                     //Lista de grupos del usuario
                     $scope.groups = [];
