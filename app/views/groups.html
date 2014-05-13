@@ -95,7 +95,7 @@
 
                             <!--Boton con confirmación estilo navegador -->
 
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="unFollowGroup(group.id, group.name)">
+                            <button type="button" data-name="{{ group.name }}"class="unfollow btn btn-primary btn-xs" ng-click="unFollowGroup(group.id, group.name)">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
                             <button type="button" class="btn btn-primary btn-xs" ng-click="editGroup(group.id, group.name, group.description)">
@@ -216,7 +216,7 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" required>
+                                <input type="text" class="edit-group-name form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" required>
 
                             </fieldset>
 
@@ -287,7 +287,7 @@
         <div class="modal-footer">
             
             <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="confirmUnFollow()">Abandonar</button>
+            <button type="button" class="btn btn-danger" ng-click="confirmUnFollow()">Abandonar</button>
             
         </div>
     

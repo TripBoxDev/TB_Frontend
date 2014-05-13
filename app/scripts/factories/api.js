@@ -16,9 +16,6 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     $log.info('Dentro de error loginuser API');
-
-                    console.log('API returned an error');
-                    ErrorHandler.redirectError();
                     deferred.reject();
 
                 });
