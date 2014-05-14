@@ -1,10 +1,10 @@
 app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log, $q) {
     
-    var endpoint = 'http://tripbox.uab.cat/TB_Backend/api/';
+    var endpoint = 'http://tripbox.uab.cat/TB_Backend2/api/';
     return {
         
         loginUser: function(data) {
-            debugger;
+            
             var deferred = $q.defer();
             $log.info('Haciendo loginUser en API');
             $http.put(endpoint + 'user', data)

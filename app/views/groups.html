@@ -170,7 +170,7 @@
 
                                     <center>
 
-                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
+                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>Añadir grupo
 
                                     </center>
 
@@ -313,7 +313,7 @@
                         <span class="glyphicon glyphicon-pencil"></span>
                     </span>
                     <fieldset>
-                        <input type="text" class="edit-group-name" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
+                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
                     </fieldset>
                 </div>
                 <div class="error" ng-show="formModGroup.nombre.$dirty && formModGroup.nombre.$invalid">
@@ -345,7 +345,7 @@
                     </span>
                         
                     <div>
-                        <input type="file" data-file="param.file"/>
+                        <input type="file" data-file="param.file" ng-model="newGroup.fileP"/>
                         <small>Sólo son validos ficheros JPEG</small>
                     </div>
                     
