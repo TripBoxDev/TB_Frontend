@@ -16,7 +16,7 @@ app.directive('file', function(){
 
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal) {
-    var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
+    var endpoint = 'http://tripbox.uab.es/TB_Backend2/api/';
     var imageDirectory = "http://tripbox.uab.cat/groupImgs/";
 
     //para hacer uso de $resource debemos colocarlo al crear el modulo
@@ -56,7 +56,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
                         //Determina si es imagen personalizada o no
                         var ImagePath;
-                        if(data.image == true){
+                        if(data.flagImage == true){
                             ImagePath = imageDirectory + data.id;
                         } else {
                             ImagePath = imageDirectory + "default_img.png"
@@ -212,48 +212,66 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
             console.log(edit);
 
-            //Llamada PUT a la API para insertar el nuevo grupo
-            ApiService.putEditGroup(edit)
+            //Carga datos actuales del grupo
+             ApiService.getGroup(edit.id)
                 .success(function(data, status) {
 
-                    console.log(data);
+                        console.log(data);
 
-                    //Lista de grupos del usuario
-                    $scope.groups = [];
+                        var editedGroup = data;
 
-                    //Llamada GET a la API para coger los grupos
+                        console.log(editedGroup);
 
-                    //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
+                        editedGroup.name = edit.name;
+                        editedGroup.description = edit.description;
 
-                    $http.get(endpoint + 'user/' + user)
-                        .success(function(data, status) {
+                        //Llamada PUT a la API para insertar el nuevo grupo
+                        ApiService.putEditGroup(editedGroup)
+                            .success(function(data2, status) {
 
-                            //Recorre todos los grupos
-                            for (var i = data.groups.length - 1; i >= 0; i--) {
-                                $http.get(endpoint + 'group/' + data.groups[i])
-                                    .success(function(data, status) {
+                                console.log(data2);
 
-                                        //Determina si es imagen personalizada o no
-                                        var ImagePath;
-                                        if(data.image == true){
-                                            ImagePath = imageDirectory + data.id;
-                                        } else {
-                                            ImagePath = imageDirectory + "default_img.png"
+                                //Lista de grupos del usuario
+                                $scope.groups = [];
+
+                                //Llamada GET a la API para coger los grupos
+
+                                //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
+
+                                $http.get(endpoint + 'user/' + user)
+                                    .success(function(data3, status) {
+
+                                        console.log("Verga");
+
+                                        //Recorre todos los grupos
+                                        for (var i = data3.groups.length - 1; i >= 0; i--) {
+                                            $http.get(endpoint + 'group/' + data3.groups[i])
+                                                .success(function(data4, status) {
+
+                                                    console.log("pene");
+                                                    console.log(data4);
+
+                                                    //Determina si es imagen personalizada o no
+                                                    var ImagePath;
+                                                    if(data4.flagImage == true){
+                                                        ImagePath = imageDirectory + data4.id;
+                                                    } else {
+                                                        ImagePath = imageDirectory + "default_img.png"
+                                                    }
+
+                                                    //Actualizamos la variable groups
+                                                    $scope.groups.push({
+                                                        id: data4.id,
+                                                        name: data4.name,
+                                                        description: data4.description,
+                                                        imagePath: ImagePath
+                                                    })
+                                                });
                                         }
-
-                                        //Actualizamos la variable groups
-                                        $scope.groups.push({
-                                            id: data.id,
-                                            name: data.name,
-                                            description: data.description,
-                                            imagePath: ImagePath
-                                        })
                                     });
-                            }
+
+                            });
                         });
-
-                });
-
         });
 
     };
