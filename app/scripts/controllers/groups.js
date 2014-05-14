@@ -214,22 +214,16 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
             //Carga datos actuales del grupo
              ApiService.getGroup(edit.id)
-                .success(function(data, status) {
+                .success(function(actualGroup, status) {
 
-                        console.log(data);
-
-                        var editedGroup = data;
-
-                        console.log(editedGroup);
+                        var editedGroup = actualGroup;
 
                         editedGroup.name = edit.name;
                         editedGroup.description = edit.description;
 
                         //Llamada PUT a la API para insertar el nuevo grupo
                         ApiService.putEditGroup(editedGroup)
-                            .success(function(data2, status) {
-
-                                console.log(data2);
+                            .success(function(editedGroup, status) {
 
                                 //Lista de grupos del usuario
                                 $scope.groups = [];
@@ -239,31 +233,26 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                                 //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
 
                                 $http.get(endpoint + 'user/' + user)
-                                    .success(function(data3, status) {
-
-                                        console.log("Verga");
+                                    .success(function(listOfGroups, status) {
 
                                         //Recorre todos los grupos
-                                        for (var i = data3.groups.length - 1; i >= 0; i--) {
-                                            $http.get(endpoint + 'group/' + data3.groups[i])
-                                                .success(function(data4, status) {
-
-                                                    console.log("pene");
-                                                    console.log(data4);
+                                        for (var i = listOfGroups.groups.length - 1; i >= 0; i--) {
+                                            $http.get(endpoint + 'group/' + listOfGroups.groups[i])
+                                                .success(function(groupPointer, status) {
 
                                                     //Determina si es imagen personalizada o no
                                                     var ImagePath;
-                                                    if(data4.flagImage == true){
-                                                        ImagePath = imageDirectory + data4.id;
+                                                    if(groupPointer.flagImage == true){
+                                                        ImagePath = imageDirectory + groupPointer.id;
                                                     } else {
                                                         ImagePath = imageDirectory + "default_img.png"
                                                     }
 
                                                     //Actualizamos la variable groups
                                                     $scope.groups.push({
-                                                        id: data4.id,
-                                                        name: data4.name,
-                                                        description: data4.description,
+                                                        id: groupPointer.id,
+                                                        name: groupPointer.name,
+                                                        description: groupPointer.description,
                                                         imagePath: ImagePath
                                                     })
                                                 });
