@@ -14,7 +14,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     };
 
-    <!--Leer información del grupo-->
+    // <!--Leer información del grupo-->
 
     $scope.infoGroup = {};
 
@@ -61,32 +61,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     };
 
 
-    // <!--Añadir nuevo destino-->
 
-    $scope.addDestination = function(destino) {
-
-        $scope.alertDestinationRepeat = false;
-
-        if ($scope.infoGroup.destinations.indexOf(destino) == -1) {
-
-            $http.put(endpoint + 'group/' + $scope.groupId + '/destination', destino, {
-                headers: {
-                    'Content-Type': 'text/plain'
-                }
-            })
-                .success(function(data, status) {
-                    console.log("destino insertado");
-                    $scope.infoGroup.destinations.push(destino);
-
-                }).
-            error(function(data, status) {
-                console.log("error al insertar destino");
-            });
-        } else {
-            $scope.alertDestinationRepeat = true;
-        }
-
-    };
 
     $scope.closeAlert = function() {
         $scope.alertDestinationRepeat = false;
@@ -145,10 +120,11 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     /**
      * Abre el modal para añadir un nuevo destino
      */
-    $scope.openAddDestionationModal = function() {
+    $scope.openAddDestinationModal = function() {
         var modalInstance = $modal.open({
-            templateUrl: 'modals/crearDestino.html',
-            controller: addDestinationModalInstanceCtrl
+            templateUrl: 'views/modals/crearDestino.html',
+            controller: 'addDestinationModalInstanceCtrl'
+
         });
     }
 
@@ -331,22 +307,22 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
 });
 
-//Disabled enter key add new destination
-app.directive('onKeyup', function() {
-    return function(scope, elm, attrs) {
-        var allowedKeys = scope.$eval(attrs.keys);
-        elm.bind('keydown', function(evt) {
-            angular.forEach(allowedKeys, function(key) {
-                if (key == evt.which) {
-                    evt.preventDefault();
-                    window.stop();
-                    document.execCommand("Stop");
-                    return false;
-                }
-            });
-        });
-    };
-});
+// //Disabled enter key add new destination
+// app.directive('onKeyup', function() {
+//     return function(scope, elm, attrs) {
+//         var allowedKeys = scope.$eval(attrs.keys);
+//         elm.bind('keydown', function(evt) {
+//             angular.forEach(allowedKeys, function(key) {
+//                 if (key == evt.which) {
+//                     evt.preventDefault();
+//                     window.stop();
+//                     document.execCommand("Stop");
+//                     return false;
+//                 }
+//             });
+//         });
+//     };
+// });
 
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {
@@ -385,6 +361,46 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 });
 
 
-app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance) {
+app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams) {
+    // <!--Añadir nuevo destino-->
 
+    var destinations = authService.data.userInfo.destinations,
+        endpoint = 'http://tripbox.uab.es/TB_Backend/api/',
+        groupId = $routeParams.groupId;
+
+    $scope.isLoading = false;
+
+    $scope.destino = '';
+    $scope.addDestination = function(destino) {
+        console.log('inside addDestination');
+        $scope.alertDestinationRepeat = false;
+
+
+        if (!$scope.destinationExists(destino)) {
+
+            $http.put(endpoint + 'group/' + groupId + '/destination', destino, {
+                headers: {
+                    'Content-Type': 'text/plain'
+                }
+            })
+                .success(function(data, status) {
+                    console.log("destino insertado");
+                    // TODO Añadir destino a la lista de arrays, cuando authService user info esté arreglad
+                    //destinations.push(destino);
+                    $modalInstance.close();
+                }).
+            error(function(data, status) {
+                console.log("error al insertar destino");
+            });
+        } else {
+            $modalInstance.dismiss();
+            $scope.alertDestinationRepeat = true;
+        }
+
+    };
+
+    $scope.destinationExists = function(destination) {
+return false;
+        //return (destinations.indexOf(destination) == -1) ;
+    }
 });
