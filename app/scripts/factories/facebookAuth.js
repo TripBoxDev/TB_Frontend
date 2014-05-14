@@ -17,7 +17,7 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
 
         loadSdk: function() {
             
-            debugger;
+            
             var deferred = $q.defer();
 
             if(typeof FB === "undefined") {
@@ -62,7 +62,7 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
             FB.login(function(response) {
                 $log.info('Facebook login response status: ' + response.status);
                 if (response.status === 'connected') {
-                    debugger;
+                    
                     /*
                      The user is already logged, 
                      is possible retrieve his personal info
@@ -77,7 +77,7 @@ app.factory('facebookAuthService', function(ApiService, authService, $log, $q) {
                     */
 
                 } else {
-debugger;
+
                     deferred.reject(response);
 
                     /*
@@ -96,12 +96,12 @@ debugger;
          * Sends the query to Facebook to retrieve user info
          */
         getUserInfo: function() {
-            debugger;
+            
             var deferred = $q.defer();
             var _self = this;
 
             FB.api('/me', function(response) {
-                debugger;
+                
                 // Prepares object to be sent to API
                 var apiData = {
                     facebookId: response.id,
@@ -121,7 +121,7 @@ debugger;
          */
         watchAuthStatusChange: function() {
 
-            debugger;
+            
             var _self = this;
             $log.info('Suscribe a cambios en estado del Facebook');
             FB.Event.subscribe('auth.authResponseChange', function(response) {
@@ -157,7 +157,7 @@ debugger;
         },
         getLoginStatus: function() {
             var deferred = $q.defer();
-            debugger;
+            
             var _self = this;
             FB.getLoginStatus(function(response) {
                 $log.info('Facebook login status: ' + response.status);

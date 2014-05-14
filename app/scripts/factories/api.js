@@ -4,7 +4,7 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
     return {
         
         loginUser: function(data) {
-            debugger;
+            
             var deferred = $q.defer();
             $log.info('Haciendo loginUser en API');
             $http.put(endpoint + 'user', data)

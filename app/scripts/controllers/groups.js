@@ -39,42 +39,47 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     var user = infoUser.id;
 
     $scope.infoUser = authService.data.userInfo;
-    //Lista de grupos del usuario
-    $scope.groups = [];
 
-    //Llamada GET a la API para coger los grupos
-    ApiService.getUser(user)
-        .success(function(data, status) {
+    //Función comun que carga (o recarga) los grupos de un usuario
+    $scope.reloadGroups = function (){
+            //Lista de grupos del usuario
+            $scope.groups = [];
 
-            //Recorre todos los grupos
-            for (var i = data.groups.length - 1; i >= 0; i--) {
-                    
-                var groupId = data.groups[i];
-                
-                ApiService.getGroup(groupId)
-                    .success(function(data, status) {
+            //Llamada GET a la API para coger los grupos
 
-                        //Determina si es imagen personalizada o no
-                        var ImagePath;
-                        if(data.flagImage == true){
-                            ImagePath = imageDirectory + data.id;
-                        } else {
-                            ImagePath = imageDirectory + "default_img.png"
-                        }
+            //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
 
-                        //Actualizamos la variable groups
-                        $scope.groups.push({
-                            id: data.id,
-                            name: data.name,
-                            description: data.description,
-                            imagePath: ImagePath
-                        })
-                    });
-            }
-        }).
-    error(function(data, status) {
-        console.log("error al obtener los grupos del usuario");
-    });
+            $http.get(endpoint + 'user/' + user).success(function(listOfGroups, status) {
+
+                //Recorre todos los grupos
+                for (var i = listOfGroups.groups.length - 1; i >= 0; i--) {
+                    $http.get(endpoint + 'group/' + listOfGroups.groups[i]).success(function(groupPointer, status) {
+
+                    //Determina si es imagen personalizada o no
+                    var ImagePath;
+                    if(groupPointer.flagImage == true){
+                        ImagePath = imageDirectory + groupPointer.id;
+                    } else {
+                        ImagePath = imageDirectory + "default_img.png"
+                    }
+
+                    //Actualizamos la variable groups
+                    $scope.groups.push({
+                        id: groupPointer.id,
+                        name: groupPointer.name,
+                        description: groupPointer.description,
+                        imagePath: ImagePath
+                    })
+                });
+                }
+            }).
+            error(function(data, status) {
+                console.log("error al obtener los grupos del usuario");
+            });
+    }
+
+    //Con la función de reloadGroups definida, llamarla al entrar en la página
+    $scope.reloadGroups();
 
      //Limpia el formulario de añadir grupo
     $scope.cleanFormAddGroup = function(){
@@ -149,7 +154,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                     imagen = $scope.param.file;
 
                     //Se sube la imagen al servidor
-                    $http.put("http://tripbox.uab.cat/TB_Backend2/api/group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
+                    $http.put(endpoint + "group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
                                 
                         //Se borra la referencia a la imagen para poder subir otras en el futuro
                         $scope.param = undefined;
@@ -189,7 +194,15 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     //Fin del parentesis addGroup
     };
 
+    $scope.miau = function() {
+        console.log($scope.param);
+    }
+
+    
+
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
+
+        console.log($scope.param);
 
         var editGroupModalInstance = $modal.open({
             templateUrl: 'editGroupModalContent.html',
@@ -207,10 +220,9 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
             }
         });
 
+        
 
         editGroupModalInstance.result.then(function(edit) {
-
-            console.log(edit);
 
             //Carga datos actuales del grupo
              ApiService.getGroup(edit.id)
@@ -225,43 +237,28 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                         ApiService.putEditGroup(editedGroup)
                             .success(function(editedGroup, status) {
 
-                                //Lista de grupos del usuario
-                                $scope.groups = [];
+                                //Se comprueba si existe imagen
+                                var imagen = edit.image;
 
-                                //Llamada GET a la API para coger los grupos
+                                if(imagen != undefined){
+                                //La imagen se saca de scope.param.file
+                                imagen = imagen.file;
 
-                                //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
+                                //Se sube la imagen al servidor
+                                $http.put(endpoint + "group/" + edit.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
 
-                                $http.get(endpoint + 'user/' + user)
-                                    .success(function(listOfGroups, status) {
+                                    $scope.reloadGroups();
 
-                                        //Recorre todos los grupos
-                                        for (var i = listOfGroups.groups.length - 1; i >= 0; i--) {
-                                            $http.get(endpoint + 'group/' + listOfGroups.groups[i])
-                                                .success(function(groupPointer, status) {
+                                });
 
-                                                    //Determina si es imagen personalizada o no
-                                                    var ImagePath;
-                                                    if(groupPointer.flagImage == true){
-                                                        ImagePath = imageDirectory + groupPointer.id;
-                                                    } else {
-                                                        ImagePath = imageDirectory + "default_img.png"
-                                                    }
+                                } else {
 
-                                                    //Actualizamos la variable groups
-                                                    $scope.groups.push({
-                                                        id: groupPointer.id,
-                                                        name: groupPointer.name,
-                                                        description: groupPointer.description,
-                                                        imagePath: ImagePath
-                                                    })
-                                                });
-                                        }
-                                    });
+                                    $scope.reloadGroups();
 
+                                }
                             });
                         });
-        });
+        }); 
 
     };
 
@@ -359,7 +356,8 @@ app.controller('editGroupModalInstanceCtrl', function($scope, $modalInstance, Ap
         var edit = {
             id: idGroup,
             name: groupName,
-            description: groupDescription
+            description: groupDescription,
+            image: this.param
         }
         $modalInstance.close(edit);
     }
