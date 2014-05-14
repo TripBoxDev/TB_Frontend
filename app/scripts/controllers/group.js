@@ -321,41 +321,25 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                 console.log("Error al insertar placeToSleepCard!");
             });
     };
-
+    
 });
 
-<!-- Controlador calendario -->
-
-var DatepickerDemoCtrl = function($scope) {
-    $scope.today = function() {
-        $scope.dt = new Date();
+//Disabled enter key add new destination
+app.directive('onKeyup', function() {
+    return function(scope, elm, attrs) {
+      var allowedKeys = scope.$eval(attrs.keys);
+      elm.bind('keydown', function(evt) {           
+        angular.forEach(allowedKeys, function(key) {
+          if (key == evt.which) {
+             evt.preventDefault();
+             window.stop();    
+             document.execCommand("Stop");
+             return false;                      
+          }
+        });
+      });
     };
-    $scope.today();
-
-    $scope.clear = function() {
-        $scope.dt = null;
-    };
-
-    $scope.toggleMin = function() {
-        $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
-
-    $scope.open = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $scope.opened = true;
-    };
-
-    $scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1
-    };
-
-    $scope.initDate = new Date('2013-05-05');
-    $scope.format = ['dd-MMMM-yyyy'];
-};
+});
 
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService) {
