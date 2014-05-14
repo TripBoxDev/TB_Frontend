@@ -1,6 +1,6 @@
 app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log, $q) {
     
-    var endpoint = 'http://tripbox.uab.cat/TB_Backend2/api/';
+    var endpoint = 'http://tripbox.uab.cat/TB_Backend/api/';
     return {
         
         loginUser: function(data) {

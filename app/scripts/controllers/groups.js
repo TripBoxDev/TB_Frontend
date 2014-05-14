@@ -16,7 +16,7 @@ app.directive('file', function(){
 
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal) {
-    var endpoint = 'http://tripbox.uab.es/TB_Backend2/api/';
+    var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
     var imageDirectory = "http://tripbox.uab.cat/groupImgs/";
 
     //para hacer uso de $resource debemos colocarlo al crear el modulo
