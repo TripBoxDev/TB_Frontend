@@ -92,7 +92,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         $scope.alertDestinationRepeat = false;
     };
 
-    
+
     // <!--Añadir place to sleep de forma manual-->
 
     // var newPlaceToSleep = {
@@ -110,7 +110,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     // error(function(data, status) {
     //     console.log("error al insertar place to sleep");
     // });
-    
+
 
     /*
     //<!-- Borrar destino -->
@@ -137,30 +137,37 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             });
     };
     */
-     $scope.posibleMatching = [];
+    $scope.posibleMatching = [];
 
-    
-        
-        
-      
- 
-    
 
-    $scope.nombre=function(){
+
+
+    /**
+     * Abre el modal para añadir un nuevo destino
+     */
+    $scope.openAddDestionationModal = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'modals/crearDestino.html',
+            controller: addDestinationModalInstanceCtrl
+        });
+    }
+
+
+    $scope.nombre = function() {
         $scope.posibleMatching = [];
-        
-        var destination= $scope.infoGroup.destinations[document.getElementById('newCard.destination').value];
+
+        var destination = $scope.infoGroup.destinations[document.getElementById('newCard.destination').value];
         for (var i = $scope.infoGroup.transportCards.length - 1; i >= 0; i--) {
-            if($scope.infoGroup.transportCards[i].destination == destination){
-                
+            if ($scope.infoGroup.transportCards[i].destination == destination) {
+
                 $scope.posibleMatching.push($scope.infoGroup.transportCards[i]);
-                
+
             }
         }
-    
+
     };
 
- 
+
     // <!--Añadir nueva Card Other-->
 
     $scope.addCardOther = function(submittedCard) {
@@ -262,8 +269,8 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     };
 
-    
-    
+
+
 
 
     //Tipos de alojamiento
@@ -321,23 +328,23 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                 console.log("Error al insertar placeToSleepCard!");
             });
     };
-    
+
 });
 
 //Disabled enter key add new destination
 app.directive('onKeyup', function() {
     return function(scope, elm, attrs) {
-      var allowedKeys = scope.$eval(attrs.keys);
-      elm.bind('keydown', function(evt) {           
-        angular.forEach(allowedKeys, function(key) {
-          if (key == evt.which) {
-             evt.preventDefault();
-             window.stop();    
-             document.execCommand("Stop");
-             return false;                      
-          }
+        var allowedKeys = scope.$eval(attrs.keys);
+        elm.bind('keydown', function(evt) {
+            angular.forEach(allowedKeys, function(key) {
+                if (key == evt.which) {
+                    evt.preventDefault();
+                    window.stop();
+                    document.execCommand("Stop");
+                    return false;
+                }
+            });
         });
-      });
     };
 });
 
@@ -375,4 +382,9 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
+});
+
+
+app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance) {
+
 });
