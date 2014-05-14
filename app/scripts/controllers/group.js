@@ -31,7 +31,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     });
 
 
-    <!--Voting-->
+    // <!--Voting-->
 
     $scope.max = 5;
     $scope.isReadonly = false;
@@ -61,7 +61,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     };
 
 
-    <!--Añadir nuevo destino-->
+    // <!--Añadir nuevo destino-->
 
     $scope.addDestination = function(destino) {
 
@@ -92,28 +92,28 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         $scope.alertDestinationRepeat = false;
     };
 
+    
+    // <!--Añadir place to sleep de forma manual-->
+
+    // var newPlaceToSleep = {
+    //     cardType: "placeToSleep",
+    //     destination: "Barcelona",
+    //     userIdCreator: $scope.infoUser.id
+    // }
+
+    // $http.put(endpoint + 'group/' + $scope.groupId + '/placeToSleepCard', newPlaceToSleep)
+    //     .success(function(data, status) {
+    //         console.log("place to sleep insertado");
+    //         $scope.infoGroup.placeToSleepCards.push(newPlaceToSleep);
+
+    //     }).
+    // error(function(data, status) {
+    //     console.log("error al insertar place to sleep");
+    // });
+    
+
     /*
-    <!--Añadir place to sleep de forma manual-->
-
-    var newPlaceToSleep = {
-        cardType: "placeToSleep",
-        destination: "Barcelona",
-        userIdCreator: $scope.infoUser.id
-    }
-
-    $http.put(endpoint + 'group/' + $scope.groupId + '/placeToSleepCard', newPlaceToSleep)
-        .success(function(data, status) {
-            console.log("place to sleep insertado");
-            $scope.infoGroup.placeToSleepCards.push(newPlaceToSleep);
-
-        }).
-    error(function(data, status) {
-        console.log("error al insertar place to sleep");
-    });
-    */
-
-    /*
-    <!-- Borrar destino -->
+    //<!-- Borrar destino -->
 
     $scope.deleteDestination = function(destino) {
 
@@ -161,7 +161,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     };
 
  
-    <!--Añadir nueva Card Other-->
+    // <!--Añadir nueva Card Other-->
 
     $scope.addCardOther = function(submittedCard) {
 
@@ -211,7 +211,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
 
-    <!--Añadir nueva Card Transporte-->
+    // <!--Añadir nueva Card Transporte-->
 
     $scope.addCardTransport = function(submittedCard) {
 
@@ -270,7 +270,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
     $scope.placeType = $scope.placeTypes[0];
 
-    <!--Añadir nueva Card Alojamiento-->
+    // <!--Añadir nueva Card Alojamiento-->
 
     $scope.addCardPlaceToSleep = function(submittedCard) {
         console.log(submittedCard.parentCardId);
