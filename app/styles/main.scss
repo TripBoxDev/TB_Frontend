@@ -91,7 +91,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 8px;
+    height: 1px;
     width: 100%;
 }
 .position-tripbox{
@@ -126,74 +126,38 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     text-align:center;
     bottom: 2em;
     left: 0;
-    height: 5px;
+    height: 2px;
     width: 100%;
 }
 /*enlace ya visitado.*/
- .click a:link {
+ .click{
     display:inline;
     text-decoration: none;
-    color:#013ADF;
+    color: #0675cf;
     left: 0;
     text-align:center;
     height: -2em;
     width: 100%;
 }
-/*enlace con raton encima.*/
- .click a:visited {
-    text-decoration:none;
-    color:#013ADF;
+.img-confucion{
+    width: 75%;
 }
-/*enlace cuando se hace clic en el.*/
- .click a:hover {
-    text-decoration:none;
-    color:#013ADF;
+.img-resolucion{
+    width: 75%;
 }
-/*Mause sobre el link*/
- .click a:active {
-    text-decoration:none;
-    color:#013ADF;
+.img-buzon{
+    width: 75%%;
 }
-@media (min-width: 800px) {
-    .info1 {
-        position: relative;
-        width: 45%;
-        margin-left: 10%;
-        margin-top: 5em;
-    }
-    .info2 {
-        position: relative;
-        width: 45%;
-        margin-left: 45%;
-        margin-top: 5em;
-    }
-    .info3 {
-        position: relative;
-        width: 45%;
-        margin-left: 10%;
-        margin-top: 5em;
-    }
+.img-cards{
+    width: 75%;
 }
-@media (max-width: 800px) {
-    .info1 {
-        position: relative;
-        width: 80%;
-        margin-left: 10%;
-        margin-top: 5em;
-    }
-    .info2 {
-        position: relative;
-        width: 80%;
-        margin-left: 10%;
-        margin-top: 20em;
-    }
-    .info3 {
-        position: relative;
-        width: 80%;
-        margin-left: 10%;
-        margin-top: 20em;
-        margin-bottom: 20em;
-    }
+.info-tripbox{
+    //margin-top: 60em;
+    position: absolute;
+    bottom: -20em;
+    height: 10em;
+    margin-left: 0;
+    width: 90%
 }
 .title {
     font-size: 175%;
@@ -209,7 +173,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     margin:0 auto 0 auto;
     width: 50em;
     height: 27em;
-    margin-top: 4em;
+    margin-top: 5em;
 }
 #videotuto {
     position: relative;
