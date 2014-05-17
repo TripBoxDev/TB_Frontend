@@ -448,12 +448,31 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
+    
+    /**
+     * Cierra el modal actual abortando la acción
+     */
     $scope.cancel = function() {
         $modalInstance.dismiss();
     }
+
+    /**
+     * Envia a la API los datos de la nueva card creada, a partir del formulario rellenado.
+     * Si la API retorna OK, cierra el modal y envia el resultado al group ctrl.
+     * Si hay error, cierra el modal diciendo que ha ido mal
+     */
     $scope.addCardTransport = function(submittedCard) {
+        
+        /**
+         * Indica si se esta a la espera de la respuesta
+         * de la llamada AJAX a la API para crear la card.
+         */
         $scope.isCreatingCard = true;
-        //Nueva Card 
+
+
+        /**
+         * Card que será enviada a la API
+         */
         var newCard = {
             cardType: "transport",
             name: submittedCard.name,
@@ -495,6 +514,8 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
 
         .error(function(data, status) {
             console.log("Error al insertar Transport Card!");
+            $modalInstance.dismiss();
+
         });
 
     };
