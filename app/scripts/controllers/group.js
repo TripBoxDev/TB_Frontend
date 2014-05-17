@@ -541,7 +541,7 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
     }
 
     $scope.addCardOther = function(submittedCard) {
-
+        $scope.isCreatingCard = true;
         //Nueva Card 
         var newCard = {
 
@@ -559,7 +559,7 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
         //Llamada PUT a la API para insertar la card de tipo other
         ApiService.putOtherCard($routeParams.groupId, newCard)
             .success(function(data, status) {
-
+                $scope.isCreatingCard = false;
                 var newCardReturn = {
                     cardId: data.cardId,
                     creationDate: data.creationDate,
@@ -576,10 +576,12 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
                 }
 
                 console.log("Card de tipus Other Card creada");
-                
+
                 $modalInstance.close(newCardReturn);
             })
             .error(function(data, status) {
+                $scope.isCreatingCard = false;
+
                 $modalInstance.dismiss();
                 console.log("Error al insertar OtherCard!");
             });
