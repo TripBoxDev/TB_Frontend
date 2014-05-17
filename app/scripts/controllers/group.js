@@ -1,4 +1,4 @@
-app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http) {
+app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http, ApiService) {
 
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
@@ -313,7 +313,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams, notificationFactory) {
     $scope.users = [];
-	$scope.isSending = false;
+    $scope.isSending = false;
     $scope.addInvite = function() {
         $scope.users.push($scope.newUser);
 
@@ -359,6 +359,7 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
         return ($scope.users.length === 0) ? true : false;
 
     };
+});
 
 app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams) {
     // <!--Añadir nuevo destino-->
@@ -399,7 +400,7 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
     };
 
     $scope.destinationExists = function(destination) {
-return false;
+        return false;
         //return (destinations.indexOf(destination) == -1) ;
     }
 });
