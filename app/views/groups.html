@@ -216,18 +216,16 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="edit-group-name form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" ng-maxlength=10 required>
+                                <input type="text" class="form-control" placeholder="Nombre del grupo" name="nombre" ng-model="newGroup.name" required>
+                                
                             </fieldset>
 
                         </div>
                         <div class="error" ng-show="formAddGroup.nombre.$dirty && formAddGroup.nombre.$invalid">
-                            <small class="error" ng-show="formAddGroup.nombre.$error.required">
-                                El grupo necesita un nombre.
-                            </small>
-                        </div>
-                        <small class="error" ng-show="formAddGroup.nombre.$error.maxlength">
-                            El nombre no puede tener mas de 10 letras.
-                        </small>
+                                    <small class="error" ng-show="formAddGroup.nombre.$error.required">
+                                        El grupo necesita un nombre.
+                                    </small>
+                                </div>
                         </br>
                         <div class="input-group">
 
@@ -235,9 +233,14 @@
                                 <span class="glyphicon glyphicon-comment"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Descripción del grupo" name="descripcion" ng-model="newGroup.description">
+                                <input type="text" class="form-control" placeholder="Descripción del grupo" name="descripcion" ng-model="newGroup.description" required>
                             </fieldset>
 
+                        </div>
+                        <div class="error" ng-show="formAddGroup.descripcion.$dirty && formAddGroup.descripcion.$invalid">
+                            <small class="error" ng-show="formAddGroup.descripcion.$error.required">
+                                Por favor, haz una descripción breve del grupo.
+                            </small>
                         </div>
                         </br>
                         <div class="input-group">
@@ -286,7 +289,7 @@
         <div class="modal-footer">
             
             <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="confirmUnFollow()">Abandonar</button>
+            <button type="button" class="btn btn-danger" ng-click="confirmUnFollow()">Abandonar</button>
             
         </div>
     
@@ -307,36 +310,17 @@
          
                 <div class="input-group">
 
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </span>
-                    <fieldset>
-                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
-                    </fieldset>
-                </div>
-                <div class="error" ng-show="formModGroup.nombre.$dirty && formModGroup.nombre.$invalid">
-                            <small class="error" ng-show="formModGroup.nombre.$error.required">
-                                El grupo necesita un nombre.
-                            </small>
-                        </div>
-                        <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
-                            El nombre no puede tener mas de 10 letras.
-                        </small>
-                </br>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </span>
+                
+                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
+                            
+            </div>
 
-                <div class="input-group">                
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-comment"></span>
-                    </span>
-                               
-                    <fieldset> 
-                        <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" name="descripcion">
-                    </fieldset>
-                    
-                </div>
-                </br>
+            </br>
 
-                <div class="input-group">
+            <div class="input-group">
                         
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-picture"></span>

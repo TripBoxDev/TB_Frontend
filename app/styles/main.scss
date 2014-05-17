@@ -8,6 +8,18 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: 100%;
     background-image: url(../images/bg.png);
 }
+
+/*
+    ng-cloack oculta las vistas antes de ser compiladas (tratadas por un controlador).
+    El objetivo es ocultar el parpadeo 
+*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.logo {
+    max-width: 100%;
+}
 .landing {
     margin-top: 50px;
 }
@@ -33,18 +45,11 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         margin:100px auto;
     }
 }
-/*
-#veil {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height:100%;
-    width:100%;
-    cursor: not-allowed;
-    filter: alpha(opacity=60);
-    opacity: 0.6;
-    background: #000000 url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat center;
-}*/
+
+/* Muestra la navbar por encima del tutorial del uso de cards */
+.navbar {
+    z-index: 1;
+}
 
 .logo-tripbox{
     /*background: green;*/
@@ -203,3 +208,101 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     text-align: center;
 }
 
+/* Diseño cards */
+ $card-border-radius: 5px;
+ $diameter-bubble: 80px;
+ $time-open-transition: .2s;
+
+$card-height-inner-boxes: 70px;
+ .card-wrapper {
+    @include make-sm-column(6);
+    @include make-md-column(3);
+    @include make-lg-column(3);
+}
+.card {
+    background: #ddd;
+    border-radius: $card-border-radius;
+    .bubble {
+        height: $diameter-bubble;
+        width: $diameter-bubble;
+        border-radius: 50%;
+        background-color: #fff;
+        i {
+            line-height: $diameter-bubble;
+            width: $diameter-bubble;
+            font-size: 27px;
+            text-align: center;
+        }
+    }
+    box-shadow: #111 0 0 5px;
+    @include transition(all $time-open-transition ease-in-out);
+}
+.group {
+    background-image: url(../images/system/groups/placeholder/people1.jpg);
+    // url(../images/system/group/airplane1.jpg);
+    background-size: cover;
+    padding: 15px;
+    height: 300px;
+    position: relative;
+    .grey-box {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+    .caption {
+        @include transition(all $time-open-transition ease-in-out);
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        margin-left: -15px;
+        height: $card-height-inner-boxes;
+        @include border-bottom-radius($card-border-radius);
+        h2 {
+            line-height: $card-height-inner-boxes;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: white;
+        }
+    }
+    .buttons-wrapper {
+        width: 100%;
+        height: 0;
+        margin-left: -15px;
+        .card-btn {
+            text-align: center;
+            display: inline-block;
+            height: 0;
+            width: 49%;
+            border: 0;
+            i {
+                
+                @include transition(all $time-open-transition 0s ease);
+                //@include scale(0);
+                line-height: 0;
+                font-size: 22px;
+            }
+        }
+        @include border-bottom-radius($card-border-radius);
+        @include transition(all $time-open-transition ease);
+    }
+}
+.card:hover {
+    box-shadow: #111 0 0 10px;
+    .grey-box {
+        @include border-bottom-radius($card-border-radius);
+    }
+    .caption {
+        @include border-bottom-radius(0);
+    }
+    .buttons-wrapper {
+        height: $card-height-inner-boxes;
+        background: #ddd;
+        .card-btn {
+            height: 100%;
+            i {
+                //@include scale(1);
+                line-height: $card-height-inner-boxes;
+            }
+        }
+    }
+}
