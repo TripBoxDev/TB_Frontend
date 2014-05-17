@@ -1,16 +1,14 @@
-<!--MODAL ADD CARD TRANSPORT-->
-<!--<div class="modal fade" id="CrearCardTransport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">-->
+
 <div class="modal-header">
 
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-    <h4 class="modal-title" id="myModalLabel">Añadir nueva card - Transporte</h4>
+    <h4 class="modal-title" id="myModalLabel">Añade nueva card de Transporte</h4>
 
 </div>
-<form name="formAddCardTransport" novalidate ng-submit="addCard()">
-    <div class="modal-body">
+
+<div class="modal-body">
+    <form name="formAddCardTransport" novalidate ng-submit="addCard()">
         <div class="input-group">
 
             <span class="input-group-addon">
@@ -104,17 +102,12 @@
                 </select>
             </fieldset>
         </div>
+    </form>
 
-    </div>
-    <div class="modal-footer">
+</div>
+<div class="modal-footer">
 
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 
-        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardTransport(newCard)" ng-disabled="formAddCardTransport.$invalid">Crear</button>
-    </div>
-</form>
-<!--
-
-        </div>
-    </div>
-</div>-->
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardTransport(newCard)" ng-disabled="formAddCardTransport.$invalid">Crear</button>
+</div>
