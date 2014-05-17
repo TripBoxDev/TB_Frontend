@@ -124,5 +124,5 @@
 
     <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
 
-    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
+    <button type="button" class="btn btn-primary" btn-loading="{{ isCreatingCard }}" data-loading-text="Creando..." ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
 </div>
