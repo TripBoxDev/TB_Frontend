@@ -42,6 +42,10 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                 })
                 break;
             case 'place2sleep':
+            var createTransportCardModalInstanceCtrl = $modal.open({
+                    templateUrl: '/views/modals/addPlace2SleepCard.html',
+                    controller: 'CreatePlace2SleepCardModalInstanceCtrl'
+                })
                 $log.info('place2sleep has been chosen');
 
                 break;
@@ -466,5 +470,19 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
  * Gestiona la información del modal para crear una card de transporte
  */
 app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance) {
+
+});
+
+/**
+ * Gestiona la información del modal para crear una card de transporte
+ */
+app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance) {
+
+});
+
+/**
+ * Gestiona la información del modal para crear una card de transporte
+ */
+app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance) {
 
 });
