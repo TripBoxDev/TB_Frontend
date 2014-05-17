@@ -275,23 +275,6 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             });
     };
 
-    //Tipos de transporte 
-    $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
-    $scope.transportType = $scope.transportTypes[0];
-
-    // <!--Añadir nueva Card Transporte-->
-
-
-
-
-
-
-
-    //Tipos de alojamiento
-    $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
-    $scope.placeType = $scope.placeTypes[0];
-
-    // <!--Añadir nueva Card Alojamiento-->
 
 
 
@@ -420,7 +403,8 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
-
+    $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
+    $scope.transportType = $scope.transportTypes[0];
     /**
      * Cierra el modal actual abortando la acción
      */
@@ -500,6 +484,10 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modal
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
+    $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
+    $scope.placeType = $scope.placeTypes[0];
+
+
     /**
      * Cierra el modal actual abortando la acción
      */
