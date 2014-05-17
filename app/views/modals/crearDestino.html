@@ -1,0 +1,37 @@
+<div class="modal-header">
+
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+    <h4 class="modal-title" id="myModalLabel">Añadir un nuevo destino</h4>
+
+</div>
+<div class="modal-body">
+    <form name="formAddDestination" novalidate ng-submit="addDestination()">
+
+        <div class="input-group">
+
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-plane"></span>
+            </span>
+            <fieldset>
+                
+                
+                <input type="text" on-keyup="enter" keys="[13]" class="form-control" placeholder="Destino" name="destino" ng-pattern="/^([a-zA-Z ])+$/" ng-model="destino" required>
+
+            </fieldset>
+
+        </div>
+
+        <div class="error" ng-show="formAddDestination.destino.$dirty && formAddDestination.destino.$invalid">
+            <small class="error" ng-show="formAddDestination.destino.$error.required">
+                El destino necesita un nombre.
+            </small>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDestination(destino)" ng-disabled="formAddDestination.$invalid">Crear</button>
+</div>
