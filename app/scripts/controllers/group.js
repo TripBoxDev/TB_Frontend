@@ -99,6 +99,15 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                             return $scope.infoUser;
                         }
                     }
+                });
+
+                createOtherCardModalInstanceCtrl.result.then(function(newCardReturned) {
+                    $scope.infoGroup.otherCards.push(newCardReturned);
+                    notificationFactory.success('Nueva card añadida con éxito!');
+
+
+                }, function() {
+                    // TODO Muestra notificación de error
                 })
                 $log.info('other has been chosen');
                 break;
