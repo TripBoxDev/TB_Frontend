@@ -1,4 +1,4 @@
-app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http, ApiService) {
+app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http, ApiService, $log) {
 
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
@@ -15,6 +15,34 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             controller: 'InvitationModalInstanceCtrl'
         });
     };
+
+    $scope.openCreateCardModal = function() {
+        var invitationModalInstance = $modal.open({
+            templateUrl: '/views/modals/createCard.html',
+            controller: 'CreateCardModalInstanceCtrl'
+        });
+
+        invitationModalInstance.result.then(function(typeSelected) {
+            $scope.openCreateTypeCardModal(typeSelected);
+        });
+
+    };
+
+    $scope.openCreateTypeCardModal = function(typeSelected) {
+        switch (typeSelected) {
+            case 'transport':
+                $log.info('Transport has been chosen');
+                break;
+            case 'place2sleep':
+                $log.info('place2sleep has been chosen');
+
+                break;
+            case 'other':
+                $log.info('other has been chosen');
+
+                break;
+        }
+    }
 
     // <!--Leer información del grupo-->
 
@@ -400,5 +428,27 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
     $scope.destinationExists = function(destination) {
         return false;
         //return (destinations.indexOf(destination) == -1) ;
+    }
+});
+
+/**
+ * Controlador de la instancia del modal para crear nuevas cards
+ */
+app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
+
+    /**
+     * Cierra el modal de crear carta y envia la eleccion al
+     * controlador principal.
+     */
+    $scope.chooseTypeOfCard = function(type) {
+        $modalInstance.close(type);
+    }
+
+    /**
+     * Cierra el modal actual abortando la acción
+     */
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+
     }
 });
