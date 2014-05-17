@@ -1,0 +1,128 @@
+<div class="modal-header">
+
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
+
+    <h4 class="modal-title" id="myModalLabel">Añadir nueva card - Alojamiento</h4>
+
+</div>
+<div class="modal-body">
+    <form name="formAddCardPlace" novalidate ng-submit="addCard()">
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </span>
+            <fieldset>
+                <input type="text" class="form-control" placeholder="Nombre" name="nombre" ng-model="newCard.name" required>
+
+            </fieldset>
+        </div>
+
+        <div class="error" ng-show="formAddCardPlace.nombre.$dirty && formAddCardPlace.nombre.$invalid">
+            <small class="error" ng-show="formAddCardTransport.nombre.$error.required">
+                La card necesita un nombre.
+            </small>
+        </div>
+        </br>
+        <div class="input-group">
+
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-comment"></span>
+            </span>
+            <fieldset>
+                <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" ng-model="newCard.description">
+
+            </fieldset>
+
+        </div>
+        </br>
+
+        <div class="input-group">
+
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-pushpin"></span>
+            </span>
+            <fieldset>
+                <input type="text" class="form-control" placeholder="Link" name="link" ng-model="newCard.link">
+
+            </fieldset>
+
+        </div>
+
+        </br>
+        <div class="input-group">
+
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-euro"></span>
+            </span>
+            <fieldset>
+                <input type="text" class="form-control" placeholder="Precio" name="precio" ng-model="newCard.price" required>
+
+            </fieldset>
+
+        </div>
+
+        <div class="error" ng-show="formAddCardPlace.precio.$dirty && formAddCardPlace.precio.$invalid">
+            <small class="error" ng-show="formAddCardTransport.precio.$error.required">
+                La card necesita un precio.
+            </small>
+        </div>
+        </br>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-plane"></span>
+            </span>
+            <fieldset>
+                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in destinations" required>
+                    <option value="" disabled selected>Selecciona el destino</option>
+                </select>
+                
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#CrearDestino">
+                    <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span>Nuevo Destino
+
+                </button>
+            </fieldset>
+        </div>
+
+        <div class="error" ng-show="formAddCardPlace.destino.$dirty && formAddCardPlace.destino.$invalid">
+            <small class="error" ng-show="formAddCardPlace.destino.$error.required">
+                La card necesita un destino.
+            </small>
+        </div>
+        </br>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-home"></span>
+            </span>
+            <fieldset>
+                <select class="form-control" ng-model="newCard.placeType" ng-options="f for f in placeTypes">
+                    <option value="" disabled selected>Selecciona el tipo de alojamiento</option>
+                </select>
+            </fieldset>
+        </div>
+        </br>
+        <div class="input-group">
+
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-transfer"></span>
+            </span>
+
+
+            <fieldset>
+                <select class="form-control" name="destino" ng-model="newCard.parentCardId" ng-options="f.cardId as f.name for f in posibleMatching">
+
+                    <option value="" disabled selected>Selecciona un transporte asociado con la card</option>
+
+                </select>
+            </fieldset>
+
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+
+    <button type="button" class="btn btn-primary" btn-loading="{{ isCreatingCard }}" data-loading-text="Creando..." ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
+</div>

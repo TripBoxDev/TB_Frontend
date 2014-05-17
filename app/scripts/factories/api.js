@@ -1,10 +1,10 @@
 app.factory('ApiService', function($http, $location, authService, ErrorHandler, $log, $q) {
-    
+
     var endpoint = 'http://tripbox.uab.cat/TB_Backend/api/';
     return {
-        
+
         loginUser: function(data) {
-            
+
             var deferred = $q.defer();
             $log.info('Haciendo loginUser en API');
             $http.put(endpoint + 'user', data)
@@ -42,21 +42,21 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
             //Llamada GET para consultar los grupos de un usuario
             return $http.get(endpoint + 'group/' + groupId);
-           
+
         },
-        
+
         putGroup: function(newGroup) {
 
             //Llamada PUT a la API para insertar el nuevo grupo
             return $http.put(endpoint + 'group', newGroup);
-                
+
         },
-        
+
         putUserGroup: function(datos) {
 
             //Llamada PUT a la API para insertar el id del grupo al usuario y el id del usuario al grupo 
             return $http.put(endpoint + 'user/' + datos.userId + '/group/' + datos.groupId);
-            
+
         },
 
         putEditGroup: function(edit) {
@@ -70,16 +70,36 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
 
             //Se hace una petición de eliminación del usuario determinado al grupo pertinente
             return $http.delete(endpoint + 'group/' + datos.groupId + '/user/' + datos.userId);
-            
+
         },
 
         sendInvitations: function(mailsArray, groupId, callback) {
             var data = {
-                "invitationUrl" : "http://tripbox.uab.cat/" + groupId,
-                "emails" : mailsArray
+                "invitationUrl": "http://tripbox.uab.cat/" + groupId,
+                "emails": mailsArray
             };
             return $http.put(endpoint + 'email/invitation', data);
-                
-        }
+
+        },
+
+        putTransportCard: function(groupId, transportCard) {
+            return $http.put(endpoint + 'group/' + groupId + '/transportCard', transportCard);
+        },
+
+        /**
+         * Añade o modifica una card de tipo place2Sleep
+         */
+        putPlaceToSleepCard: function(groupId, placeToSleepCard) {
+            return $http.put(endpoint + 'group/' + groupId + '/placeToSleepCard', placeToSleepCard);
+
+        },
+        /**
+         * Añade o modifica una card de tipo other
+         */
+        putOtherCard: function(groupId, otherCard) {
+            return $http.put(endpoint + 'group/' + groupId + '/otherCard', otherCard);
+
+        },
+
     }
 })
