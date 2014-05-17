@@ -10,12 +10,10 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     }
     $scope.logoutUser = ApiService.logoutUser;
     $scope.openInviteModal = function() {
-
         var invitationModalInstance = $modal.open({
             templateUrl: '/views/modals/sendInvitations.html',
             controller: 'InvitationModalInstanceCtrl'
         });
-
     };
 
     // <!--Leer información del grupo-->
@@ -126,7 +124,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
      */
     $scope.openAddDestinationModal = function() {
         var modalInstance = $modal.open({
-            templateUrl: 'views/modals/crearDestino.html',
+            templateUrl: 'views/modals/createDestination.html',
             controller: 'addDestinationModalInstanceCtrl'
 
         });
