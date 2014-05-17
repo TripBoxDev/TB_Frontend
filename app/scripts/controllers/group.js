@@ -237,51 +237,9 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     };
 
 
-    // <!--Añadir nueva Card Other-->
 
-    $scope.addCardOther = function(submittedCard) {
 
-        //Nueva Card 
-        var newCard = {
 
-            cardType: "other",
-            name: submittedCard.name,
-            description: submittedCard.description,
-            link: submittedCard.link,
-            price: submittedCard.price,
-            destination: submittedCard.destination,
-            userIdCreator: $scope.infoUser.id,
-            nameCreator: $scope.infoUser.name,
-            lastNameCreator: $scope.infoUser.lastName,
-            eventDate: submittedCard.dt.getTime()
-        }
-
-        //Llamada PUT a la API para insertar la card de tipo other
-        $http.put(endpoint + 'group/' + $scope.groupId + '/otherCard', newCard)
-            .success(function(data, status) {
-
-                var newCardReturn = {
-                    cardId: data.cardId,
-                    creationDate: data.creationDate,
-                    cardType: data.cardType,
-                    name: data.name,
-                    description: data.description,
-                    link: data.link,
-                    price: data.price,
-                    destination: data.destination,
-                    userIdCreator: data.userIdCreator,
-                    nameCreator: data.nameCreator,
-                    lastNameCreator: data.lastNameCreator,
-                    eventDate: data.eventDate
-                }
-
-                console.log("Card de tipus Other Card creada");
-                $scope.infoGroup.otherCards.push(newCardReturn);
-            })
-            .error(function(data, status) {
-                console.log("Error al insertar OtherCard!");
-            });
-    };
 
 
 
@@ -564,13 +522,57 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
-    
+
     /**
      * Cierra el modal actual abortando la acción
      */
-    
+
     $scope.cancel = function() {
         $modalInstance.dismiss();
     }
 
+    $scope.addCardOther = function(submittedCard) {
+
+        //Nueva Card 
+        var newCard = {
+
+            cardType: "other",
+            name: submittedCard.name,
+            description: submittedCard.description,
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName
+        }
+
+        //Llamada PUT a la API para insertar la card de tipo other
+        ApiService.putOtherCard($routeParams.groupId, newCard)
+            .success(function(data, status) {
+
+                var newCardReturn = {
+                    cardId: data.cardId,
+                    creationDate: data.creationDate,
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description,
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    eventDate: data.eventDate
+                }
+
+                console.log("Card de tipus Other Card creada");
+                
+                $modalInstance.close(newCardReturn);
+            })
+            .error(function(data, status) {
+                $modalInstance.dismiss();
+                console.log("Error al insertar OtherCard!");
+            });
+    };
 });
