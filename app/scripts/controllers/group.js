@@ -75,6 +75,15 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                         }
                     }
                 });
+
+                createPlace2SleepCardModalInstanceCtrl.result.then(function(newCardReturned) {
+                    $scope.infoGroup.placeToSleepCards.push(newCardReturned);
+                    notificationFactory.success('Nueva card de alojamiento añadida con éxito!');
+
+
+                }, function() {
+                    // TODO Muestra notificación de error
+                })
                 $log.info('place2sleep has been chosen');
 
                 break;
@@ -488,7 +497,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
  * Gestiona la información del modal para crear una card de transporte
  */
 app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $routeParams, ApiService, placeToSleepCards, destinations, infoUser) {
-
+    $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
     /**
@@ -499,24 +508,24 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modal
     }
 
     $scope.addCardPlaceToSleep = function(submittedCard) {
-        console.log(submittedCard.parentCardId);
-        debugger;
+
+        $scope.isCreatingCard = true;
         // Todo obtener parentCardIds de la card, en caso de estar modificandola.
         var parentCardIds = [];
-        if(typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
-            var newCard = {
-                parentCardIds: parentCardIds,
-                cardType: "placeToSleep",
-                name: submittedCard.name,
-                description: submittedCard.description,
-                link: submittedCard.link,
-                price: submittedCard.price,
-                destination: submittedCard.destination,
-                userIdCreator: $scope.infoUser.id,
-                nameCreator: $scope.infoUser.name,
-                lastNameCreator: $scope.infoUser.lastName,
-                placeType: submittedCard.type
-            }
+        if (typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
+        var newCard = {
+            parentCardIds: parentCardIds,
+            cardType: "placeToSleep",
+            name: submittedCard.name,
+            description: submittedCard.description,
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName,
+            placeType: submittedCard.type
+        }
 
 
         ApiService.putPlaceToSleepCard($routeParams.groupId, newCard)
