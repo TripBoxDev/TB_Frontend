@@ -1,12 +1,13 @@
 <div class="modal-header">
 
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
 
     <h4 class="modal-title" id="myModalLabel">Añadir nueva card - Alojamiento</h4>
 
 </div>
-<form name="formAddCardPlace" novalidate ng-submit="addCard()">
-    <div class="modal-body">
+<div class="modal-body">
+    <form name="formAddCardPlace" novalidate ng-submit="addCard()">
+
         <div class="input-group">
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -72,11 +73,10 @@
                 <span class="glyphicon glyphicon-plane"></span>
             </span>
             <fieldset>
-                <select class="form-control" id="newCard.destination" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-change="nombre()" ng-options="f for f in infoGroup.destinations" required>
+                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in destinations" required>
                     <option value="" disabled selected>Selecciona el destino</option>
-                    <option></option>
                 </select>
-                </select>
+                
                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#CrearDestino">
                     <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span>Nuevo Destino
 
@@ -110,7 +110,7 @@
 
 
             <fieldset>
-                <select class="form-control" name="destino" ng-model="newCard.parentCardId" ng-options="f.cardId as f.name for f in posibleMatching" required>
+                <select class="form-control" name="destino" ng-model="newCard.parentCardId" ng-options="f.cardId as f.name for f in posibleMatching">
 
                     <option value="" disabled selected>Selecciona un transporte asociado con la card</option>
 
@@ -118,12 +118,12 @@
             </fieldset>
 
         </div>
+    </form>
 
-    </div>
-    <div class="modal-footer">
+</div>
+<div class="modal-footer">
 
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
 
-        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
-    </div>
-</form>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
+</div>

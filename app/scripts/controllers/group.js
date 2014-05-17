@@ -62,7 +62,18 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             case 'place2sleep':
                 var createPlace2SleepCardModalInstanceCtrl = $modal.open({
                     templateUrl: '/views/modals/addPlace2SleepCard.html',
-                    controller: 'CreatePlace2SleepCardModalInstanceCtrl'
+                    controller: 'CreatePlace2SleepCardModalInstanceCtrl',
+                    resolve: {
+                        placeToSleepCards: function() {
+                            return $scope.infoGroup.placeToSleepCards;
+                        },
+                        destinations: function() {
+                            return $scope.infoGroup.destinations;
+                        },
+                        infoUser: function() {
+                            return $scope.infoUser;
+                        }
+                    }
                 });
                 $log.info('place2sleep has been chosen');
 
@@ -273,55 +284,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     // <!--Añadir nueva Card Alojamiento-->
 
-    $scope.addCardPlaceToSleep = function(submittedCard) {
-        console.log(submittedCard.parentCardId);
-        //Nueva Card 
-        var newCard = {
-            parentCardIds: [submittedCard.parentCardId],
-            cardType: "placeToSleep",
-            name: submittedCard.name,
-            description: submittedCard.description,
-            link: submittedCard.link,
-            price: submittedCard.price,
-            destination: submittedCard.destination,
-            userIdCreator: $scope.infoUser.id,
-            nameCreator: $scope.infoUser.name,
-            lastNameCreator: $scope.infoUser.lastName,
-            initDate: submittedCard.dtInit.getTime(),
-            finalDate: submittedCard.dtFinal.getTime(),
-            placeType: submittedCard.type
-        }
 
-        //Llamada PUT a la API para insertar la card de tipo alojamiento
-        $http.put(endpoint + 'group/' + $scope.groupId + '/placeToSleepCard', newCard)
-            .success(function(data, status) {
-
-                var newCardReturn = {
-                    parentCardIds: data.parentCardIds,
-                    cardId: data.cardId,
-                    creationDate: data.creationDate,
-                    cardType: data.cardType,
-                    name: data.name,
-                    description: data.description,
-                    link: data.link,
-                    price: data.price,
-                    destination: data.destination,
-                    userIdCreator: data.userIdCreator,
-                    nameCreator: data.nameCreator,
-                    lastNameCreator: data.lastNameCreator,
-                    initDate: data.initDate,
-                    finalDate: data.finalDate,
-                    placeType: data.placeType
-                }
-
-                console.log("Card de tipus placeToSleep Card creada");
-                console.log(newCardReturn.parentCardIds);
-                $scope.infoGroup.placeToSleepCards.push(newCardReturn);
-            })
-            .error(function(data, status) {
-                console.log("Error al insertar placeToSleepCard!");
-            });
-    };
 
 });
 
@@ -448,7 +411,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
-    
+
     /**
      * Cierra el modal actual abortando la acción
      */
@@ -462,7 +425,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
      * Si hay error, cierra el modal diciendo que ha ido mal
      */
     $scope.addCardTransport = function(submittedCard) {
-        
+
         /**
          * Indica si se esta a la espera de la respuesta
          * de la llamada AJAX a la API para crear la card.
@@ -524,8 +487,69 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance) {
+app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $routeParams, ApiService, placeToSleepCards, destinations, infoUser) {
 
+    $scope.destinations = destinations;
+    $scope.infoUser = infoUser;
+    /**
+     * Cierra el modal actual abortando la acción
+     */
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+
+    $scope.addCardPlaceToSleep = function(submittedCard) {
+        console.log(submittedCard.parentCardId);
+        debugger;
+        // Todo obtener parentCardIds de la card, en caso de estar modificandola.
+        var parentCardIds = [];
+        if(typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
+            var newCard = {
+                parentCardIds: parentCardIds,
+                cardType: "placeToSleep",
+                name: submittedCard.name,
+                description: submittedCard.description,
+                link: submittedCard.link,
+                price: submittedCard.price,
+                destination: submittedCard.destination,
+                userIdCreator: $scope.infoUser.id,
+                nameCreator: $scope.infoUser.name,
+                lastNameCreator: $scope.infoUser.lastName,
+                placeType: submittedCard.type
+            }
+
+
+        ApiService.putPlaceToSleepCard($routeParams.groupId, newCard)
+            .success(function(data, status) {
+
+                var newCardReturn = {
+                    parentCardIds: data.parentCardIds,
+                    cardId: data.cardId,
+                    creationDate: data.creationDate,
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description,
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    initDate: data.initDate,
+                    finalDate: data.finalDate,
+                    placeType: data.placeType
+                }
+
+                console.log("Card de tipus placeToSleep Card creada");
+                console.log(newCardReturn.parentCardIds);
+                $modalInstance.close(newCardReturn);
+                //$scope.infoGroup.placeToSleepCards.push(newCardReturn);
+            })
+            .error(function(data, status) {
+                console.log("Error al insertar placeToSleepCard!");
+                $modalInstance.dismiss();
+            });
+    }
 });
 
 /**
