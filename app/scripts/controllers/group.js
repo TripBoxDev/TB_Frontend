@@ -34,15 +34,22 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     $scope.openCreateTypeCardModal = function(typeSelected) {
         switch (typeSelected) {
             case 'transport':
-                            $log.info('Transport has been chosen');
+                $log.info('Transport has been chosen');
 
                 var createTransportCardModalInstanceCtrl = $modal.open({
                     templateUrl: '/views/modals/addTransportCard.html',
                     controller: 'CreateTransportCardModalInstanceCtrl'
                 });
+
+                createTransportCardModalInstanceCtrl.result.then(function(submittedCard) {
+                    $scope.infoGroup.transportCards.push(newCardReturn);
+                    // TODO Muestra notificación de éxito.
+                }, function() {
+                    // TODO Muestra notificación de error.
+                })
                 break;
             case 'place2sleep':
-            var createPlace2SleepCardModalInstanceCtrl = $modal.open({
+                var createPlace2SleepCardModalInstanceCtrl = $modal.open({
                     templateUrl: '/views/modals/addPlace2SleepCard.html',
                     controller: 'CreatePlace2SleepCardModalInstanceCtrl'
                 });
@@ -50,13 +57,13 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
                 break;
             case 'other':
-            var createOtherCardModalInstanceCtrl = $modal.open({
+                var createOtherCardModalInstanceCtrl = $modal.open({
                     templateUrl: '/views/modals/addOtherCard.html',
                     controller: 'CreateOtherCardModalInstanceCtrl'
                 })
                 $log.info('other has been chosen');
                 break;
-            default: 
+            default:
                 $log.error('Invalid card type selected. It must be transport, place2sleep or other.');
         }
     }
@@ -243,54 +250,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     // <!--Añadir nueva Card Transporte-->
 
-    $scope.addCardTransport = function(submittedCard) {
 
-        //Nueva Card 
-        var newCard = {
-            cardType: "transport",
-            name: submittedCard.name,
-            description: submittedCard.description,
-            link: submittedCard.link,
-            price: submittedCard.price,
-            destination: submittedCard.destination,
-            userIdCreator: $scope.infoUser.id,
-            nameCreator: $scope.infoUser.name,
-            lastNameCreator: $scope.infoUser.lastName,
-            initDate: submittedCard.dtInit.getTime(),
-            finalDate: submittedCard.dtFinal.getTime(),
-            transportType: submittedCard.transportType
-        }
-
-        //Llamada PUT a la API para insertar la card de tipo transporte
-        $http.put(endpoint + 'group/' + $scope.groupId + '/transportCard', newCard)
-            .success(function(data, status) {
-
-                var newCardReturn = {
-                    cardId: data.cardId,
-                    creationDate: data.creationDate,
-                    cardType: data.cardType,
-                    name: data.name,
-                    description: data.description,
-                    link: data.link,
-                    price: data.price,
-                    destination: data.destination,
-                    userIdCreator: data.userIdCreator,
-                    nameCreator: data.nameCreator,
-                    lastNameCreator: data.lastNameCreator,
-                    initDate: data.initDate,
-                    finalDate: data.finalDate,
-                    transportType: data.transportType
-                }
-
-                console.log("Card de tipus Transport Card creada");
-                $scope.infoGroup.transportCards.push(newCardReturn);
-            })
-
-        .error(function(data, status) {
-            console.log("Error al insertar Transport Card!");
-        });
-
-    };
 
 
 
@@ -473,8 +433,61 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance) {
+app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $http) {
+    $scope.isCreatingCard = false;
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+    $scope.addCardTransport = function(submittedCard) {
+        $scope.isCreatingCard = true;
+        //Nueva Card 
+        var newCard = {
+            cardType: "transport",
+            name: submittedCard.name,
+            description: submittedCard.description,
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName,
+            initDate: submittedCard.dtInit.getTime(),
+            finalDate: submittedCard.dtFinal.getTime(),
+            transportType: submittedCard.transportType
+        }
 
+        //Llamada PUT a la API para insertar la card de tipo transporte
+        $http.put(endpoint + 'group/' + $scope.groupId + '/transportCard', newCard)
+            .success(function(data, status) {
+
+                var newCardReturn = {
+                    cardId: data.cardId,
+                    creationDate: data.creationDate,
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description,
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    initDate: data.initDate,
+                    finalDate: data.finalDate,
+                    transportType: data.transportType
+                }
+
+                console.log("Card de tipus Transport Card creada");
+                $scope.isCreatingCard = false;
+                $modalInstance.close(newCardReturn)
+
+            })
+
+        .error(function(data, status) {
+            console.log("Error al insertar Transport Card!");
+        });
+
+    };
 });
 
 /**
