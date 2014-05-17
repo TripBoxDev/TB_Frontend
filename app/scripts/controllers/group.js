@@ -90,7 +90,15 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             case 'other':
                 var createOtherCardModalInstanceCtrl = $modal.open({
                     templateUrl: '/views/modals/addOtherCard.html',
-                    controller: 'CreateOtherCardModalInstanceCtrl'
+                    controller: 'CreateOtherCardModalInstanceCtrl',
+                    resolve: {
+                        destinations: function() {
+                            return $scope.infoGroup.destinations;
+                        },
+                        infoUser: function() {
+                            return $scope.infoUser;
+                        }
+                    }
                 })
                 $log.info('other has been chosen');
                 break;
@@ -552,6 +560,17 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modal
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance) {
+app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance, $routeParams, ApiService, destinations, infoUser) {
+    $scope.isCreatingCard = false;
+    $scope.destinations = destinations;
+    $scope.infoUser = infoUser;
+    
+    /**
+     * Cierra el modal actual abortando la acción
+     */
+    
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
 
 });
