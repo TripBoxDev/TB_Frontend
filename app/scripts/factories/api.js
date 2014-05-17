@@ -92,6 +92,14 @@ app.factory('ApiService', function($http, $location, authService, ErrorHandler, 
         putPlaceToSleepCard: function(groupId, placeToSleepCard) {
             return $http.put(endpoint + 'group/' + groupId + '/placeToSleepCard', placeToSleepCard);
 
-        }
+        },
+        /**
+         * Añade o modifica una card de tipo other
+         */
+        putOtherCard: function(groupId, otherCard) {
+            return $http.put(endpoint + 'group/' + groupId + '/otherCard', otherCard);
+
+        },
+
     }
 })
