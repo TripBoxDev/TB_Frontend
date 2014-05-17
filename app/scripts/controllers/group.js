@@ -28,10 +28,18 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     };
 
+    /** 
+     * Recibe que tipo de card se quiere crear y muestra el modal asociado
+     */
     $scope.openCreateTypeCardModal = function(typeSelected) {
         switch (typeSelected) {
             case 'transport':
-                $log.info('Transport has been chosen');
+                            $log.info('Transport has been chosen');
+
+                var createTransportCardModalInstanceCtrl = $modal.open({
+                    templateUrl: '/views/modals/addTransportCard.html',
+                    controller: 'CreateTransportCardModalInstanceCtrl'
+                })
                 break;
             case 'place2sleep':
                 $log.info('place2sleep has been chosen');
@@ -39,8 +47,9 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
                 break;
             case 'other':
                 $log.info('other has been chosen');
-
                 break;
+            default: 
+                $log.error('Invalid card type selected. It must be transport, place2sleep or other.');
         }
     }
 
@@ -451,4 +460,11 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
         $modalInstance.dismiss('cancel');
 
     }
+});
+
+/**
+ * Gestiona la información del modal para crear una card de transporte
+ */
+app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance) {
+
 });
