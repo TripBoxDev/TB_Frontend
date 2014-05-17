@@ -1,4 +1,4 @@
-app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http, ApiService, $log) {
+app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http, ApiService, $log, notificationFactory) {
 
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
@@ -38,12 +38,23 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
                 var createTransportCardModalInstanceCtrl = $modal.open({
                     templateUrl: '/views/modals/addTransportCard.html',
-                    controller: 'CreateTransportCardModalInstanceCtrl'
+                    controller: 'CreateTransportCardModalInstanceCtrl',
+                    resolve: {
+                        transports: function() {
+                            return $scope.infoGroup.transportCards;
+                        },
+                        destinations: function() {
+                            return $scope.infoGroup.destinations;
+                        },
+                        infoUser: function() {
+                            return $scope.infoUser;
+                        }
+                    }
                 });
 
-                createTransportCardModalInstanceCtrl.result.then(function(submittedCard) {
-                    $scope.infoGroup.transportCards.push(newCardReturn);
-                    // TODO Muestra notificación de éxito.
+                createTransportCardModalInstanceCtrl.result.then(function(newCardReturned) {
+                    $scope.infoGroup.transportCards.push(newCardReturned);
+                    notificationFactory.success('Nueva card de transporte añadida con éxito!');
                 }, function() {
                     // TODO Muestra notificación de error.
                 })
@@ -433,8 +444,10 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $http) {
+app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $routeParams, ApiService, authService, transports, destinations, infoUser) {
     $scope.isCreatingCard = false;
+    $scope.destinations = destinations;
+    $scope.infoUser = infoUser;
     $scope.cancel = function() {
         $modalInstance.dismiss();
     }
@@ -451,13 +464,10 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
             userIdCreator: $scope.infoUser.id,
             nameCreator: $scope.infoUser.name,
             lastNameCreator: $scope.infoUser.lastName,
-            initDate: submittedCard.dtInit.getTime(),
-            finalDate: submittedCard.dtFinal.getTime(),
             transportType: submittedCard.transportType
         }
 
-        //Llamada PUT a la API para insertar la card de tipo transporte
-        $http.put(endpoint + 'group/' + $scope.groupId + '/transportCard', newCard)
+        ApiService.putTransportCard($routeParams.groupId, newCard)
             .success(function(data, status) {
 
                 var newCardReturn = {
