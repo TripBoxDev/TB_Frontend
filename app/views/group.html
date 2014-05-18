@@ -114,7 +114,7 @@
                         <div id="Votation" align="center">
                             <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
 
-                            <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="putVote(card.cardId,rate)"></rating>
+                            <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType)"></rating>
                         </div>
                     </div>
                 </div>
