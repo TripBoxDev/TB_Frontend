@@ -8,7 +8,7 @@ app.service('groupService', function(){
 			return group;
 		},
 		setGroup: function(newGroup){
-			group=newGroup;
+			group=newGroup; 
 		}
 
 
