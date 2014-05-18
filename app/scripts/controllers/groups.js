@@ -40,6 +40,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
     $scope.infoUser = authService.data.userInfo;
     $scope.groups = [];
+    
+    //Con esto evitamos el parpadeo
     $scope.groupsTuto = infoUser.groups;
 
     //Función comun que carga (o recarga) los grupos de un usuario
@@ -176,8 +178,9 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
                     //Muestra el grupo nuevo
                     $scope.showNewGroup(createdGroup, ImagePath);
+                    //Aumenta el grupo para mostrar el tutorial
                     $scope.groupsTuto.push(newGroup);
-                    
+
                 }
 
             //Fin del parentesis del 2o success
