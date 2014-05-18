@@ -23,7 +23,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a>Salir de la cuenta</a>
+                            <li><a ng-click="logoutUser()">Salir de la cuenta</a>
                             </li>
 
                         </ul>
@@ -36,13 +36,41 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div class="fondo" ng-hide="groupsTuto.length != []">
+    <div class="fondo" ng-hide="groups.length != []">
 
     </div>
 
     <!-- Si ya hay algún grupo creado -->
-    <div ng-show="groupsTuto.length != []">
+    <div ng-show="groups.length != []" ng-cloak>
 
+
+    <div class="row">
+        <div ng-repeat="group in groups">
+
+            <div class="card-wrapper">
+                <div class="card group">
+                    <div class="bubble">
+                        <i class="fa fa-group"></i>
+                    </div>
+                    <div class="grey-box">
+                        <div class="caption">
+                            <h2>{{ group.name}}</h2>
+                        </div>
+                        <div class="buttons-wrapper">
+                            <div class="card-btn edit-group" ng-click="editGroup(group.id, group.name, group.description)"><i class="fa fa-edit"></i>
+                            </div>
+                            <div class="card-btn unfollow-group" ng-click="unFollowGroup(group.id, group.name)"><i class="fa fa-trash-o"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
         <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
         <div class="row">
             <div ng-repeat="group in groups">
@@ -54,7 +82,7 @@
                         <center>
 
                             <div>
-                                  <a id="{{ group.id }}" href="http://localhost:9000/#/groups/{{group.id}}">
+                                <a id="{{ group.id }}" href="http://localhost:9000/#/groups/{{group.id}}">
                                     <img src="{{group.imagePath}}" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
                                 </a>
                             </div>
@@ -95,7 +123,7 @@
 
                             <!--Boton con confirmación estilo navegador -->
 
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="unFollowGroup(group.id, group.name)">
+                            <button type="button" data-name="{{ group.name }}"class="unfollow btn btn-primary btn-xs" ng-click="unFollowGroup(group.id, group.name)">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
                             <button type="button" class="btn btn-primary btn-xs" ng-click="editGroup(group.id, group.name, group.description)">
@@ -130,7 +158,7 @@
 
                         <center>
 
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                            <button type="button" class="add-group btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
                                 <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
                             </button>
 
@@ -138,12 +166,13 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
 
     <!-- Si no hay ningún grupo creado -->
-    <div ng-hide="groupsTuto.length != []">
+    <div ng-hide="groups.length != []" ng-cloak>
 
         <div id="tutorial">
             <div class="title-tutorial">
@@ -169,7 +198,7 @@
 
                                     <center>
 
-                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
+                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>Añadir grupo
 
                                     </center>
 
@@ -216,16 +245,18 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Nombre del grupo" name="nombre" ng-model="newGroup.name" required>
-                                
+                                <input type="text" class="edit-group-name form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" ng-maxlength=10 required>
                             </fieldset>
 
                         </div>
                         <div class="error" ng-show="formAddGroup.nombre.$dirty && formAddGroup.nombre.$invalid">
-                                    <small class="error" ng-show="formAddGroup.nombre.$error.required">
-                                        El grupo necesita un nombre.
-                                    </small>
-                                </div>
+                            <small class="error" ng-show="formAddGroup.nombre.$error.required">
+                                El grupo necesita un nombre.
+                            </small>
+                        </div>
+                        <small class="error" ng-show="formAddGroup.nombre.$error.maxlength">
+                            El nombre no puede tener mas de 10 letras.
+                        </small>
                         </br>
                         <div class="input-group">
 
@@ -233,14 +264,9 @@
                                 <span class="glyphicon glyphicon-comment"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="form-control" placeholder="Descripción del grupo" name="descripcion" ng-model="newGroup.description" required>
+                                <input type="text" class="form-control" placeholder="Descripción del grupo" name="descripcion" ng-model="newGroup.description">
                             </fieldset>
 
-                        </div>
-                        <div class="error" ng-show="formAddGroup.descripcion.$dirty && formAddGroup.descripcion.$invalid">
-                            <small class="error" ng-show="formAddGroup.descripcion.$error.required">
-                                Por favor, haz una descripción breve del grupo.
-                            </small>
                         </div>
                         </br>
                         <div class="input-group">
@@ -248,16 +274,15 @@
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-picture"></span>
                             </span>
-                            <div>
+                                <div>
                                     <input type="file" data-file="param.file" ng-model="newGroup.fileP"/>
                                     <small>Sólo son validos ficheros JPEG</small>
                                 </div>
-
                         </div>
                     </div>
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cleanFormAddGroup()">Cancelar</button>
 
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(newGroup)" ng-disabled="formAddGroup.$invalid">Crear</button>
                     </div>
@@ -266,6 +291,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- MENU PARA ELIMINAR GRUPO -->
             
@@ -306,21 +332,41 @@
             <h4 class="modal-title" id="myModalLabel">Edición de Grupo {{groupName}}</h4>
       
         </div>
-        <div class="modal-body">
+        <form name="formModGroup" novalidate ng-submit="modGroupForm()">
+            <div class="modal-body">
          
                 <div class="input-group">
 
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </span>
-                
-                <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName">
-                            
-            </div>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </span>
+                    <fieldset>
+                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
+                    </fieldset>
+                </div>
+                <div class="error" ng-show="formModGroup.nombre.$dirty && formModGroup.nombre.$invalid">
+                            <small class="error" ng-show="formModGroup.nombre.$error.required">
+                                El grupo necesita un nombre.
+                            </small>
+                        </div>
+                        <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
+                            El nombre no puede tener mas de 10 letras.
+                        </small>
+                </br>
 
-            </br>
+                <div class="input-group">                
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-comment"></span>
+                    </span>
+                               
+                    <fieldset> 
+                        <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" name="descripcion">
+                    </fieldset>
+                    
+                </div>
+                </br>
 
-            <div class="input-group">
+                <div class="input-group">
                         
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-picture"></span>
@@ -336,13 +382,12 @@
             </div>
 
             <div class="modal-footer">
-
-                
-                <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-                <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)">Editar</button>
-                
-        </div>
-
+                    
+                    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)" ng-disabled="formModGroup.$invalid">Editar</button>
+                    
+            </div>
+        </form>
     </script>
 
 </div>

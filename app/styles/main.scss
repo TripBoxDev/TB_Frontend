@@ -210,10 +210,11 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 
 /* Diseño cards */
  $card-border-radius: 5px;
- $diameter-bubble: 80px;
+ $diameter-bubble: 70px;
  $time-open-transition: .2s;
 
-$card-height-inner-boxes: 70px;
+/* Tamaño de las dos cajas que hay dentro de la card, la del título y la de los botones. */
+ $card-height-inner-boxes: 70px;
  .card-wrapper {
     @include make-sm-column(6);
     @include make-md-column(3);
@@ -226,83 +227,133 @@ $card-height-inner-boxes: 70px;
         height: $diameter-bubble;
         width: $diameter-bubble;
         border-radius: 50%;
-        background-color: #fff;
+        background-color: #ddd;
         i {
             line-height: $diameter-bubble;
             width: $diameter-bubble;
-            font-size: 27px;
+            font-size: 22px;
             text-align: center;
         }
     }
     box-shadow: #111 0 0 5px;
-    @include transition(all $time-open-transition ease-in-out);
+    margin-bottom: 20px;
 }
 .group {
+    position: relative;
+    padding: 15px;
+    height: 300px;
     background-image: url(../images/system/groups/placeholder/people1.jpg);
     // url(../images/system/group/airplane1.jpg);
     background-size: cover;
-    padding: 15px;
-    height: 300px;
-    position: relative;
     .grey-box {
         position: absolute;
         bottom: 0;
         width: 100%;
-    }
-    .caption {
-        @include transition(all $time-open-transition ease-in-out);
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        margin-left: -15px;
-        height: $card-height-inner-boxes;
         @include border-bottom-radius($card-border-radius);
-        h2 {
-            line-height: $card-height-inner-boxes;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            color: white;
+        .caption {
+            width: 100%;
+            margin-left: -15px;
+            height: $card-height-inner-boxes;
+            background-color: rgba(0, 0, 0, 0.6);
+            @include border-bottom-radius($card-border-radius);
+            @include transition(all $time-open-transition ease-in-out);
+            h2 {
+                margin: 0;
+                padding: 0;
+                line-height: $card-height-inner-boxes;
+                text-align: center;
+                color: white;
+            }
         }
     }
     .buttons-wrapper {
         width: 100%;
         height: 0;
         margin-left: -15px;
+        background: #ddd;
+        @include border-bottom-radius($card-border-radius);
+        @include transition-delay($time-open-transition);
+        @include transition(all $time-open-transition ease);
         .card-btn {
             text-align: center;
             display: inline-block;
             height: 0;
             width: 49%;
             border: 0;
+            cursor: pointer;
             i {
-                
-                @include transition(all $time-open-transition 0s ease);
-                //@include scale(0);
-                line-height: 0;
-                font-size: 22px;
+                font-size: 30px;
+                line-height: $card-height-inner-boxes;
+                @include scale(0);
+                @include transition-delay(0);
+                @include transition(all 0s ease);
+            }
+            &.edit-group {
+                float: left;
+                border-bottom-left-radius: $card-border-radius;
+            }
+            &.unfollow-group {
+                float: right;
+                border-bottom-right-radius: $card-border-radius;
             }
         }
-        @include border-bottom-radius($card-border-radius);
-        @include transition(all $time-open-transition ease);
     }
 }
+
+@media (min-width: $screen-md-min) {
+
 .card:hover {
     box-shadow: #111 0 0 10px;
-    .grey-box {
-        @include border-bottom-radius($card-border-radius);
-    }
     .caption {
         @include border-bottom-radius(0);
     }
     .buttons-wrapper {
         height: $card-height-inner-boxes;
-        background: #ddd;
         .card-btn {
             height: 100%;
+            &:hover {
+                color: blue;
+                background-color: #333;
+                @include transition(background-color 0.2s ease);
+                &.unfollow-group {
+                    color: rgb(213, 0, 0);
+                }
+            }
             i {
-                //@include scale(1);
-                line-height: $card-height-inner-boxes;
+                @include scale(1);
+                @include transition(all $time-open-transition 0s ease);
+                @include transition-delay($time-open-transition);
             }
         }
     }
+}
+ }
+
+@media (max-width: $screen-sm-max) {
+/* Muestra la card como si fuera hover en escritorio */
+.card {
+    box-shadow: #111 0 0 10px;
+    .group .caption {
+        @include border-bottom-radius(0);
+    }
+    .buttons-wrapper {
+        height: $card-height-inner-boxes;
+        .card-btn {
+            height: 100%;
+            &:hover {
+                color: blue;
+                background-color: #333;
+                @include transition(background-color 0.2s ease);
+                &.unfollow-group {
+                    color: rgb(213, 0, 0);
+                }
+            }
+            i {
+                @include scale(1);
+                @include transition(all $time-open-transition 0s ease);
+                @include transition-delay($time-open-transition);
+            }
+        }
+    }
+}
 }
