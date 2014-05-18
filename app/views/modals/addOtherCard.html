@@ -88,6 +88,19 @@
                 </button>
 
         </div>
+        </br>
+        <div ng-controller="DatepickerDemoCtrl">
+    
+        <div class="row">
+            <div class="col-md-6"> 
+                <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.eventDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+                </p>
+            </div>
+        </div>
     </form>
 
 </div>
