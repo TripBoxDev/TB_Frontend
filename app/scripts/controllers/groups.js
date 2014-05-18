@@ -9,7 +9,7 @@ app.directive('file', function(){
                 var files = event.target.files;
                 scope.file = files[0];
                 scope.$apply();
-            });
+            }); 
         }
     };
 });

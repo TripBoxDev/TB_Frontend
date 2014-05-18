@@ -1,4 +1,4 @@
-app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http, ApiService, $log, notificationFactory) {
+app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http, ApiService, $log, notificationFactory, groupService) {
 
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
@@ -28,9 +28,8 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
     };
 
-    /** 
-     * Recibe que tipo de card se quiere crear y muestra el modal asociado
-     */
+    //Recibe que tipo de card se quiere crear y muestra el modal asociado
+
     $scope.openCreateTypeCardModal = function(typeSelected) {
         switch (typeSelected) {
             case 'transport':
@@ -116,11 +115,21 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         }
     }
 
-    // <!--Leer información del grupo-->
+    //Leer información del grupo
 
     $scope.infoGroup = {};
 
-    $http.get(endpoint + 'group/' + $scope.groupId)
+    var getGroup = function() {
+        return ApiService.getGroup($scope.groupId).success(function(response) {
+            $scope.infoGroup = angular.copy(response);
+            groupService.setGroup(response);
+        });
+    }
+
+    getGroup();
+
+    /* 
+   $http.get(endpoint + 'group/' + $scope.groupId)
         .success(function(data, status) {
             $scope.infoGroup = data;
             console.log("información del grupo recibida");
@@ -131,9 +140,9 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     error(function(data, status) {
         console.log("error al recibir información del grupo");
     });
+    */
 
-
-    // <!--Voting-->
+    //Voting
 
     $scope.max = 5;
     $scope.isReadonly = false;
@@ -142,6 +151,19 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         $scope.overStar = value;
     };
 
+    var putVote = function(cardId, rate) {
+
+        var newVote = {
+            "userId": $scope.infoUser.id,
+            "value": rate
+        }
+
+        return ApiService.putVote(cardId, newVote).success(function(response) {
+            console.log(response);
+        });
+    }
+
+    /* 
     $scope.hoveringLeave = function(cardId, rate) {
 
         console.log("rate: ", rate);
@@ -161,7 +183,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             console.log("error al insertar votación");
         });
     };
-
+    */
 
 
 
@@ -189,9 +211,22 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     // });
 
 
-    /*
-    //<!-- Borrar destino -->
 
+    //Borrar destino
+
+    var deleteDestination = function(destino) {
+        return ApiService.deleteDestination(destino).success(function(response) {
+            for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
+                if ($scope.infoGroup.destinations[i] == destino) {
+                    $scope.infoGroup.destinations.splice(i, 1);
+                }
+            }
+            groupService.setGroup($scope.infoGroup);
+        });
+    }
+
+
+    /*
     $scope.deleteDestination = function(destino) {
 
         $http.delete(endpoint + 'group/' + $scope.groupId + '/destination/', destino, {
@@ -214,9 +249,6 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             });
     };
     */
-    $scope.posibleMatching = [];
-
-
 
 
     /**
@@ -229,29 +261,6 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
         });
     }
-
-
-    $scope.nombre = function() {
-        $scope.posibleMatching = [];
-
-        var destination = $scope.infoGroup.destinations[document.getElementById('newCard.destination').value];
-        for (var i = $scope.infoGroup.transportCards.length - 1; i >= 0; i--) {
-            if ($scope.infoGroup.transportCards[i].destination == destination) {
-
-                $scope.posibleMatching.push($scope.infoGroup.transportCards[i]);
-
-            }
-        }
-
-    };
-
-
-
-
-
-
-
-
 
 });
 
