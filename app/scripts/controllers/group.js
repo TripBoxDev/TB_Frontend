@@ -383,17 +383,31 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $routeParams, ApiService, authService, transports, destinations, infoUser) {
+app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser) {
     $scope.isCreatingCard = false;
-    $scope.destinations = destinations;
+    $scope.destinations = destinations.filter(function(v){return v!==''});
     $scope.infoUser = infoUser;
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
+
+    $scope.openAddDestinationModal = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/createDestination.html',
+            controller: 'addDestinationModalInstanceCtrl'
+
+        });
+    }
+    
     /**
      * Cierra el modal actual abortando la acción
      */
     $scope.cancel = function() {
         $modalInstance.dismiss();
+    }
+
+    $scope.config = {
+        create: true,
+        maxItems: 1
     }
 
     /**
