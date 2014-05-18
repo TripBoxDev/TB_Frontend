@@ -1,5 +1,6 @@
-app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, $http, ApiService, $log, notificationFactory, groupService) {
+app.controller("GroupCtrl", function($scope, $routeParams, $location, authService, $modal, $http, ApiService, $log, notificationFactory, groupService) {
 
+    if(!authService.data.userInfo.groups.contains($routeParams.groupId)) $location.path('/');
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
     $scope.groupId = $routeParams.groupId;
