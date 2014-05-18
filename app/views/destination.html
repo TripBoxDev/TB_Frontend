@@ -1,9 +1,172 @@
 <div class="destContent list-group" >
 	Destination: {{destinationChoosed}}
 
-	<div class="cardsRow list-group-item" id="transportCardsRow">
+	<div class="cardsRow list-group-item clearfix" id="transportCardsRow">
 		<ul>
-			<li class="col-md-2" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}"  ng-class="{selected: cardsSelected}">
+			<li  class="col-md-2" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}"  >
+				<!-- <div class="fakeCard">
+					{{card.name}}
+				</div> -->
+				
+				<div class="thumbnail"  ng-class="{selected: 'selected', opac:'opac'}[isRemarc(card.cardId)]">
+                    <div id="cardinfo" ng-click="cardTransportSelected(card)">
+                       
+                        <div id="userCreator">
+                            {{card.nameCreator}} {{card.lastNameCreator}}
+                        </div>
+                        <div id="line">
+                            <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                        </div>
+                        <div id="typeCard" align="center">
+
+                            <div id="name">
+
+                                {{card.name}}</br>
+                            </div>
+
+
+                            <div id="price">
+
+                                {{card.price}}€</br>
+                            </div>
+                            <div id="link">
+
+                                <a href="{{card.link}}">Link de la card</a>
+                                </br>
+                            </div>
+                            </br>
+                            </br>
+                            <div id="MoreInfo">
+                                <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                Precio:    {{card.price}}€  </br>
+                                Destino:     {{card.destination}}   </br>
+                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
+                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                    <div class="linkBtns clearfix" >
+                         <button class="linkbtn" ng-click="startLink(card)" ng-show="!linkingToTransport"><span class="glyphicon glyphicon-link"></span></button>
+                        <button type="button" class="btn btn-success" ng-show="linkingToTransport" ng-click="endLink(card)">Link to it</button>
+                        <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Canel link</button>
+                    </div>
+                </div>
+              
+			</li>
+			<li id="newTransportCard" class="col-md-2">	 <!-- Nueva Card -->
+
+
+		       
+			            <div class="thumbnail" >
+			                <div id="cardinfo">
+
+			                    <center>
+
+			                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
+
+			                    </center>
+
+			                </div>
+			                <div id="addcard">
+
+			                    <center>
+
+			                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardTransport">
+			                            <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearCardTransport"></span>
+			                        </button>
+
+			                    </center>
+			                </div>
+			            </div>		 
+			</li>
+		</ul>
+	</div>
+	<div class="cardsRow list-group-item clearfix" id="placeToCardsRow">
+		<ul>
+			<li   class="col-md-2" ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}"  >
+				<!-- <div class="fakeCard">
+					{{card.name}}
+				</div> -->
+				<div class="thumbnail" ng-class="{selected: 'selected', opac:'opac'}[isRemarc(card.cardId)]">
+                    <div class="linkBtns clearfix" >
+                         <button class="linkbtn" ng-click="startLink(card)" ng-show="!linkingToPlace"><span class="glyphicon glyphicon-link"></span></button>
+                        <button type="button" class="btn btn-success" ng-show="linkingToPlace" ng-click="endLink(card)">Link to it</button>
+                        <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Canel link</button>
+                    </div>
+                    <div id="cardinfo" ng-click="cardPlaceToSelected(card)">
+                        
+                        <div id="userCreator">
+                            {{card.nameCreator}} {{card.lastNameCreator}}
+                        </div>
+                        <div id="line">
+                            <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                        </div>
+                        <div id="typeCard" align="center">
+
+                            <div id="name">
+
+                                {{card.name}}</br>
+                            </div>
+
+
+                            <div id="price">
+
+                                {{card.price}}€</br>
+                            </div>
+                            <div id="link">
+
+                                <a href="{{card.link}}">Link de la card</a>
+                                </br>
+                            </div>
+                            </br>
+                            </br>
+                            <div id="MoreInfo">
+                                <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                Precio:    {{card.price}}€  </br>
+                                Destino:     {{card.destination}}   </br>
+                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
+                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+			</li>
+			<li id="newPlaceToSleepCard" class="col-md-2">	 <!-- Nueva Card -->
+
+		        
+		       
+			            <div class="thumbnail">
+			                <div id="cardinfo">
+
+			                    <center>
+
+			                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
+
+			                    </center>
+
+			                </div>
+			                <div id="addcard">
+
+			                    <center>
+
+			                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardPlaceToSleep">
+			                            <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearCardPlaceToSleep"></span>
+			                        </button>
+
+			                    </center>
+			                </div>
+			            </div>
+			  
+			</li>
+		</ul>
+	</div>
+	<div class="cardsRow list-group-item clearfix" id="otherCardsRow">
+		<ul>
+			<li class="col-md-2" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}">
 				<!-- <div class="fakeCard">
 					{{card.name}}
 				</div> -->
@@ -47,27 +210,32 @@
                     </div>
                 </div>
 			</li>
-			<li id="newTransportCard">	New Card</li>
-		</ul>
-	</div>
-	<div class="cardsRow list-group-item" id="placeToCardsRow">
-		<ul>
-			<li ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}">
-				<div class="fakeCard">
-					{{card.name}}
-				</div>
+			<li id="newOtherCard" class="col-md-2">	 <!-- Nueva Card -->
+
+	
+		       
+			            <div class="thumbnail">
+			                <div id="cardinfo">
+
+			                    <center>
+
+			                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
+
+			                    </center>
+
+			                </div>
+			                <div id="addcard">
+
+			                    <center>
+
+			                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearCardOther">
+			                            <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearCardOther"></span>
+			                        </button>
+
+			                    </center>
+			                </div>
+			            </div>
 			</li>
-			<li id="newTransportCard">	New Card</li>
-		</ul>
-	</div>
-	<div class="cardsRow list-group-item" id="otherCardsRow">
-		<ul>
-			<li ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed} "> 
-				<div class="fakeCard">
-					{{card.name}}
-				</div>
-			</li>
-			<li id="newTransportCard">	New Card</li>
 		</ul>
 	</div>
 </div>
