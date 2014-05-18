@@ -1,14 +1,17 @@
 $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
  @import'sass-bootstrap/lib/bootstrap';
- // This variable overrides where is font-awesome $fa-font-path:"//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default;
- // for referencing Bootstrap CDN font files directly @import'font-awesome/scss/font-awesome';
+
+/* This variable overrides where is font-awesome */
+ $fa-font-path:"//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default;
+
+/* for referencing Bootstrap CDN font files directly */
+ @import'font-awesome/scss/font-awesome';
  @import'bootstrap-social/bootstrap-social';
  @import '_destination';
  html, body {
     height: 100%;
     background-image: url(../images/bg.png);
 }
-
 /*
     ng-cloack oculta las vistas antes de ser compiladas (tratadas por un controlador).
     El objetivo es ocultar el parpadeo 
@@ -16,7 +19,6 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
-
 .logo {
     max-width: 100%;
 }
@@ -45,13 +47,11 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         margin:100px auto;
     }
 }
-
 /* Muestra la navbar por encima del tutorial del uso de cards */
-.navbar {
+ .navbar {
     z-index: 1;
 }
-
-.logo-tripbox{
+.logo-tripbox {
     /*background: green;*/
     position: absolute;
     bottom: 0;
@@ -59,14 +59,13 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: 100%;
     width: 100%;
 }
-.logo{
+.logo {
     position:relative;
     display: block;
     margin: 5% auto 0 auto;
     height: 60%;
 }
-
-.facebook-btn{
+.facebook-btn {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -75,8 +74,8 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     top: 75%;
     width: 17em;
 }
-// CONFIGURACION DE LA BARRA DE SCROLL 
-.scroll-info {
+/* CONFIGURACION DE LA BARRA DE SCROLL  */
+ .scroll-info {
     /*COLOR DE LA BARRA DE INFORMACION*/
     background: #0675cf;
     /* Old browsers */
@@ -100,14 +99,13 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: 1px;
     width: 100%;
 }
-.position-tripbox{
+.position-tripbox {
     position: absolute;
     bottom: 0;
     left: 0;
     bottom: -10em;
     height: 10em;
     width: 100%;
-
 }
 @media (min-width: 625px) {
     .TripBox-image {
@@ -127,7 +125,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         height: auto;
     }
 }
-.click{
+.click {
     position: absolute;
     text-align:center;
     bottom: 2em;
@@ -136,7 +134,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     width: 100%;
 }
 /*enlace ya visitado.*/
- .click{
+ .click {
     display:inline;
     text-decoration: none;
     color: #0675cf;
@@ -145,27 +143,26 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: -2em;
     width: 100%;
 }
-.img-confucion{
+.img-confucion {
     width: 66%;
 }
-.img-resolucion{
+.img-resolucion {
     width: 65%;
 }
-.img-buzon{
-    width: 65%%;
+.img-buzon {
+    width: 65%;
 }
-.img-cards{
+.img-cards {
     width: 75%;
 }
-.info-tripbox{
-    //margin-top: 60em;
+.info-tripbox {
+    /*margin-top: 60em;*/
     position: absolute;
     bottom: -20em;
     height: 10em;
     margin-left: 0;
     width: 90%
 }
-
 .title {
     font-size: 175%;
     color: #0675cf;
@@ -207,7 +204,6 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     font-weight: 200;
     text-align: center;
 }
-
 /* Diseño cards */
  $card-border-radius: 5px;
  $diameter-bubble: 70px;
@@ -243,7 +239,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     padding: 15px;
     height: 300px;
     background-image: url(../images/system/groups/placeholder/people1.jpg);
-    // url(../images/system/group/airplane1.jpg);
+    /* url(../images/system/group/airplane1.jpg); */
     background-size: cover;
     .grey-box {
         position: absolute;
@@ -299,61 +295,58 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         }
     }
 }
-
 @media (min-width: $screen-md-min) {
-
-.card:hover {
-    box-shadow: #111 0 0 10px;
-    .caption {
-        @include border-bottom-radius(0);
-    }
-    .buttons-wrapper {
-        height: $card-height-inner-boxes;
-        .card-btn {
-            height: 100%;
-            &:hover {
-                color: blue;
-                background-color: #333;
-                @include transition(background-color 0.2s ease);
-                &.unfollow-group {
-                    color: rgb(213, 0, 0);
+    .card:hover {
+        box-shadow: #111 0 0 10px;
+        .caption {
+            @include border-bottom-radius(0);
+        }
+        .buttons-wrapper {
+            height: $card-height-inner-boxes;
+            .card-btn {
+                height: 100%;
+                &:hover {
+                    color: blue;
+                    background-color: #333;
+                    @include transition(background-color 0.2s ease);
+                    &.unfollow-group {
+                        color: rgb(213, 0, 0);
+                    }
                 }
-            }
-            i {
-                @include scale(1);
-                @include transition(all $time-open-transition 0s ease);
-                @include transition-delay($time-open-transition);
+                i {
+                    @include scale(1);
+                    @include transition(all $time-open-transition 0s ease);
+                    @include transition-delay($time-open-transition);
+                }
             }
         }
     }
 }
- }
-
 @media (max-width: $screen-sm-max) {
-/* Muestra la card como si fuera hover en escritorio */
-.card {
-    box-shadow: #111 0 0 10px;
-    .group .caption {
-        @include border-bottom-radius(0);
-    }
-    .buttons-wrapper {
-        height: $card-height-inner-boxes;
-        .card-btn {
-            height: 100%;
-            &:hover {
-                color: blue;
-                background-color: #333;
-                @include transition(background-color 0.2s ease);
-                &.unfollow-group {
-                    color: rgb(213, 0, 0);
+    /* Muestra la card como si fuera hover en escritorio */
+    .card {
+        box-shadow: #111 0 0 10px;
+        .group .caption {
+            @include border-bottom-radius(0);
+        }
+        .buttons-wrapper {
+            height: $card-height-inner-boxes;
+            .card-btn {
+                height: 100%;
+                &:hover {
+                    color: blue;
+                    background-color: #333;
+                    @include transition(background-color 0.2s ease);
+                    &.unfollow-group {
+                        color: rgb(213, 0, 0);
+                    }
                 }
-            }
-            i {
-                @include scale(1);
-                @include transition(all $time-open-transition 0s ease);
-                @include transition-delay($time-open-transition);
+                i {
+                    @include scale(1);
+                    @include transition(all $time-open-transition 0s ease);
+                    @include transition-delay($time-open-transition);
+                }
             }
         }
     }
-}
 }
