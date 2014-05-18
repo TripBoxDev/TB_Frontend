@@ -16,7 +16,7 @@
             <fieldset>
                 
                 
-                <input type="text" on-keyup="enter" keys="[13]" class="form-control" placeholder="Destino" name="destino" ng-pattern="/^([a-zA-Z ])+$/" ng-model="destino" required>
+                <input type="text" on-keyup="enter" onkeypress="return event.keyCode!=13" class="form-control" placeholder="Destino" name="destino" ng-pattern="/^([a-zA-Z ])+$/" ng-model="destino" required>
 
             </fieldset>
 
