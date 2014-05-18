@@ -72,16 +72,14 @@
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-plane"></span>
             </span>
-            <fieldset>
                 <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in destinations" required>
                     <option value="" disabled selected>Selecciona el destino</option>
                 </select>
                 
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#CrearDestino">
-                    <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearDestino"></span>Nuevo Destino
+                <button type="button" class="btn btn-default btn-sm" ng-click="openAddDestinationModal()">
+                    <span class="glyphicon glyphicon-plus-sign" ></span>Nuevo Destino
 
                 </button>
-            </fieldset>
         </div>
 
         <div class="error" ng-show="formAddCardPlace.destino.$dirty && formAddCardPlace.destino.$invalid">
