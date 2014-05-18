@@ -1,4 +1,4 @@
-app.controller("DestinationCtrl", function($scope,$routeParams,  authService, ApiService){
+app.controller("DestinationCtrl", function($http,$scope,$routeParams,  authService, ApiService){
 
 $scope.group={};
 $scope.destinationChoosed= $routeParams.destination;
@@ -17,16 +17,25 @@ var getGroup=function(){
 	return ApiService.getGroup($routeParams.groupId).success(function(response){
 
 		$scope.group=angular.copy(response);
+		//groupService.setGroup(response);
 	});
 }
 
 var putPlaceToCard=function(card){
+	
 	return ApiService.putPlaceToSleepCard($routeParams.groupId, card).success(function(response){
-		
-	});
-}
 
-getGroup();
+  			getGroup();
+
+            
+
+	}).error(function(data, status) {
+            console.log("Error al insertar PlaceToSleep Card!");
+
+        });
+}
+//$scope.group= groupService.getGroup();
+getGroup(); //canviar per get group del groupService
 
 
 $scope.isRemarc = function(id){
@@ -151,18 +160,35 @@ $scope.isCardStartLink = function(card){
 		return false;
 	}
 	
-
 };
 
-// $('body').on('click', function (e) {
-// 		console.log(e);
-// 		if($scope.anySelect || $scope.linkingToTransport || $scope.linkingToPlace){
-// 			$scope.mapSelectedIds={};
-// 			$scope.linkingToTransport=false;
-// 			$scope.linkingToPlace=false;
-// 			$scope.anySelect=false;
-// 			//$scope.$apply();
-// 		}	
-// });
+$scope.canLink = function(card){
+	try{
+		var arrayIds=[];
+		var trobat=false;
+		if(angular.equals($scope.cardStartLink.cardType, "transport")&&angular.equals(card.cardType, "transport") ||
+			angular.equals($scope.cardStartLink.cardType, "placeToSleep")&&angular.equals(card.cardType, "placeToSleep")) return false;
+
+		if(angular.equals($scope.cardStartLink.cardType, "transport")){
+			arrayIds=$scope.cardStartLink.childCardsId;
+		}else{
+			
+			arrayIds=$scope.cardStartLink.parentCardIds;
+		}
+		for(var i=0; i<arrayIds.length; i++){
+			
+			if(angular.equals(arrayIds[i], card.cardId)) trobat= true;
+		}
+		if(!trobat){
+			return true;
+		}else{
+			false;
+		}
+		
+	}catch(error){
+
+		return false;
+	}
+};
 
 });

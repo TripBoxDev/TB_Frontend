@@ -49,7 +49,7 @@
                     </div>
                     <div class="linkBtns clearfix" >
                          <button class="linkbtn" ng-click="startLink(card)" ng-show="!linkingToTransport"><span class="glyphicon glyphicon-link"></span></button>
-                        <button type="button" class="btn btn-success" ng-show="linkingToTransport" ng-click="endLink(card)">Link to it</button>
+                        <button type="button" class="btn btn-success" ng-class="{show: canLink(card), hidden: !canLink(card)}" ng-click="endLink(card)">Link to it</button>
                         <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Canel link</button>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
 				<div class="thumbnail" ng-class="{selected: 'selected', opac:'opac'}[isRemarc(card.cardId)]">
                     <div class="linkBtns clearfix" >
                          <button class="linkbtn" ng-click="startLink(card)" ng-show="!linkingToPlace"><span class="glyphicon glyphicon-link"></span></button>
-                        <button type="button" class="btn btn-success" ng-show="linkingToPlace" ng-click="endLink(card)">Link to it</button>
+                        <button type="button" class="btn btn-success" ng-class="{show: canLink(card), hidden: !canLink(card)}" ng-click="endLink(card)">Link to it</button>
                         <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Canel link</button>
                     </div>
                     <div id="cardinfo" ng-click="cardPlaceToSelected(card)">
