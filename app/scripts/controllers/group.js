@@ -340,7 +340,7 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
                     console.log("destino insertado");
                     // TODO Añadir destino a la lista de arrays, cuando authService user info esté arreglad
                     //destinations.push(destino);
-                    $modalInstance.close();
+                    $modalInstance.close(destino);
                 }).
             error(function(data, status) {
                 console.log("error al insertar destino");
@@ -385,7 +385,9 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
  */
 app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser) {
     $scope.isCreatingCard = false;
-    $scope.destinations = destinations.filter(function(v){return v!==''});
+    $scope.destinations = destinations.filter(function(v) {
+        return v !== ''
+    });
     $scope.infoUser = infoUser;
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
@@ -396,8 +398,12 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
             controller: 'addDestinationModalInstanceCtrl'
 
         });
+
+        modalInstance.result.then(function(destino) {
+            $scope.destinations.push(destino);
+        })
     }
-    
+
     /**
      * Cierra el modal actual abortando la acción
      */
@@ -478,14 +484,24 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $routeParams, ApiService, placeToSleepCards, destinations, infoUser) {
+app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, placeToSleepCards, destinations, infoUser) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
     $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
     $scope.placeType = $scope.placeTypes[0];
 
+    $scope.openAddDestinationModal = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/createDestination.html',
+            controller: 'addDestinationModalInstanceCtrl'
 
+        });
+
+        modalInstance.result.then(function(destino) {
+            $scope.destinations.push(destino);
+        })
+    }
     /**
      * Cierra el modal actual abortando la acción
      */
@@ -550,11 +566,23 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modal
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance, $routeParams, ApiService, destinations, infoUser) {
+app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
 
+
+    $scope.openAddDestinationModal = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/createDestination.html',
+            controller: 'addDestinationModalInstanceCtrl'
+
+        });
+
+        modalInstance.result.then(function(destino) {
+            $scope.destinations.push(destino);
+        })
+    }
     /**
      * Cierra el modal actual abortando la acción
      */
