@@ -315,8 +315,10 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 });
 
 app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams) {
-    // <!--Añadir nuevo destino-->
 
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
     var destinations = authService.data.userInfo.destinations,
         endpoint = 'http://tripbox.uab.es/TB_Backend/api/',
         groupId = $routeParams.groupId;
