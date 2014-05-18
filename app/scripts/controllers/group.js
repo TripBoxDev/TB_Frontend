@@ -260,6 +260,12 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
             controller: 'addDestinationModalInstanceCtrl'
 
         });
+
+        modalInstance.result.then(function(destination) {
+
+            $scope.infoGroup.destinations.push(destination);
+
+        });
     }
 
 });
