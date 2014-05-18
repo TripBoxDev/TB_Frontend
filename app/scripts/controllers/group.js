@@ -53,6 +53,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
                 createTransportCardModalInstanceCtrl.result.then(function(newCardReturned) {
                     $scope.infoGroup.transportCards.push(newCardReturned);
+                    groupService.setGroup($scope.infoGroup);
                     notificationFactory.success('Nueva card de transporte añadida con éxito!');
                 }, function() {
                     // TODO Muestra notificación de error.
@@ -77,6 +78,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
                 createPlace2SleepCardModalInstanceCtrl.result.then(function(newCardReturned) {
                     $scope.infoGroup.placeToSleepCards.push(newCardReturned);
+                    groupService.setGroup($scope.infoGroup);
                     notificationFactory.success('Nueva card de alojamiento añadida con éxito!');
 
 
@@ -102,6 +104,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
 
                 createOtherCardModalInstanceCtrl.result.then(function(newCardReturned) {
                     $scope.infoGroup.otherCards.push(newCardReturned);
+                    groupService.setGroup($scope.infoGroup);
                     notificationFactory.success('Nueva card añadida con éxito!');
 
 
@@ -127,7 +130,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
     }
 
     getGroup();
-    
+
 
     //Voting
 
@@ -245,6 +248,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, authService, $modal, 
         modalInstance.result.then(function(destination) {
 
             $scope.infoGroup.destinations.push(destination);
+            groupService.setGroup($scope.infoGroup);
 
         });
     }
@@ -301,7 +305,7 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
     };
 });
 
-app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams) {
+app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService) {
 
     $scope.cancel = function() {
         $modalInstance.dismiss();
@@ -320,11 +324,14 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
 
         if (!$scope.destinationExists(destino)) {
 
+            /*
             $http.put(endpoint + 'group/' + groupId + '/destination', destino, {
                 headers: {
                     'Content-Type': 'text/plain'
                 }
             })
+            */
+            ApiService.putDestination(destino)
                 .success(function(data, status) {
                     console.log("destino insertado");
                     // TODO Añadir destino a la lista de arrays, cuando authService user info esté arreglad

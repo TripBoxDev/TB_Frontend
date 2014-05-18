@@ -1,7 +1,7 @@
 app.factory('ApiService', function($http, $routeParams, $location, authService, ErrorHandler, $log, $q) {
 
     var endpoint = 'http://tripbox.uab.cat/TB_Backend/api/';
-    return { 
+    return {
 
         loginUser: function(data) {
 
@@ -108,12 +108,20 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
 
         deleteDestination: function(destino) {
             return $http.put(endpoint + 'group/' + $routeParams.groupId + '/destination/', destino, {
-            headers: {
-                'Content-Type': 'text/plain'
-            }
-        });
+                headers: {
+                    'Content-Type': 'text/plain'
+                }
+            });
 
         },
 
+        putDestination: function(destino) {
+            return $http.put(endpoint + 'group/' + $routeParams.groupId + '/destination/', destino, {
+                headers: {
+                    'Content-Type': 'text/plain'
+                }
+            });
+
+        }
     }
 })
