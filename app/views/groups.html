@@ -1,11 +1,3 @@
-<!-- Pasar a una hoja de estilos -->
-<style type="text/css">
-    div.error {
-        font-size: 14px;
-        color: #CC0000;
-    }
-</style>
-
 <div class="cl_content">
 
     <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
@@ -31,7 +23,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a ng-click="logoutUser()">Salir de la cuenta</a>
+                            <li><a>Salir de la cuenta</a>
                             </li>
 
                         </ul>
@@ -44,10 +36,12 @@
         <!-- /.container-fluid -->
     </nav>
 
+    <div class="fondo" ng-hide="groupsTuto.length != []">
 
+    </div>
 
     <!-- Si ya hay algún grupo creado -->
-    <div ng-show="groups.length != []">
+    <div ng-show="groupsTuto.length != []">
 
         <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
         <div class="row">
@@ -149,49 +143,55 @@
     </div>
 
     <!-- Si no hay ningún grupo creado -->
-    <div ng-hide="groups.length != []">
+    <div ng-hide="groupsTuto.length != []">
 
-        <div class="page-header">
-            <div>
-                <center>
-                    <h1>¿Aún no tienes ningún grupo?
-                        <br>¡Crea uno en TripBox!</h1>
-                </center>
+        <div id="tutorial">
+            <div class="title-tutorial">
+                <div>
+                    <center>
+                        <h1>¿Aún no tienes ningún grupo?
+                            <br>¡Crea uno en TripBox!</h1>
+                    </center>
+                </div>
             </div>
 
-        </div>
-        <div>
-            <img src="images/flecha.png" alt="Image group" height="150" width="200" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+            <div class="tutorial">
+                <div class="row-fluid">
 
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <div id="cardinfo">
+                    <div class="col-md-2 col-md-offset-5">
+                        <div class="fleche-left">
+                            <img src="images/system/groups/flechas1/flechaleft.png" height="150" width="200" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                        </div>
+                       
+                        <div class="cardtuto">
+                            <div class="thumbnail">
+                                <div id="cardinfo">
 
-                        <center>
+                                    <center>
 
-                            <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
+                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
 
-                        </center>
+                                    </center>
 
-                    </div>
-                    <div id="addgroup">
+                                </div>
+                                <div id="addgroup">
 
-                        <center>
+                                    <center>
 
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
-                                <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
-                            </button>
+                                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
+                                            <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
+                                        </button>
 
-                        </center>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fleche-right">
+                            <img src="images/system/groups/flechas1/flecharight.png" height="150" width="200" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <img src="images/flecha2.png" alt="Image group" height="150" width="200" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-
         </div>
     </div>
 

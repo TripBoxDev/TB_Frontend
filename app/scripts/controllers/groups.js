@@ -39,6 +39,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     var user = infoUser.id;
 
     $scope.infoUser = authService.data.userInfo;
+    $scope.groups = [];
+    $scope.groupsTuto = infoUser.groups;
 
     //Función comun que carga (o recarga) los grupos de un usuario
     $scope.reloadGroups = function (){
@@ -164,6 +166,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
                         //Muestra el grupo nuevo
                         $scope.showNewGroup(createdGroup, ImagePath);
+                        $scope.groupsTuto.push(newGroup);
 
                     });
                 } else {
@@ -173,6 +176,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
                     //Muestra el grupo nuevo
                     $scope.showNewGroup(createdGroup, ImagePath);
+                    $scope.groupsTuto.push(newGroup);
+                    
                 }
 
             //Fin del parentesis del 2o success
