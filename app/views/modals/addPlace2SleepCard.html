@@ -19,7 +19,7 @@
         </div>
 
         <div class="error" ng-show="formAddCardPlace.nombre.$dirty && formAddCardPlace.nombre.$invalid">
-            <small class="error" ng-show="formAddCardTransport.nombre.$error.required">
+            <small class="error" ng-show="formAddCardPlace.nombre.$error.required">
                 La card necesita un nombre.
             </small>
         </div>
@@ -63,8 +63,8 @@
         </div>
 
         <div class="error" ng-show="formAddCardPlace.precio.$dirty && formAddCardPlace.precio.$invalid">
-            <small class="error" ng-show="formAddCardTransport.precio.$error.required">
-                La card necesita un precio.
+            <small class="error" ng-show="formAddCardPlace.precio.$error.required">
+                La card necesita un precio (tipo numérico).
             </small>
         </div>
         </br>
