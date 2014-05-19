@@ -12,11 +12,10 @@
             list-style: none;
             margin-left: 5px;
             .linkBtns {
-	         button{
-	         	float: left;
-	         	margin-left:10px;
-
-	         }
+                button {
+                    float: left;
+                    margin-left:10px;
+                }
                 .linkbtn {
                     margin: 0;
                     padding: 0;
@@ -45,4 +44,23 @@
         }
     }
 }
+#generalContainer {
+    background:green;
+    #divDestins {
 
+    @extend .col-md-2;
+
+
+        background:red;
+    }
+    #cardsContainer {
+    @extend .col-md-10;
+        background: blue;
+        #cardsRandom{
+            
+        }
+        #vistaDesti{
+            
+        }
+    }
+}
