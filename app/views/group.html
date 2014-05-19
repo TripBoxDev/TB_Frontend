@@ -44,9 +44,9 @@
         <!--MENÚ DE DESTINOS-->
         <div id="left-menu">
             <ul class="nav nav-pills nav-stacked">
-                <li class="active" ng-repeat="destino in infoGroup.destinations">
+                <li class="active" ng-repeat="destino in infoGroup.destinations.name">
 
-                    <a href="#">
+                    <a href="#" ng-click="destiClicked(destino)">
                         <button type="button" class="btn btn-primary btn-xs" ng-click="deleteDestination(destino)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
@@ -75,7 +75,7 @@
         </div>
     </div> -->
     <div id="cardsContainer">
-        <div id="cardsRandom">
+        <div id="cardsRandom" ng-show="!destinationSelected">
             <!--Cards-->
             <div class="row">
                 <div class="col-md-2">
@@ -154,7 +154,7 @@
                 </div>
             </div>
         </div>
-        <div id="vistaDesti" class="cardsFilteredByDestination" ng-controller="DestinationCtrl">
+        <div id="vistaDesti" class="cardsFilteredByDestination" ng-controller="DestinationCtrl" ng-show="destinationSelected">
             <div class="destContent list-group">
                 Destination: {{destinationChoosed}}
 

@@ -1,4 +1,4 @@
-app.controller("GroupCtrl", function($scope, $routeParams, $location, authService, $modal, $http, ApiService, $log, notificationFactory, groupService) {
+app.controller("GroupCtrl", function($scope, $routeParams, $location, authService, $modal, $http, ApiService, $log, notificationFactory, groupService,destiSelectedService) {
 
     if(!authService.data.userInfo.groups.contains($routeParams.groupId)) $location.path('/');
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
@@ -28,7 +28,7 @@ app.controller("GroupCtrl", function($scope, $routeParams, $location, authServic
         });
 
     };
-
+    $scope.destinationSelected=false;
     //Recibe que tipo de card se quiere crear y muestra el modal asociado
 
     $scope.openCreateTypeCardModal = function(typeSelected) {
@@ -195,7 +195,12 @@ app.controller("GroupCtrl", function($scope, $routeParams, $location, authServic
     //     console.log("error al insertar place to sleep");
     // });
 
+    //click destino
+    $scope.destiClicked = function(destino){
+        destiSelectedService.setDesti(destino);
+         $scope.destinationSelected=true;
 
+    }
 
     //Borrar destino
 
@@ -686,7 +691,8 @@ var DatepickerDemoCtrl = function ($scope) {
 app.controller("DestinationCtrl", function($scope,$routeParams,  authService, ApiService,groupService, destiSelectedService){
 
 $scope.group={};
-$scope.destinationChoosed= destiSelectedService.getDesti().name;
+$scope.destinationChoosed= destiSelectedService.getDesti();
+//$scope.destinationChoosed="proba";
 $scope.selectedCards=[];
 $scope.mapSelectedIds={};
 $scope.anySelect=false;

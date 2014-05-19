@@ -45,17 +45,14 @@
     }
 }
 #generalContainer {
-    background:green;
     #divDestins {
 
     @extend .col-md-2;
 
-
-        background:red;
     }
     #cardsContainer {
     @extend .col-md-10;
-        background: blue;
+
         #cardsRandom{
             
         }
