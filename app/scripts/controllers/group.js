@@ -264,6 +264,22 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
         });
     }
 
+     $scope.deleteCard = function(card){
+        $scope.cartaId= card;
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/deleteCard.html',
+            controller: 'deleteCardInstanceCtrl'
+        });
+
+        modalInstance.result.then(function() {
+             ApiService.deleteCard($scope.infoGroup.id, $scope.cartaId.cardId).success(function(data, status) {
+            $scope.infoGroup= getGroup();
+            groupService.setGroup($scope.infoGroup);
+        }); 
+        });
+
+    }
+
 });
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams, notificationFactory) {
@@ -377,7 +393,18 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
         return false;
     }
 });
+app.controller('deleteCardInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+    
+
+    $scope.confirmDeleteCard = function() {
+        $modalInstance.close();
+
+    }
+});
 /**
  * Controlador de la instancia del modal para crear nuevas cards
  */

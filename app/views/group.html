@@ -46,11 +46,11 @@
                     <li class="active" ng-repeat="destino in infoGroup.destinations">
 
                         <a href="" ng-click="destiClicked(destino)">
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="deleteDestination(destino)">
+                            <button type="button" class="btn btn-primary btn-xs" ng-click="deleteDestination(destino.id)">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
                             <span class="glyphicon glyphicon-plane"></span>
-                            <span class="badge pull-right">%</span>
+                            <span class="badge pull-right">{{destino.percentage}} %</span>
                             {{destino.name}}
                         </a>
                     </li>
@@ -117,9 +117,15 @@
                                     </div>
                                     <div id="Votation" align="center">
                                         <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-
+ 
                                         <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType)"></rating>
                                     </div>
+                                     <button type="button" class="btn btn-primary btn-xs" ng-click="deleteCard(card)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-xs" ng-click="editCard(card)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
                                 </div>
                             </div>
                         </div>
@@ -167,6 +173,12 @@
 
                                         <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType)"></rating>
                                     </div>
+                                    <button type="button" class="btn btn-primary btn-xs" ng-click="deleteCard(card)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-xs" ng-click="editCard(card)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
                                 </div>
                             </div>
                         </div>
@@ -214,6 +226,12 @@
 
                                         <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType)"></rating>
                                     </div>
+                                     <button type="button" class="btn btn-primary btn-xs" ng-click="deleteCard(card)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-xs" ng-click="editCard(card)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
                                 </div>
                             </div>
                         </div>

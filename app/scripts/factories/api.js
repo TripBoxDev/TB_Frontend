@@ -100,6 +100,9 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
             return $http.put(endpoint + 'group/' + groupId + '/otherCard', otherCard);
 
         },
+        deleteCard: function(groupId, cardId){
+            return $http.delete(endpoint + 'group/' + groupId + '/card/'+ cardId);
+        },
 
         putVote: function(cardId, newVote) {
             return $http.put(endpoint + 'group/' + $routeParams.groupId + '/card/' + cardId + '/vote', newVote);
