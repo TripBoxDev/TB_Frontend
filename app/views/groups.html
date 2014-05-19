@@ -44,138 +44,41 @@
     <div ng-show="groups.length != []" ng-cloak>
 
 
-    <div class="row">
-        <div ng-repeat="group in groups">
-
-            <div class="card-wrapper">
-                <div class="card group" ng-click="goToGroup(group.id)">
-                    <div class="bubble">
-                        <i class="fa fa-group"></i>
-                    </div>
-                    <div class="grey-box">
-                        <div class="caption">
-                            <h2>{{ group.name}}</h2>
-                        </div>
-                        <div class="buttons-wrapper">
-                            <div class="card-btn edit-group" ng-click="editGroup(group.id, group.name, group.description); $event.stopPropagation()"><i class="fa fa-edit"></i>
-                            </div>
-                            <div class="card-btn unfollow-group" ng-click="unFollowGroup(group.id, group.name); $event.stopPropagation()"><i class="fa fa-trash-o"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="card-wrapper">
-            <div class="card group create-group">
-                <i class="fa fa-plus-circle"></i>
-                <h2>Crea un grupo</h2>
-            </div>
-        </div>
-
-
-
-    </div>
-        <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
         <div class="row">
             <div ng-repeat="group in groups">
-                <div class="col-md-2" color="blue">
-                    <div class="thumbnail">
 
-                        <!-- DATOS DE LA CARTA: IMAGEN, NOMBRE DEL GRUPO Y DESCRIPCIÓN -->
-
-                        <center>
-
-                            <div>
-                                <a id="{{ group.id }}" href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="{{group.imagePath}}" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                </a>
+                <div class="card-wrapper">
+                    <div class="card group" ng-click="goToGroup(group.id)">
+                        <div class="bubble">
+                            <i class="fa fa-group"></i>
+                        </div>
+                        <div class="grey-box">
+                            <div class="caption">
+                                <h2>{{ group.name}}</h2>
                             </div>
-
-                            <!--Falta implementacion Backend 
-                            < No existe imagen >
-                            <div ng-show="group.flagImage == 0">
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="images/groups/default.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                </a>
+                            <div class="buttons-wrapper">
+                                <div class="card-btn edit-group" ng-click="editGroup(group.id, group.name, group.description); $event.stopPropagation()"><i class="fa fa-edit"></i>
+                                </div>
+                                <div class="card-btn unfollow-group" ng-click="unFollowGroup(group.id, group.name); $event.stopPropagation()"><i class="fa fa-trash-o"></i>
+                                </div>
                             </div>
-
-                            < Existe imagen >
-                            <div ng-hide="group.flagImage == 1">
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                </a>
-                            </div>
-                            -->
-
-
-                            <span class="groupName" editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    {{ group.name }}
-                                </a>
-                            </span>
-
-
-                            <!-- Descripcion, de momento no lo creo necesario 
-                                <p style="font-size: 15px" editable-text="group.description" e-name="description" e-form="rowform" onbeforesave="checkName($data)" e-required>
-                                    {{ group.description }}
-                                </p>
-                                -->
-
-                            </br>
-
-                            <!-- BOTONES PARA ELIMINAR O MODIFICAR (NO FUNCIONAL TODABIA) LOS GRUPOS -->
-
-                            <!--Boton con confirmación estilo navegador -->
-
-                            <button type="button" data-name="{{ group.name }}"class="unfollow btn btn-primary btn-xs" ng-click="unFollowGroup(group.id, group.name)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="editGroup(group.id, group.name, group.description)">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-
-
-                            <!--Boton con confirmación estilo boostrap (No funciona con angular todabia)
-                                <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#UnFollowGroup"></a>
-                                -->
-
-                        </center>
+                        </div>
                     </div>
+                </div>
+
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card group create-group" data-toggle="modal" data-target="#CrearGrupo">
+                    <i class="fa fa-plus-circle"></i>
+                    <h2>Crea un grupo</h2>
                 </div>
             </div>
 
 
-            <!-- CARTA PARA AÑADIR UN GRUPO -->
-
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <div id="cardinfo">
-
-                        <center>
-
-                            <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
-
-                        </center>
-
-                    </div>
-                    <div id="addgroup">
-
-                        <center>
-
-                            <button type="button" class="add-group btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
-                                <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
-                            </button>
-
-                        </center>
-                    </div>
-                </div>
-            </div>
 
         </div>
-
+        
     </div>
 
     <!-- Si no hay ningún grupo creado -->
