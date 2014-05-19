@@ -127,6 +127,7 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
         return ApiService.getGroup($scope.groupId).success(function(response) {
             $scope.infoGroup = angular.copy(response);
             groupService.setGroup(response);
+
         });
     }
 
