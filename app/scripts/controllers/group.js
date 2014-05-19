@@ -199,7 +199,8 @@ app.controller("GroupCtrl", function($scope, $routeParams, $location, authServic
 
     //Borrar destino
 
-    var deleteDestination = function(idDest) {
+    $scope.deleteDestination = function(idDest) {
+        console.log(idDest);
         return ApiService.deleteDestination(idDest).success(function(response) {
             for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
                 if ($scope.infoGroup.destinations[i].id == idDest) {
@@ -208,6 +209,10 @@ app.controller("GroupCtrl", function($scope, $routeParams, $location, authServic
             }
             groupService.setGroup($scope.infoGroup);
         });
+    }
+
+    $scope.hola= function(){
+        console.log("hola");
     }
 
 

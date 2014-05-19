@@ -107,7 +107,7 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
         },
 
         deleteDestination: function(idDest) {
-            return $http.put(endpoint + 'group/' + $routeParams.groupId + '/destination/' + idDest);
+            return $http.delete(endpoint + 'group/' + $routeParams.groupId + '/destination/' + idDest);
 
         },
 
