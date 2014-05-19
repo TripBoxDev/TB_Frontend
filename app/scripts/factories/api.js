@@ -75,7 +75,7 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
 
         sendInvitations: function(mailsArray, groupId, callback) {
             var data = {
-                "invitationUrl": "http://tripbox.uab.cat/" + groupId,
+                "invitationUrl": "http://tripbox.uab.cat/#/groups/" + groupId + "/invitation/true",
                 "emails": mailsArray
             };
             return $http.put(endpoint + 'email/invitation', data);
