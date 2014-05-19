@@ -3,6 +3,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
  // This variable overrides where is font-awesome $fa-font-path:"//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default;
  // for referencing Bootstrap CDN font files directly @import'font-awesome/scss/font-awesome';
  @import'bootstrap-social/bootstrap-social';
+ @import '_destination';
  html, body {
     height: 100%;
     background-image: url(../images/bg.png);
@@ -201,3 +202,4 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     font-weight: 200;
     text-align: center;
 }
+
