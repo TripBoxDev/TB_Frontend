@@ -730,7 +730,6 @@ $scope.cardStartLink={};
 
 $rootScope.resetDesti=function(){
     $scope.destinationChoosed=destiSelectedService.getDesti().name;
-    console.log($scope.destinationChoosed);
     $scope.group= groupService.getGroup();
 }
 
@@ -776,9 +775,11 @@ $scope.cardTransportSelected =function(cardSelected){
                     $scope.mapSelectedIds[card.cardId]="opac";
                 }
          });
+         
          angular.forEach($scope.group.placeToSleepCards, function(card){
             var find=false;
             var count=0
+  
                 while(count<cardSelected.childCardsId.length && !find){
                     if(angular.equals(cardSelected.childCardsId[count],card.cardId)){
                         find=true;
