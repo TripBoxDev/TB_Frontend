@@ -235,6 +235,23 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     margin-bottom: 20px;
 }
 .group {
+    &.create-group {
+                    cursor: pointer;
+
+        text-align: center;
+        line-height: auto;
+        background-image: none;
+        i {
+            font-size: 165px;
+                    @include transition(all .5s ease);
+
+        }
+        &:hover {
+            i {
+            @include rotate(180deg);
+            }
+        }
+    }
     position: relative;
     padding: 15px;
     height: 300px;

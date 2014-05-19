@@ -57,9 +57,9 @@
                             <h2>{{ group.name}}</h2>
                         </div>
                         <div class="buttons-wrapper">
-                            <div class="card-btn edit-group" ng-click="editGroup(group.id, group.name, group.description)"><i class="fa fa-edit"></i>
+                            <div class="card-btn edit-group" ng-click="editGroup(group.id, group.name, group.description); $event.stopPropagation()"><i class="fa fa-edit"></i>
                             </div>
-                            <div class="card-btn unfollow-group" ng-click="unFollowGroup(group.id, group.name)"><i class="fa fa-trash-o"></i>
+                            <div class="card-btn unfollow-group" ng-click="unFollowGroup(group.id, group.name); $event.stopPropagation()"><i class="fa fa-trash-o"></i>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
         <div class="card-wrapper">
             <div class="card group create-group">
                 <i class="fa fa-plus-circle"></i>
-                
+                <h2>Crea un grupo</h2>
             </div>
         </div>
 
