@@ -440,6 +440,8 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
             userIdCreator: $scope.infoUser.id,
             nameCreator: $scope.infoUser.name,
             lastNameCreator: $scope.infoUser.lastName,
+            initDate: submittedCard.initDate.getMilliseconds(),
+            finalDate: submittedCard.finalDate.getMilliseconds(),
             transportType: submittedCard.transportType
         }
 
@@ -523,9 +525,11 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modal
             userIdCreator: $scope.infoUser.id,
             nameCreator: $scope.infoUser.name,
             lastNameCreator: $scope.infoUser.lastName,
+            initDate: submittedCard.initDate.getMilliseconds(),
+            finalDate: submittedCard.finalDate.getMilliseconds(),
             placeType: submittedCard.type
         }
-
+ 
 
         ApiService.putPlaceToSleepCard($routeParams.groupId, newCard)
             .success(function(data, status) {
@@ -601,7 +605,8 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
             destination: submittedCard.destination,
             userIdCreator: $scope.infoUser.id,
             nameCreator: $scope.infoUser.name,
-            lastNameCreator: $scope.infoUser.lastName
+            lastNameCreator: $scope.infoUser.lastName,
+            eventDate: submittedCard.eventDate.getMilliseconds()
         }
 
         //Llamada PUT a la API para insertar la card de tipo other
@@ -635,3 +640,45 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
             });
     };
 });
+
+
+var DatepickerDemoCtrl = function ($scope) {
+  $scope.today = function() {
+    $scope.dt = new Date();
+  };
+  $scope.today();
+
+  $scope.showWeeks = true;
+  $scope.toggleWeeks = function () {
+    $scope.showWeeks = ! $scope.showWeeks;
+  };
+
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
+
+  // Disable weekend selection
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
+
+  $scope.toggleMin = function() {
+    $scope.minDate = ( $scope.minDate ) ? null : new Date();
+  };
+  $scope.toggleMin();
+
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = true;
+  };
+
+  $scope.dateOptions = {
+    'year-format': "'yy'",
+    'starting-day': 1
+  };
+
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
+  $scope.format = $scope.formats[0];
+};
