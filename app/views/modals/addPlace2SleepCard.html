@@ -72,7 +72,7 @@
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-plane"></span>
             </span>
-                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in destinations" required>
+                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
                     <option value="" disabled selected>Selecciona el destino</option>
                 </select>
                 
@@ -98,23 +98,33 @@
                 </select>
             </fieldset>
         </div>
+        
+         </br>
+        <div ng-controller="DatepickerDemoCtrl">
+    
+        <div class="row">
+            <div class="col-md-6"> 
+                <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model= "newCard.initDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+                </p>
+            </div> 
         </br>
-        <div class="input-group">
-
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-transfer"></span>
-            </span>
-
-
-            <fieldset>
-                <select class="form-control" name="destino" ng-model="newCard.parentCardId" ng-options="f.cardId as f.name for f in posibleMatching">
-
-                    <option value="" disabled selected>Selecciona un transporte asociado con la card</option>
-
-                </select>
-            </fieldset>
-
+    </div>
+    <div ng-controller="DatepickerDemoCtrl">
+        <div class="row">
+            <div class="col-md-6"> 
+                <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model= "newCard.finalDate" is-open="opened" min="newCard.initDate" max="'2015-06-22'" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+                </p>
+            </div>
         </div>
+    </div>
     </form>
 
 </div>

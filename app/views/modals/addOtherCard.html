@@ -77,7 +77,7 @@
                 <span class="glyphicon glyphicon-plane"></span>
             </span>
 
-                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f for f in destinations" required>
+                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
 
                     <option value="" disabled selected>Selecciona el destino</option>
 

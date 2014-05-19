@@ -106,12 +106,8 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
 
         },
 
-        deleteDestination: function(destino) {
-            return $http.put(endpoint + 'group/' + $routeParams.groupId + '/destination/', destino, {
-                headers: {
-                    'Content-Type': 'text/plain'
-                }
-            });
+        deleteDestination: function(idDest) {
+            return $http.put(endpoint + 'group/' + $routeParams.groupId + '/destination/' + idDest);
 
         },
 
@@ -121,6 +117,7 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
                     'Content-Type': 'text/plain'
                 }
             });
+            
 
         }
     }

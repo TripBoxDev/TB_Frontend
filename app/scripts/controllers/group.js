@@ -199,10 +199,10 @@ app.controller("GroupCtrl", function($scope, $routeParams, $location, authServic
 
     //Borrar destino
 
-    var deleteDestination = function(destino) {
-        return ApiService.deleteDestination(destino).success(function(response) {
+    var deleteDestination = function(idDest) {
+        return ApiService.deleteDestination(idDest).success(function(response) {
             for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
-                if ($scope.infoGroup.destinations[i] == destino) {
+                if ($scope.infoGroup.destinations[i].id == idDest) {
                     $scope.infoGroup.destinations.splice(i, 1);
                 }
             }
@@ -334,10 +334,15 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
             */
             ApiService.putDestination(destino)
                 .success(function(data, status) {
+                    var newDestination = {
+                        id: data.id,
+                        name: data.name,
+                        percentage: data.percentage
+                    }
                     console.log("destino insertado");
                     // TODO Añadir destino a la lista de arrays, cuando authService user info esté arreglad
                     //destinations.push(destino);
-                    $modalInstance.close(destino);
+                    $modalInstance.close(newDestination);
                 }).
             error(function(data, status) {
                 console.log("error al insertar destino");
@@ -426,10 +431,12 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
          */
         $scope.isCreatingCard = true;
 
-
+         var init = new Date (submittedCard.initDate);
+        var fina = new Date (submittedCard.finalDate);
         /**
          * Card que será enviada a la API
          */
+
         var newCard = {
             cardType: "transport",
             name: submittedCard.name,
@@ -440,8 +447,8 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
             userIdCreator: $scope.infoUser.id,
             nameCreator: $scope.infoUser.name,
             lastNameCreator: $scope.infoUser.lastName,
-            initDate: submittedCard.initDate.getMilliseconds(),
-            finalDate: submittedCard.finalDate.getMilliseconds(),
+            initDate: init.valueOf(),
+            finalDate: fina.valueOf(),
             transportType: submittedCard.transportType
         }
 
@@ -511,6 +518,8 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modal
     $scope.addCardPlaceToSleep = function(submittedCard) {
 
         $scope.isCreatingCard = true;
+        var init = new Date (submittedCard.initDate);
+        var fina = new Date (submittedCard.finalDate);
         // Todo obtener parentCardIds de la card, en caso de estar modificandola.
         var parentCardIds = [];
         if (typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
@@ -525,8 +534,8 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modal
             userIdCreator: $scope.infoUser.id,
             nameCreator: $scope.infoUser.name,
             lastNameCreator: $scope.infoUser.lastName,
-            initDate: submittedCard.initDate.getMilliseconds(),
-            finalDate: submittedCard.finalDate.getMilliseconds(),
+            initDate: init.valueOf(),
+            finalDate: fina.valueOf(),
             placeType: submittedCard.type
         }
  
@@ -595,6 +604,9 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
     $scope.addCardOther = function(submittedCard) {
         $scope.isCreatingCard = true;
         //Nueva Card 
+        console.log(submittedCard.destination);
+        var date = new Date (submittedCard.eventDate);
+
         var newCard = {
 
             cardType: "other",
@@ -606,9 +618,9 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
             userIdCreator: $scope.infoUser.id,
             nameCreator: $scope.infoUser.name,
             lastNameCreator: $scope.infoUser.lastName,
-            eventDate: submittedCard.eventDate.getMilliseconds()
+            eventDate: date.valueOf()
         }
-
+        console.log(date.valueOf());
         //Llamada PUT a la API para insertar la card de tipo other
         ApiService.putOtherCard($routeParams.groupId, newCard)
             .success(function(data, status) {
@@ -629,7 +641,7 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstan
                 }
 
                 console.log("Card de tipus Other Card creada");
-
+                console.log(newCardReturn);
                 $modalInstance.close(newCardReturn);
             })
             .error(function(data, status) {
