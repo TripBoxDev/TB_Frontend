@@ -37,13 +37,11 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     $scope.groups = [];
 
     //Llamada GET a la API para coger los grupos
-
-    //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
-    $http.get(endpoint + 'user/' + user).success(function(listOfGroups, status) {
+    ApiService.getUser(user).success(function(listOfGroups, status) {
 
         //Recorre todos los grupos
         for (var i = listOfGroups.groups.length - 1; i >= 0; i--) {
-            $http.get(endpoint + 'group/' + listOfGroups.groups[i]).success(function(groupPointer, status) {
+            ApiService.getGroup(listOfGroups.groups[i]).success(function(groupPointer, status) {
 
             //Determina si es imagen personalizada o no
             var ImagePath;
