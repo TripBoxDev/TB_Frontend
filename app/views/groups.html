@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://localhost:9000/#/groups">TripBox</a>
+                <a class="navbar-brand" href="http://localhost:9000/#/groups">Tripbox</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -36,17 +36,16 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div class="fondo" ng-hide="groups.length != []">
+    <!-- Se esconde si no se muestra el tutorial -->
+    <div class="fondo" ng-hide="groupsTuto == false">
 
     </div>
 
-    <!-- Si ya hay algún grupo creado -->
-    <div ng-show="groups.length != []" ng-cloak>
-
+    <!-- Se muestra si no se muestra el tutorial -->
+    <div ng-show="groupsTuto == false">
 
         <div class="row">
             <div ng-repeat="group in groups">
-
                 <div class="card-wrapper">
                     <div class="card group" style="background-image: url({{group.imagePath}})" ng-click="goToGroup(group.id)">
                         <div class="bubble">
@@ -80,16 +79,14 @@
         </div>
         
     </div>
-
-    <!-- Si no hay ningún grupo creado -->
-    <div ng-hide="groups.length != []" ng-cloak>
-
+    <!-- Se esconde si no se muestra el tutorial -->
+    <div ng-hide="groupsTuto == false">
         <div id="tutorial">
             <div class="title-tutorial">
                 <div>
                     <center>
                         <h1>¿Aún no tienes ningún grupo?
-                            <br>¡Crea uno en TripBox!</h1>
+                            <br>¡Crea uno en Tripbox!</h1>
                     </center>
                 </div>
             </div>
@@ -243,7 +240,7 @@
       
         </div>
         <form name="formModGroup" novalidate ng-submit="modGroupForm()">
-            <div class="modal-body">
+        <div class="modal-body">
          
                 <div class="input-group">
 
@@ -254,14 +251,14 @@
                         <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
                     </fieldset>
                 </div>
-                <div class="error" ng-show="formModGroup.nombre.$dirty && formModGroup.nombre.$invalid">
-                            <small class="error" ng-show="formModGroup.nombre.$error.required">
-                                El grupo necesita un nombre.
-                            </small>
-                        </div>
-                        <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
-                            El nombre no puede tener mas de 10 letras.
-                        </small>
+                
+                    <small class="error" ng-show="formModGroup.nombre.$error.required">
+                        El grupo necesita un nombre.
+                    </small>
+                
+                <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
+                    El nombre no puede tener mas de 10 letras.
+                </small>
                 </br>
 
                 <div class="input-group">                
@@ -292,12 +289,11 @@
             </div>
 
             <div class="modal-footer">
-                    
-                    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-                    <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)" ng-disabled="formModGroup.$invalid">Editar</button>
-                    
-            </div>
-        </form>
+
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)" ng-disabled="formModGroup.$invalid">Editar</button>
+        </div>
+    </form>
     </script>
 
 </div>

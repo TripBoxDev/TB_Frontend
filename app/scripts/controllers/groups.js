@@ -16,23 +16,7 @@ app.directive('file', function(){
 
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal, $location) {
-    var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
     var imageDirectory = "http://tripbox.uab.cat/groupImgs/";
-
-    //para hacer uso de $resource debemos colocarlo al crear el modulo
-
-    /*
-    var newUser = {
-        name: "Cristian",
-        lastName: "Correa",
-        email: "cristiancorrea@gmail.com"  
-    } 
-
-    $http.put(endpoint + 'user/', newUser)
-    .success(function(data) {
-        console.log(data.id);
-    });
-    */
 
     //Usuario que inicia sesión con Facebook
     var infoUser = authService.data.userInfo;
@@ -40,53 +24,45 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
     $scope.infoUser = authService.data.userInfo;
     $scope.groups = [];
-    
-    //Con esto evitamos el parpadeo
-    $scope.groupsTuto = infoUser.groups;
 
-    $scope.goToGroup = function(groupId) {
-        $location.path('groups/' + groupId);
-    }
-    //Función comun que carga (o recarga) los grupos de un usuario
-    $scope.reloadGroups = function (){
-            //Lista de grupos del usuario
-            $scope.groups = [];
-
-            //Llamada GET a la API para coger los grupos
-
-            //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
-
-            $http.get(endpoint + 'user/' + user).success(function(listOfGroups, status) {
-
-                //Recorre todos los grupos
-                for (var i = listOfGroups.groups.length - 1; i >= 0; i--) {
-                    $http.get(endpoint + 'group/' + listOfGroups.groups[i]).success(function(groupPointer, status) {
-
-                    //Determina si es imagen personalizada o no
-                    var ImagePath;
-                    if(groupPointer.flagImage == true){
-                        ImagePath = imageDirectory + groupPointer.id;
-                    } else {
-                        ImagePath = imageDirectory + "default_img.png"
-                    }
-
-                    //Actualizamos la variable groups
-                    $scope.groups.push({
-                        id: groupPointer.id,
-                        name: groupPointer.name,
-                        description: groupPointer.description,
-                        imagePath: ImagePath
-                    })
-                });
-                }
-            }).
-            error(function(data, status) {
-                console.log("error al obtener los grupos del usuario");
-            });
+    $scope.groupsTuto;
+    if($scope.infoUser.groups.length > 0){
+        $scope.groupsTuto = false;
+    } else {
+        $scope.groupsTuto = true;
     }
 
-    //Con la función de reloadGroups definida, llamarla al entrar en la página
-    $scope.reloadGroups();
+    //Lista de grupos del usuario
+    $scope.groups = [];
+
+    //Llamada GET a la API para coger los grupos
+    ApiService.getUser(user).success(function(listOfGroups, status) {
+
+        //Recorre todos los grupos
+        for (var i = listOfGroups.groups.length - 1; i >= 0; i--) {
+            ApiService.getGroup(listOfGroups.groups[i]).success(function(groupPointer, status) {
+
+            //Determina si es imagen personalizada o no
+            var ImagePath;
+            if(groupPointer.flagImage == true){
+                ImagePath = imageDirectory + groupPointer.id;
+            } else {
+                ImagePath = imageDirectory + "default_img.png"
+            }
+
+            //Actualizamos la variable groups
+            $scope.groups.push({
+                id: groupPointer.id,
+                name: groupPointer.name,
+                description: groupPointer.description,
+                imagePath: ImagePath
+            })
+        });
+        }
+    }).
+    error(function(data, status) {
+        console.log("error al obtener los grupos del usuario");
+    });
 
      //Limpia el formulario de añadir grupo
     $scope.cleanFormAddGroup = function(){
@@ -122,9 +98,12 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
             imagePath: ImagePath
         }
 
-        console.log(newGroupWithId.imagePath);
-
+        //Añade el grupo nuevo
         $scope.groups.push(newGroupWithId);
+
+        //Aumenta el grupo para mostrar el tutorial
+        $scope.groupsTuto = false;
+
     };
 
     //funcion para crear grupos
@@ -141,13 +120,16 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
         //Hacemos la llamada de putGroup para añadir el grupo de api.js
         ApiService.putGroup(newGroup).success(function(createdGroup, status) {
-            var datos = {
+            
+            //Se crea un objeto para relacionar el grupo nuevo creado con el
+            //usuario que se va a añadir a él
+            var idGroup_User = {
                 groupId: createdGroup.id,
                 userId: userId
             };
 
             //Hacemos la llamada de putGroupUser para añadir el usuario a el grupo creado de api.js
-            ApiService.putUserGroup(datos).success(function(data, status) {
+            ApiService.putUserGroup(idGroup_User).success(function(data, status) {
 
                 //Se comprueba si existe imagen
                 var imagen = $scope.param;
@@ -161,7 +143,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                     imagen = $scope.param.file;
 
                     //Se sube la imagen al servidor
-                    $http.put(endpoint + "group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
+                    ApiService.uploadImage(createdGroup.id, imagen).success(function(data,status) {
                                 
                         //Se borra la referencia a la imagen para poder subir otras en el futuro
                         $scope.param = undefined;
@@ -171,7 +153,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
                         //Muestra el grupo nuevo
                         $scope.showNewGroup(createdGroup, ImagePath);
-                        $scope.groupsTuto.push(newGroup);
 
                     });
                 } else {
@@ -181,8 +162,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
                     //Muestra el grupo nuevo
                     $scope.showNewGroup(createdGroup, ImagePath);
-                    //Aumenta el grupo para mostrar el tutorial
-                    $scope.groupsTuto.push(newGroup);
 
                 }
 
@@ -205,11 +184,28 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     //Fin del parentesis addGroup
     };
 
-    $scope.miau = function() {
-        console.log($scope.param);
-    }
+    //Reemplaza un grupo por otro gráficamente
+    //Parámetros: (editedGroup: nuevo grupo a insertar)
+    $scope.replaceGroup = function (editedGroup) {
 
-    
+       //Busca en el conjunto de grupos...
+        for (var i = $scope.groups.length - 1; i >= 0; i--) {
+                               
+            //Uno cuya id sea igual al borrado...
+            if ($scope.groups[i].id == editedGroup.id) {
+
+                //Si el grupo en edicion no tiene imagePath, se recupera
+                //del existente.
+                if(editedGroup.imagePath == undefined){
+                    editedGroup.imagePath = $scope.groups[i].imagePath;
+                }
+        
+                //Se substituye el elemento
+                $scope.groups.splice(i, 1, editedGroup);
+                               
+            }       
+        }          
+    };
 
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
 
@@ -244,7 +240,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                         editedGroup.name = edit.name;
                         editedGroup.description = edit.description;
 
-                        //Llamada PUT a la API para insertar el nuevo grupo
+                        //Llamada PUT a la API para modificar el grupo
                         ApiService.putEditGroup(editedGroup)
                             .success(function(editedGroup, status) {
 
@@ -256,15 +252,20 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                                 imagen = imagen.file;
 
                                 //Se sube la imagen al servidor
-                                $http.put(endpoint + "group/" + edit.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
-
-                                    $scope.reloadGroups();
+                                ApiService.uploadImage(edit.id, imagen).success(function(data,status) {
+                                    
+                                    //Si se ha cargado una imagen nueva, este es el nuevo path
+                                    edit.imagePath = imageDirectory + editedGroup.id;
+                                    $scope.replaceGroup(edit);
 
                                 });
 
                                 } else {
 
-                                    $scope.reloadGroups();
+                                    //Si no se ha cargado una imagen nueva, se pone en undefined para que
+                                    //en la funcion siguiente se recupere el valor anterior (asi se evita un parpadeo)
+                                    edit.imagePath = undefined;
+                                    $scope.replaceGroup(edit);
 
                                 }
                             });
