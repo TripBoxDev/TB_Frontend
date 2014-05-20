@@ -187,12 +187,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     //Fin del parentesis addGroup
     };
 
-    $scope.miau = function() {
-        console.log($scope.param);
-    }
-
-    
-
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
 
         console.log($scope.param);
