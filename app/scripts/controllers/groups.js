@@ -29,46 +29,39 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     //Con esto evitamos el parpadeo
     $scope.groupsTuto = infoUser.groups;
 
-    //Función comun que carga (o recarga) los grupos de un usuario
-    $scope.loadGroups = function (){
-            //Lista de grupos del usuario
-            $scope.groups = [];
+    //Lista de grupos del usuario
+    $scope.groups = [];
 
-            //Llamada GET a la API para coger los grupos
+    //Llamada GET a la API para coger los grupos
 
-            //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
+    //ESTA PARTE SE TIENEN QUE CAMBIAR!!!!
+    $http.get(endpoint + 'user/' + user).success(function(listOfGroups, status) {
 
-            $http.get(endpoint + 'user/' + user).success(function(listOfGroups, status) {
+        //Recorre todos los grupos
+        for (var i = listOfGroups.groups.length - 1; i >= 0; i--) {
+            $http.get(endpoint + 'group/' + listOfGroups.groups[i]).success(function(groupPointer, status) {
 
-                //Recorre todos los grupos
-                for (var i = listOfGroups.groups.length - 1; i >= 0; i--) {
-                    $http.get(endpoint + 'group/' + listOfGroups.groups[i]).success(function(groupPointer, status) {
+            //Determina si es imagen personalizada o no
+            var ImagePath;
+            if(groupPointer.flagImage == true){
+                ImagePath = imageDirectory + groupPointer.id;
+            } else {
+                ImagePath = imageDirectory + "default_img.png"
+            }
 
-                    //Determina si es imagen personalizada o no
-                    var ImagePath;
-                    if(groupPointer.flagImage == true){
-                        ImagePath = imageDirectory + groupPointer.id;
-                    } else {
-                        ImagePath = imageDirectory + "default_img.png"
-                    }
-
-                    //Actualizamos la variable groups
-                    $scope.groups.push({
-                        id: groupPointer.id,
-                        name: groupPointer.name,
-                        description: groupPointer.description,
-                        imagePath: ImagePath
-                    })
-                });
-                }
-            }).
-            error(function(data, status) {
-                console.log("error al obtener los grupos del usuario");
-            });
-    }
-
-    //Con la función de loadGroups definida, llamarla al entrar en la página
-    $scope.loadGroups();
+            //Actualizamos la variable groups
+            $scope.groups.push({
+                id: groupPointer.id,
+                name: groupPointer.name,
+                description: groupPointer.description,
+                imagePath: ImagePath
+            })
+        });
+        }
+    }).
+    error(function(data, status) {
+        console.log("error al obtener los grupos del usuario");
+    });
 
      //Limpia el formulario de añadir grupo
     $scope.cleanFormAddGroup = function(){
