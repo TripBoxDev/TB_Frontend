@@ -144,7 +144,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                     imagen = $scope.param.file;
 
                     //Se sube la imagen al servidor
-                    $http.put(endpoint + "group/" + createdGroup.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
+                    ApiService.uploadImage(createdGroup.id, imagen).success(function(data,status) {
                                 
                         //Se borra la referencia a la imagen para poder subir otras en el futuro
                         $scope.param = undefined;
