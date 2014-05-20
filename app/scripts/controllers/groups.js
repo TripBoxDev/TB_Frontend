@@ -183,32 +183,27 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     };
 
     //Reemplaza un grupo por otro gráficamente
-    //Parámetros: (nuevo grupo a insertar)
+    //Parámetros: (editedGroup: nuevo grupo a insertar)
     $scope.replaceGroup = function (editedGroup) {
 
-
-        //Busca en el conjunto de grupos...
+       //Busca en el conjunto de grupos...
         for (var i = $scope.groups.length - 1; i >= 0; i--) {
                                
             //Uno cuya id sea igual al borrado...
             if ($scope.groups[i].id == editedGroup.id) {
+
+                //Si el grupo en edicion no tiene imagePath, se recupera
+                //del existente.
+                if(editedGroup.imagePath == undefined){
+                    editedGroup.imagePath = $scope.groups[i].imagePath;
+                }
                                
-                //Y lo elimina de la lista
+                //Se elimina de la lista
                 $scope.groups.splice(i, 1);
                                
                 }
                             
             }
-
-        //Determina si es imagen personalizada o no
-        var ImagePath;
-        if(editedGroup.flagImage == true){
-            ImagePath = imageDirectory + editedGroup.id;
-        } else {
-            ImagePath = imageDirectory + "default_img.png"
-        }
-
-        editedGroup.imagePath = ImagePath;
 
         //Añadimos el grupo editado a la lista de grupos
         $scope.groups.push(editedGroup);
@@ -261,15 +256,18 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
                                 //Se sube la imagen al servidor
                                 $http.put(endpoint + "group/" + edit.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
-
-                                    edit.flagImage = true;
+                                    
+                                    //Si se ha cargado una imagen nueva, este es el nuevo path
+                                    edit.imagePath = imageDirectory + editedGroup.id;
                                     $scope.replaceGroup(edit);
 
                                 });
 
                                 } else {
 
-                                    edit.flagImage = false;
+                                    //Si no se ha cargado una imagen nueva, se pone en undefined para que
+                                    //en la funcion siguiente se recupere el valor anterior (asi se evita un parpadeo)
+                                    edit.imagePath = undefined;
                                     $scope.replaceGroup(edit);
 
                                 }
