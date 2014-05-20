@@ -208,6 +208,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
  $card-border-radius: 5px;
  $diameter-bubble: 70px;
  $time-open-transition: .2s;
+ $card-height: 300px;
 
 /* Tamaño de las dos cajas que hay dentro de la card, la del título y la de los botones. */
  $card-height-inner-boxes: 70px;
@@ -217,8 +218,12 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     @include make-lg-column(3);
 }
 .card {
+    height: 300px;
     background: #ddd;
     border-radius: $card-border-radius;
+    box-shadow: #111 0 0 5px;
+    margin-bottom: 20px;
+    padding: 15px;
     .bubble {
         height: $diameter-bubble;
         width: $diameter-bubble;
@@ -231,32 +236,105 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
             text-align: center;
         }
     }
-    box-shadow: #111 0 0 5px;
-    margin-bottom: 20px;
+}
+.item {
+    background-image: url(../images/system/group/airplane1.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    position: relative;
+    .bubble {
+        @include transition(all $time-open-transition ease);
+        @include scale(1);
+    }
+    .grey-box {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        @include transition(all $time-open-transition ease-in-out);
+        @include border-bottom-radius($card-border-radius);
+        .content {
+            width: 100%;
+            margin-left: -15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            height: $card-height-inner-boxes;
+            color: white;
+            padding: 0 15px;
+            @include transition(all $time-open-transition ease);
+            .caption {
+                width: 100%;
+                height: $card-height-inner-boxes;
+                @include transition(all $time-open-transition ease-in-out);
+                h2 {
+                    margin: 0;
+                    padding: 0;
+                    line-height: $card-height-inner-boxes;
+                    text-align: center;
+                    color: white;
+                }
+            }
+            .description, .money, .date {
+                @include transition(all 0s ease-in-out 0s);
+                opacity: 0;
+            }
+            .description {
+                font-style: italic;
+            }
+            i {
+                padding: 0 10px 0 0;;
+            }
+        }
+    }
+    .stars-wrapper {
+        bottom: 0;
+        width: 100%;
+        height: $card-height-inner-boxes;
+        margin-left: -15px;
+        background: #ddd;
+        @include border-bottom-radius($card-border-radius);
+        @include transition-delay($time-open-transition);
+        @include transition(all $time-open-transition ease);
+        text-align: center;
+        i {
+            font-size: 30px;
+            line-height: $card-height-inner-boxes;
+        }
+    }
+}
+.item:hover {
+    .bubble {
+        @include transition(all $time-open-transition ease);
+        @include scale(0);
+    }
+    .grey-box {
+        @include border-top-radius($card-border-radius);
+        .content {
+            @include border-top-radius($card-border-radius);
+            height: $card-height - $card-height-inner-boxes;
+            .description, .money, .date {
+                @include transition(all $time-open-transition ease-in-out $time-open-transition);
+                opacity: 1;
+            }
+        }
+    }
 }
 .group {
     &.create-group {
-                    cursor: pointer;
-
+        cursor: pointer;
         text-align: center;
         line-height: auto;
         background-image: none;
         i {
             font-size: 165px;
-                    @include transition(all .5s ease);
-
+            @include transition(all .5s ease);
         }
         &:hover {
             i {
-            @include rotate(180deg);
+                @include rotate(180deg);
             }
         }
     }
     position: relative;
-    padding: 15px;
-    height: 300px;
     background-image: url(../images/system/groups/placeholder/people1.jpg);
-    /* url(../images/system/group/airplane1.jpg); */
     background-size: cover;
     .grey-box {
         position: absolute;
@@ -335,6 +413,14 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
                     @include transition(all $time-open-transition 0s ease);
                     @include transition-delay($time-open-transition);
                 }
+            }
+        }
+        .stars-wrapper {
+            height: $card-height-inner-boxes;
+            i {
+                @include scale(1);
+                @include transition(all $time-open-transition 0s ease);
+                @include transition-delay($time-open-transition);
             }
         }
     }
