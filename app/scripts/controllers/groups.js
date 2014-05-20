@@ -25,17 +25,12 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
 
     $scope.infoUser = authService.data.userInfo;
     $scope.groups = [];
-    
-    console.log($scope.infoUser.groups.length);
-    console.log($scope.infoUser.id);
 
     $scope.groupsTuto;
     if($scope.infoUser.groups.length > 0){
         $scope.groupsTuto = false;
-        console.log("mahgrande");
     } else {
         $scope.groupsTuto = true;
-        console.log("singrupos");
     }
 
     //Lista de grupos del usuario
@@ -106,16 +101,11 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
             imagePath: ImagePath
         }
 
-        console.log("wuuu!");
-        console.log($scope.groupsTuto);
+        //Añade el grupo nuevo
+        $scope.groups.push(newGroupWithId);
 
         //Aumenta el grupo para mostrar el tutorial
         $scope.groupsTuto = false;
-
-        console.log($scope.groupsTuto);
-
-        //Añade el grupo nuevo
-        $scope.groups.push(newGroupWithId);
 
     };
 
