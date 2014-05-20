@@ -199,17 +199,12 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                 if(editedGroup.imagePath == undefined){
                     editedGroup.imagePath = $scope.groups[i].imagePath;
                 }
+        
+                //Se substituye el elemento
+                $scope.groups.splice(i, 1, editedGroup);
                                
-                //Se elimina de la lista
-                $scope.groups.splice(i, 1);
-                               
-                }
-                            
-            }
-
-        //Añadimos el grupo editado a la lista de grupos
-        $scope.groups.push(editedGroup);
-                            
+            }       
+        }          
     };
 
     $scope.editGroup = function(idGroup, groupName, groupDescription) {
