@@ -274,6 +274,7 @@
             <h4 class="modal-title" id="myModalLabel">Edición de Grupo {{groupName}}</h4>
       
         </div>
+        <form name="formModGroup" novalidate ng-submit="modGroupForm()">
         <div class="modal-body">
          
                 <div class="input-group">
@@ -285,14 +286,14 @@
                         <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
                     </fieldset>
                 </div>
-                <div class="error" ng-show="formModGroup.nombre.$dirty && formModGroup.nombre.$invalid">
-                            <small class="error" ng-show="formModGroup.nombre.$error.required">
-                                El grupo necesita un nombre.
-                            </small>
-                        </div>
-                        <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
-                            El nombre no puede tener mas de 10 letras.
-                        </small>
+                
+                    <small class="error" ng-show="formModGroup.nombre.$error.required">
+                        El grupo necesita un nombre.
+                    </small>
+                
+                <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
+                    El nombre no puede tener mas de 10 letras.
+                </small>
                 </br>
 
                 <div class="input-group">                
@@ -324,12 +325,10 @@
 
             <div class="modal-footer">
 
-                
                 <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-                <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)">Editar</button>
-                
+                <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)" ng-disabled="formModGroup.$invalid">Editar</button>
         </div>
-
+    </form>
     </script>
 
 </div>
