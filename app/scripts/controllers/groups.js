@@ -16,7 +16,6 @@ app.directive('file', function(){
 
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal) {
-    var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
     var imageDirectory = "http://tripbox.uab.cat/groupImgs/";
 
     //Usuario que inicia sesión con Facebook
@@ -258,7 +257,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                                 imagen = imagen.file;
 
                                 //Se sube la imagen al servidor
-                                $http.put(endpoint + "group/" + edit.id + "/image", imagen, {headers: {"Content-Type":"image/jpeg"}}).success(function(data,status) {
+                                ApiService.uploadImage(edit.id, imagen).success(function(data,status) {
                                     
                                     //Si se ha cargado una imagen nueva, este es el nuevo path
                                     edit.imagePath = imageDirectory + editedGroup.id;
