@@ -89,7 +89,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     //incluye un nuevo sucess si se sube una, pero no lo incluye si no se hace.
     //Como éste codigo debe estar dentro del success pero también debe estar fuera para la excepción a
     //la vez, se llama en forma de función para ambos.
-    $scope.showNewGroup = function(createdGroup, ImagePath, newGroup){
+    $scope.showNewGroup = function(createdGroup, ImagePath){
          //Limpia el formulario
         $scope.cleanFormAddGroup();
 
@@ -155,7 +155,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                         ImagePath = imageDirectory + createdGroup.id + ".jpg";
 
                         //Muestra el grupo nuevo
-                        $scope.showNewGroup(createdGroup, ImagePath, newGroup);
+                        $scope.showNewGroup(createdGroup, ImagePath);
 
                     });
                 } else {
@@ -164,7 +164,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                     ImagePath = imageDirectory + "default_img.png"
 
                     //Muestra el grupo nuevo
-                    $scope.showNewGroup(createdGroup, ImagePath, newGroup);
+                    $scope.showNewGroup(createdGroup, ImagePath);
 
                 }
 
