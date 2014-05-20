@@ -15,7 +15,7 @@ app.directive('file', function(){
 });
 
 //PETICION JSON HACIA LA API
-app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal) {
+app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal, $location) {
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
     var imageDirectory = "http://tripbox.uab.cat/groupImgs/";
 
@@ -44,6 +44,9 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     //Con esto evitamos el parpadeo
     $scope.groupsTuto = infoUser.groups;
 
+    $scope.goToGroup = function(groupId) {
+        $location.path('groups/' + groupId);
+    }
     //Función comun que carga (o recarga) los grupos de un usuario
     $scope.reloadGroups = function (){
             //Lista de grupos del usuario

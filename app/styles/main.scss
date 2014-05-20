@@ -1,12 +1,26 @@
 $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
  @import'sass-bootstrap/lib/bootstrap';
- // This variable overrides where is font-awesome $fa-font-path:"//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default;
- // for referencing Bootstrap CDN font files directly @import'font-awesome/scss/font-awesome';
+
+/* This variable overrides where is font-awesome */
+ $fa-font-path:"//netdna.bootstrapcdn.com/font-awesome/4.0.3/fonts" !default;
+
+/* for referencing Bootstrap CDN font files directly */
+ @import'font-awesome/scss/font-awesome';
  @import'bootstrap-social/bootstrap-social';
  @import '_destination';
  html, body {
     height: 100%;
     background-image: url(../images/bg.png);
+}
+/*
+    ng-cloack oculta las vistas antes de ser compiladas (tratadas por un controlador).
+    El objetivo es ocultar el parpadeo 
+*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+.logo {
+    max-width: 100%;
 }
 .landing {
     margin-top: 50px;
@@ -33,20 +47,11 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         margin:100px auto;
     }
 }
-/*
-#veil {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height:100%;
-    width:100%;
-    cursor: not-allowed;
-    filter: alpha(opacity=60);
-    opacity: 0.6;
-    background: #000000 url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat center;
-}*/
-
-.logo-tripbox{
+/* Muestra la navbar por encima del tutorial del uso de cards */
+ .navbar {
+    z-index: 1;
+}
+.logo-tripbox {
     /*background: green;*/
     position: absolute;
     bottom: 0;
@@ -54,14 +59,13 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: 100%;
     width: 100%;
 }
-.logo{
+.logo {
     position:relative;
     display: block;
     margin: 5% auto 0 auto;
     height: 60%;
 }
-
-.facebook-btn{
+.facebook-btn {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -70,8 +74,8 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     top: 75%;
     width: 17em;
 }
-// CONFIGURACION DE LA BARRA DE SCROLL 
-.scroll-info {
+/* CONFIGURACION DE LA BARRA DE SCROLL  */
+ .scroll-info {
     /*COLOR DE LA BARRA DE INFORMACION*/
     background: #0675cf;
     /* Old browsers */
@@ -95,14 +99,13 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: 1px;
     width: 100%;
 }
-.position-tripbox{
+.position-tripbox {
     position: absolute;
     bottom: 0;
     left: 0;
     bottom: -10em;
     height: 10em;
     width: 100%;
-
 }
 @media (min-width: 625px) {
     .TripBox-image {
@@ -122,7 +125,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         height: auto;
     }
 }
-.click{
+.click {
     position: absolute;
     text-align:center;
     bottom: 2em;
@@ -131,7 +134,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     width: 100%;
 }
 /*enlace ya visitado.*/
- .click{
+ .click {
     display:inline;
     text-decoration: none;
     color: #0675cf;
@@ -140,27 +143,26 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: -2em;
     width: 100%;
 }
-.img-confucion{
+.img-confucion {
     width: 66%;
 }
-.img-resolucion{
+.img-resolucion {
     width: 65%;
 }
-.img-buzon{
-    width: 65%%;
+.img-buzon {
+    width: 65%;
 }
-.img-cards{
+.img-cards {
     width: 75%;
 }
-.info-tripbox{
-    //margin-top: 60em;
+.info-tripbox {
+    /*margin-top: 60em;*/
     position: absolute;
     bottom: -20em;
     height: 10em;
     margin-left: 0;
     width: 90%
 }
-
 .title {
     font-size: 175%;
     color: #0675cf;
@@ -202,4 +204,252 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     font-weight: 200;
     text-align: center;
 }
+/* Diseño cards */
+ $card-border-radius: 5px;
+ $diameter-bubble: 70px;
+ $time-open-transition: .2s;
+ $card-height: 300px;
 
+/* Tamaño de las dos cajas que hay dentro de la card, la del título y la de los botones. */
+ $card-height-inner-boxes: 70px;
+ .card-wrapper {
+    @include make-sm-column(6);
+    @include make-md-column(3);
+    @include make-lg-column(3);
+}
+.card {
+    height: 300px;
+    background: #ddd;
+    border-radius: $card-border-radius;
+    box-shadow: #111 0 0 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+    .bubble {
+        height: $diameter-bubble;
+        width: $diameter-bubble;
+        border-radius: 50%;
+        background-color: #ddd;
+        i {
+            line-height: $diameter-bubble;
+            width: $diameter-bubble;
+            font-size: 22px;
+            text-align: center;
+        }
+    }
+}
+.item {
+    background-image: url(../images/system/group/airplane1.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    position: relative;
+    .bubble {
+        @include transition(all $time-open-transition ease);
+        @include scale(1);
+    }
+    .grey-box {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        @include transition(all $time-open-transition ease-in-out);
+        @include border-bottom-radius($card-border-radius);
+        .content {
+            width: 100%;
+            margin-left: -15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            height: $card-height-inner-boxes;
+            color: white;
+            padding: 0 15px;
+            @include transition(all $time-open-transition ease);
+            .caption {
+                width: 100%;
+                height: $card-height-inner-boxes;
+                @include transition(all $time-open-transition ease-in-out);
+                h2 {
+                    margin: 0;
+                    padding: 0;
+                    line-height: $card-height-inner-boxes;
+                    text-align: center;
+                    color: white;
+                }
+            }
+            .description, .money, .date {
+                @include transition(all 0s ease-in-out 0s);
+                opacity: 0;
+            }
+            .description {
+                font-style: italic;
+            }
+            i {
+                padding: 0 10px 0 0;;
+            }
+        }
+    }
+    .stars-wrapper {
+        bottom: 0;
+        width: 100%;
+        height: $card-height-inner-boxes;
+        margin-left: -15px;
+        background: #ddd;
+        @include border-bottom-radius($card-border-radius);
+        @include transition-delay($time-open-transition);
+        @include transition(all $time-open-transition ease);
+        text-align: center;
+        i {
+            font-size: 30px;
+            line-height: $card-height-inner-boxes;
+        }
+    }
+}
+.item:hover {
+    .bubble {
+        @include transition(all $time-open-transition ease);
+        @include scale(0);
+    }
+    .grey-box {
+        @include border-top-radius($card-border-radius);
+        .content {
+            @include border-top-radius($card-border-radius);
+            height: $card-height - $card-height-inner-boxes;
+            .description, .money, .date {
+                @include transition(all $time-open-transition ease-in-out $time-open-transition);
+                opacity: 1;
+            }
+        }
+    }
+}
+.group {
+    &.create-group {
+        cursor: pointer;
+        text-align: center;
+        line-height: auto;
+        background-image: none;
+        i {
+            font-size: 165px;
+            @include transition(all .5s ease);
+        }
+        &:hover {
+            i {
+                @include rotate(180deg);
+            }
+        }
+    }
+    position: relative;
+    background-image: url(../images/system/groups/placeholder/people1.jpg);
+    background-size: cover;
+    .grey-box {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        @include border-bottom-radius($card-border-radius);
+        .caption {
+            width: 100%;
+            margin-left: -15px;
+            height: $card-height-inner-boxes;
+            background-color: rgba(0, 0, 0, 0.6);
+            @include border-bottom-radius($card-border-radius);
+            @include transition(all $time-open-transition ease-in-out);
+            h2 {
+                margin: 0;
+                padding: 0;
+                line-height: $card-height-inner-boxes;
+                text-align: center;
+                color: white;
+            }
+        }
+    }
+    .buttons-wrapper {
+        width: 100%;
+        height: 0;
+        margin-left: -15px;
+        background: #ddd;
+        @include border-bottom-radius($card-border-radius);
+        @include transition-delay($time-open-transition);
+        @include transition(all $time-open-transition ease);
+        .card-btn {
+            text-align: center;
+            display: inline-block;
+            height: 0;
+            width: 49%;
+            border: 0;
+            cursor: pointer;
+            i {
+                font-size: 30px;
+                line-height: $card-height-inner-boxes;
+                @include scale(0);
+                @include transition-delay(0);
+                @include transition(all 0s ease);
+            }
+            &.edit-group {
+                float: left;
+                border-bottom-left-radius: $card-border-radius;
+            }
+            &.unfollow-group {
+                float: right;
+                border-bottom-right-radius: $card-border-radius;
+            }
+        }
+    }
+}
+@media (min-width: $screen-md-min) {
+    .card:hover {
+        box-shadow: #111 0 0 10px;
+        .caption {
+            @include border-bottom-radius(0);
+        }
+        .buttons-wrapper {
+            height: $card-height-inner-boxes;
+            .card-btn {
+                height: 100%;
+                &:hover {
+                    color: blue;
+                    background-color: #333;
+                    @include transition(background-color 0.2s ease);
+                    &.unfollow-group {
+                        color: rgb(213, 0, 0);
+                    }
+                }
+                i {
+                    @include scale(1);
+                    @include transition(all $time-open-transition 0s ease);
+                    @include transition-delay($time-open-transition);
+                }
+            }
+        }
+        .stars-wrapper {
+            height: $card-height-inner-boxes;
+            i {
+                @include scale(1);
+                @include transition(all $time-open-transition 0s ease);
+                @include transition-delay($time-open-transition);
+            }
+        }
+    }
+}
+@media (max-width: $screen-sm-max) {
+    /* Muestra la card como si fuera hover en escritorio */
+    .card {
+        box-shadow: #111 0 0 10px;
+        .group .caption {
+            @include border-bottom-radius(0);
+        }
+        .buttons-wrapper {
+            height: $card-height-inner-boxes;
+            .card-btn {
+                height: 100%;
+                &:hover {
+                    color: blue;
+                    background-color: #333;
+                    @include transition(background-color 0.2s ease);
+                    &.unfollow-group {
+                        color: rgb(213, 0, 0);
+                    }
+                }
+                i {
+                    @include scale(1);
+                    @include transition(all $time-open-transition 0s ease);
+                    @include transition-delay($time-open-transition);
+                }
+            }
+        }
+    }
+}

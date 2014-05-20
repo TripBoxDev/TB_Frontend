@@ -23,7 +23,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a>Salir de la cuenta</a>
+                            <li><a ng-click="logoutUser()">Salir de la cuenta</a>
                             </li>
 
                         </ul>
@@ -36,114 +36,53 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div class="fondo" ng-hide="groupsTuto.length != []">
+    <div class="fondo" ng-hide="groups.length != []">
 
     </div>
 
     <!-- Si ya hay algún grupo creado -->
-    <div ng-show="groupsTuto.length != []">
+    <div ng-show="groups.length != []" ng-cloak>
 
-        <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
+
         <div class="row">
             <div ng-repeat="group in groups">
-                <div class="col-md-2" color="blue">
-                    <div class="thumbnail">
 
-                        <!-- DATOS DE LA CARTA: IMAGEN, NOMBRE DEL GRUPO Y DESCRIPCIÓN -->
-
-                        <center>
-
-                            <div>
-                                  <a id="{{ group.id }}" href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="{{group.imagePath}}" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                </a>
+                <div class="card-wrapper">
+                    <div class="card group" ng-click="goToGroup(group.id)">
+                        <div class="bubble">
+                            <i class="fa fa-group"></i>
+                        </div>
+                        <div class="grey-box">
+                            <div class="caption">
+                                <h2>{{ group.name}}</h2>
                             </div>
-
-                            <!--Falta implementacion Backend 
-                            < No existe imagen >
-                            <div ng-show="group.flagImage == 0">
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="images/groups/default.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                </a>
+                            <div class="buttons-wrapper">
+                                <div class="card-btn edit-group" ng-click="editGroup(group.id, group.name, group.description); $event.stopPropagation()"><i class="fa fa-edit"></i>
+                                </div>
+                                <div class="card-btn unfollow-group" ng-click="unFollowGroup(group.id, group.name); $event.stopPropagation()"><i class="fa fa-trash-o"></i>
+                                </div>
                             </div>
-
-                            < Existe imagen >
-                            <div ng-hide="group.flagImage == 1">
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                </a>
-                            </div>
-                            -->
-
-
-                            <span class="groupName" editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    {{ group.name }}
-                                </a>
-                            </span>
-
-
-                            <!-- Descripcion, de momento no lo creo necesario 
-                                <p style="font-size: 15px" editable-text="group.description" e-name="description" e-form="rowform" onbeforesave="checkName($data)" e-required>
-                                    {{ group.description }}
-                                </p>
-                                -->
-
-                            </br>
-
-                            <!-- BOTONES PARA ELIMINAR O MODIFICAR (NO FUNCIONAL TODABIA) LOS GRUPOS -->
-
-                            <!--Boton con confirmación estilo navegador -->
-
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="unFollowGroup(group.id, group.name)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="editGroup(group.id, group.name, group.description)">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-
-
-                            <!--Boton con confirmación estilo boostrap (No funciona con angular todabia)
-                                <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#UnFollowGroup"></a>
-                                -->
-
-                        </center>
+                        </div>
                     </div>
+                </div>
+
+            </div>
+
+            <div class="card-wrapper">
+                <div class="card group create-group" data-toggle="modal" data-target="#CrearGrupo">
+                    <i class="fa fa-plus-circle"></i>
+                    <h2>Crea un grupo</h2>
                 </div>
             </div>
 
 
-            <!-- CARTA PARA AÑADIR UN GRUPO -->
 
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <div id="cardinfo">
-
-                        <center>
-
-                            <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
-
-                        </center>
-
-                    </div>
-                    <div id="addgroup">
-
-                        <center>
-
-                            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#CrearGrupo">
-                                <span class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#CrearGrupo"></span>
-                            </button>
-
-                        </center>
-                    </div>
-                </div>
-            </div>
         </div>
-
+        
     </div>
 
     <!-- Si no hay ningún grupo creado -->
-    <div ng-hide="groupsTuto.length != []">
+    <div ng-hide="groups.length != []" ng-cloak>
 
         <div id="tutorial">
             <div class="title-tutorial">
@@ -169,7 +108,7 @@
 
                                     <center>
 
-                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir grupo
+                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>Añadir grupo
 
                                     </center>
 
@@ -245,16 +184,15 @@
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-picture"></span>
                             </span>
-                            <div>
+                                <div>
                                     <input type="file" data-file="param.file" ng-model="newGroup.fileP"/>
                                     <small>Sólo son validos ficheros JPEG</small>
                                 </div>
-
                         </div>
                     </div>
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cleanFormAddGroup()">Cancelar</button>
 
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addGroup(newGroup)" ng-disabled="formAddGroup.$invalid">Crear</button>
                     </div>
@@ -263,6 +201,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- MENU PARA ELIMINAR GRUPO -->
             
@@ -286,7 +225,7 @@
         <div class="modal-footer">
             
             <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-            <button type="button" class="btn btn-primary" ng-click="confirmUnFollow()">Abandonar</button>
+            <button type="button" class="btn btn-danger" ng-click="confirmUnFollow()">Abandonar</button>
             
         </div>
     
@@ -303,7 +242,8 @@
             <h4 class="modal-title" id="myModalLabel">Edición de Grupo {{groupName}}</h4>
       
         </div>
-        <div class="modal-body">
+        <form name="formModGroup" novalidate ng-submit="modGroupForm()">
+            <div class="modal-body">
          
                 <div class="input-group">
 
@@ -352,13 +292,12 @@
             </div>
 
             <div class="modal-footer">
-
-                
-                <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-                <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)">Editar</button>
-                
-        </div>
-
+                    
+                    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)" ng-disabled="formModGroup.$invalid">Editar</button>
+                    
+            </div>
+        </form>
     </script>
 
 </div>
