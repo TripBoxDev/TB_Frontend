@@ -36,12 +36,13 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div class="fondo" ng-hide="groupsTuto.length != []">
+    <!-- Se esconde si no se muestra el tutorial -->
+    <div class="fondo" ng-hide="groupsTuto == false">
 
     </div>
 
-    <!-- Si ya hay algún grupo creado -->
-    <div ng-show="groupsTuto.length != []">
+    <!-- Se muestra si no se muestra el tutorial -->
+    <div ng-show="groupsTuto == false">
 
         <!-- CARTA CON TODOS LOS GRUPOS DEL USUARIO -->
         <div class="row">
@@ -113,8 +114,8 @@
 
     </div>
 
-    <!-- Si no hay ningún grupo creado -->
-    <div ng-hide="groupsTuto.length != []">
+    <!-- Se esconde si no se muestra el tutorial -->
+    <div ng-hide="groupsTuto == false">
 
         <div id="tutorial">
             <div class="title-tutorial">
