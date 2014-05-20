@@ -59,39 +59,15 @@
                                 </a>
                             </div>
 
-                            <!--Falta implementacion Backend 
-                            < No existe imagen >
-                            <div ng-show="group.flagImage == 0">
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="images/groups/default.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                </a>
-                            </div>
-
-                            < Existe imagen >
-                            <div ng-hide="group.flagImage == 1">
-                                <a href="http://localhost:9000/#/groups/{{group.id}}">
-                                    <img src="images/groups/{{group.id}}.jpg" alt="Image group" title="{{group.name}}" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                </a>
-                            </div>
-                            -->
-
-
                             <span class="groupName" editable-text="group.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
                                 <a href="http://localhost:9000/#/groups/{{group.id}}">
                                     {{ group.name }}
                                 </a>
                             </span>
 
-
-                            <!-- Descripcion, de momento no lo creo necesario 
-                                <p style="font-size: 15px" editable-text="group.description" e-name="description" e-form="rowform" onbeforesave="checkName($data)" e-required>
-                                    {{ group.description }}
-                                </p>
-                                -->
-
                             </br>
 
-                            <!-- BOTONES PARA ELIMINAR O MODIFICAR (NO FUNCIONAL TODABIA) LOS GRUPOS -->
+                            <!-- BOTONES PARA ELIMINAR O MODIFICAR LOS GRUPOS -->
 
                             <!--Boton con confirmación estilo navegador -->
 
@@ -101,11 +77,6 @@
                             <button type="button" class="btn btn-primary btn-xs" ng-click="editGroup(group.id, group.name, group.description)">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
-
-
-                            <!--Boton con confirmación estilo boostrap (No funciona con angular todabia)
-                                <a class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#UnFollowGroup"></a>
-                                -->
 
                         </center>
                     </div>

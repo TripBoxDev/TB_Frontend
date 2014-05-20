@@ -19,21 +19,6 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
     var imageDirectory = "http://tripbox.uab.cat/groupImgs/";
 
-    //para hacer uso de $resource debemos colocarlo al crear el modulo
-
-    /*
-    var newUser = {
-        name: "Cristian",
-        lastName: "Correa",
-        email: "cristiancorrea@gmail.com"  
-    } 
-
-    $http.put(endpoint + 'user/', newUser)
-    .success(function(data) {
-        console.log(data.id);
-    });
-    */
-
     //Usuario que inicia sesión con Facebook
     var infoUser = authService.data.userInfo;
     var user = infoUser.id;
