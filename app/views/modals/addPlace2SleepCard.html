@@ -24,30 +24,6 @@
             </small>
         </div>
         </br>
-        <div class="input-group">
-
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-comment"></span>
-            </span>
-            <fieldset>
-                <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" ng-model="newCard.description">
-
-            </fieldset>
-
-        </div>
-        </br>
-
-        <div class="input-group">
-
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-pushpin"></span>
-            </span>
-            <fieldset>
-                <input type="text" class="form-control" placeholder="Link" name="link" ng-model="newCard.link">
-
-            </fieldset>
-
-        </div>
 
         </br>
         <div class="input-group">
@@ -67,19 +43,20 @@
                 La card necesita un precio.
             </small>
         </div>
+
         </br>
         <div class="input-group">
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-plane"></span>
             </span>
-                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
-                    <option value="" disabled selected>Selecciona el destino</option>
-                </select>
-                
-                <button type="button" class="btn btn-default btn-sm" ng-click="openAddDestinationModal()">
-                    <span class="glyphicon glyphicon-plus-sign" ></span>Nuevo Destino
+            <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
+                <option value="" disabled selected>Selecciona el destino</option>
+            </select>
 
-                </button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="openAddDestinationModal()">
+                <span class="glyphicon glyphicon-plus-sign"></span>Nuevo Destino
+
+            </button>
         </div>
 
         <div class="error" ng-show="formAddCardPlace.destino.$dirty && formAddCardPlace.destino.$invalid">
@@ -87,50 +64,99 @@
                 La card necesita un destino.
             </small>
         </div>
-        </br>
-        <div class="input-group">
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-home"></span>
-            </span>
-            <fieldset>
-                <select class="form-control" ng-model="newCard.placeType" ng-options="f for f in placeTypes">
-                    <option value="" disabled selected>Selecciona el tipo de alojamiento</option>
-                </select>
-            </fieldset>
+
+
+        <div ng-hide="masinfo == 1">
+
+            </br>
+            <center><a type="button" ng-click="masinfo = 1">Mas datos <b class="caret"></b></a>
+            </center>
+
         </div>
-        
-         </br>
-        <div ng-controller="DatepickerDemoCtrl">
-    
-        <div class="row">
-            <div class="col-md-6"> 
-                <p class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model= "newCard.initDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        <div class="mas-info" ng-show="masinfo == 1">
+
+
+
+
+            </br>
+
+            <div class="input-group">
+
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-comment"></span>
                 </span>
-                </p>
-            </div> 
-        </br>
-    </div>
-    <div ng-controller="DatepickerDemoCtrl">
-        <div class="row">
-            <div class="col-md-6"> 
-                <p class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model= "newCard.finalDate" is-open="opened" min="newCard.initDate" max="'2015-06-22'" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-                </p>
+                <fieldset>
+                    <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" ng-model="newCard.description">
+
+                </fieldset>
+
             </div>
+            </br>
+
+            <div class="input-group">
+
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-pushpin"></span>
+                </span>
+                <fieldset>
+                    <input type="text" class="form-control" placeholder="Link" name="link" ng-model="newCard.link">
+
+                </fieldset>
+
+            </div>
+
+
+            </br>
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-home"></span>
+                </span>
+                <fieldset>
+                    <select class="form-control" ng-model="newCard.placeType" ng-options="f for f in placeTypes">
+                        <option value="" disabled selected>Selecciona el tipo de alojamiento</option>
+                    </select>
+                </fieldset>
+            </div>
+
+            </br>
+
+
+            <div class="row">
+                <div ng-controller="DatepickerDemoCtrl">
+
+
+                    <div class="col-md-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.initDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                   
+                </div>
+                <div ng-controller="DatepickerDemoCtrl">
+                    <div class="col-md-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.finalDate" is-open="opened" min="newCard.initDate" max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            </br>
+            <center><a type="button" ng-click="masinfo = 0" data-toggle="dropdown">Menos datos <b class="caret" data-toggle="dropdown"></b></a></center>
         </div>
-    </div>
     </form>
 
-</div>
-<div class="modal-footer">
+    </div>
+    <div class="modal-footer">
 
-    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
 
-    <button type="button" class="btn btn-primary" btn-loading="{{ isCreatingCard }}" data-loading-text="Creando..." ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
-</div>
+        <button type="button" class="btn btn-primary" btn-loading="{{ isCreatingCard }}" data-loading-text="Creando..." ng-click="addCardPlaceToSleep(newCard)" ng-disabled="formAddCardPlace.$invalid">Crear</button>
+    </div>

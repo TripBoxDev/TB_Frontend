@@ -29,32 +29,6 @@
         <div class="input-group">
 
             <span class="input-group-addon">
-                <span class="glyphicon glyphicon-comment"></span>
-            </span>
-            <fieldset>
-                <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" ng-model="newCard.description">
-
-            </fieldset>
-
-        </div>
-        </br>
-
-        <div class="input-group">
-
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-pushpin"></span>
-            </span>
-            <fieldset>
-                <input type="text" class="form-control" placeholder="Link" name="link" ng-model="newCard.link">
-
-            </fieldset>
-
-        </div>
-
-        </br>
-        <div class="input-group">
-
-            <span class="input-group-addon">
                 <span class="glyphicon glyphicon-euro"></span>
             </span>
             <fieldset>
@@ -70,6 +44,7 @@
             </small>
         </div>
 
+
         </br>
         <div class="input-group">
 
@@ -77,31 +52,75 @@
                 <span class="glyphicon glyphicon-plane"></span>
             </span>
 
-                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
+            <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
 
-                    <option value="" disabled selected>Selecciona el destino</option>
+                <option value="" disabled selected>Selecciona el destino</option>
 
-                </select>
-                <button type="button" class="btn btn-default btn-sm" ng-click="openAddDestinationModal()">
-                    <span class="glyphicon glyphicon-plus-sign"></span>Nuevo Destino
+            </select>
+            <button type="button" class="btn btn-default btn-sm" ng-click="openAddDestinationModal()">
+                <span class="glyphicon glyphicon-plus-sign"></span>Nuevo Destino
 
-                </button>
+            </button>
 
         </div>
-        </br>
-        <div ng-controller="DatepickerDemoCtrl">
-    
-        <div class="row">
-            <div class="col-md-6"> 
-                <p class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.eventDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions"  ng-required="true" close-text="Close" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+
+        <div ng-hide="masinfo == 1">
+
+            </br>
+            <center><a type="button" ng-click="masinfo = 1">Mas datos <b class="caret"></b></a>
+            </center>
+
+        </div>
+        <div class="mas-info" ng-show="masinfo == 1">
+
+            </br>
+            <div class="input-group">
+
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-comment"></span>
                 </span>
-                </p>
+                <fieldset>
+                    <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" ng-model="newCard.description">
+
+                </fieldset>
+
             </div>
-        </div>
+            </br>
+
+            <div class="input-group">
+
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-pushpin"></span>
+                </span>
+                <fieldset>
+                    <input type="text" class="form-control" placeholder="Link" name="link" ng-model="newCard.link">
+
+                </fieldset>
+
+            </div>
+
+
+            </br>
+            <div ng-controller="DatepickerDemoCtrl">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.eventDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            </br>
+            <center><a type="button" ng-click="masinfo = 0" data-toggle="dropdown">Menos datos <b class="caret" data-toggle="dropdown"></b></a>
+            </center>
+
     </form>
+    </div>
 
 </div>
 <div class="modal-footer">
