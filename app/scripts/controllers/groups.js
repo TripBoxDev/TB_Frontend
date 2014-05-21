@@ -105,7 +105,9 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
         $scope.groupsTuto = false;
 
     };
-
+ $scope.goToGroup = function(groupId) {
+        $location.path('groups/' + groupId);
+}
     //funcion para crear grupos
     $scope.addGroup = function(submittedGroup) {
 
