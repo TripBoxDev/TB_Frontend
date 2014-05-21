@@ -23,26 +23,6 @@
                 La card necesita un nombre.
             </small>
         </div>
-        </br>
-
-        </br>
-        <div class="input-group">
-
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-euro"></span>
-            </span>
-            <fieldset>
-                <input type="text" class="form-control" placeholder="Precio" name="precio" ng-model="newCard.price" required>
-
-            </fieldset>
-
-        </div>
-
-        <div class="error" ng-show="formAddCardPlace.precio.$dirty && formAddCardPlace.precio.$invalid">
-            <small class="error" ng-show="formAddCardTransport.precio.$error.required">
-                La card necesita un precio.
-            </small>
-        </div>
 
         </br>
         <div class="input-group">
@@ -75,8 +55,18 @@
         </div>
         <div class="mas-info" ng-show="masinfo == 1">
 
+            </br>
+            <div class="input-group">
 
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-euro"></span>
+                </span>
+                <fieldset>
+                    <input type="text" class="form-control" placeholder="Precio" name="precio" ng-model="newCard.price">
 
+                </fieldset>
+
+            </div>
 
             </br>
 
@@ -127,7 +117,7 @@
 
                     <div class="col-md-6">
                         <p class="input-group">
-                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.initDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.initDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" close-text="Close" />
                             <span class="input-group-btn">
                                 <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
                                 </button>
@@ -139,7 +129,7 @@
                 <div ng-controller="DatepickerDemoCtrl">
                     <div class="col-md-6">
                         <p class="input-group">
-                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.finalDate" is-open="opened" min="newCard.initDate" max="'2015-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newCard.finalDate" is-open="opened" min="newCard.initDate" max="'2015-06-22'" datepicker-options="dateOptions" close-text="Close" />
                             <span class="input-group-btn">
                                 <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
                                 </button>
