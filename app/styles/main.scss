@@ -7,7 +7,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 /* for referencing Bootstrap CDN font files directly */
  @import'font-awesome/scss/font-awesome';
  @import'bootstrap-social/bootstrap-social';
- @import '_destination';
+ @import'_destination';
  html, body {
     height: 100%;
     background-image: url(../images/bg.png);
@@ -238,9 +238,17 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     }
 }
 .item {
-    background-image: url(../images/system/group/airplane1.jpg);
-    background-size: cover;
-    background-position: 50% 50%;
+    &.transport {
+        background-image: url(../images/system/group/airplane1.jpg);
+     
+    }
+
+    &.placeToSleep {
+        background-image: url(../images/system/group/placeToSleep.jpg);
+
+    }
+       background-size: cover;
+        background-position: 50% 50%;
     position: relative;
     .bubble {
         @include transition(all $time-open-transition ease);
@@ -280,7 +288,8 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
                 font-style: italic;
             }
             i {
-                padding: 0 10px 0 0;;
+                padding: 0 10px 0 0;
+                ;
             }
         }
     }
@@ -337,8 +346,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     background-image: url(../images/system/groups/placeholder/people1.jpg);
     background-size: cover;
     background-position: 50% 50%;
-            cursor: pointer;
-
+    cursor: pointer;
     .grey-box {
         position: absolute;
         bottom: 0;
