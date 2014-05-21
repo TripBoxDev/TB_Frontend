@@ -177,7 +177,10 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
         $scope.alertDestinationRepeat = false;
     };
 
-
+    $scope.hoveringLeave = function(rate){
+        $scope.myVote = rate;
+        console.log($scope.myVote);
+    };
     // <!--Añadir place to sleep de forma manual-->
 
     // var newPlaceToSleep = {
@@ -439,7 +442,7 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser) {
+app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser,destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations.filter(function(v) {
         return v !== ''
@@ -447,6 +450,17 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
     $scope.infoUser = infoUser;
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
+    $scope.destiSelected=destiSelectedService.getDesti();
+
+    $scope.ifDesti = function(){
+
+        if($scope.destiSelected==null){
+            return false;
+        }else{
+            console.log($scope.destiSelected.name);
+            return true;
+        }
+    }
 
     $scope.openAddDestinationModal = function() {
         var modalInstance = $modal.open({
@@ -544,13 +558,23 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, placeToSleepCards, destinations, infoUser) {
+app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, placeToSleepCards, destinations, infoUser,destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
     $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
     $scope.placeType = $scope.placeTypes[0];
+$scope.destiSelected=destiSelectedService.getDesti();
 
+    $scope.ifDesti = function(){
+
+        if($scope.destiSelected==null){
+            return false;
+        }else{
+            console.log($scope.destiSelected.name);
+            return true;
+        }
+    }
     $scope.openAddDestinationModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/createDestination.html',
@@ -630,12 +654,22 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modal
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser) {
+app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser,destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
 
+$scope.destiSelected=destiSelectedService.getDesti();
 
+    $scope.ifDesti = function(){
+
+        if($scope.destiSelected==null){
+            return false;
+        }else{
+            console.log($scope.destiSelected.name);
+            return true;
+        }
+    }
     $scope.openAddDestinationModal = function() {
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/createDestination.html',

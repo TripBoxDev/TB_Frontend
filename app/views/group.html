@@ -127,9 +127,11 @@
 
                                     </div>
                                     <div id="Votation" align="center">
-                                        <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                        <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>
  
-                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType)"></rating>
+                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="hoveringLeave(rate)" ng-click="putVote(card.cardId,rate,card.cardType)"></rating>
+
+
                                     </div>
                                      <button type="button" class="btn btn-primary btn-xs" ng-click="deleteCard(card)">
                                 <span class="glyphicon glyphicon-remove"></span>
@@ -328,7 +330,7 @@
                                             <span class="glyphicon glyphicon-link"></span>
                                         </button>
                                         <button type="button" class="btn btn-success" ng-class="{show: canLink(card), hidden: !canLink(card)}" ng-click="endLink(card)">Link to it</button>
-                                        <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Canel link</button>
+                                        <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Cancel link</button>
                                     </div>
                                 </div>
 

@@ -30,13 +30,18 @@
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-plane"></span>
             </span>
-            <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
-               <option value="" disabled selected>Selecciona el destino</option>
-            </select>
-            <button type="button" class="btn btn-default btn-sm" ng-click="openAddDestinationModal()">
-                <span class="glyphicon glyphicon-plus-sign"></span> Nuevo Destino
+            <div ng-show="!ifDesti()">
+                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
+                   <option value="" disabled selected>Selecciona el destino</option>
+                </select>
+                <button type="button" class="btn btn-default btn-sm" ng-click="openAddDestinationModal()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Nuevo Destino
 
-            </button>
+                </button>
+            </div>
+            <div ng-show="ifDesti()">
+                <input type="text" ng-model="destiSelected.name" disabled/>
+            </div>
         </div>
 
         <div ng-hide="masinfo == 1">
