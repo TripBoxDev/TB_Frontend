@@ -24,14 +24,14 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
         });
 
         invitationModalInstance.result.then(function(typeSelected) {
-            $scope.openCreateTypeCardModal(typeSelected);
+            $rootScope.openCreateTypeCardModal(typeSelected);
         });
 
     };
     $scope.destinationSelected=false;
     //Recibe que tipo de card se quiere crear y muestra el modal asociado
 
-    $scope.openCreateTypeCardModal = function(typeSelected) {
+    $rootScope.openCreateTypeCardModal = function(typeSelected) {
         switch (typeSelected) {
             case 'transport':
                 $log.info('Transport has been chosen');
