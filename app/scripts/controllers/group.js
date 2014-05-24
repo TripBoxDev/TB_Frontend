@@ -202,7 +202,7 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
     //click destino
     $scope.destiClicked = function(destino){
         destiSelectedService.setDesti(destino);
-        $scope.destinationChoosed=destiSelectedService.getDesti().name;
+        $scope.destinationChoosed1=destiSelectedService.getDesti();
         if($scope.destinationSelected==true){
             $scope.destinationSelected=false;
            
