@@ -463,7 +463,7 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser,destiSelectedService) {
+app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope,$scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser,destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations.filter(function(v) {
         return v !== ''
@@ -526,6 +526,10 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
          * Card que será enviada a la API
          */
 
+         if($rootScope.destinationSelected){
+            submittedCard.destination = $scope.destiSelected.name;
+        }
+
         var newCard = {
             cardType: "transport",
             name: submittedCard.name,
@@ -579,7 +583,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, placeToSleepCards, destinations, infoUser,destiSelectedService) {
+app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($rootScope,$scope, $modalInstance, $modal, $routeParams, ApiService, placeToSleepCards, destinations, infoUser,destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
@@ -622,6 +626,9 @@ $scope.destiSelected=destiSelectedService.getDesti();
         // Todo obtener parentCardIds de la card, en caso de estar modificandola.
         var parentCardIds = [];
         if (typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
+        if($rootScope.destinationSelected){
+            submittedCard.destination = $scope.destiSelected.name;
+        }
         var newCard = {
             parentCardIds: parentCardIds,
             cardType: "placeToSleep",
@@ -675,7 +682,7 @@ $scope.destiSelected=destiSelectedService.getDesti();
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser,destiSelectedService) {
+app.controller('CreateOtherCardModalInstanceCtrl', function($rootScope, $scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser,destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
@@ -715,6 +722,9 @@ $scope.destiSelected=destiSelectedService.getDesti();
         //Nueva Card 
         console.log(submittedCard.destination);
         var date = new Date (submittedCard.eventDate);
+        if($rootScope.destinationSelected){
+            submittedCard.destination = $scope.destiSelected.name;
+        }
 
         var newCard = {
 

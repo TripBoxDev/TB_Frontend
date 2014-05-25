@@ -31,7 +31,7 @@
                 <span class="glyphicon glyphicon-plane"></span>
             </span>
             <div ng-show="!ifDesti()">
-                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" required>
+                <select class="form-control" style="max-width: 210px;" name="destino" ng-model="newCard.destination" ng-options="f.name as f.name for f in destinations" ng-required="!destinationSelected">
                    <option value="" disabled selected>Selecciona el destino</option>
                 </select>
                 <button type="button" class="btn btn-default btn-sm" ng-click="openAddDestinationModal()">
