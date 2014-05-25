@@ -1,6 +1,6 @@
-app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location, authService, $modal, $http, ApiService, $log, notificationFactory, groupService,destiSelectedService) {
+app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location, authService, $modal, $http, ApiService, $log, notificationFactory, groupService, destiSelectedService) {
 
-    if(!authService.data.userInfo.groups.contains($routeParams.groupId)) $location.path('/');
+    if (!authService.data.userInfo.groups.contains($routeParams.groupId)) $location.path('/');
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
 
     $scope.groupId = $routeParams.groupId;
@@ -28,7 +28,7 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
         });
 
     };
-    $scope.destinationSelected=false;
+    $scope.destinationSelected = false;
     //Recibe que tipo de card se quiere crear y muestra el modal asociado
 
     $rootScope.openCreateTypeCardModal = function(typeSelected) {
@@ -133,9 +133,7 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
 
     getGroup();
 
-
     //Voting
-
     $scope.max = 5;
     $scope.isReadonly = false;
 
@@ -151,7 +149,7 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
         }
 
         return ApiService.putVote(cardId, newVote).success(function(response) {
-            
+
             var arrayCard;
             if (cardType == 'placeToSleep') {
                 arrayCard = $scope.infoGroup.placeToSleepCards;
@@ -162,13 +160,10 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
             }
 
             for (var i = arrayCard.length - 1; i >= 0; i--) {
-                console.log(arrayCard.length);
                 if (arrayCard[i].cardId == cardId) {
-                    arrayCard.splice(i, 1);
-                    arrayCard.push(response);
+                    arrayCard.splice(i, 1, response);
                 }
             }
-
             groupService.setGroup($scope.infoGroup);
         });
     }
@@ -177,7 +172,7 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
         $scope.alertDestinationRepeat = false;
     };
 
-    $scope.hoveringLeave = function(rate){
+    $scope.hoveringLeave = function(rate) {
         $scope.myVote = rate;
         console.log($scope.myVote);
     };
@@ -198,39 +193,39 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
     // error(function(data, status) {
     //     console.log("error al insertar place to sleep");
     // });
-$scope.mapDestSelectedIds={};
+
+    $scope.mapDestSelectedIds = {};
 
 
     //click destino
-    $scope.destiClicked = function(destino){
-        $scope.mapDestSelectedIds={};
-       
-        angular.forEach($scope.infoGroup.destinations, function(desti){
-            if(!angular.equals(destino.id, desti.id)){
-                $scope.mapDestSelectedIds[desti.id]="opac";
-            }   
+    $scope.destiClicked = function(destino) {
+        $scope.mapDestSelectedIds = {};
+
+        angular.forEach($scope.infoGroup.destinations, function(desti) {
+            if (!angular.equals(destino.id, desti.id)) {
+                $scope.mapDestSelectedIds[desti.id] = "opac";
+            }
         });
-        if(destiSelectedService.getDesti()!=null&&angular.equals(destino.id, destiSelectedService.getDesti().id)){
-             destiSelectedService.setDesti(null);
-             $scope.destinationChoosed1=destiSelectedService.getDesti();
-            $scope.destinationSelected=false;
-           $scope.mapDestSelectedIds={};
-        }else{
-             destiSelectedService.setDesti(destino);
-            $scope.destinationChoosed1=destiSelectedService.getDesti();
-            $scope.destinationSelected=true;
+        if (destiSelectedService.getDesti() != null && angular.equals(destino.id, destiSelectedService.getDesti().id)) {
+            destiSelectedService.setDesti(null);
+            $scope.destinationChoosed1 = destiSelectedService.getDesti();
+            $scope.destinationSelected = false;
+            $scope.mapDestSelectedIds = {};
+        } else {
+            destiSelectedService.setDesti(destino);
+            $scope.destinationChoosed1 = destiSelectedService.getDesti();
+            $scope.destinationSelected = true;
             $rootScope.resetDesti();
-            
-        } 
-        
+
+        }
 
     }
 
 
-$scope.isDestRemarc = function(id){
-    var result =$scope.mapDestSelectedIds[id];
-return $scope.mapDestSelectedIds[id];
-};
+    $scope.isDestRemarc = function(id) {
+        var result = $scope.mapDestSelectedIds[id];
+        return $scope.mapDestSelectedIds[id];
+    };
 
     //Borrar destino
 
@@ -246,7 +241,7 @@ return $scope.mapDestSelectedIds[id];
         });
     }
 
-    
+
 
 
     /*
@@ -292,18 +287,18 @@ return $scope.mapDestSelectedIds[id];
         });
     }
 
-     $scope.deleteCard = function(card){
-        $scope.cartaId= card;
+    $scope.deleteCard = function(card) {
+        $scope.cartaId = card;
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/deleteCard.html',
             controller: 'deleteCardInstanceCtrl'
         });
 
         modalInstance.result.then(function() {
-             ApiService.deleteCard($scope.infoGroup.id, $scope.cartaId.cardId).success(function(data, status) {
-            $scope.infoGroup= getGroup();
-            groupService.setGroup($scope.infoGroup);
-        }); 
+            ApiService.deleteCard($scope.infoGroup.id, $scope.cartaId.cardId).success(function(data, status) {
+                $scope.infoGroup = getGroup();
+                groupService.setGroup($scope.infoGroup);
+            });
         });
 
     }
@@ -409,15 +404,15 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
     };
 
     $scope.destinationExists = function(destination) {
-       
+
         for (var x in destinations) {
-            
-            if (destinations[x].name === destination){
-                
+
+            if (destinations[x].name === destination) {
+
                 return true;
             }
-}
-       
+        }
+
         return false;
     }
 });
@@ -426,7 +421,7 @@ app.controller('deleteCardInstanceCtrl', function($scope, $modalInstance, authSe
     $scope.cancel = function() {
         $modalInstance.dismiss();
     }
-    
+
 
     $scope.confirmDeleteCard = function() {
         $modalInstance.close();
@@ -458,7 +453,7 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser,destiSelectedService) {
+app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser, destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations.filter(function(v) {
         return v !== ''
@@ -466,13 +461,13 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
     $scope.infoUser = infoUser;
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
-    $scope.destiSelected=destiSelectedService.getDesti();
+    $scope.destiSelected = destiSelectedService.getDesti();
 
-    $scope.ifDesti = function(){
+    $scope.ifDesti = function() {
 
-        if($scope.destiSelected==null){
+        if ($scope.destiSelected == null) {
             return false;
-        }else{
+        } else {
             console.log($scope.destiSelected.name);
             return true;
         }
@@ -515,8 +510,8 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
          */
         $scope.isCreatingCard = true;
 
-         var init = new Date (submittedCard.initDate);
-        var fina = new Date (submittedCard.finalDate);
+        var init = new Date(submittedCard.initDate);
+        var fina = new Date(submittedCard.finalDate);
         /**
          * Card que será enviada a la API
          */
@@ -574,19 +569,19 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($scope, $modalIn
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, placeToSleepCards, destinations, infoUser,destiSelectedService) {
+app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, placeToSleepCards, destinations, infoUser, destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
     $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
     $scope.placeType = $scope.placeTypes[0];
-$scope.destiSelected=destiSelectedService.getDesti();
+    $scope.destiSelected = destiSelectedService.getDesti();
 
-    $scope.ifDesti = function(){
+    $scope.ifDesti = function() {
 
-        if($scope.destiSelected==null){
+        if ($scope.destiSelected == null) {
             return false;
-        }else{
+        } else {
             console.log($scope.destiSelected.name);
             return true;
         }
@@ -612,8 +607,8 @@ $scope.destiSelected=destiSelectedService.getDesti();
     $scope.addCardPlaceToSleep = function(submittedCard) {
 
         $scope.isCreatingCard = true;
-        var init = new Date (submittedCard.initDate);
-        var fina = new Date (submittedCard.finalDate);
+        var init = new Date(submittedCard.initDate);
+        var fina = new Date(submittedCard.finalDate);
         // Todo obtener parentCardIds de la card, en caso de estar modificandola.
         var parentCardIds = [];
         if (typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
@@ -632,7 +627,7 @@ $scope.destiSelected=destiSelectedService.getDesti();
             finalDate: fina.valueOf(),
             placeType: submittedCard.type
         }
- 
+
 
         ApiService.putPlaceToSleepCard($routeParams.groupId, newCard)
             .success(function(data, status) {
@@ -670,18 +665,18 @@ $scope.destiSelected=destiSelectedService.getDesti();
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser,destiSelectedService) {
+app.controller('CreateOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser, destiSelectedService) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
 
-$scope.destiSelected=destiSelectedService.getDesti();
+    $scope.destiSelected = destiSelectedService.getDesti();
 
-    $scope.ifDesti = function(){
+    $scope.ifDesti = function() {
 
-        if($scope.destiSelected==null){
+        if ($scope.destiSelected == null) {
             return false;
-        }else{
+        } else {
             console.log($scope.destiSelected.name);
             return true;
         }
@@ -709,7 +704,7 @@ $scope.destiSelected=destiSelectedService.getDesti();
         $scope.isCreatingCard = true;
         //Nueva Card 
         console.log(submittedCard.destination);
-        var date = new Date (submittedCard.eventDate);
+        var date = new Date(submittedCard.eventDate);
 
         var newCard = {
 
@@ -758,246 +753,246 @@ $scope.destiSelected=destiSelectedService.getDesti();
 });
 
 
-var DatepickerDemoCtrl = function ($scope) {
-  $scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
+var DatepickerDemoCtrl = function($scope) {
+    $scope.today = function() {
+        $scope.dt = new Date();
+    };
+    $scope.today();
 
-  $scope.showWeeks = true;
-  $scope.toggleWeeks = function () {
-    $scope.showWeeks = ! $scope.showWeeks;
-  };
+    $scope.showWeeks = true;
+    $scope.toggleWeeks = function() {
+        $scope.showWeeks = !$scope.showWeeks;
+    };
 
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
+    $scope.clear = function() {
+        $scope.dt = null;
+    };
 
-  // Disable weekend selection
-  $scope.disabled = function(date, mode) {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-  };
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+        return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+    };
 
-  $scope.toggleMin = function() {
-    $scope.minDate = ( $scope.minDate ) ? null : new Date();
-  };
-  $scope.toggleMin();
+    $scope.toggleMin = function() {
+        $scope.minDate = ($scope.minDate) ? null : new Date();
+    };
+    $scope.toggleMin();
 
-  $scope.open = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
 
-    $scope.opened = true;
-  };
+        $scope.opened = true;
+    };
 
-  $scope.dateOptions = {
-    'year-format': "'yy'",
-    'starting-day': 1
-  };
+    $scope.dateOptions = {
+        'year-format': "'yy'",
+        'starting-day': 1
+    };
 
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
-  $scope.format = $scope.formats[0];
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
+    $scope.format = $scope.formats[0];
 };
 
-app.controller("DestinationCtrl", function($rootScope,$scope,$routeParams,  authService, ApiService,groupService, destiSelectedService){
+app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, authService, ApiService, groupService, destiSelectedService) {
 
-$scope.group={};
+    $scope.group = {};
 
 
-//$scope.destinationChoosed="proba";
-$scope.selectedCards=[];
-$scope.mapSelectedIds={};
-$scope.anySelect=false;
-$scope.cardsToLink=[];
-$scope.linkingToTransport=false;
-$scope.linkingToPlace=false;
-$scope.onFlow=false;
-$scope.cardStartLink={};
+    //$scope.destinationChoosed="proba";
+    $scope.selectedCards = [];
+    $scope.mapSelectedIds = {};
+    $scope.anySelect = false;
+    $scope.cardsToLink = [];
+    $scope.linkingToTransport = false;
+    $scope.linkingToPlace = false;
+    $scope.onFlow = false;
+    $scope.cardStartLink = {};
 
-$rootScope.resetDesti=function(){
-    $scope.destinationChoosed=destiSelectedService.getDesti().name;
-    $scope.group= groupService.getGroup();
-}
+    $rootScope.resetDesti = function() {
+        $scope.destinationChoosed = destiSelectedService.getDesti().name;
+        $scope.group = groupService.getGroup();
+    }
 
-var getGroup=function(){
+    var getGroup = function() {
 
-    return ApiService.getGroup($routeParams.groupId).success(function(response){
+        return ApiService.getGroup($routeParams.groupId).success(function(response) {
 
-        $scope.group=angular.copy(response);
-        groupService.setGroup(response);
-    });
-}
+            $scope.group = angular.copy(response);
+            groupService.setGroup(response);
+        });
+    }
 
-var putPlaceToCard=function(card){
+    var putPlaceToCard = function(card) {
 
-    return ApiService.putPlaceToSleepCard($routeParams.groupId, card).success(function(response){
+        return ApiService.putPlaceToSleepCard($routeParams.groupId, card).success(function(response) {
 
             getGroup();
 
-            
 
-    }).error(function(data, status) {
+
+        }).error(function(data, status) {
             console.log("Error al insertar PlaceToSleep Card!");
 
         });
-}
-$scope.group= groupService.getGroup();
+    }
+    $scope.group = groupService.getGroup();
 
 
 
-$scope.isRemarc = function(id){
-    var result =$scope.mapSelectedIds[id];
-return $scope.mapSelectedIds[id];
-};
+    $scope.isRemarc = function(id) {
+        var result = $scope.mapSelectedIds[id];
+        return $scope.mapSelectedIds[id];
+    };
 
-$scope.cardTransportSelected =function(cardSelected){
+    $scope.cardTransportSelected = function(cardSelected) {
 
 
-    $scope.mapSelectedIds={};
+        $scope.mapSelectedIds = {};
 
-    if(!$scope.anySelect){
-         angular.forEach($scope.group.transportCards, function(card){
-                if(!angular.equals(card.cardId,cardSelected.cardId)){
-                    $scope.mapSelectedIds[card.cardId]="opac";
+        if (!$scope.anySelect) {
+            angular.forEach($scope.group.transportCards, function(card) {
+                if (!angular.equals(card.cardId, cardSelected.cardId)) {
+                    $scope.mapSelectedIds[card.cardId] = "opac";
                 }
-         });
-         
-         angular.forEach($scope.group.placeToSleepCards, function(card){
-            var find=false;
-            var count=0
-  
-                while(count<cardSelected.childCardsId.length && !find){
-                    if(angular.equals(cardSelected.childCardsId[count],card.cardId)){
-                        find=true;
+            });
+
+            angular.forEach($scope.group.placeToSleepCards, function(card) {
+                var find = false;
+                var count = 0
+
+                while (count < cardSelected.childCardsId.length && !find) {
+                    if (angular.equals(cardSelected.childCardsId[count], card.cardId)) {
+                        find = true;
                     }
-                    count+=1;
+                    count += 1;
                 }
-                if(!find){
-                    $scope.mapSelectedIds[card.cardId]="opac";
+                if (!find) {
+                    $scope.mapSelectedIds[card.cardId] = "opac";
                 }
-         });
-        $scope.anySelect=true;
+            });
+            $scope.anySelect = true;
 
-     }else{
-        $scope.anySelect=false;
-     }
+        } else {
+            $scope.anySelect = false;
+        }
 
-};
+    };
 
-$scope.cardPlaceToSelected =function(cardSelected){
+    $scope.cardPlaceToSelected = function(cardSelected) {
 
 
-    $scope.mapSelectedIds={};
+        $scope.mapSelectedIds = {};
 
-    if(!$scope.anySelect){
-         angular.forEach($scope.group.placeToSleepCards, function(card){
-                if(!angular.equals(card.cardId,cardSelected.cardId)){
-                    $scope.mapSelectedIds[card.cardId]="opac";
+        if (!$scope.anySelect) {
+            angular.forEach($scope.group.placeToSleepCards, function(card) {
+                if (!angular.equals(card.cardId, cardSelected.cardId)) {
+                    $scope.mapSelectedIds[card.cardId] = "opac";
                 }
-         });
-         angular.forEach($scope.group.transportCards, function(card){
-            var find=false;
-            var count=0
-                while(count<cardSelected.parentCardIds.length && !find){
-                    if(angular.equals(cardSelected.parentCardIds[count],card.cardId)){
-                        find=true;
+            });
+            angular.forEach($scope.group.transportCards, function(card) {
+                var find = false;
+                var count = 0
+                while (count < cardSelected.parentCardIds.length && !find) {
+                    if (angular.equals(cardSelected.parentCardIds[count], card.cardId)) {
+                        find = true;
                     }
-                    count+=1;
+                    count += 1;
                 }
-                if(!find){
-                    $scope.mapSelectedIds[card.cardId]="opac";
+                if (!find) {
+                    $scope.mapSelectedIds[card.cardId] = "opac";
                 }
-         });
-        $scope.anySelect=true;
-     }else{
-        $scope.anySelect=false;
-     }
-
-};
-
-$scope.startLink=function(card){
-    $scope.cardStartLink=card;
-    $scope.cardsToLink.push(card);
-    $scope.mapSelectedIds={};
-
-    if(angular.equals(card.cardType, "transport")){
-         angular.forEach($scope.group.transportCards, function(transCard){
-                if(!angular.equals(transCard.cardId,card.cardId)){
-                    $scope.mapSelectedIds[transCard.cardId]="opac";
-                }
-         });
-        $scope.linkingToPlace=true;
-    }
-    if(angular.equals(card.cardType, "placeToSleep")){
-        angular.forEach($scope.group.placeToSleepCards, function(placeCard){
-                if(!angular.equals(placeCard.cardId,card.cardId)){
-                    $scope.mapSelectedIds[placeCard.cardId]="opac";
-                }
-         });
-        $scope.linkingToTransport=true;
-    }
-
-};
-$scope.endLink=function(card){
-    var placeToCard={}
-    if(angular.equals(card.cardType, "transport")){
-        placeToCard = angular.copy($scope.cardStartLink);
-        placeToCard.parentCardIds.push(card.cardId);
-    }else{
-        placeToCard = angular.copy(card);
-        placeToCard.parentCardIds.push($scope.cardStartLink.cardId);
-    }
-    putPlaceToCard(placeToCard);
-
-    resetStat();
-};
-$scope.cancelLink = function(){
-resetStat();
-};
-var resetStat = function(){
-        $scope.mapSelectedIds={};
-        $scope.linkingToTransport=false;
-        $scope.linkingToPlace=false;
-        $scope.anySelect=false;
-        $scope.cardStartLink={};
-}
-$scope.isCardStartLink = function(card){
-    try{
-
-        if(angular.equals($scope.cardStartLink.cardId, card.cardId)) return true;
-    }catch(error){
-        return false;
-    }
-
-};
-
-$scope.canLink = function(card){
-    try{
-        var arrayIds=[];
-        var trobat=false;
-        if(angular.equals($scope.cardStartLink.cardType, "transport")&&angular.equals(card.cardType, "transport") ||
-            angular.equals($scope.cardStartLink.cardType, "placeToSleep")&&angular.equals(card.cardType, "placeToSleep")) return false;
-
-        if(angular.equals($scope.cardStartLink.cardType, "transport")){
-            arrayIds=$scope.cardStartLink.childCardsId;
-        }else{
-
-            arrayIds=$scope.cardStartLink.parentCardIds;
-        }
-        for(var i=0; i<arrayIds.length; i++){
-
-            if(angular.equals(arrayIds[i], card.cardId)) trobat= true;
-        }
-        if(!trobat){
-            return true;
-        }else{
-            false;
+            });
+            $scope.anySelect = true;
+        } else {
+            $scope.anySelect = false;
         }
 
-    }catch(error){
+    };
 
-        return false;
+    $scope.startLink = function(card) {
+        $scope.cardStartLink = card;
+        $scope.cardsToLink.push(card);
+        $scope.mapSelectedIds = {};
+
+        if (angular.equals(card.cardType, "transport")) {
+            angular.forEach($scope.group.transportCards, function(transCard) {
+                if (!angular.equals(transCard.cardId, card.cardId)) {
+                    $scope.mapSelectedIds[transCard.cardId] = "opac";
+                }
+            });
+            $scope.linkingToPlace = true;
+        }
+        if (angular.equals(card.cardType, "placeToSleep")) {
+            angular.forEach($scope.group.placeToSleepCards, function(placeCard) {
+                if (!angular.equals(placeCard.cardId, card.cardId)) {
+                    $scope.mapSelectedIds[placeCard.cardId] = "opac";
+                }
+            });
+            $scope.linkingToTransport = true;
+        }
+
+    };
+    $scope.endLink = function(card) {
+        var placeToCard = {}
+        if (angular.equals(card.cardType, "transport")) {
+            placeToCard = angular.copy($scope.cardStartLink);
+            placeToCard.parentCardIds.push(card.cardId);
+        } else {
+            placeToCard = angular.copy(card);
+            placeToCard.parentCardIds.push($scope.cardStartLink.cardId);
+        }
+        putPlaceToCard(placeToCard);
+
+        resetStat();
+    };
+    $scope.cancelLink = function() {
+        resetStat();
+    };
+    var resetStat = function() {
+        $scope.mapSelectedIds = {};
+        $scope.linkingToTransport = false;
+        $scope.linkingToPlace = false;
+        $scope.anySelect = false;
+        $scope.cardStartLink = {};
     }
-};
+    $scope.isCardStartLink = function(card) {
+        try {
+
+            if (angular.equals($scope.cardStartLink.cardId, card.cardId)) return true;
+        } catch (error) {
+            return false;
+        }
+
+    };
+
+    $scope.canLink = function(card) {
+        try {
+            var arrayIds = [];
+            var trobat = false;
+            if (angular.equals($scope.cardStartLink.cardType, "transport") && angular.equals(card.cardType, "transport") ||
+                angular.equals($scope.cardStartLink.cardType, "placeToSleep") && angular.equals(card.cardType, "placeToSleep")) return false;
+
+            if (angular.equals($scope.cardStartLink.cardType, "transport")) {
+                arrayIds = $scope.cardStartLink.childCardsId;
+            } else {
+
+                arrayIds = $scope.cardStartLink.parentCardIds;
+            }
+            for (var i = 0; i < arrayIds.length; i++) {
+
+                if (angular.equals(arrayIds[i], card.cardId)) trobat = true;
+            }
+            if (!trobat) {
+                return true;
+            } else {
+                false;
+            }
+
+        } catch (error) {
+
+            return false;
+        }
+    };
 
 });

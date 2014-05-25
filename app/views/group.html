@@ -104,17 +104,17 @@
                                         <h2>{{card.name}}</h2>
                                     </div>
                                     <div class="description">{{card.description}}</div>
-                                    <div class="money"><i class="fa fa-money"></i>{{ card.price }}
+                                    <div class="money"><i class="fa fa-money"></i>{{ card.price}}€
                                     </div>
-                                    <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
+                                    <div class="date"><i class="fa fa-calendar"></i>{{card.initDate | date:'dd/MM/yy'}}-{{card.finalDate | date:'dd/MM/yy'}}</div>
                                 </div>
                                 <div class="bottom-box">
                                     <div class="mean-valoration">
-                                        <span>3.7</span>
+                                        <span>{{card.average}}</span>
                                     </div>
                                     <div class="stars-wrapper">
 
-                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
+                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
 
                                     </div>
                                     <div class="link-btn"><i class="fa fa-chain"></i>
@@ -136,13 +136,13 @@
                                         <h2>{{card.name}}</h2>
                                     </div>
                                     <div class="description">{{card.description}}</div>
-                                    <div class="money"><i class="fa fa-money"></i>{{ card.price }}
+                                    <div class="money"><i class="fa fa-money"></i>{{ card.price}}€
                                     </div>
-                                    <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
+                                    <div class="date"><i class="fa fa-calendar"></i>{{card.initDate | date:'dd/MM/yy'}}-{{card.finalDate | date:'dd/MM/yy'}}</div>
                                 </div>
                                 <div class="bottom-box">
                                     <div class="mean-valoration">
-                                        <span>3.7</span>
+                                        <span>{{card.average}}</span>
                                     </div>
                                     <div class="stars-wrapper">
 
@@ -169,13 +169,13 @@
                                         <h2>{{card.name}}</h2>
                                     </div>
                                     <div class="description">{{card.description}}</div>
-                                    <div class="money"><i class="fa fa-money"></i>123 €
+                                    <div class="money"><i class="fa fa-money"></i>{{card.price}}€
                                     </div>
-                                    <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
+                                    <div class="date"><i class="fa fa-calendar"></i>{{card.initDate | date:'dd/MM/yy'}}-{{card.finalDate | date:'dd/MM/yy'}}</div>
                                 </div>
                                 <div class="bottom-box">
                                     <div class="mean-valoration">
-                                        <span>3.7</span>
+                                        <span>{{card.average}}</span>
                                     </div>
                                     <div class="stars-wrapper">
 
@@ -198,7 +198,7 @@
 
                                 <center>
 
-                                    <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
+                                    <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false"/>Añadir card
 
                                 </center>
 
