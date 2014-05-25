@@ -292,6 +292,9 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         }
     }
     .bottom-box {
+        background: #ddd;
+        @include border-bottom-radius($card-border-radius);
+        height: $card-height-inner-boxes;
         .mean-valoration {
             @include make-lg-column(2);
             @include make-md-column(3);
@@ -301,8 +304,8 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
                 line-height: 35px;
                 text-align: center;
                 border-radius: 50%;
-                background-color: blue;
-                color: $card-background-button-dark;
+                background-color:  $card-background-button-dark;
+                color: white;
                 display: inline-block;
                 margin: auto auto;
             }
@@ -313,8 +316,6 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
             bottom: 0;
             height: $card-height-inner-boxes;
             //margin-left: -15px;
-            background: #ddd;
-            @include border-bottom-radius($card-border-radius);
             @include transition-delay($time-open-transition);
             @include transition(all $time-open-transition ease);
             text-align: center;
