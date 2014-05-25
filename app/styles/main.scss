@@ -209,9 +209,10 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
  $diameter-bubble: 70px;
  $time-open-transition: .2s;
  $card-height: 300px;
+ $card-background-button-dark: #333;
 
 /* Tamaño de las dos cajas que hay dentro de la card, la del título y la de los botones. */
- $card-height-inner-boxes: 70px;
+ $card-height-inner-boxes: 50px;
  .card-wrapper {
     @include make-sm-column(6);
     @include make-md-column(3);
@@ -240,15 +241,12 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 .item {
     &.transport {
         background-image: url(../images/system/group/airplane1.jpg);
-     
     }
-
     &.placeToSleep {
         background-image: url(../images/system/group/placeToSleep.jpg);
-
     }
-       background-size: cover;
-        background-position: 50% 50%;
+    background-size: cover;
+    background-position: 50% 50%;
     position: relative;
     .bubble {
         @include transition(all $time-open-transition ease);
@@ -258,11 +256,11 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         position: absolute;
         bottom: 0;
         width: 100%;
+        margin-left: -15px;
         @include transition(all $time-open-transition ease-in-out);
         @include border-bottom-radius($card-border-radius);
         .content {
             width: 100%;
-            margin-left: -15px;
             background-color: rgba(0, 0, 0, 0.6);
             height: $card-height-inner-boxes;
             color: white;
@@ -278,6 +276,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
                     line-height: $card-height-inner-boxes;
                     text-align: center;
                     color: white;
+                    font-size: 23px;
                 }
             }
             .description, .money, .date {
@@ -289,23 +288,51 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
             }
             i {
                 padding: 0 10px 0 0;
-                ;
             }
         }
     }
-    .stars-wrapper {
-        bottom: 0;
-        width: 100%;
-        height: $card-height-inner-boxes;
-        margin-left: -15px;
-        background: #ddd;
-        @include border-bottom-radius($card-border-radius);
-        @include transition-delay($time-open-transition);
-        @include transition(all $time-open-transition ease);
-        text-align: center;
-        i {
-            font-size: 30px;
-            line-height: $card-height-inner-boxes;
+    .bottom-box {
+        .mean-valoration {
+            @include make-lg-column(2);
+            @include make-md-column(3);
+            span {
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                text-align: center;
+                border-radius: 50%;
+                background-color: blue;
+                color: $card-background-button-dark;
+                display: inline-block;
+                margin: auto auto;
+            }
+        }
+        .stars-wrapper {
+            @include make-lg-column(8);
+            @include make-md-column(6);
+            bottom: 0;
+            height: $card-height-inner-boxes;
+            //margin-left: -15px;
+            background: #ddd;
+            @include border-bottom-radius($card-border-radius);
+            @include transition-delay($time-open-transition);
+            @include transition(all $time-open-transition ease);
+            text-align: center;
+            i {
+                font-size: 17px;
+                @media (max-width: $screen-md-max) {
+                    font-size: 12px;
+                }
+                line-height: $card-height-inner-boxes;
+            }
+        }
+        .link-btn {
+            @include make-lg-column(2);
+            @include make-md-column(3);
+            background-color: $card-background-button-dark;
+            display: inline-block;
+            height: $card-height-inner-boxes;
+            color: white;
         }
     }
 }
@@ -413,7 +440,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
                 height: 100%;
                 &:hover {
                     color: blue;
-                    background-color: #333;
+                    background-color: $card-background-button-dark;
                     @include transition(background-color 0.2s ease);
                     &.unfollow-group {
                         color: rgb(213, 0, 0);

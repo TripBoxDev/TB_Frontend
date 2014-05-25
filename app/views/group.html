@@ -55,7 +55,6 @@
             <div id="left-menu">
                 <ul class="nav nav-pills nav-stacked">
                     <li class="active" ng-repeat="destino in infoGroup.destinations">
-
                         <a href="" ng-click="destiClicked(destino)">
                             <button type="button" class="btn btn-primary btn-xs" ng-click="deleteDestination(destino.id)">
                                 <span class="glyphicon glyphicon-remove"></span>
@@ -102,11 +101,21 @@
                                     </div>
                                     <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
                                 </div>
-                                <div class="stars-wrapper">
-                                    <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();"></rating>
+                                <div class="bottom-box">
+                                    <div class="mean-valoration">
+                                        <span>3.7</span>
+                                    </div>
+                                    <div class="stars-wrapper">
+
+                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
+
+                                    </div>
+                                    <div class="link-btn"><i class="fa fa-chain"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="card-wrapper" ng-repeat="card in infoGroup.placeToSleepCards">
@@ -124,63 +133,50 @@
                                     </div>
                                     <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
                                 </div>
-                                <div class="stars-wrapper">
-                                    <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();"></rating>
+                                <div class="bottom-box">
+                                    <div class="mean-valoration">
+                                        <span>3.7</span>
+                                    </div>
+                                    <div class="stars-wrapper">
+
+                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
+
+                                    </div>
+                                    <div class="link-btn"><i class="fa fa-chain"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="col-md-2">
-                        <div ng-repeat="card in infoGroup.otherCards">
-                            <div class="thumbnail">
-                                <div id="cardinfo">
-                                    <div id="userCreator">
-                                        {{card.nameCreator}} {{card.lastNameCreator}}
+                    <div class="card-wrapper" ng-repeat="card in infoGroup.otherCards">
+                        <div class="card item other" ng-click="editCard(card)">
+                            <div class="bubble">
+                                <!-- TODO Reemplazar bubble para other cards -->
+                                <i class="fa fa-road"></i>
+                            </div>
+                            <div class="grey-box">
+                                <div class="content">
+                                    <div class="caption">
+                                        <h2>{{card.name}}</h2>
                                     </div>
-                                    <div id="line">
-                                        <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                    <div class="description">{{card.description}}</div>
+                                    <div class="money"><i class="fa fa-money"></i>123 €
                                     </div>
-                                    <div id="typeCard" align="center">
+                                    <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
+                                </div>
+                                <div class="bottom-box">
+                                    <div class="mean-valoration">
+                                        <span>3.7</span>
+                                    </div>
+                                    <div class="stars-wrapper">
 
-                                        <div id="name">
-
-                                            {{card.name}}</br>
-                                        </div>
-
-
-                                        <div id="price">
-
-                                            {{card.price}}€</br>
-                                        </div>
-                                        <div id="link">
-
-                                            <a href="{{card.link}}">Link de la card</a>
-                                            </br>
-                                        </div>
-                                        </br>
-                                        </br>
-                                        <div id="MoreInfo">
-                                            <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
-                                Precio:    {{card.price}}€  </br>
-                                Destino:     {{card.destination}}   </br>
-                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
-                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
-                                        </div>
+                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
 
                                     </div>
-                                    <div id="Votation" align="center">
-                                        <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-
-                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType)"></rating>
+                                    <div class="link-btn"><i class="fa fa-chain"></i>
                                     </div>
-                                     <button type="button" class="btn btn-primary btn-xs" ng-click="deleteCard(card)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="editCard(card)">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
                                 </div>
                             </div>
                         </div>
