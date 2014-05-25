@@ -199,7 +199,12 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
     //     console.log("error al insertar place to sleep");
     // });
 $scope.mapDestSelectedIds={};
-
+$scope.tornarVistaGroup=function(){
+ destiSelectedService.setDesti(null);
+             $scope.destinationChoosed1=destiSelectedService.getDesti();
+            $scope.destinationSelected=false;
+           $scope.mapDestSelectedIds={};
+}
 
     //click destino
     $scope.destiClicked = function(destino){
