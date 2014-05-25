@@ -1,4 +1,4 @@
-app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location, authService, $modal, $http, ApiService, $log, notificationFactory, groupService, destiSelectedService) {
+app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location, authService, $modal, $http, ApiService, $log, notificationFactory, groupService, destiSelectedService,$q) {
 
     if (!authService.data.userInfo.groups.contains($routeParams.groupId)) $location.path('/');
     var endpoint = 'http://tripbox.uab.es/TB_Backend/api/';
@@ -124,14 +124,36 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     $scope.infoGroup = {};
 
     var getGroup = function() {
+
+        var deferred = $q.defer();
+
         return ApiService.getGroup($scope.groupId).success(function(response) {
             $scope.infoGroup = angular.copy(response);
             groupService.setGroup(response);
 
         });
-    }
 
-    getGroup();
+        deferred.resolve();
+        return deferred.promise;
+    };
+
+    getGroup().then(function(){
+        getVotesUser();
+        console.log($scope.transportVotes);
+    });
+
+    $scope.transportVotes = [];
+
+    var getVotesUser = function(){
+         for (var i = $scope.infoGroup.transportCards.length - 1; i >= 0; i--) {
+            for (var j = $scope.infoGroup.transportCards[i].votes.length - 1; j >= 0; j--) {
+                if($scope.infoGroup.transportCards[i].votes[j].userId == $scope.infoUser.id){
+                    var vote = {"cardId": $scope.infoGroup.transportCards[i].cardId ,"vote": $scope.infoGroup.transportCards[i].votes[j].value};
+                    $scope.transportVotes.push(vote);
+                }
+            }
+        }
+    };
 
     //Voting
     $scope.max = 5;
