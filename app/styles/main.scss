@@ -283,8 +283,12 @@ $tripbox-blue: blue;
             .caption {
                 width: 100%;
                 height: $card-height-inner-boxes;
+                
                 @include transition(all $time-open-transition ease-in-out);
                 h2 {
+                    white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                     margin: 0;
                     padding: 0;
                     line-height: $card-height-inner-boxes;
