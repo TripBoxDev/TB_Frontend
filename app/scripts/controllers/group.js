@@ -198,23 +198,39 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
     // error(function(data, status) {
     //     console.log("error al insertar place to sleep");
     // });
+$scope.mapDestSelectedIds={};
+
 
     //click destino
     $scope.destiClicked = function(destino){
-        destiSelectedService.setDesti(destino);
-        $scope.destinationChoosed1=destiSelectedService.getDesti();
-        if($scope.destinationSelected==true){
+        $scope.mapDestSelectedIds={};
+       
+        angular.forEach($scope.infoGroup.destinations, function(desti){
+            if(!angular.equals(destino.id, desti.id)){
+                $scope.mapDestSelectedIds[desti.id]="opac";
+            }   
+        });
+        if(destiSelectedService.getDesti()!=null&&angular.equals(destino.id, destiSelectedService.getDesti().id)){
+             destiSelectedService.setDesti(null);
+             $scope.destinationChoosed1=destiSelectedService.getDesti();
             $scope.destinationSelected=false;
-           
+           $scope.mapDestSelectedIds={};
         }else{
+             destiSelectedService.setDesti(destino);
+            $scope.destinationChoosed1=destiSelectedService.getDesti();
             $scope.destinationSelected=true;
             $rootScope.resetDesti();
             
-        }
-        
+        } 
         
 
     }
+
+
+$scope.isDestRemarc = function(id){
+    var result =$scope.mapDestSelectedIds[id];
+return $scope.mapDestSelectedIds[id];
+};
 
     //Borrar destino
 
