@@ -12,6 +12,8 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: 100%;
     background-image: url(../images/bg.png);
 }
+$tripbox-blue: blue;
+
 /*
     ng-cloack oculta las vistas antes de ser compiladas (tratadas por un controlador).
     El objetivo es ocultar el parpadeo 
@@ -207,6 +209,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
 /* Diseño cards */
  $card-border-radius: 5px;
  $diameter-bubble: 70px;
+ $diameter-bubble-md: 50px;
  $time-open-transition: .2s;
  $card-height: 300px;
  $card-background-button-dark: #333;
@@ -228,11 +231,19 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     .bubble {
         height: $diameter-bubble;
         width: $diameter-bubble;
+        @media (max-width: $screen-md-max) {
+            height: $diameter-bubble-md;
+            width: $diameter-bubble-md;
+        }
         border-radius: 50%;
         background-color: #ddd;
         i {
             line-height: $diameter-bubble;
             width: $diameter-bubble;
+            @media (max-width: $screen-md-max) {
+                line-height: $diameter-bubble-md;
+                width: $diameter-bubble-md;
+            }
             font-size: 22px;
             text-align: center;
         }
@@ -244,6 +255,9 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     }
     &.placeToSleep {
         background-image: url(../images/system/group/placeToSleep.jpg);
+    }
+    &.other {
+        background-image: url(../images/system/group/other.jpg);
     }
     background-size: cover;
     background-position: 50% 50%;
@@ -292,47 +306,63 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         }
     }
     .bottom-box {
+        background: #ddd;
+        @include border-bottom-radius($card-border-radius);
+        height: $card-height-inner-boxes;
         .mean-valoration {
             @include make-lg-column(2);
             @include make-md-column(3);
+            $card-bubble-valoration-size: 35px;
             span {
-                height: 35px;
-                width: 35px;
-                line-height: 35px;
+                height: $card-bubble-valoration-size;
+                width: $card-bubble-valoration-size;
+                line-height: $card-bubble-valoration-size;
                 text-align: center;
                 border-radius: 50%;
-                background-color: blue;
-                color: $card-background-button-dark;
+                background-color: $card-background-button-dark;
+                color: white;
                 display: inline-block;
-                margin: auto auto;
+                margin: ($card-height-inner-boxes - $card-bubble-valoration-size) / 2 auto;
             }
         }
         .stars-wrapper {
+            cursor: pointer;
             @include make-lg-column(8);
             @include make-md-column(6);
             bottom: 0;
             height: $card-height-inner-boxes;
             //margin-left: -15px;
-            background: #ddd;
-            @include border-bottom-radius($card-border-radius);
             @include transition-delay($time-open-transition);
             @include transition(all $time-open-transition ease);
             text-align: center;
             i {
-                font-size: 17px;
+                font-size: 15px;
                 @media (max-width: $screen-md-max) {
-                    font-size: 12px;
+                    font-size: 11px;
                 }
                 line-height: $card-height-inner-boxes;
             }
         }
         .link-btn {
+            cursor: pointer;
             @include make-lg-column(2);
             @include make-md-column(3);
             background-color: $card-background-button-dark;
             display: inline-block;
             height: $card-height-inner-boxes;
             color: white;
+            border-bottom-right-radius: $card-border-radius;
+            text-align: center;
+            padding-left: 0;
+            padding-right: 0;
+            @include transition(color .3s ease);
+            &:hover {
+                color: $tripbox-blue;
+            }
+            i {
+                font-size: 20px;
+                line-height: $card-height-inner-boxes;
+            }
         }
     }
 }
@@ -439,7 +469,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
             .card-btn {
                 height: 100%;
                 &:hover {
-                    color: blue;
+                    color: $tripbox-blue;
                     background-color: $card-background-button-dark;
                     @include transition(background-color 0.2s ease);
                     &.unfollow-group {
