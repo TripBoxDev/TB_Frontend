@@ -28,7 +28,7 @@ app.controller("GroupCtrl", function($rootScope,$scope, $routeParams, $location,
         });
 
     };
-    $scope.destinationSelected=false;
+    $rootScope.destinationSelected=false;
     //Recibe que tipo de card se quiere crear y muestra el modal asociado
 
     $rootScope.openCreateTypeCardModal = function(typeSelected) {
@@ -202,7 +202,7 @@ $scope.mapDestSelectedIds={};
 $scope.tornarVistaGroup=function(){
  destiSelectedService.setDesti(null);
              $scope.destinationChoosed1=destiSelectedService.getDesti();
-            $scope.destinationSelected=false;
+            $rootScope.destinationSelected=false;
            $scope.mapDestSelectedIds={};
 }
 
@@ -218,12 +218,12 @@ $scope.tornarVistaGroup=function(){
         if(destiSelectedService.getDesti()!=null&&angular.equals(destino.id, destiSelectedService.getDesti().id)){
              destiSelectedService.setDesti(null);
              $scope.destinationChoosed1=destiSelectedService.getDesti();
-            $scope.destinationSelected=false;
+            $rootScope.destinationSelected=false;
            $scope.mapDestSelectedIds={};
         }else{
              destiSelectedService.setDesti(destino);
             $scope.destinationChoosed1=destiSelectedService.getDesti();
-            $scope.destinationSelected=true;
+            $rootScope.destinationSelected=true;
             $rootScope.resetDesti();
             
         } 
