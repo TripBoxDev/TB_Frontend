@@ -209,6 +209,7 @@ $tripbox-blue: blue;
 /* Diseño cards */
  $card-border-radius: 5px;
  $diameter-bubble: 70px;
+ $diameter-bubble-md: 50px;
  $time-open-transition: .2s;
  $card-height: 300px;
  $card-background-button-dark: #333;
@@ -230,11 +231,19 @@ $tripbox-blue: blue;
     .bubble {
         height: $diameter-bubble;
         width: $diameter-bubble;
+        @media (max-width: $screen-md-max) {
+            height: $diameter-bubble-md;
+            width: $diameter-bubble-md;
+        }
         border-radius: 50%;
         background-color: #ddd;
         i {
             line-height: $diameter-bubble;
             width: $diameter-bubble;
+            @media (max-width: $screen-md-max) {
+                line-height: $diameter-bubble-md;
+                width: $diameter-bubble-md;
+            }
             font-size: 22px;
             text-align: center;
         }
@@ -247,10 +256,9 @@ $tripbox-blue: blue;
     &.placeToSleep {
         background-image: url(../images/system/group/placeToSleep.jpg);
     }
-        &.other {
+    &.other {
         background-image: url(../images/system/group/other.jpg);
     }
-
     background-size: cover;
     background-position: 50% 50%;
     position: relative;
@@ -318,8 +326,7 @@ $tripbox-blue: blue;
             }
         }
         .stars-wrapper {
-                        cursor: pointer;
-
+            cursor: pointer;
             @include make-lg-column(8);
             @include make-md-column(6);
             bottom: 0;
@@ -348,8 +355,7 @@ $tripbox-blue: blue;
             text-align: center;
             padding-left: 0;
             padding-right: 0;
-                            @include transition(color .3s ease);
-
+            @include transition(color .3s ease);
             &:hover {
                 color: $tripbox-blue;
             }
