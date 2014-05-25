@@ -314,6 +314,8 @@ $tripbox-blue: blue;
             }
         }
         .stars-wrapper {
+                        cursor: pointer;
+
             @include make-lg-column(8);
             @include make-md-column(6);
             bottom: 0;
@@ -331,6 +333,7 @@ $tripbox-blue: blue;
             }
         }
         .link-btn {
+            cursor: pointer;
             @include make-lg-column(2);
             @include make-md-column(3);
             background-color: $card-background-button-dark;
@@ -338,8 +341,14 @@ $tripbox-blue: blue;
             height: $card-height-inner-boxes;
             color: white;
             border-bottom-right-radius: $card-border-radius;
-            text-align:center;
+            text-align: center;
+                            @include transition(color .3s ease);
+
+            &:hover {
+                color: $tripbox-blue;
+            }
             i {
+                font-size: 20px;
                 line-height: $card-height-inner-boxes;
             }
         }
