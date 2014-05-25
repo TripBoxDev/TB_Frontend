@@ -34,50 +34,41 @@
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
-        </div> 
+        </div>
     </nav>
 </div>
 <div id="generalContainer">
     <ol class="breadcrumb" ng-show="!destinationSelected">
-  <li><a href="#/groups">Groups</a></li>
-  <li class="active">{{infoGroup.name}}</li>
-  
-</ol>
-    <ol class="breadcrumb" ng-show="destinationSelected" ng-controller="DestinationCtrl" >
-  <li><a href="#/groups">Groups</a></li>
-  <li><a href="#/groups/{{infoGroup.id}}" ng-click="destiClicked(destino)">{{infoGroup.name}}</a></li>
-  <li class="active">{{destinationChoosed1.name}}</li>
-  
-</ol>
+        <li><a href="#/groups">Groups</a>
+        </li>
+        <li class="active">{{infoGroup.name}}</li>
+
+    </ol>
+    <ol class="breadcrumb" ng-show="destinationSelected" ng-controller="DestinationCtrl">
+        <li><a href="#/groups">Groups</a>
+        </li>
+        <li><a href="#/groups/{{infoGroup.id}}" ng-click="destiClicked(destino)">{{infoGroup.name}}</a>
+        </li>
+        <li class="active">{{destinationChoosed1.name}}</li>
+
+    </ol>
     <div class="row">
         <div id="divDestins">
             <!--MENÚ DE DESTINOS-->
             <div id="left-menu">
                 <ul class="nav nav-pills nav-stacked">
                     <li class="active" ng-repeat="destino in infoGroup.destinations">
-<<<<<<< HEAD
-                        <a href="" ng-click="destiClicked(destino)">
+
+                        <a href="" ng-click="destiClicked(destino)" ng-class="{selected: 'selected', opac:'opac'}[isDestRemarc(destino.id)]">
                             <button type="button" class="btn btn-primary btn-xs" ng-click="deleteDestination(destino.id)">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
+
                             <span class="glyphicon glyphicon-plane"></span>
-                            <span class="badge pull-right">{{destino.percentage}} %</span>{{destino.name}}
+                            <span class="badge pull-right">{{destino.percentage}} %</span>
+                            {{destino.name}}
                         </a>
-=======
-                            <a href="" ng-click="destiClicked(destino)" ng-class="{selected: 'selected', opac:'opac'}[isDestRemarc(destino.id)]">
-                        
-                            <button type="button" class="btn btn-primary btn-xs" ng-click="deleteDestination(destino.id)">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                           
-                                
-                                <span class="glyphicon glyphicon-plane"></span>
-                                <span class="badge pull-right">{{destino.percentage}} %</span>
-                                {{destino.name}}
-                               
-                         
-                            </a>
->>>>>>> sombrejarDestins
+
                     </li>
                     <li class="active">
                         <a>
@@ -303,7 +294,7 @@
                                         <center>
 
                                             <button type="button" class="btn btn-primary btn-xs" ng-click="openCreateTypeCardModal('transport')">
-                                                <span class="glyphicon glyphicon-plus-sign" ></span>
+                                                <span class="glyphicon glyphicon-plus-sign"></span>
                                             </button>
 
                                         </center>
@@ -386,7 +377,7 @@
                                         <center>
 
                                             <button type="button" class="btn btn-primary btn-xs" ng-click="openCreateTypeCardModal('place2sleep')">
-                                                <span class="glyphicon glyphicon-plus-sign" ></span>
+                                                <span class="glyphicon glyphicon-plus-sign"></span>
                                             </button>
 
                                         </center>
@@ -462,7 +453,7 @@
                                         <center>
 
                                             <button type="button" class="btn btn-primary btn-xs" ng-click="openCreateTypeCardModal('other')">
-                                                <span class="glyphicon glyphicon-plus-sign" ></span>
+                                                <span class="glyphicon glyphicon-plus-sign"></span>
                                             </button>
 
                                         </center>
