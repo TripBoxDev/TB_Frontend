@@ -247,6 +247,10 @@ $tripbox-blue: blue;
     &.placeToSleep {
         background-image: url(../images/system/group/placeToSleep.jpg);
     }
+        &.other {
+        background-image: url(../images/system/group/other.jpg);
+    }
+
     background-size: cover;
     background-position: 50% 50%;
     position: relative;
