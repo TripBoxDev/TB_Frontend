@@ -12,6 +12,8 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: 100%;
     background-image: url(../images/bg.png);
 }
+$tripbox-blue: blue;
+
 /*
     ng-cloack oculta las vistas antes de ser compiladas (tratadas por un controlador).
     El objetivo es ocultar el parpadeo 
@@ -298,16 +300,17 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
         .mean-valoration {
             @include make-lg-column(2);
             @include make-md-column(3);
+            $card-bubble-valoration-size: 35px;
             span {
-                height: 35px;
-                width: 35px;
-                line-height: 35px;
+                height: $card-bubble-valoration-size;
+                width: $card-bubble-valoration-size;
+                line-height: $card-bubble-valoration-size;
                 text-align: center;
                 border-radius: 50%;
-                background-color:  $card-background-button-dark;
+                background-color: $card-background-button-dark;
                 color: white;
                 display: inline-block;
-                margin: auto auto;
+                margin: ($card-height-inner-boxes - $card-bubble-valoration-size) / 2 auto;
             }
         }
         .stars-wrapper {
@@ -320,9 +323,9 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
             @include transition(all $time-open-transition ease);
             text-align: center;
             i {
-                font-size: 17px;
+                font-size: 15px;
                 @media (max-width: $screen-md-max) {
-                    font-size: 12px;
+                    font-size: 11px;
                 }
                 line-height: $card-height-inner-boxes;
             }
@@ -334,6 +337,11 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
             display: inline-block;
             height: $card-height-inner-boxes;
             color: white;
+            border-bottom-right-radius: $card-border-radius;
+            text-align:center;
+            i {
+                line-height: $card-height-inner-boxes;
+            }
         }
     }
 }
@@ -440,7 +448,7 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
             .card-btn {
                 height: 100%;
                 &:hover {
-                    color: blue;
+                    color: $tripbox-blue;
                     background-color: $card-background-button-dark;
                     @include transition(background-color 0.2s ease);
                     &.unfollow-group {
