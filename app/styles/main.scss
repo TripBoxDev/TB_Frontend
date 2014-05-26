@@ -206,6 +206,21 @@ $tripbox-blue: blue;
     font-weight: 200;
     text-align: center;
 }
+
+
+
+/* Estilo columna de destinos */
+#divDestins {
+        @include make-lg-column(2);
+        @include make-md-column(2);
+
+}
+
+#cardsContainer {
+    @include make-lg-column(10);
+        @include make-md-column(10);
+
+}
 /* Diseño cards */
  $card-border-radius: 5px;
  $diameter-bubble: 70px;

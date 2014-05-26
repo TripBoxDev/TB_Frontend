@@ -47,7 +47,9 @@
     <ol class="breadcrumb" ng-show="destinationSelected" ng-controller="DestinationCtrl">
         <li><a href="#/groups">Groups</a>
         </li>
+
         <li><a href="#/groups/{{infoGroup.id}}" ng-click="tornarVistaGroup()">{{infoGroup.name}}</a>
+
         </li>
         <li class="active">{{destinationChoosed1.name}}</li>
 
@@ -89,6 +91,7 @@
             <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeAlert()">Aceptar</button>
         </div>
     </div> -->
+
         <div id="cardsContainer">
             <div id="cardsRandom" ng-show="!destinationSelected">
                 <!--Cards-->
@@ -160,7 +163,6 @@
                     <div class="card-wrapper" ng-repeat="card in infoGroup.otherCards">
                         <div class="card item other" ng-click="editCard(card)">
                             <div class="bubble">
-                                <!-- TODO Reemplazar bubble para other cards -->
                                 <i class="fa fa-plus-square"></i>
                             </div>
                             <div class="grey-box">
@@ -217,251 +219,263 @@
                     </div>
                 </div>
             </div>
+
             <div id="vistaDesti" class="cardsFilteredByDestination" ng-controller="DestinationCtrl" ng-show="destinationSelected">
-                <div class="destContent list-group">
-                    Destination: {{destinationChoosed}}
 
-                    <div class="cardsRow list-group-item clearfix" id="transportCardsRow">
-                        <ul>
-                            <li class="col-md-2" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}">
+                <h3>Destino: {{destinationChoosed}}</h3>
+                <h4><span class="fa fa-road"></span>Transporte</h4>
+                <div class="cardsRow row" id="transportCardsRow">
+                    <div class="card-wrapper" ng-class="{selected: 'selected', opac:'opac'}[isRemarc(card.cardId)]" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}">
+                        <div class="card item transport"  ng-click="editCard(card)">
+                            <div class="bubble">
+                                <i class="fa fa-road"></i>
+                            </div>
+                            <div class="grey-box">
+                                <div class="content" ng-mouseover="cardTransportSelected(card)">
+                                    <div class="caption">
+                                        <h2>{{card.name}}</h2>
+                                    </div>
+                                    <div class="description">{{card.description}}</div>
+                                    <div class="money"><i class="fa fa-money"></i>{{ card.price }}
+                                    </div>
+                                    <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
+                                </div>
+                                <div class="bottom-box">
+                                    <div class="mean-valoration">
+                                        <span>3.7</span>
+                                    </div>
+                                    <div class="stars-wrapper">
 
-                                <div class="thumbnail" ng-class="{selected: 'selected', opac:'opac'}[isRemarc(card.cardId)]">
-                                    <div id="cardinfo" ng-click="cardTransportSelected(card)">
-
-                                        <div id="userCreator">
-                                            {{card.nameCreator}} {{card.lastNameCreator}}
-                                        </div>
-                                        <div id="line">
-                                            <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                        </div>
-                                        <div id="typeCard" align="center">
-
-                                            <div id="name">
-
-                                                {{card.name}}</br>
-                                            </div>
-
-
-                                            <div id="price">
-
-                                                {{card.price}}€</br>
-                                            </div>
-                                            <div id="link">
-
-                                                <a href="{{card.link}}">Link de la card</a>
-                                                </br>
-                                            </div>
-                                            </br>
-                                            </br>
-                                            <div id="MoreInfo">
-                                                <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
-                                Precio:    {{card.price}}€  </br>
-                                Destino:     {{card.destination}}   </br>
-                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
-                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
-                                            </div>
-
-                                        </div>
+                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType);">
 
                                     </div>
-                                    <div class="linkBtns clearfix">
-                                        <button class="linkbtn" ng-click="startLink(card)" ng-show="!linkingToTransport">
-                                            <span class="glyphicon glyphicon-link"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-success" ng-class="{show: canLink(card), hidden: !canLink(card)}" ng-click="endLink(card)">Link to it</button>
-                                        <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Canel link</button>
+                                    <div class="link-btn" ng-click="startLink(card)"><i class="fa fa-chain"></i>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
-                            </li>
-                            <li id="newTransportCard" class="col-md-2">
-                                <!-- Nueva Card -->
-
-
-
-                                <div class="thumbnail">
-                                    <div id="cardinfo">
-
-                                        <center>
-
-                                            <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
-
-                                        </center>
-
-                                    </div>
-                                    <div id="addcard">
-
-                                        <center>
-
-                                            <button type="button" class="btn btn-primary btn-xs" ng-click="openCreateTypeCardModal('transport')">
-                                                <span class="glyphicon glyphicon-plus-sign"></span>
-                                            </button>
-
-                                        </center>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
-                    <div class="cardsRow list-group-item clearfix" id="placeToCardsRow">
-                        <ul>
-                            <li class="col-md-2" ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}">
-                                <!-- <div class="fakeCard">
-                    {{card.name}}
-                </div> -->
-                                <div class="thumbnail" ng-class="{selected: 'selected', opac:'opac'}[isRemarc(card.cardId)]">
-                                    <div class="linkBtns clearfix">
-                                        <button class="linkbtn" ng-click="startLink(card)" ng-show="!linkingToPlace">
-                                            <span class="glyphicon glyphicon-link"></span>
+                    <ul>
+
+                        <li id="newTransportCard" class="col-md-2">
+                            <!-- Nueva Card -->
+
+
+
+                            <div class="thumbnail">
+                                <div id="cardinfo">
+
+                                    <center>
+
+                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
+
+                                    </center>
+
+                                </div>
+                                <div id="addcard">
+
+                                    <center>
+
+                                        <button type="button" class="btn btn-primary btn-xs" ng-click="openCreateTypeCardModal('transport')">
+                                            <span class="glyphicon glyphicon-plus-sign"></span>
                                         </button>
-                                        <button type="button" class="btn btn-success" ng-class="{show: canLink(card), hidden: !canLink(card)}" ng-click="endLink(card)">Link to it</button>
-                                        <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Canel link</button>
+
+                                    </center>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <h4><span class="fa fa-home"></span>Alojamiento</h4>
+                <div class="cardsRow row" id="placeToCardsRow">
+                    <div class="card-wrapper" ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}">
+                        <div class="card item transport" ng-click="editCard(card)">
+                            <div class="bubble">
+                                <i class="fa fa-road"></i>
+                            </div>
+                            <div class="grey-box">
+                                <div class="content">
+                                    <div class="caption">
+                                        <h2>{{card.name}}</h2>
                                     </div>
-                                    <div id="cardinfo" ng-click="cardPlaceToSelected(card)">
+                                    <div class="description">{{card.description}}</div>
+                                    <div class="money"><i class="fa fa-money"></i>{{ card.price }}
+                                    </div>
+                                    <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
+                                </div>
+                                <div class="bottom-box">
+                                    <div class="mean-valoration">
+                                        <span>3.7</span>
+                                    </div>
+                                    <div class="stars-wrapper">
 
-                                        <div id="userCreator">
-                                            {{card.nameCreator}} {{card.lastNameCreator}}
+                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
+
+                                    </div>
+                                    <div class="link-btn" ng-click="startLink(card)"><i class="fa fa-chain"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <ul>
+                        <li class="col-md-2" ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}">
+                            <div class="thumbnail" ng-class="{selected: 'selected', opac:'opac'}[isRemarc(card.cardId)]">
+                                <div class="linkBtns clearfix">
+                                    <button class="linkbtn" ng-click="startLink(card)" ng-show="!linkingToPlace">
+                                        <span class="glyphicon glyphicon-link"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-success" ng-class="{show: canLink(card), hidden: !canLink(card)}" ng-click="endLink(card)">Link to it</button>
+                                    <button type="button" class="btn btn-danger" ng-click="cancelLink()" ng-class="{show: isCardStartLink(card), hidden: !isCardStartLink(card)}">Canel link</button>
+                                </div>
+                                <div id="cardinfo" ng-click="cardPlaceToSelected(card)">
+
+                                    <div id="userCreator">
+                                        {{card.nameCreator}} {{card.lastNameCreator}}
+                                    </div>
+                                    <div id="line">
+                                        <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                    </div>
+                                    <div id="typeCard" align="center">
+
+                                        <div id="name">
+
+                                            {{card.name}}</br>
                                         </div>
-                                        <div id="line">
-                                            <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+
+
+                                        <div id="price">
+
+                                            {{card.price}}€</br>
                                         </div>
-                                        <div id="typeCard" align="center">
+                                        <div id="link">
 
-                                            <div id="name">
-
-                                                {{card.name}}</br>
-                                            </div>
-
-
-                                            <div id="price">
-
-                                                {{card.price}}€</br>
-                                            </div>
-                                            <div id="link">
-
-                                                <a href="{{card.link}}">Link de la card</a>
-                                                </br>
-                                            </div>
+                                            <a href="{{card.link}}">Link de la card</a>
                                             </br>
-                                            </br>
-                                            <div id="MoreInfo">
-                                                <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                        </div>
+                                        </br>
+                                        </br>
+                                        <div id="MoreInfo">
+                                            <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
                                 Precio:    {{card.price}}€  </br>
                                 Destino:     {{card.destination}}   </br>
                                 Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
                                 Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
-                                            </div>
-
                                         </div>
 
                                     </div>
+
                                 </div>
-                            </li>
-                            <li id="newPlaceToSleepCard" class="col-md-2">
-                                <!-- Nueva Card -->
+                            </div>
+                        </li>
+                        <li id="newPlaceToSleepCard" class="col-md-2">
+                            <!-- Nueva Card -->
 
 
 
-                                <div class="thumbnail">
-                                    <div id="cardinfo">
+                            <div class="thumbnail">
+                                <div id="cardinfo">
 
-                                        <center>
+                                    <center>
 
-                                            <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
+                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
 
-                                        </center>
+                                    </center>
 
-                                    </div>
-                                    <div id="addcard">
+                                </div>
+                                <div id="addcard">
 
-                                        <center>
+                                    <center>
 
                                             <button type="button" class="btn btn-primary btn-xs" ng-click="openCreateTypeCardModal('place2sleep')">
                                                 <span class="glyphicon glyphicon-plus-sign"></span>
                                             </button>
 
-                                        </center>
-                                    </div>
+                                    </center>
                                 </div>
+                            </div>
 
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="cardsRow list-group-item clearfix" id="otherCardsRow">
-                        <ul>
-                            <li class="col-md-2" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}">
-                                <!-- <div class="fakeCard">
-                    {{card.name}}
-                </div> -->
-                                <div class="thumbnail">
-                                    <div id="cardinfo">
-                                        <div id="userCreator">
-                                            {{card.nameCreator}} {{card.lastNameCreator}}
+                        </li>
+                    </ul>
+                </div>
+                <h4><span class="fa fa-plus-square"></span>Otros</h4>
+                <div class="cardsRow row" id="otherCardsRow">
+                    <ul>
+                        <li class="col-md-2" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}">
+
+                            <div class="thumbnail">
+                                <div id="cardinfo">
+                                    <div id="userCreator">
+                                        {{card.nameCreator}} {{card.lastNameCreator}}
+                                    </div>
+                                    <div id="line">
+                                        <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                    </div>
+                                    <div id="typeCard" align="center">
+
+                                        <div id="name">
+
+                                            {{card.name}}</br>
                                         </div>
-                                        <div id="line">
-                                            <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+
+
+                                        <div id="price">
+
+                                            {{card.price}}€</br>
                                         </div>
-                                        <div id="typeCard" align="center">
+                                        <div id="link">
 
-                                            <div id="name">
-
-                                                {{card.name}}</br>
-                                            </div>
-
-
-                                            <div id="price">
-
-                                                {{card.price}}€</br>
-                                            </div>
-                                            <div id="link">
-
-                                                <a href="{{card.link}}">Link de la card</a>
-                                                </br>
-                                            </div>
+                                            <a href="{{card.link}}">Link de la card</a>
                                             </br>
-                                            </br>
-                                            <div id="MoreInfo">
-                                                <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                        </div>
+                                        </br>
+                                        </br>
+                                        <div id="MoreInfo">
+                                            <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
                                 Precio:    {{card.price}}€  </br>
                                 Destino:     {{card.destination}}   </br>
                                 Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
                                 Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
-                                            </div>
-
                                         </div>
 
                                     </div>
+
                                 </div>
-                            </li>
-                            <li id="newOtherCard" class="col-md-2">
-                                <!-- Nueva Card -->
+                            </div>
+                        </li>
+                        <li id="newOtherCard" class="col-md-2">
+                            <!-- Nueva Card -->
 
 
 
-                                <div class="thumbnail">
-                                    <div id="cardinfo">
+                            <div class="thumbnail">
+                                <div id="cardinfo">
 
-                                        <center>
+                                    <center>
 
-                                            <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
+                                        <img src="images/groups/mas.jpg" alt="Image group" height="100%" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />Añadir card
 
-                                        </center>
+                                    </center>
 
-                                    </div>
-                                    <div id="addcard">
-
-                                        <center>
-
-                                            <button type="button" class="btn btn-primary btn-xs" ng-click="openCreateTypeCardModal('other')">
-                                                <span class="glyphicon glyphicon-plus-sign"></span>
-                                            </button>
-
-                                        </center>
-                                    </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
+                                <div id="addcard">
+
+                                    <center>
+
+
+                                        <button type="button" class="btn btn-primary btn-xs" ng-click="openCreateTypeCardModal('other')">
+                                            <span class="glyphicon glyphicon-plus-sign"></span>
+                                        </button>
+
+                                    </center>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
