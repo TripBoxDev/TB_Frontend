@@ -139,17 +139,17 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
 
     getGroup().then(function(){
         getVotesUser();
-        console.log($scope.transportVotes);
     });
 
     $scope.transportVotes = [];
 
     var getVotesUser = function(){
+        $scope.transportVotes = [];
+
          for (var i = $scope.infoGroup.transportCards.length - 1; i >= 0; i--) {
             for (var j = $scope.infoGroup.transportCards[i].votes.length - 1; j >= 0; j--) {
                 if($scope.infoGroup.transportCards[i].votes[j].userId == $scope.infoUser.id){
-                    var vote = {"cardId": $scope.infoGroup.transportCards[i].cardId ,"vote": $scope.infoGroup.transportCards[i].votes[j].value};
-                    $scope.transportVotes.push(vote);
+                    $scope.transportVotes[$scope.infoGroup.transportCards[i].cardId]=$scope.infoGroup.transportCards[i].votes[j].value;$scope.infoGroup.transportCards[i].votes[j].value
                 }
             }
         }
