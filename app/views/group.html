@@ -146,7 +146,7 @@
                                     </div>
                                     <div class="stars-wrapper">
 
-                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
+                                        <rating value="transportVotes[card.cardId]" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,transportVotes[card.cardId],card.cardType); $event.stopPropagation();">
 
                                     </div>
                                     <div class="link-btn"><i class="fa fa-chain"></i>
@@ -179,7 +179,7 @@
                                     </div>
                                     <div class="stars-wrapper">
 
-                                        <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
+                                        <rating value="transportVotes[card.cardId]" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,transportVotes[card.cardId],card.cardType); $event.stopPropagation();">
 
                                     </div>
                                     <div class="link-btn"><i class="fa fa-chain"></i>
