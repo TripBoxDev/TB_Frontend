@@ -1,3 +1,5 @@
+<script type="text/javascript" src="scripts/bootstrap-filestyle.min.js"> </script>
+
 <div class="cl_content">
 
     <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
@@ -181,38 +183,9 @@
                                 <span class="glyphicon glyphicon-picture"></span>
                             </span>
                                 <fieldset>
-                                    <div><!--
-                                        <style>
-                                            div.fileinputs {
-                                                position: relative;
-                                            }
-
-                                            div.fakefile {
-                                                position: absolute;
-                                                top: 0px;
-                                                left: 0px;
-                                                z-index: 1;
-                                            }
-
-                                            input.file {
-                                                position: relative;
-                                                text-align: right;
-                                                -moz-opacity:0 ;
-                                                filter:alpha(opacity: 0);
-                                                opacity: 0;
-                                                z-index: 2;
-                                            }
-                                        </style>
-                                        <div class="fileinputs">
-                                            <input type="file" class="file" data-file="param.file" ng-model="newGroup.fileP"/>
-                                            <div class="fakefile">
-                                                <input value="{{newGroup.fileP}}"/>
-                                                <button type="button" class="btn btn-primary" data-toggle="button"><span class="glyphicon glyphicon-floppy-open"></span></button>
-                                            </div>
-                                            <small>Sólo son validos ficheros JPEG</small>
-                                        </div>-->
-                                        <script type="text/javascript" src="scripts/bootstrap-filestyle.min.js"> </script>
+                                    <div>
                                         <input type="file" class="filestyle" data-buttonName="btn-primary" class="file" data-file="param.file" ng-model="newGroup.fileP">
+                                        <small>Sólo son validos ficheros JPEG</small>
                                     </div>
                                 </fieldset>
                         </div>
