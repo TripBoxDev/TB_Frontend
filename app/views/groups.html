@@ -268,11 +268,9 @@
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-comment"></span>
                     </span>
-                               
                     <fieldset> 
                         <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" name="descripcion">
                     </fieldset>
-                    
                 </div>
                 </br>
 
@@ -282,11 +280,12 @@
                         <span class="glyphicon glyphicon-picture"></span>
                     </span>
                         
-                    <div>
-                        <input type="file" data-file="param.file" ng-model="newGroup.fileP"/>
-                        <small>Sólo son validos ficheros JPEG</small>
-                    </div>
-                    
+                    <fieldset>
+                        <div>
+                            <input type="file" class="filestyle" data-buttonName="btn-primary" data-file="param.file">
+                            <small>Sólo son validos ficheros JPEG</small>
+                        </div>
+                    </fieldset>
                 </div>
 
             </div>
