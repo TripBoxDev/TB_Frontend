@@ -78,9 +78,8 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
         };
         $scope.newGroup = defaultForm;
 
-        //NOTA: Como en defaultForm no se define nada para el
-        //campo de imagen, también se limpia. Es una forma fea
-        //de hacerlo pero eh, funciona.
+        //Limpia el file input
+        $(":file").filestyle('clear');
     }
 
     //Muestra un nuevo grupo al crearlo. Se ha puesto como función a parte porque la subia de imagenes
