@@ -184,6 +184,35 @@
                                 <div>
                                     <input type="file" data-file="param.file" ng-model="newGroup.fileP"/>
                                     <small>Sólo son validos ficheros JPEG</small>
+                                    
+<style>
+                                    div.fileinputs {
+                                        position: relative;
+                                    }
+
+                                    div.fakefile {
+                                        position: absolute;
+                                        top: 0px;
+                                        left: 0px;
+                                        z-index: 1;
+                                    }
+
+                                    input.file {
+                                        position: relative;
+                                        text-align: right;
+                                        -moz-opacity:0 ;
+                                        filter:alpha(opacity: 0);
+                                        opacity: 0;
+                                        z-index: 2;
+                                    }
+</style>
+                                    <div class="fileinputs">
+                                        <input type="file" class="file"/>
+                                        <div class="fakefile">
+                                            <input/>
+                                            <button type="button" class="btn btn-primary" data-toggle="button">Single toggle</button>
+                                        </div>
+                                    </div>
                                 </div>
                         </div>
                     </div>
