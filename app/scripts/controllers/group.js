@@ -954,13 +954,18 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
 
 
+    /**
+     * Metodo que realiza 3 funciones:
+     * - Si no estamos linkando ninguna card: activa el modo linkar.
+     * - Si ya estamos linkando una card: enlaza con la card seleccionada
+     * - Si la card seleccionada es la misma que esta siendo linkada: cancela link
+     */
     $scope.triggerLink = function(card) {
 
         // Comprueba si hay una card de antes
         if (!areWeLinking()) {
             startLink(card);
         } else {
-
             if ($scope.cardStartLink.cardId === card.cardId) {
                 //  Hemos clickado en la misma card --> cancela link
                 resetStat();
@@ -979,6 +984,9 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
         return $scope.cardStartLink.hasOwnProperty('cardId');
     }
 
+    /**
+     * Cancela el link actual
+     */
     $scope.cancelLink = function() {
         resetStat();
     };
@@ -1053,6 +1061,10 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
     };
 
+    /**
+     * Comprueba si la card que recibe por parametro es
+     * la misma que esta siendo linkada.
+     */
     $scope.isCardStartLink = function(card) {
         try {
 
