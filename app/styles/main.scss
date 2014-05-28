@@ -409,7 +409,7 @@ $tripbox-blue-light: lighten($tripbox-blue, 30%);
     }
 }
 .group {
-    &.create-group {
+    &.create {
         cursor: pointer;
         text-align: center;
         line-height: auto;
@@ -544,5 +544,12 @@ $tripbox-blue-light: lighten($tripbox-blue, 30%);
                 }
             }
         }
+    }
+}
+
+#vistaDesti.linking .card-wrapper {
+    opacity: 0.3;
+    &.linked-card {
+        opacity: 1;
     }
 }

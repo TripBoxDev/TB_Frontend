@@ -846,13 +846,16 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
     /**
      * Lista de cardId's que se volveran transparentes
      */
-    $scope.disabledCards = {};
+    $scope.disabledCards = [];
     $scope.anySelect = false;
 
     $scope.linkingToTransport = false;
     $scope.linkingToPlace = false;
     $scope.onFlow = false;
     $scope.cardStartLink = {};
+
+
+    $scope.hoveredCard = {};
 
     $rootScope.resetDesti = function() {
         $scope.destinationChoosed = destiSelectedService.getDesti().name;
@@ -883,18 +886,17 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
 
     $scope.isRemarc = function(id) {
-        var result = $scope.disabledCards[id];
         return $scope.disabledCards[id];
     };
 
     $scope.cardTransportSelected = function(cardSelected) {
 
-        $scope.disabledCards = {};
+        $scope.disabledCards = [];
 
         if (!$scope.anySelect) {
             angular.forEach($scope.group.transportCards, function(card) {
                 if (!angular.equals(card.cardId, cardSelected.cardId)) {
-                    $scope.disabledCards[card.cardId] = "opac";
+                    $scope.disabledCards.push(card.cardId);
                 }
             });
 
@@ -909,7 +911,7 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
                     count += 1;
                 }
                 if (!find) {
-                    $scope.disabledCards[card.cardId] = "opac";
+                    $scope.disabledCards.push(card.cardId);
                 }
             });
             $scope.anySelect = true;
@@ -920,10 +922,22 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
     };
 
+    /**
+     * Guarda la card que esta siendo hovered
+     */
+    $scope.setHoveredCard = function(card) {
+        $scope.hoveredCard = card;
+    }
+
+    /**
+     * Al salir del hover en una card elimina la card guardada
+     */
+    $scope.removeHoveredCard = function() {
+        $scope.hoveredCard = {};
+    }
+
     $scope.cardPlaceToSelected = function(cardSelected) {
-
-
-        $scope.disabledCards = {};
+        $scope.disabledCards = [];
 
         if (!$scope.anySelect) {
             angular.forEach($scope.group.placeToSleepCards, function(card) {
@@ -963,7 +977,7 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
     $scope.triggerLink = function(card) {
 
         // Comprueba si hay una card de antes
-        if (!areWeLinking()) {
+        if (!$scope.areWeLinking()) {
             startLink(card);
         } else {
             if ($scope.cardStartLink.cardId === card.cardId) {
@@ -980,7 +994,8 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
     /**
      * Retorna si estamos linkando actualmente o no,
      */
-    var areWeLinking = function() {
+    $scope.areWeLinking = function() {
+        debugger;
         return $scope.cardStartLink.hasOwnProperty('cardId');
     }
 
@@ -998,13 +1013,13 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
     var startLink = function(card) {
         $scope.cardStartLink = card;
 
-        $scope.disabledCards = {};
+        $scope.disabledCards = [];
 
         // Inhabilita el resto de cards transport
         if (card.cardType === "transport") {
             angular.forEach($scope.group.transportCards, function(transCard) {
                 if (!angular.equals(transCard.cardId, card.cardId)) {
-                    $scope.disabledCards[transCard.cardId] = "opac";
+                    $scope.disabledCards.push(transCard.cardId);
                 }
             });
             $scope.linkingToPlace = true;
@@ -1013,7 +1028,7 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
         } else if (card.cardType === "placeToSleep") {
             angular.forEach($scope.group.placeToSleepCards, function(placeCard) {
                 if (!angular.equals(placeCard.cardId, card.cardId)) {
-                    $scope.disabledCards[placeCard.cardId] = "opac";
+                    $scope.disabledCards.push(placeCard.cardId);
                 }
             });
             $scope.linkingToTransport = true;
@@ -1040,7 +1055,7 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
      * Reinicializa todas las variables al acabar o cancelar un link
      */
     var resetStat = function() {
-        $scope.disabledCards = {};
+        $scope.disabledCards = [];
         $scope.linkingToTransport = false;
         $scope.linkingToPlace = false;
         $scope.anySelect = false;
@@ -1061,6 +1076,28 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
     };
 
+
+    /** 
+     * Comprueba si la card que recibes por argumento esta enlazada con la que esta siendo hovered
+     * Si la card es la misma que la hovered retorna true también.
+     */
+    $scope.isThisCardLinked = function(card) {
+        if ($scope.hoveredCard.hasOwnProperty('cardId')) {
+            if ($scope.hoveredCard.cardId === card.cardId) {
+                return true;
+            } else if (typeof $scope.hoveredCard.childCardsId !== 'undefined' && $scope.hoveredCard.childCardsId.contains(card.cardId)) {
+                return true;
+            } else if (typeof $scope.hoveredCard.parentCardIds !== 'undefined' && $scope.hoveredCard.parentCardIds.contains(card.cardId)) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Comprueba si la card que recibe por parametro es
      * la misma que esta siendo linkada.
@@ -1079,6 +1116,12 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
     };
 
+    /**
+     * Retorna si la card está deshabilitada o no
+     */
+    $scope.isCardDisabled = function(cardId) {
+        return $scope.disabledCards.contains(cardId);
+    }
     $scope.canLink = function(card) {
         try {
             var arrayIds = [];
