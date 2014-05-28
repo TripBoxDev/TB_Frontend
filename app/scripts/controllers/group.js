@@ -835,15 +835,19 @@ var DatepickerDemoCtrl = function($scope) {
 /**
  * Controla la vista cuando clickas dentro de un destino
  */
-app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, authService, ApiService, groupService, destiSelectedService) {
+app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, authService, ApiService, groupService, destiSelectedService, notificationFactory) {
+
     $scope.group = {};
 
 
 
     $scope.selectedCards = [];
-    $scope.mapSelectedIds = {};
+
+    /**
+     * Lista de cardId's que se volveran transparentes
+     */
+    $scope.disabledCards = {};
     $scope.anySelect = false;
-    $scope.cardsToLink = [];
 
     $scope.linkingToTransport = false;
     $scope.linkingToPlace = false;
@@ -864,17 +868,14 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
         });
     }
 
-    var putPlaceToCard = function(card) {
+    var putPlaceToSleepCard = function(card) {
 
         return ApiService.putPlaceToSleepCard($routeParams.groupId, card).success(function(response) {
-
             getGroup();
-
-
+            notificationFactory.success('Card enlazada con éxito.')
 
         }).error(function(data, status) {
-            console.log("Error al insertar PlaceToSleep Card!");
-
+            notificationFactory.error('Hubo un problema al enlazar la card.');
         });
     }
     $scope.group = groupService.getGroup();
@@ -882,19 +883,18 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
 
     $scope.isRemarc = function(id) {
-        var result = $scope.mapSelectedIds[id];
-        return $scope.mapSelectedIds[id];
+        var result = $scope.disabledCards[id];
+        return $scope.disabledCards[id];
     };
 
     $scope.cardTransportSelected = function(cardSelected) {
 
-
-        $scope.mapSelectedIds = {};
+        $scope.disabledCards = {};
 
         if (!$scope.anySelect) {
             angular.forEach($scope.group.transportCards, function(card) {
                 if (!angular.equals(card.cardId, cardSelected.cardId)) {
-                    $scope.mapSelectedIds[card.cardId] = "opac";
+                    $scope.disabledCards[card.cardId] = "opac";
                 }
             });
 
@@ -909,7 +909,7 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
                     count += 1;
                 }
                 if (!find) {
-                    $scope.mapSelectedIds[card.cardId] = "opac";
+                    $scope.disabledCards[card.cardId] = "opac";
                 }
             });
             $scope.anySelect = true;
@@ -923,12 +923,12 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
     $scope.cardPlaceToSelected = function(cardSelected) {
 
 
-        $scope.mapSelectedIds = {};
+        $scope.disabledCards = {};
 
         if (!$scope.anySelect) {
             angular.forEach($scope.group.placeToSleepCards, function(card) {
                 if (!angular.equals(card.cardId, cardSelected.cardId)) {
-                    $scope.mapSelectedIds[card.cardId] = "opac";
+                    $scope.disabledCards[card.cardId] = "opac";
                 }
             });
             angular.forEach($scope.group.transportCards, function(card) {
@@ -941,7 +941,7 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
                     count += 1;
                 }
                 if (!find) {
-                    $scope.mapSelectedIds[card.cardId] = "opac";
+                    $scope.disabledCards[card.cardId] = "opac";
                 }
             });
             $scope.anySelect = true;
@@ -954,61 +954,113 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
 
 
-    /**
-     * Activa el modo linkar una card con otra,
-     * sombreando el resto de cards del mismo tipo.
-     */
-    $scope.startLink = function(card) {
-        $scope.cardStartLink = card;
-        $scope.cardsToLink.push(card);
-        $scope.mapSelectedIds = {};
+    $scope.triggerLink = function(card) {
 
+        // Comprueba si hay una card de antes
+        if (!areWeLinking()) {
+            startLink(card);
+        } else {
+
+            if ($scope.cardStartLink.cardId === card.cardId) {
+                //  Hemos clickado en la misma card --> cancela link
+                resetStat();
+            } else {
+                endLink(card);
+
+            }
+
+        }
+    }
+
+    /**
+     * Retorna si estamos linkando actualmente o no,
+     */
+    var areWeLinking = function() {
+        return $scope.cardStartLink.hasOwnProperty('cardId');
+    }
+
+    $scope.cancelLink = function() {
+        resetStat();
+    };
+
+    /**
+     * Marca la card actual como card para linkar y
+     * deshabilita el resto de su mismo tipo.
+     */
+    var startLink = function(card) {
+        $scope.cardStartLink = card;
+
+        $scope.disabledCards = {};
+
+        // Inhabilita el resto de cards transport
         if (card.cardType === "transport") {
             angular.forEach($scope.group.transportCards, function(transCard) {
                 if (!angular.equals(transCard.cardId, card.cardId)) {
-                    $scope.mapSelectedIds[transCard.cardId] = "opac";
+                    $scope.disabledCards[transCard.cardId] = "opac";
                 }
             });
             $scope.linkingToPlace = true;
 
+            // Inhabilita el resto de cards placeToSleep
         } else if (card.cardType === "placeToSleep") {
             angular.forEach($scope.group.placeToSleepCards, function(placeCard) {
                 if (!angular.equals(placeCard.cardId, card.cardId)) {
-                    $scope.mapSelectedIds[placeCard.cardId] = "opac";
+                    $scope.disabledCards[placeCard.cardId] = "opac";
                 }
             });
             $scope.linkingToTransport = true;
         }
+    }
 
-    };
-
-    $scope.endLink = function(card) {
-        var placeToCard = {}
+    /**
+     * Finaliza un link con éxito.
+     */
+    var endLink = function(card) {
+        var placeToSleepCard = {}
         if (angular.equals(card.cardType, "transport")) {
-            placeToCard = angular.copy($scope.cardStartLink);
-            placeToCard.parentCardIds.push(card.cardId);
+            placeToSleepCard = angular.copy($scope.cardStartLink);
+            placeToSleepCard.parentCardIds.push(card.cardId);
         } else {
-            placeToCard = angular.copy(card);
-            placeToCard.parentCardIds.push($scope.cardStartLink.cardId);
+            placeToSleepCard = angular.copy(card);
+            placeToSleepCard.parentCardIds.push($scope.cardStartLink.cardId);
         }
-        putPlaceToCard(placeToCard);
+        putPlaceToSleepCard(placeToSleepCard);
 
         resetStat();
-    };
-    $scope.cancelLink = function() {
-        resetStat();
-    };
+    }
+    /**
+     * Reinicializa todas las variables al acabar o cancelar un link
+     */
     var resetStat = function() {
-        $scope.mapSelectedIds = {};
+        $scope.disabledCards = {};
         $scope.linkingToTransport = false;
         $scope.linkingToPlace = false;
         $scope.anySelect = false;
         $scope.cardStartLink = {};
     }
+
+    $scope.cardLinkingStatus = function(card) {
+        try {
+
+            if ($scope.cardStartLink.cardId === card.cardId) {
+                return 'linking';
+            } else {
+                return 'not-linking';
+            }
+        } catch (error) {
+            return 'not-linking';
+        }
+
+    };
+
     $scope.isCardStartLink = function(card) {
         try {
 
-            if (angular.equals($scope.cardStartLink.cardId, card.cardId)) return true;
+            if ($scope.cardStartLink.cardId === card.cardId) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (error) {
             return false;
         }

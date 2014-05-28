@@ -12,7 +12,8 @@ $icon-font-path:"/bower_components/sass-bootstrap/fonts/";
     height: 100%;
     background-image: url(../images/bg.png);
 }
-$tripbox-blue: blue;
+$tripbox-blue: #0675cf;
+$tripbox-blue-light: lighten($tripbox-blue, 30%);
 
 /*
     ng-cloack oculta las vistas antes de ser compiladas (tratadas por un controlador).
@@ -375,8 +376,13 @@ $tripbox-blue: blue;
             padding-left: 0;
             padding-right: 0;
             @include transition(color .3s ease);
+            &.under-linking {
+                
+                    text-shadow: white 0 0 10px;
+
+            }
             &:hover {
-                color: $tripbox-blue;
+                color: $tripbox-blue-light;
             }
             i {
                 font-size: 20px;

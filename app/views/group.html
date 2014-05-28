@@ -226,12 +226,12 @@
                 <h4><span class="fa fa-road"></span>Transporte</h4>
                 <div class="cardsRow row" id="transportCardsRow">
                     <div class="card-wrapper" ng-class="{selected: 'selected', opac:'opac'}[isRemarc(card.cardId)]" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}">
-                        <div class="card item transport"  ng-click="editCard(card)">
+                        <div class="card item transport" ng-click="editCard(card)">
                             <div class="bubble">
                                 <i class="fa fa-road"></i>
                             </div>
                             <div class="grey-box">
-                                <div class="content" ng-mouseover="cardTransportSelected(card)">
+                                <div class="content">
                                     <div class="caption">
                                         <h2>{{card.name}}</h2>
                                     </div>
@@ -249,7 +249,7 @@
                                         <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType);">
 
                                     </div>
-                                    <div class="link-btn" ng-click="startLink(card)"><i class="fa fa-chain"></i>
+                                    <div class="link-btn" ng-click="triggerLink(card)" ng-class="{ 'under-linking': isCardStartLink(card) }"><i class="fa fa-chain "></i>
                                     </div>
                                 </div>
                             </div>
@@ -313,7 +313,8 @@
                                         <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
 
                                     </div>
-                                    <div class="link-btn" ng-click="startLink(card)"><i class="fa fa-chain"></i>
+
+                                    <div class="link-btn" ng-click="triggerLink(card)" ng-class="{ 'under-linking': isCardStartLink(card) }"><i class="fa fa-chain"></i>
                                     </div>
                                 </div>
                             </div>
