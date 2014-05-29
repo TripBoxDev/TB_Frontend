@@ -93,6 +93,127 @@
     </div> -->
 
         <div id="cardsContainer">
+            <div class="breadcrumb" ng-show="destinationSelected">
+                <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Posible plan!</button>&nbsp&nbsp Aqui puedes ver el plan que nosotros te recomendamos a traves de tus votaciones!
+                </br>
+                <div collapse="isCollapsed">
+                    </br>
+                    <div>
+
+                        <div class="check-box">
+                            <div class="cardsRow list-group-item clearfix" id="otherCardsRow">
+
+                                <div class="col-md-2">
+                                    Plan para ir a: {{destinationChoosed}}
+                                    </br>
+                                    </br>
+                                    </br>
+                                    <button class="btn-lg btn-primary btn-success" ng-click="cartMoreVoted()">Check Plan!</button>
+
+                                </div>
+                                <div class="Cards" class="col-md-7 col-md-offset-1">
+
+
+
+                                    <div class="transport">
+
+                                        <div class="col-md-3 col-md-offset-1">
+                                            <center>
+                                                <h4>Como ir!</h4>
+                                            </center>
+                                            <div class="thumbnail">
+                                                <div id="cardinfo">
+                                                    <div id="typeCard" align="center">
+
+                                                        <div id="name">
+
+                                                            {{card.name}}</br>
+                                                        </div>
+
+
+                                                        <div id="price">
+
+                                                            {{card.price}}€</br>
+                                                        </div>
+                                                        <div id="link">
+
+                                                            <a href="{{card.link}}">Link de la card</a>
+                                                            </br>
+                                                        </div>
+                                                        </br>
+                                                        </br>
+                                                        <div id="MoreInfo">
+                                                            <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                Precio:    {{card.price}}€  </br>
+                                Destino:     {{card.destination}}   </br>
+                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
+                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="sleep">
+
+                                        <div class="col-md-3 col-md-offset-1">
+                                            <center>
+                                                <h4>Donde dormir!</h4>
+                                            </center>
+                                            <div class="thumbnail">
+                                                <div id="cardinfo">
+                                                    <div id="typeCard" align="center">
+
+                                                        <div id="name">
+
+                                                            {{card.name}}</br>
+                                                        </div>
+
+
+                                                        <div id="price">
+
+                                                            {{card.price}}€</br>
+                                                        </div>
+                                                        <div id="link">
+
+                                                            <a href="{{card.link}}">Link de la card</a>
+                                                            </br>
+                                                        </div>
+                                                        </br>
+                                                        </br>
+                                                        <div id="MoreInfo">
+                                                            <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                Precio:    {{card.price}}€  </br>
+                                Destino:     {{card.destination}}   </br>
+                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
+                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
             <div id="cardsRandom" ng-show="!destinationSelected">
                 <!--Cards-->
                 <div class="row">
