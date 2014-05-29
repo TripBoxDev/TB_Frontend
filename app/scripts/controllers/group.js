@@ -10,6 +10,12 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         ApiService.addUserToGroup($scope.groupId);
     }
     $scope.logoutUser = ApiService.logoutUser;
+    $scope.isCollapsed = true;
+    $scope.checkPlan = false;
+
+    function CollapseDemoCtrl($scope) {
+        $scope.isCollapsed = false;
+    }
     $scope.openInviteModal = function() {
         var invitationModalInstance = $modal.open({
             templateUrl: '/views/modals/sendInvitations.html',
@@ -330,7 +336,41 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         });
 
     }
+    $scope.AcceptedPlan = function(card) {
+        $scope.cartaId = card;
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/AcceptedPlan.html',
+            controller: 'AcceptedPlanInstanceCtrl'
+        });
 
+    }
+
+    var destinationMoreVotated = function() {
+
+        return ApiService.getGroup($scope.groupId).success(function(response) {
+            var array = angular.copy(response);
+
+            var arrayDesti = array.destinations;
+
+            for (var i = arrayDesti.length - 1; i >= 0; i--) { 
+                var aux = arrayDesti[i].percentage;
+                console.log("Entra if");
+                console.log(aux);
+                if (aux > 75) {
+                    $scope.checkPlan = true;
+                    console.log($scope.checkPlan);
+                }
+            }
+            console.log("Array: ");
+            console.log(array);
+            console.log("----------------");
+            console.log("ArrayDesti: ");
+            console.log(arrayDesti);
+
+        });
+    }
+
+    destinationMoreVotated();
 });
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams, notificationFactory) {
@@ -789,6 +829,19 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($rootScope, $scope, 
     };
 });
 
+app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+
+
+    $scope.confirmAcceptedPlan = function() {
+        $modalInstance.close();
+
+    }
+});
+
 
 var DatepickerDemoCtrl = function($scope) {
     $scope.today = function() {
@@ -995,7 +1048,6 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
      * Retorna si estamos linkando actualmente o no,
      */
     $scope.areWeLinking = function() {
-        debugger;
         return $scope.cardStartLink.hasOwnProperty('cardId');
     }
 
