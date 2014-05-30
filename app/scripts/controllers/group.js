@@ -385,46 +385,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     }
                 }
             }
-            for (var i = array.placeToSleepCards.length - 1; i >= 0; i--) {
-                var ciudad = $scope.destinationMoreVotated;
-                var aux = array.placeToSleepCards[i].destination;
 
-                console.log("--------for--------");
-                console.log(aux);
-                console.log(ciudad);
-
-                if(array.placeToSleepCards[i].parentCardIds == $scope.transportMoreVoted.cardId)
-                    if (array.placeToSleepCards[i].destination == $scope.destinationMoreVotated) {
-                        console.log("||||||||||if||||||||||");
-
-                        console.log(array.placeToSleepCards[i].average);
-                        console.log($scope.percentage);
-
-
-                        if (array.placeToSleepCards[i].average >= $scope.percentage) {
-                            console.log("+++++++2o if+++++++");
-
-                            $scope.percentage = array.placeToSleepCards[i].average;
-                            $scope.sleepMoreVoted = {
-                                cardId: array.placeToSleepCards[i].cardId,
-                                name: array.placeToSleepCards[i].name,
-                                price: array.placeToSleepCards[i].price,
-                                date: array.placeToSleepCards[i].date,
-                                description: array.placeToSleepCards[i].description
-                            }
-                            console.log($scope.sleepMoreVoted);
-                        }
-                    }
-            }
-
-            console.log("Array: ");
-            console.log(array);
-            console.log("----------------");
-            console.log("ArrayDesti: ");
-            console.log(arrayDesti);
-            console.log($scope.destinationMoreVotated);
-            console.log($scope.transportMoreVoted);
-            console.log($scope.sleepMoreVoted);
         });
     }
 
