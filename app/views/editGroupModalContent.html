@@ -1,0 +1,52 @@
+<script type="text/javascript" src="scripts/bootstrap-filestyle.min.js"> </script>
+
+        <div class="modal-header">
+    
+            <button type="button" class="close" ng-click="cancel()">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Edición de Grupo {{groupName}}</h4>
+      
+        </div>
+        <form name="formModGroup" novalidate ng-submit="modGroupForm()">
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </span>
+                    <fieldset>
+                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=7 required>
+                    </fieldset>
+                </div>
+                <small class="error" ng-show="formModGroup.nombre.$error.required">
+                    El grupo necesita un nombre.
+                </small>
+                
+                <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
+                    El nombre no puede tener mas de 7 letras.
+                </small>
+                </br>
+                <div class="input-group">                
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-comment"></span>
+                    </span>
+                    <fieldset>
+                        <input type="text" class="form-control" placeholder="Descripción del grupo" ng-model="groupDescription" name="descripcion">
+                    </fieldset>
+                </div>
+                </br>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-picture"></span>
+                    </span>
+                        <fieldset>
+                            <div>
+                                <input type="file" class="filestyle" data-buttonName="btn-primary" class="file" data-file="param.file" ng-model="fileP">
+                                <small>Sólo son validos ficheros JPEG</small>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                <button type="button" class="btn btn-primary" ng-click="confirmEdit(groupName, groupDescription)" ng-disabled="formModGroup.$invalid">Editar</button>
+            </div>
+        </form>

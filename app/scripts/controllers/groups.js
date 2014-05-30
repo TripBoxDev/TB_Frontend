@@ -214,7 +214,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
         console.log($scope.param);
 
         var editGroupModalInstance = $modal.open({
-            templateUrl: 'editGroupModalContent.html',
+            templateUrl: 'views/editGroupModalContent.html',
             controller: 'editGroupModalInstanceCtrl',
             resolve: {
                 idGroup: function() {
