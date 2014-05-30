@@ -17,6 +17,7 @@ app.directive('file', function(){
 //PETICION JSON HACIA LA API
 app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $modal, $location) {
     var imageDirectory = "http://tripbox.uab.cat/groupImgs/";
+    var defaultImagePath = "images/system/groups/default_img.jpg";
 
     //Usuario que inicia sesión con Facebook
     var infoUser = authService.data.userInfo;
@@ -47,7 +48,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
             if(groupPointer.flagImage == true){
                 ImagePath = imageDirectory + groupPointer.id;
             } else {
-                ImagePath = imageDirectory + "default_img.png"
+                ImagePath = defaultImagePath;
             }
 
             //Actualizamos la variable groups
@@ -151,7 +152,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                         $scope.param = undefined;
 
                         //El path a la imagen es el directorio de la imagen y el ID
-                        ImagePath = imageDirectory + createdGroup.id + ".jpg";
+                        ImagePath = imageDirectory + createdGroup.id;
 
                         //Muestra el grupo nuevo
                         $scope.showNewGroup(createdGroup, ImagePath);
@@ -160,7 +161,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                 } else {
 
                     //La imagen es la de defecto, y eso es todo
-                    ImagePath = imageDirectory + "default_img.png"
+                    ImagePath = defaultImagePath;
 
                     //Muestra el grupo nuevo
                     $scope.showNewGroup(createdGroup, ImagePath);

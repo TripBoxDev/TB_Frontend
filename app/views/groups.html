@@ -152,7 +152,7 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </span>
                             <fieldset>
-                                <input type="text" class="edit-group-name form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" ng-maxlength=10 required>
+                                <input type="text" class="edit-group-name form-control" placeholder="Nombre del grupo (obligatorio)" name="nombre" ng-model="newGroup.name" ng-maxlength=7 required>
                             </fieldset>
 
                         </div>
@@ -162,7 +162,7 @@
                             </small>
                         </div>
                         <small class="error" ng-show="formAddGroup.nombre.$error.maxlength">
-                            El nombre no puede tener mas de 10 letras.
+                            El nombre no puede tener mas de 7 letras.
                         </small>
                         </br>
                         <div class="input-group">
@@ -248,7 +248,7 @@
                         <span class="glyphicon glyphicon-pencil"></span>
                     </span>
                     <fieldset>
-                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=10 required>
+                        <input type="text" class="form-control" placeholder="Nombre del grupo" ng-model="groupName" name="nombre" ng-maxlength=7 required>
                     </fieldset>
                 </div>
                 
@@ -257,7 +257,7 @@
                     </small>
                 
                 <small class="error" ng-show="formModGroup.nombre.$error.maxlength">
-                    El nombre no puede tener mas de 10 letras.
+                    El nombre no puede tener mas de 7 letras.
                 </small>
                 </br>
 
