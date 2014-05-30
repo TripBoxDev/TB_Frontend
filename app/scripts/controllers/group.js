@@ -12,6 +12,9 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     $scope.logoutUser = ApiService.logoutUser;
     $scope.isCollapsed = true;
     $scope.checkPlan = false;
+    $scope.destinationMoreVotated = 0;
+    $scope.transportMoreVoted = 0;
+    $scope.sleepMoreVoted = 0;
 
     function CollapseDemoCtrl($scope) {
         $scope.isCollapsed = false;
@@ -346,27 +349,82 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     }
 
     var destinationMoreVotated = function() {
-
+        $scope.transportMoreVoted;
+        $scope.sleepMoreVoted;
+        $scope.destinationMoreVotated;
+        $scope.percentage = 0;
         return ApiService.getGroup($scope.groupId).success(function(response) {
             var array = angular.copy(response);
 
             var arrayDesti = array.destinations;
 
-            for (var i = arrayDesti.length - 1; i >= 0; i--) { 
+            for (var i = arrayDesti.length - 1; i >= 0; i--) {
                 var aux = arrayDesti[i].percentage;
-                console.log("Entra if");
-                console.log(aux);
                 if (aux > 75) {
                     $scope.checkPlan = true;
-                    console.log($scope.checkPlan);
+                    $scope.destinationMoreVotated = arrayDesti[i].name;
                 }
             }
+
+            for (var i = array.transportCards.length - 1; i >= 0; i--) {
+                var ciudad = $scope.destinationMoreVotated;
+                var aux = array.transportCards[i].destination;
+
+                if (array.transportCards[i].destination == $scope.destinationMoreVotated) {
+
+                    if (array.transportCards[i].average >= $scope.percentage) {
+
+                        $scope.percentage = array.transportCards[i].average;
+                        $scope.transportMoreVoted = {
+                            cardId: array.transportCards[i].cardId,
+                            name: array.transportCards[i].name,
+                            price: array.transportCards[i].price,
+                            date: array.transportCards[i].date,
+                            description: array.transportCards[i].description
+                        }
+                    }
+                }
+            }
+            for (var i = array.placeToSleepCards.length - 1; i >= 0; i--) {
+                var ciudad = $scope.destinationMoreVotated;
+                var aux = array.placeToSleepCards[i].destination;
+
+                console.log("--------for--------");
+                console.log(aux);
+                console.log(ciudad);
+
+                if(array.placeToSleepCards[i].parentCardIds == $scope.transportMoreVoted.cardId)
+                    if (array.placeToSleepCards[i].destination == $scope.destinationMoreVotated) {
+                        console.log("||||||||||if||||||||||");
+
+                        console.log(array.placeToSleepCards[i].average);
+                        console.log($scope.percentage);
+
+
+                        if (array.placeToSleepCards[i].average >= $scope.percentage) {
+                            console.log("+++++++2o if+++++++");
+
+                            $scope.percentage = array.placeToSleepCards[i].average;
+                            $scope.sleepMoreVoted = {
+                                cardId: array.placeToSleepCards[i].cardId,
+                                name: array.placeToSleepCards[i].name,
+                                price: array.placeToSleepCards[i].price,
+                                date: array.placeToSleepCards[i].date,
+                                description: array.placeToSleepCards[i].description
+                            }
+                            console.log($scope.sleepMoreVoted);
+                        }
+                    }
+            }
+
             console.log("Array: ");
             console.log(array);
             console.log("----------------");
             console.log("ArrayDesti: ");
             console.log(arrayDesti);
-
+            console.log($scope.destinationMoreVotated);
+            console.log($scope.transportMoreVoted);
+            console.log($scope.sleepMoreVoted);
         });
     }
 

@@ -104,7 +104,7 @@
                             <div class="cardsRow list-group-item clearfix" id="otherCardsRow">
 
                                 <div class="col-md-2">
-                                    Plan para ir a: {{destinationChoosed}}
+                                    Plan para ir a: {{destinationMoreVotated}}
                                     </br>
                                     </br>
                                     </br>
@@ -121,10 +121,10 @@
                                                 <div class="grey-box">
                                                     <div class="content" ng-mouseenter="setHoveredCard(card)" ng-mouseleave="">
                                                         <div class="caption">
-                                                            <h2>{{card.name}}</h2>
+                                                            <h2>{{transportMoreVoted.name}}</h2>
                                                         </div>
-                                                        <div class="description">{{card.description}}</div>
-                                                        <div class="money"><i class="fa fa-money"></i>{{ card.price }}
+                                                        <div class="description">{{transportMoreVoted.description}}</div>
+                                                        <div class="money"><i class="fa fa-money"></i>{{transportMoreVoted.price }}
                                                         </div>
                                                         <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
                                                     </div>
