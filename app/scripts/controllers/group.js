@@ -266,44 +266,12 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
 
     //Borrar destino
 
-    $scope.deleteDestination = function(idDest) {
-        console.log(idDest);
-        return ApiService.deleteDestination(idDest).success(function(response) {
-            for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
-                if ($scope.infoGroup.destinations[i].id == idDest) {
-                    $scope.infoGroup.destinations.splice(i, 1);
-                }
-            }
-            groupService.setGroup($scope.infoGroup);
-        });
-    }
+    
 
 
 
 
-    /*
-    $scope.deleteDestination = function(destino) {
-
-        $http.delete(endpoint + 'group/' + $scope.groupId + '/destination/', destino, {
-            headers: {
-                'Content-Type': 'text/plain'
-            }
-        })
-            .success(function(data, status) {
-                console.log(data);
-                for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
-                    //Uno cuya id sea igual al borrado...
-                    if ($scope.infoGroup.destinations[i] == destino) {
-                        //Y lo elimina de la lista
-                        $scope.infoGroup.destinations.splice(i, 1);
-                    }
-                }
-            })
-            .error(function(data, status) {
-                console.log(data);
-            });
-    };
-    */
+    
 
 
     /**
@@ -324,21 +292,158 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         });
     }
 
-    $scope.deleteCard = function(card) {
-        $scope.cartaId = card;
+     $scope.deleteDestination = function(idDest){
+        
         var modalInstance = $modal.open({
-            templateUrl: 'views/modals/deleteCard.html',
-            controller: 'deleteCardInstanceCtrl'
+            templateUrl: 'views/modals/deleteDestiniInfo.html',
+            controller: 'deleteDestiInfoInstanceCtrl'
         });
 
         modalInstance.result.then(function() {
-            ApiService.deleteCard($scope.infoGroup.id, $scope.cartaId.cardId).success(function(data, status) {
-                $scope.infoGroup = getGroup();
-                groupService.setGroup($scope.infoGroup);
-            });
+             return ApiService.deleteDestination(idDest).success(function(response) {
+            for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
+                if ($scope.infoGroup.destinations[i].id == idDest) {
+                    $scope.infoGroup.destinations.splice(i, 1);
+                }
+            }
+            groupService.setGroup($scope.infoGroup);
+        });
         });
 
     }
+
+     $scope.editCardOther = function(card) {
+
+        $scope.cardother= card;
+        var editCardOtherModalInstance = $modal.open({
+            templateUrl: 'views/modals/editCardOtherModalContent.html',
+            controller: 'editOtherCardModalInstanceCtrl',
+            resolve: {
+                card: function() {
+                    return card;
+                },
+                destinations: function() {
+                    return $scope.infoGroup.destinations;
+                },
+                infoUser: function() {
+                    return $scope.infoUser;
+                        }
+            }
+        });
+
+        
+
+        editCardOtherModalInstance.result.then(function(editCard) {
+              if (editCard != null){
+                for (var x in $scope.infoGroup.otherCards) {
+            
+            if ($scope.infoGroup.otherCards[x].cardId === editCard){
+                
+                $scope.infoGroup.otherCards[x]=  editCard;           
+            groupService.setGroup($scope.infoGroup);
+            }
+}
+}  else{
+             $scope.infoGroup= getGroup();
+            groupService.setGroup($scope.infoGroup);
+            
+         }
+
+        
+        }); 
+
+    };
+
+    $scope.editCardPlace2Sleep = function(card) {
+
+        
+        var editCardPlace2SleepModalInstance = $modal.open({
+            templateUrl: 'views/modals/editCardPlace2SleepModalContent.html',
+            controller: 'editPlace2SleepCardModalInstanceCtrl',
+            resolve: {
+                card: function() {
+                    return card;
+                },
+                destinations: function() {
+                    return $scope.infoGroup.destinations;
+                },
+                infoUser: function() {
+                    return $scope.infoUser;
+                        }
+            }
+        });
+        
+
+       editCardPlace2SleepModalInstance.result.then(function(editCard) {
+            if (editCard != null){
+                for (var x in $scope.infoGroup.placeToSleepCards) {
+            
+            if ($scope.infoGroup.placeToSleepCards[x].cardId === editCard){
+                
+                $scope.infoGroup.placeToSleepCards[x]=  editCard;           
+            groupService.setGroup($scope.infoGroup);
+            }
+}
+}else{
+            $scope.infoGroup= getGroup();
+            groupService.setGroup($scope.infoGroup);
+
+            
+         }
+
+        
+       }); 
+
+    };
+
+$scope.editCardTransport = function(card) {
+
+        
+        var editCardTransportModalInstance = $modal.open({
+            templateUrl: 'views/modals/editCardTransportModalContent.html',
+            controller: 'editTransportCardModalInstanceCtrl',
+            resolve: {
+                card: function() {
+                    return card;
+                },
+                transports: function() {
+                            return $scope.infoGroup.transportCards;
+                        },
+                        
+                destinations: function() {
+                    return $scope.infoGroup.destinations;
+                },
+                infoUser: function() {
+                    return $scope.infoUser;
+                        }
+            }
+        });
+
+        
+
+        editCardTransportModalInstance.result.then(function(editCard) {
+            if (editCard != null){
+                for (var x in $scope.infoGroup.transportCards) {
+            
+            if ($scope.infoGroup.transportCards[x].cardId === editCard){
+                
+                $scope.infoGroup.transportCards[x]=  editCard;            
+            groupService.setGroup($scope.infoGroup);
+        }
+    }
+
+            }else{
+
+
+            $scope.infoGroup= getGroup();
+            groupService.setGroup($scope.infoGroup);
+            
+         }
+
+        
+        }); 
+
+    };
     $scope.AcceptedPlan = function(card) {
         $scope.cartaId = card;
         var modalInstance = $modal.open({
@@ -441,7 +546,371 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 
     };
 });
+app.controller('deleteCardInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+    
+
+    $scope.confirmDeleteCard = function() {
+        $modalInstance.close();
+
+    }
+});
+
+app.controller('deleteDestiInfoInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+    
+
+    $scope.confirmDeleteCard = function() {
+        $modalInstance.close();
+
+    }
+});
+app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser,destiSelectedService,card) {
+    $scope.isCreatingCard = false;
+    $scope.destinations = destinations.filter(function(v) {
+        return v !== ''
+    });
+    $scope.infoUser = infoUser;
+    $scope.newCard = card;
+    $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
+    $scope.transportType = $scope.transportTypes[0];
+    $scope.destiSelected=destiSelectedService.getDesti();
+
+    $scope.ifDesti = function(){
+
+        if($scope.destiSelected==null){
+            return false;
+        }else{
+            console.log($scope.destiSelected.name);
+            return true;
+        }
+    }
+
+    $scope.openAddDestinationModal = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/createDestination.html',
+            controller: 'addDestinationModalInstanceCtrl'
+
+        });
+
+        modalInstance.result.then(function(destino) {
+            $scope.destinations.push(destino);
+        })
+    }
+    $scope.deleteCard = function(){
+       
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/deleteCard.html',
+            controller: 'deleteCardInstanceCtrl'
+        });
+
+        modalInstance.result.then(function() {
+             ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
+            $modalInstance.close();
+        }); 
+        });
+
+    }
+    /**
+     * Cierra el modal actual abortando la acción
+     */
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+
+    $scope.config = {
+        create: true,
+        maxItems: 1
+    }
+
+    /**
+     * Envia a la API los datos de la nueva card creada, a partir del formulario rellenado.
+     * Si la API retorna OK, cierra el modal y envia el resultado al group ctrl.
+     * Si hay error, cierra el modal diciendo que ha ido mal
+     */
+    $scope.addCardTransport = function(submittedCard) {
+
+        /**
+         * Indica si se esta a la espera de la respuesta
+         * de la llamada AJAX a la API para crear la card.
+         */
+        $scope.isCreatingCard = true;
+
+         var init = new Date (submittedCard.initDate);
+        var fina = new Date (submittedCard.finalDate);
+        /**
+         * Card que será enviada a la API
+         */
+
+        var newCard = {
+            cardId: card.cardId,
+            cardType: "transport",
+            name: submittedCard.name,
+            description: submittedCard.description,
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName,
+            initDate: init.valueOf(),
+            finalDate: fina.valueOf(),
+            transportType: submittedCard.transportType
+        }
+
+        ApiService.putTransportCard($routeParams.groupId, newCard)
+            .success(function(data, status) {
+
+                var newCardReturn = {
+                    cardId: data.cardId,
+                    creationDate: data.creationDate,
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description,
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    initDate: data.initDate,
+                    finalDate: data.finalDate,
+                    transportType: data.transportType
+                }
+
+                console.log("Card de tipus Transport Card creada");
+                $scope.isCreatingCard = false;
+                $modalInstance.close(newCardReturn);
+
+            })
+
+        .error(function(data, status) {
+            console.log("Error al insertar Transport Card!");
+            $modalInstance.dismiss();
+
+        });
+
+    };
+});
+
+app.controller('editPlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, groupService, infoUser,destiSelectedService,card) {
+   $scope.isCreatingCard = false;
+   $scope.Group = {};
+    $scope.destinations = destinations;
+    $scope.infoUser = infoUser;
+    $scope.newCard=card;
+    $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
+    $scope.placeType = $scope.placeTypes[0];
+$scope.destiSelected=destiSelectedService.getDesti();
+
+    $scope.ifDesti = function(){
+
+        if($scope.destiSelected==null){
+            return false;
+        }else{
+            console.log($scope.destiSelected.name);
+            return true;
+        }
+    }
+    $scope.openAddDestinationModal = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/createDestination.html',
+            controller: 'addDestinationModalInstanceCtrl'
+
+        });
+
+        modalInstance.result.then(function(destino) {
+            $scope.destinations.push(destino);
+        })
+    }
+
+   
+    $scope.deleteCard = function(){
+       
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/deleteCard.html',
+            controller: 'deleteCardInstanceCtrl'
+        });
+
+        modalInstance.result.then(function() {
+             ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
+            $modalInstance.close();
+        }); 
+        });
+
+    }
+    /**
+     * Cierra el modal actual abortando la acción
+     */
+   $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+
+    $scope.addCardPlaceToSleep = function(submittedCard) {
+
+        $scope.isCreatingCard = true;
+        var init = new Date (submittedCard.initDate);
+        var fina = new Date (submittedCard.finalDate);
+        // Todo obtener parentCardIds de la card, en caso de estar modificandola.
+        var parentCardIds = [];
+        if (typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
+        var newCard = {
+            cardId: card.cardId,
+            parentCardIds: parentCardIds,
+            cardType: "placeToSleep",
+            name: submittedCard.name,
+            description: submittedCard.description,
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName,
+            initDate: init.valueOf(),
+            finalDate: fina.valueOf(),
+            placeType: submittedCard.type
+        }
+ 
+
+        ApiService.putPlaceToSleepCard($routeParams.groupId, newCard)
+            .success(function(data, status) {
+
+                var newCardReturn = {
+                    parentCardIds: data.parentCardIds,
+                    cardId: data.cardId,
+                    creationDate: data.creationDate,
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description,
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    initDate: data.initDate,
+                    finalDate: data.finalDate,
+                    placeType: data.placeType
+                }
+
+                console.log("Card de tipus placeToSleep Card creada");
+                console.log(newCardReturn.parentCardIds);
+                $modalInstance.close(newCardReturn); 
+                //$scope.infoGroup.placeToSleepCards.push(newCardReturn);
+            })
+            .error(function(data, status) {
+                console.log("Error al insertar placeToSleepCard!");
+                $modalInstance.dismiss();
+            });
+    }
+});
+app.controller('editOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser,destiSelectedService,card) {
+    $scope.isCreatingCard = false;
+    $scope.destinations = destinations;
+    $scope.infoUser = infoUser;
+    $scope.newCard=card;
+    
+ 
+$scope.destiSelected=destiSelectedService.getDesti();
+
+    $scope.ifDesti = function(){
+
+        if($scope.destiSelected==null){
+            return false;
+        }else{
+            console.log($scope.destiSelected.name);
+            return true;
+        }
+    }
+    $scope.openAddDestinationModal = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/createDestination.html',
+            controller: 'addDestinationModalInstanceCtrl'
+
+        });
+
+        modalInstance.result.then(function(destino) {
+            $scope.destinations.push(destino);
+        })
+    }
+    /**
+     * Cierra el modal actual abortando la acción
+     */
+     $scope.deleteCard = function(){
+       
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/deleteCard.html',
+            controller: 'deleteCardInstanceCtrl'
+        });
+
+        modalInstance.result.then(function() {
+             ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
+            $modalInstance.close();
+        }); 
+        });
+
+    }
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+
+    $scope.addCardOther = function(submittedCard) {
+        $scope.isCreatingCard = true;
+        //Nueva Card 
+        console.log(submittedCard.destination);
+        var date = new Date (submittedCard.eventDate);
+
+        var editCard = {
+            cardId: $scope.newCard.cardId,
+            cardType: "other",
+            name: submittedCard.name,
+            description: submittedCard.description,
+            link: submittedCard.link,
+            price: submittedCard.price,
+            destination: submittedCard.destination,
+            userIdCreator: $scope.infoUser.id,
+            nameCreator: $scope.infoUser.name,
+            lastNameCreator: $scope.infoUser.lastName,
+            eventDate: date.valueOf()
+        }
+        
+        //Llamada PUT a la API para insertar la card de tipo other
+        ApiService.putOtherCard($routeParams.groupId, editCard)
+            .success(function(data, status) {
+                $scope.isCreatingCard = false;
+                var newCardReturn = {
+                    cardId: data.cardId,
+                    creationDate: data.creationDate,
+                    cardType: data.cardType,
+                    name: data.name,
+                    description: data.description,
+                    link: data.link,
+                    price: data.price,
+                    destination: data.destination,
+                    userIdCreator: data.userIdCreator,
+                    nameCreator: data.nameCreator,
+                    lastNameCreator: data.lastNameCreator,
+                    eventDate: data.eventDate
+                }
+
+                console.log("Card de tipus Other Card creada");
+                console.log(newCardReturn);
+                $modalInstance.close(newCardReturn);
+            })
+            .error(function(data, status) {
+                $scope.isCreatingCard = false;
+
+                $modalInstance.dismiss();
+                console.log("Error al insertar OtherCard!");
+            });
+    };
+});
 app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
