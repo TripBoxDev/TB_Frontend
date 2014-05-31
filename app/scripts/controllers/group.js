@@ -195,6 +195,7 @@ for (var x in $scope.infoGroup.transportCards) {
     $scope.trans[1]= $scope.infoGroup.transportCards[numbers[1]];
     $scope.trans[2]= $scope.infoGroup.transportCards[numbers[2]];
     $scope.trans[3]= $scope.infoGroup.transportCards[numbers[3]];
+    console.log($scope.trans);
     
 }
 total =0;
@@ -258,6 +259,29 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
                 }
             }
         }
+
+        $scope.sleepVotes = [];
+
+        for (var i = $scope.infoGroup.placeToSleepCards.length - 1; i >= 0; i--) {
+            for (var j = $scope.infoGroup.placeToSleepCards[i].votes.length - 1; j >= 0; j--) {
+                if ($scope.infoGroup.placeToSleepCards[i].votes[j].userId == $scope.infoUser.id) {
+                    $scope.sleepVotes[$scope.infoGroup.placeToSleepCards[i].cardId] = $scope.infoGroup.placeToSleepCards[i].votes[j].value;
+                    $scope.infoGroup.placeToSleepCards[i].votes[j].value
+                }
+            }
+        }
+
+        $scope.otherVotes = [];
+
+        for (var i = $scope.infoGroup.otherCards.length - 1; i >= 0; i--) {
+            for (var j = $scope.infoGroup.otherCards[i].votes.length - 1; j >= 0; j--) {
+                if ($scope.infoGroup.otherCards[i].votes[j].userId == $scope.infoUser.id) {
+                    $scope.otherVotes[$scope.infoGroup.otherCards[i].cardId] = $scope.infoGroup.otherCards[i].votes[j].value;
+                    $scope.infoGroup.otherCards[i].votes[j].value
+                }
+            }
+        }
+
     };
 
     //Voting
