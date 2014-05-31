@@ -126,7 +126,7 @@
                                                         <div class="description">{{transportMoreVoted.description}}</div>
                                                         <div class="money"><i class="fa fa-money"></i>{{transportMoreVoted.price }}
                                                         </div>
-                                                        <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
+                                                        <div class="date"><i class="fa fa-calendar"></i>{{transportMoreVoted.initDate | date:'dd/MM/yy'}}-{{transportMoreVoted.finalDate | date:'dd/MM/yy'}}</div>
                                                     </div>
                                                     <div class="bottom-box">
                                                         <div class="mean-valoration">
@@ -154,12 +154,12 @@
                                                 <div class="grey-box">
                                                     <div class="content">
                                                         <div class="caption">
-                                                            <h2>{{card.name}}</h2>
+                                                            <h2>{{sleepMoreVoted.name}}</h2>
                                                         </div>
-                                                        <div class="description">{{card.description}}</div>
-                                                        <div class="money"><i class="fa fa-money"></i>{{ card.price }}
+                                                        <div class="description">{{sleepMoreVoted.description}}</div>
+                                                        <div class="money"><i class="fa fa-money"></i>{{ sleepMoreVoted.price }}
                                                         </div>
-                                                        <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
+                                                        <div class="date"><i class="fa fa-calendar"></i>{{sleepMoreVoted.initDate | date:'dd/MM/yy'}}-{{sleepMoreVoted.finalDate | date:'dd/MM/yy'}}</div>
                                                     </div>
                                                     <div class="bottom-box">
                                                         <div class="mean-valoration">
