@@ -103,8 +103,11 @@
                         <div class="check-box">
                             <div class="cardsRow list-group-item clearfix" id="otherCardsRow">
 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     Plan para ir a: {{destinationMoreVotated}}
+                                    </br>
+                                    </br>
+                                    </br>
                                     </br>
                                     </br>
                                     </br>
@@ -130,7 +133,7 @@
                                                     </div>
                                                     <div class="bottom-box">
                                                         <div class="mean-valoration">
-                                                            <span>3.7</span>
+                                                            <span>{{transportMoreVoted.average}}</span>
                                                         </div>
                                                         <div class="stars-wrapper">
 
@@ -147,9 +150,9 @@
 
                                     <div id="placeToCardsRow">
                                         <div class="card-wrapper">
-                                            <div class="card item transport">
+                                            <div class="card item placeToSleep">
                                                 <div class="bubble">
-                                                    <i class="fa fa-road"></i>
+                                                    <i class="fa fa-home"></i>
                                                 </div>
                                                 <div class="grey-box">
                                                     <div class="content">
@@ -157,35 +160,29 @@
                                                             <h2>{{sleepMoreVoted.name}}</h2>
                                                         </div>
                                                         <div class="description">{{sleepMoreVoted.description}}</div>
-                                                        <div class="money"><i class="fa fa-money"></i>{{ sleepMoreVoted.price }}
+                                                        <div class="money"><i class="fa fa-money"></i>{{sleepMoreVoted.price}}€
                                                         </div>
                                                         <div class="date"><i class="fa fa-calendar"></i>{{sleepMoreVoted.initDate | date:'dd/MM/yy'}}-{{sleepMoreVoted.finalDate | date:'dd/MM/yy'}}</div>
                                                     </div>
                                                     <div class="bottom-box">
                                                         <div class="mean-valoration">
-                                                            <span>3.7</span>
+                                                            <span>{{sleepMoreVoted.average}}</span>
                                                         </div>
                                                         <div class="stars-wrapper">
 
-                                                            <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
+                                                            <rating value="transportVotes[card.cardId]" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,transportVotes[card.cardId],card.cardType); $event.stopPropagation();">
 
                                                         </div>
-
-                                                        <div class="link-btn" ng-click="triggerLink(card)" ng-class="{ 'under-linking': isCardStartLink(card) }"><i class="fa fa-chain"></i>
+                                                        <div class="link-btn"><i class="fa fa-chain"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
-
-
                     </div>
                 </div>
             </div>

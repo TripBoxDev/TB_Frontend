@@ -142,7 +142,6 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         $scope.trans=[];
         $scope.place =[];
         
-      console.log($scope.infoGroup.otherCards);
              for (var x in $scope.infoGroup.otherCards) {
 
                 
@@ -195,7 +194,7 @@ for (var x in $scope.infoGroup.transportCards) {
     $scope.trans[1]= $scope.infoGroup.transportCards[numbers[1]];
     $scope.trans[2]= $scope.infoGroup.transportCards[numbers[2]];
     $scope.trans[3]= $scope.infoGroup.transportCards[numbers[3]];
-    console.log($scope.trans);
+    
     
 }
 total =0;
@@ -610,7 +609,7 @@ $scope.editCardTransport = function(card) {
             //Todas las cards de Sleep:
             var arraySleep = $scope.transportMoreVoted.childCardsId;
             var maxVote = 0;
-            
+
             for (var i = $scope.transportMoreVoted.childCardsId.length -1; i >= 0; i--){
 
                 for (var e = array.placeToSleepCards.length -1; e >= 0; e--){
@@ -621,18 +620,20 @@ $scope.editCardTransport = function(card) {
                            
                             $scope.cardsSleep = {"cardId": array.placeToSleepCards[e].cardId, "average": array.placeToSleepCards[e].average};
                             var maxVote = array.placeToSleepCards[e].average;
-                           
+                            
                         }
-                    }
-                }
-            }
 
+                    }
+
+
+                }
+               
+
+            }
             for (var i = array.placeToSleepCards.length -1; i >= 0; i--){
 
-                console.log(array.placeToSleepCards[i].cardId);
-                console.log($scope.cardsSleep.cardId);
                 if(array.placeToSleepCards[i].cardId == $scope.cardsSleep.cardId){
-
+                    
                     $scope.sleepMoreVoted = {
                         cardId: array.placeToSleepCards[i].cardId,
                         name: array.placeToSleepCards[i].name,
@@ -642,6 +643,7 @@ $scope.editCardTransport = function(card) {
                         description: array.placeToSleepCards[i].description,
                         childCardsId: array.placeToSleepCards[i].parentCardIds
                     }
+                    
                 }
 
             }
