@@ -133,7 +133,99 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     //Leer información del grupo
 
     $scope.infoGroup = {};
+ var rando = function(){
+    var j = 0;
+        var total = 0;
+        var keys=[];
+        var numbers=[];
+        $scope.others=[];
+        $scope.trans=[];
+        $scope.place =[];
+        
+      console.log($scope.infoGroup.otherCards);
+             for (var x in $scope.infoGroup.otherCards) {
 
+                
+                j++;
+             }
+        if ( j <= 4){
+            var a=$scope.infoGroup.otherCards;
+            $scope.others = a;
+
+        }else{
+       while(total < 4) {
+        x = Math.floor(Math.random() * (j-1));
+            // way faster that looping through the array to check if it exists
+        if(keys[x] == undefined) { 
+        keys[x] = 1;
+        numbers.push(x);
+        total++;
+        
+    }
+    }
+    
+    $scope.others[0]= $scope.infoGroup.otherCards[numbers[0]];
+    $scope.others[1]= $scope.infoGroup.otherCards[numbers[1]];
+    $scope.others[2]= $scope.infoGroup.otherCards[numbers[2]];
+    $scope.others[2]= $scope.infoGroup.otherCards[numbers[3]];
+    
+}
+
+total =0;
+keys=[];
+numbers=[];
+j=0;
+for (var x in $scope.infoGroup.transportCards) {
+
+                j++;
+             }
+        if ( j<= 4){
+            $scope.trans = $scope.infoGroup.transportCards;
+        }else{
+       while(total < 4) {
+        x = Math.floor(Math.random() * (j-1));
+            // way faster that looping through the array to check if it exists
+        if(keys[x] == undefined) { 
+        keys[x] = 1;
+        numbers.push(x);
+        total++;
+    }
+    }
+    $scope.trans[0]= $scope.infoGroup.transportCards[numbers[0]];
+    $scope.trans[1]= $scope.infoGroup.transportCards[numbers[1]];
+    $scope.trans[2]= $scope.infoGroup.transportCards[numbers[2]];
+    $scope.trans[3]= $scope.infoGroup.transportCards[numbers[3]];
+    
+}
+total =0;
+keys=[];
+numbers=[];
+j=0;
+for (var x in $scope.infoGroup.placeToSleepCards) {
+
+                j++;
+             }
+        if ( j<= 4){
+            $scope.place = $scope.infoGroup.placeToSleepCards;
+        }else{
+       while(total < 4) {
+        x = Math.floor(Math.random() * (j-1));
+            // way faster that looping through the array to check if it exists
+        if(keys[x] == undefined) { 
+        keys[x] = 1;
+        numbers.push(x);
+        total++;
+        
+    }
+    }
+
+    $scope.place[0]= $scope.infoGroup.placeToSleepCards[numbers[0]];
+    $scope.place[1]= $scope.infoGroup.placeToSleepCards[numbers[1]];
+    $scope.place[2]= $scope.infoGroup.placeToSleepCards[numbers[2]];
+    $scope.place[3]= $scope.infoGroup.placeToSleepCards[numbers[3]];
+    
+}
+ }
     var getGroup = function() {
 
         var deferred = $q.defer();
@@ -141,6 +233,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         return ApiService.getGroup($scope.groupId).success(function(response) {
             $scope.infoGroup = angular.copy(response);
             groupService.setGroup(response);
+            rando();
 
         });
 

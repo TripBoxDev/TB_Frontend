@@ -28,7 +28,7 @@
                             <li><a>Salir de la cuenta</a>
                             </li>
 
-                        </ul>
+                        </ul> 
                     </li>
 
                 </ul>
@@ -192,7 +192,7 @@
             <div id="cardsRandom" ng-show="!destinationSelected">
                 <!--Cards-->
                 <div class="row">
-                    <div class="card-wrapper" ng-repeat="card in infoGroup.transportCards">
+                    <div class="card-wrapper" ng-repeat="card in trans">
                         <div class="card item transport" ng-click="editCardTransport(card)">
                             <div class="bubble">
                                 <i class="fa fa-road"></i>
@@ -224,7 +224,7 @@
 
                     </div>
 
-                    <div class="card-wrapper" ng-repeat="card in infoGroup.placeToSleepCards">
+                    <div class="card-wrapper" ng-repeat="card in place">
                         <div class="card item placeToSleep" ng-click="editCardPlace2Sleep(card)">
                             <div class="bubble">
                                 <i class="fa fa-home"></i>
@@ -256,7 +256,7 @@
 
                     </div>
 
-                    <div class="card-wrapper" ng-repeat="card in infoGroup.otherCards">
+                    <div class="card-wrapper" ng-repeat="card in others">
                         <div class="card item other" ng-click="editCardOther(card)">
                             <div class="bubble">
                                 <i class="fa fa-plus-square"></i>
