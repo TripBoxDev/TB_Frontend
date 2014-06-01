@@ -66,7 +66,7 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
 
         },
 
-        uploadImage: function(groupId, image){
+        uploadGroupImage: function(groupId, image){
             //Llamada a la API para subir una imagen a un grupo asociado
             return $http.put(endpoint + "group/" + groupId + "/image", image, {headers: {"Content-Type":"image/jpeg"}})
         },

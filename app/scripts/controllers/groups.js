@@ -145,7 +145,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                     imagen = $scope.param.file;
 
                     //Se sube la imagen al servidor
-                    ApiService.uploadImage(createdGroup.id, imagen).success(function(data,status) {
+                    ApiService.uploadGroupImage(createdGroup.id, imagen).success(function(data,status) {
                                 
                         //Se borra la referencia a la imagen para poder subir otras en el futuro
                         $scope.param = undefined;
@@ -254,7 +254,7 @@ app.controller("GroupsCtrl", function($scope, $http, authService, ApiService, $m
                                 imagen = imagen.file;
 
                                 //Se sube la imagen al servidor
-                                ApiService.uploadImage(edit.id, imagen).success(function(data,status) {
+                                ApiService.uploadGroupImage(edit.id, imagen).success(function(data,status) {
                                     
                                     //Si se ha cargado una imagen nueva, este es el nuevo path
                                     edit.imagePath = imageDirectory + editedGroup.id;
