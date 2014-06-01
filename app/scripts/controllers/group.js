@@ -79,6 +79,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createTransportCardModalInstanceCtrl.result.then(function(newCardReturned) {
+                    newCardReturned.average = 0;
                     $scope.infoGroup.transportCards.push(newCardReturned);
                     groupService.setGroup($scope.infoGroup);
                     notificationFactory.success('Nueva card de transporte añadida con éxito!');
@@ -104,6 +105,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createPlace2SleepCardModalInstanceCtrl.result.then(function(newCardReturned) {
+                    newCardReturned.average = 0;
                     $scope.infoGroup.placeToSleepCards.push(newCardReturned);
                     groupService.setGroup($scope.infoGroup);
                     notificationFactory.success('Nueva card de alojamiento añadida con éxito!');
@@ -130,6 +132,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createOtherCardModalInstanceCtrl.result.then(function(newCardReturned) {
+                    newCardReturned.average = 0;
                     $scope.infoGroup.otherCards.push(newCardReturned);
                     groupService.setGroup($scope.infoGroup);
                     notificationFactory.success('Nueva card añadida con éxito!');
@@ -195,29 +198,27 @@ total =0;
 keys=[];
 numbers=[];
 j=0;
-for (var x in $scope.infoGroup.transportCards) {
-
-                j++;
-             }
-        if ( j<= 4){
-            $scope.trans = $scope.infoGroup.transportCards;
-        }else{
-       while(total < 4) {
-        x = Math.floor(Math.random() * (j-1));
+    for (var x in $scope.infoGroup.transportCards) {
+        j++;
+    }
+    if ( j<= 4){
+        $scope.trans = $scope.infoGroup.transportCards;
+    }else{
+        while(total < 4) {
+            x = Math.floor(Math.random() * (j-1));
             
-        if(keys[x] == undefined) { 
-        keys[x] = 1;
-        numbers.push(x);
-        total++;
+            if(keys[x] == undefined) { 
+                keys[x] = 1;
+                numbers.push(x);
+                total++;
+            }
+        }
+        $scope.trans[0]= $scope.infoGroup.transportCards[numbers[0]];
+        $scope.trans[1]= $scope.infoGroup.transportCards[numbers[1]];
+        $scope.trans[2]= $scope.infoGroup.transportCards[numbers[2]];
+        $scope.trans[3]= $scope.infoGroup.transportCards[numbers[3]];
     }
-    }
-    $scope.trans[0]= $scope.infoGroup.transportCards[numbers[0]];
-    $scope.trans[1]= $scope.infoGroup.transportCards[numbers[1]];
-    $scope.trans[2]= $scope.infoGroup.transportCards[numbers[2]];
-    $scope.trans[3]= $scope.infoGroup.transportCards[numbers[3]];
-    
-    
-}
+
 total =0;
 keys=[];
 numbers=[];
