@@ -78,9 +78,9 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     }
                 });
 
-                createTransportCardModalInstanceCtrl.result.then(function(newCardReturned) {
-                    $scope.infoGroup.destinations = newCardReturned.destinations;
-                    newCardReturned.destinations = null;
+                createTransportCardModalInstanceCtrl.result.then(function(information) {
+                    $scope.infoGroup.destinations = information.destinations;
+                    var newCardReturned = information.newCard;
                     newCardReturned.average = 0;
                     $scope.infoGroup.transportCards.push(newCardReturned);
                     
@@ -1429,7 +1429,9 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
         ApiService.putTransportCard($routeParams.groupId, newCard)
             .success(function(data, status) {
 
-                var newCardReturn = {
+                debugger;
+                var information = [];
+                information.newCard = {
                     cardId: data.cardId,
                     creationDate: data.creationDate,
                     cardType: data.cardType,
@@ -1443,13 +1445,13 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
                     lastNameCreator: data.lastNameCreator,
                     initDate: data.initDate,
                     finalDate: data.finalDate,
-                    transportType: data.transportType,
-                    destinations: $scope.destinations
+                    transportType: data.transportType
                 }
+                information.destinations = $scope.destinations;
 
                 console.log("Card de tipus Transport Card creada");
                 $scope.isCreatingCard = false;
-                $modalInstance.close(newCardReturn);
+                $modalInstance.close(information);
 
             })
 
