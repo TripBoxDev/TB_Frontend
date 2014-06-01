@@ -19,12 +19,22 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     function CollapseDemoCtrl($scope) {
         $scope.isCollapsed = false;
     }
+
+   /**
+     * Función para abrir el model de invitación de usuario
+     *
+     */
     $scope.openInviteModal = function() {
         var invitationModalInstance = $modal.open({
             templateUrl: '/views/modals/sendInvitations.html',
             controller: 'InvitationModalInstanceCtrl'
         });
     };
+
+    /**
+     * Función para abrir el modal de crear cards
+     *
+     */
 
     $scope.openCreateCardModal = function() {
         var invitationModalInstance = $modal.open({
@@ -41,6 +51,10 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     $rootScope.destinationSelected = false;
 
     //Recibe que tipo de card se quiere crear y muestra el modal asociado
+    /**
+     *
+     *
+     */
 
     $rootScope.openCreateTypeCardModal = function(typeSelected) {
         switch (typeSelected) {
@@ -130,9 +144,15 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         }
     }
 
-    //Leer información del grupo
+    
 
     $scope.infoGroup = {};
+
+   /**
+     * Función para mostrar las cards random
+     * 
+     */
+
  var rando = function(){
     var j = 0;
         var total = 0;
@@ -154,7 +174,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         }else{
        while(total < 4) {
         x = Math.floor(Math.random() * (j-1));
-            // way faster that looping through the array to check if it exists
+            
         if(keys[x] == undefined) { 
         keys[x] = 1;
         numbers.push(x);
@@ -183,7 +203,7 @@ for (var x in $scope.infoGroup.transportCards) {
         }else{
        while(total < 4) {
         x = Math.floor(Math.random() * (j-1));
-            // way faster that looping through the array to check if it exists
+            
         if(keys[x] == undefined) { 
         keys[x] = 1;
         numbers.push(x);
@@ -210,7 +230,7 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         }else{
        while(total < 4) {
         x = Math.floor(Math.random() * (j-1));
-            // way faster that looping through the array to check if it exists
+           
         if(keys[x] == undefined) { 
         keys[x] = 1;
         numbers.push(x);
@@ -226,6 +246,12 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
     
 }
  }
+
+    /**
+     * Función para leer la información de un grupo
+     *
+     */
+
     var getGroup = function() {
 
         var deferred = $q.defer();
@@ -246,6 +272,11 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
     });
 
     $scope.transportVotes = [];
+
+    /**
+     * Función para obtener los votos de un usuario
+     *
+     */
 
     var getVotesUser = function() {
         $scope.transportVotes = [];
@@ -283,14 +314,24 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
 
     };
 
-    //Voting
+    
 
     $scope.max = 5;
     $scope.isReadonly = false;
 
+    /**
+     * Función para mostrar el voto en las estrellas de las cards
+     * Recibe el valor del voto
+     */
+
     $scope.hoveringOver = function(value) {
         $scope.overStar = value;
     };
+
+    /**
+     * Función para efetuar un voto
+     * Recibe el id de la card, el voto y el tipo de card
+     */
 
     $scope.putVote = function(cardId, rate, cardType) {
 
@@ -321,6 +362,11 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         });
     }
 
+    /**
+     * Función para cerrar el alert
+     *
+     */
+
     $scope.closeAlert = function() {
         $scope.alertDestinationRepeat = false;
     };
@@ -329,26 +375,14 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         $scope.myVote = rate;
         console.log($scope.myVote);
     };
-    // <!--Añadir place to sleep de forma manual-->
-
-    // var newPlaceToSleep = {
-    //     cardType: "placeToSleep",
-    //     destination: "Barcelona",
-    //     userIdCreator: $scope.infoUser.id
-    // }
-
-    // $http.put(endpoint + 'group/' + $scope.groupId + '/placeToSleepCard', newPlaceToSleep)
-    //     .success(function(data, status) {
-    //         console.log("place to sleep insertado");
-    //         $scope.infoGroup.placeToSleepCards.push(newPlaceToSleep);
-
-    //     }).
-    // error(function(data, status) {
-    //     console.log("error al insertar place to sleep");
-    // });
+   
     $scope.mapDestSelectedIds = {};
 
-    //click destino
+    /**
+     * Función para mostrar vista de destino
+     * Recibe un array destino
+     */
+
     $scope.destiClicked = function(destino) {
         $scope.mapDestSelectedIds = {};
 
@@ -374,15 +408,17 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
 
     }
 
+    /**
+     *
+     *
+     */
 
     $scope.isDestRemarc = function(id) {
         var result = $scope.mapDestSelectedIds[id];
         return $scope.mapDestSelectedIds[id];
     };
 
-    //Borrar destino
-
-    
+   
 
 
 
@@ -408,6 +444,11 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         });
     }
 
+    /**
+     * Función para borrar un destino
+     * Reibe la id del dstino
+     */
+
      $scope.deleteDestination = function(idDest){
         
         var modalInstance = $modal.open({
@@ -427,6 +468,11 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         });
 
     }
+
+    /**
+     * Función para editar una card other
+     * Recibe una card other
+     */
 
      $scope.editCardOther = function(card) {
 
@@ -470,6 +516,11 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
 
     };
 
+    /**
+     * Función para editar una card placeToSleep
+     * Recibe una card placeToSleep
+     */
+
     $scope.editCardPlace2Sleep = function(card) {
 
         
@@ -511,6 +562,11 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
        }); 
 
     };
+
+     /**
+     * Función para editar una card transport
+     * Recibe una card transport
+     */
 
 $scope.editCardTransport = function(card) {
 
@@ -560,6 +616,12 @@ $scope.editCardTransport = function(card) {
         }); 
 
     };
+
+    /**
+     * Función para abrir modal de aceptar plan
+     * Recibe una card
+     */
+
     $scope.AcceptedPlan = function(card) {
         $scope.cartaId = card;
         var modalInstance = $modal.open({
@@ -568,6 +630,11 @@ $scope.editCardTransport = function(card) {
         });
 
     }
+
+    /**
+     * 
+     *
+     */
 
     var destinationMoreVotated = function() {
         $scope.transportMoreVoted;
@@ -655,6 +722,11 @@ $scope.editCardTransport = function(card) {
     destinationMoreVotated();
 });
 
+    /**
+     * Controlador para modal de invitación de usuarios
+     *
+     */
+
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams, notificationFactory) {
     $scope.users = [];
     $scope.isSending = false;
@@ -704,6 +776,12 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
 
     };
 });
+
+    /**
+     * Controlador para el modal de eliminar card
+     *
+     */
+
 app.controller('deleteCardInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
@@ -717,6 +795,11 @@ app.controller('deleteCardInstanceCtrl', function($scope, $modalInstance, authSe
     }
 });
 
+    /**
+     * Controlador para el modal de eliminar destino
+     *
+     */
+
 app.controller('deleteDestiInfoInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
@@ -729,6 +812,12 @@ app.controller('deleteDestiInfoInstanceCtrl', function($scope, $modalInstance, a
 
     }
 });
+
+    /**
+     * Controlador para el modal de editar card tipo transport
+     *
+     */
+
 app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser,destiSelectedService,card) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations.filter(function(v) {
@@ -857,6 +946,11 @@ app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInst
     };
 });
 
+    /**
+     * Controlador para model de editar card PlaceToSleep
+     *
+     */
+
 app.controller('editPlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, groupService, infoUser,destiSelectedService,card) {
    $scope.isCreatingCard = false;
    $scope.Group = {};
@@ -968,6 +1062,12 @@ $scope.destiSelected=destiSelectedService.getDesti();
             });
     }
 });
+
+    /**
+     * Controlador para modal de editar card tipo other
+     *
+     */
+
 app.controller('editOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser,destiSelectedService,card) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
@@ -1069,6 +1169,11 @@ $scope.destiSelected=destiSelectedService.getDesti();
             });
     };
 });
+
+    /**
+     * Controlador para modal de añadir destino
+     * 
+     */
 app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
@@ -1088,13 +1193,7 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
 
         if (!$scope.destinationExists(destino)) {
 
-            /*
-            $http.put(endpoint + 'group/' + groupId + '/destination', destino, {
-                headers: {
-                    'Content-Type': 'text/plain'
-                }
-            })
-            */
+           
             ApiService.putDestination(destino)
                 .success(function(data, status) {
                     var newDestination = {
@@ -1130,6 +1229,8 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
         return false;
     }
 });
+
+
 app.controller('deleteCardInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
@@ -1474,6 +1575,11 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($rootScope, $scope, 
     };
 });
 
+    /**
+     * Controlador para el modal de acceptar plan
+     *
+     */
+
 app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
@@ -1487,6 +1593,10 @@ app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, auth
     }
 });
 
+    /**
+     * Controlador para los inputs de fechas
+     *
+     */
 
 var DatepickerDemoCtrl = function($scope) {
     $scope.today = function() {
