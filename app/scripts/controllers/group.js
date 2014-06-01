@@ -1683,7 +1683,8 @@ app.controller('UserAcceptedPlanInstanceCtrl', function($scope, $modalInstance, 
 
 
     $scope.UserAcceptedPlan = function() {
-
+        var decision = true;
+        ApiService.putVotePlan(decision).success(function() {});
         $modalInstance.close();
 
     }
@@ -1697,8 +1698,9 @@ app.controller('UserNoAcceptedPlanInstanceCtrl', function($scope, $modalInstance
     }
 
 
-    $scope.UserAcceptedPlan = function() {
-
+    $scope.UserNoAcceptedPlan = function() {
+        var decision = false;
+        ApiService.putVotePlan(decision).success(function() {});
         $modalInstance.close();
 
     }

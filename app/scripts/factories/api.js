@@ -133,6 +133,11 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
          */
         putCheckPlan: function(cardsIds) {
             return $http.put(endpoint + 'group/' + cardsIds.groupId + '/transport/' + cardsIds.transportCardId + '/sleep/' + cardsIds.sleepCardId);
+        },
+        putVotePlan: function(decision) {
+
+            return $http.put(endpoint + 'group/' + groupService.getGroup.id  + '/' + authService.data.userInfo.id + '/finalProposition/' + decision);
+
         }
     }
 })
