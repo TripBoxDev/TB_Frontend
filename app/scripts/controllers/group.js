@@ -410,6 +410,11 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
 
     }
 
+    $rootScope.resetDesti = function() {
+        $rootScope.destinationChoosed = destiSelectedService.getDesti().name;
+        
+    }
+
     /**
      *
      *

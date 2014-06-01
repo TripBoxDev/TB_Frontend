@@ -4,8 +4,8 @@
                 <h4>
                     <span class="fa fa-road"></span>Transporte</h4>
                 <div class="cardsRow row" id="transportCardsRow">
-                    <div class="card-wrapper" ng-class="{ 'disabled' : isCardDisabled(card.cardId), 'linked-card' : isThisCardLinked(card)}" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}">
-                        <div class="card item transport" ng-click="editCard(card)">
+                    <div class="card-wrapper" ng-class="{ 'disabled' : isCardDisabled(card.cardId), 'linked-card' : isThisCardLinked(card)}" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}" ng-if="itemOnView($index, 'transport')">
+                        <div class="card item transport" ng-click="editCard(card)" >
                             <div class="bubble">
                                 <i class="fa fa-road"></i>
                             </div>
@@ -43,6 +43,13 @@
                     </div>
 
                 </div>
+                <button type="button" class="btn btn-default btn-lg" ng-click="previousPage('transport')">
+                  <span class="glyphicon glyphicon-chevron-left"></span> Previous
+                </button>
+                <button type="button" class="btn btn-default btn-lg" ng-click="nextPage('transport')" ng-disabled="{maxtransportCardsPages:transportCardsPage}">
+                    Next
+                  <span class="glyphicon glyphicon-chevron-right"></span> 
+                </button>
                 <h4>
                     <span class="fa fa-home"></span>Alojamiento</h4>
                 <div class="cardsRow row" id="placeToCardsRow">
