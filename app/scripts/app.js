@@ -40,6 +40,17 @@ angular.module('angulApp', [
 
                 }
             })
+            .when('/groups/:groupId/check', {
+                templateUrl: 'views/check.html',
+                controller: 'CheckCtrl',
+                access: {
+                    isFree: false
+                },
+                resolve: {
+                    checkAccess: checkAccessToGroup,
+
+                }
+            })
             .when('/groups/:groupId/invitation/:invitation', {
                 templateUrl: 'views/group.html',
                 controller: 'ReceiveInvitationCtrl',
