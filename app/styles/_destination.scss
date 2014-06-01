@@ -1,58 +1,64 @@
 
 #vistaDesti {
+
     h3 {
+
         margin-top: 0;
+
     }
-}
-.destContent {
-        
 
     .cardsRow {
-        padding-top: 20px;
-        overflow: auto;
-        
-        ul {
-            width: 100%;
-            margin:0px auto;
+
+        height: 310px;
+        .card-wrapper {
+            float: none;
+            display: inline-block;
         }
-        li {
-            float: left;
-            list-style: none;
-            margin-left: 5px;
-            .linkBtns {
-                button {
-                    float: left;
-                    margin-left:10px;
-                }
-                .linkbtn {
-                    margin: 0;
-                    padding: 0;
-                    border: 0;
-                    background: none;
-                    font-size: 100%;
-                    vertical-align: baseline;
-                    font-family: inherit;
-                    color: inherit;
-                    -webkit-appearance: none;
-                    -ms-appearance: none;
-                    -o-appearance: none;
-                    appearance: none;
-                }
-            }
-        }
-        li:first-child {
-            margin-left: 0;
-        }
-        .fakeCard {
-            border: solid;
-            min-height: 40px;
-        }
+
         .opac {
+
             opacity:0.5;
+
         }
+
     }
+.row-container {
+
+}
+    #transportCardsRow {
+
+        overflow-x:scroll;
+
+        overflow-y:hidden;
+
+        white-space:nowrap;
+
+    }
+
+   
+
+}
+
+.destContent {
+
+    .cardsRow {
+
+        padding-top: 20px;
+
+        height: 310px;
+
+        .opac {
+
+            opacity:0.5;
+
+        }
+
+    }
+
 }
 
 .opac {
-            opacity:0.5;
-        }
+
+    opacity:0.5;
+
+}
