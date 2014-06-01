@@ -3,14 +3,14 @@
 <div class="modal-header" ng-controller="GroupCtrl">
    
     <button type="button" class="close" ng-click="cancel()">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Confirmación del plan {{destinationMoreVotated}}</h4>
+    <h4 class="modal-title" id="myModalLabel">Rechazar este pack a {{destinationMoreVotated}}</h4>
 
 </div>
 <div class="modal-body" ng-controller="GroupCtrl">
     
     <div class="input-group">
        
-        ¿Estás seguro de que quieres proponer este plan? </br></br>
+        ¿Estás seguro de que quieres rechazar definitivamente este plan? </br></br>
         Destino: {{destinationMoreVotated}} </br>
         Transporte: {{transportMoreVoted.name}} </br>
         Alojamiento: {{sleepMoreVoted.name}} </br>
@@ -20,8 +20,8 @@
 </div>
 <div class="modal-footer" ng-controller="GroupCtrl">
     
-    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-    <button type="button" class="btn btn-primary" ng-click="confirmAcceptedPlan(transportMoreVoted.cardId, sleepMoreVoted.cardId)">Aceptar</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelo</button>
+    <button type="button" class="btn btn-primary btn-danger" ng-click="UserAcceptedPlan()">Rechazo</button>
     
 </div>
 

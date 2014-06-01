@@ -632,27 +632,47 @@ $scope.editCardTransport = function(card) {
 
     }
 
+
+    $scope.UserAcceptedPlan = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/UserAcceptedPlan.html',
+            controller: 'UserAcceptedPlanInstanceCtrl'
+        });
+
+    }
+
+    $scope.UserNoAcceptedPlan = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/UserNoAcceptedPlan.html',
+            controller: 'UserNoAcceptedPlanInstanceCtrl'
+        });
+
+    }
+
     /**
      * 
      *
      */
 
      var bestPackShare = function() {
-        console.log($scope.bestPackTrue);
+        $scope.bestPackTrue;
         $scope.destinationMoreVotated;
         $scope.transportMoreVoted;
         $scope.sleepMoreVoted;
+        $scope.checkPlan;
 
         return ApiService.getGroup($scope.groupId).success(function(response) {
 
             var array = angular.copy(response);
             var arrayDesti = array.destinations;
 
-            for (var i = arrayDesti.length - 1; i >= 0; i--) {
-                var aux = arrayDesti[i].percentage;
-                if (aux > 70) {
-                    $scope.destinationMoreVotated = arrayDesti[i].name;
+            for (var i = array.transportCards.length - 1; i >= 0; i--) {
+               
+                if (array.transportCards[i].bestPack == true){
+                    $scope.destinationMoreVotated = array.transportCards[i].destination;
+                    $scope.bestPackTrue = true;                    
                 }
+                
             }
 
             for (var i = array.transportCards.length - 1; i >= 0; i--) {
@@ -660,10 +680,8 @@ $scope.editCardTransport = function(card) {
                 if (array.transportCards[i].destination == $scope.destinationMoreVotated) {
 
                     if (array.transportCards[i].bestPack == true){
-                        console.log("Hay pack trans!");
-                        console.log(array.transportCards[i]);
                         $scope.transportMoreVoted = array.transportCards[i];
-                        $scope.bestPackTrue = true;
+                        $scope.checkPlan = true;
                     }
                 }
             }
@@ -673,15 +691,11 @@ $scope.editCardTransport = function(card) {
                 if (array.placeToSleepCards[i].destination == $scope.destinationMoreVotated) {
 
                     if (array.placeToSleepCards[i].bestPack == true){
-                        console.log("Hay pack sleep!");
-                        console.log(array.placeToSleepCards[i]);
                         $scope.sleepMoreVoted = array.placeToSleepCards[i];
 
                     }
                 }
             }
-            console.log($scope.transportMoreVoted);
-            console.log($scope.sleepMoreVoted);
             
         });
 
@@ -698,17 +712,19 @@ $scope.editCardTransport = function(card) {
             var array = angular.copy(response);
             var arrayDesti = array.destinations;
 
-            for (var i = arrayDesti.length - 1; i >= 0; i--) {
-                var aux = arrayDesti[i].percentage;
-                if (aux > 70) {
-                    $scope.checkPlan = true;
-                    $scope.destinationMoreVotated = arrayDesti[i].name;
-                }
-            }
 
             if($scope.bestPackTrue == false){
 
-                console.log("entra");
+
+                for (var i = arrayDesti.length - 1; i >= 0; i--) {
+                    var aux = arrayDesti[i].percentage;
+                    if (aux > 70) {
+                        $scope.checkPlan = true;
+                        $scope.destinationMoreVotated = arrayDesti[i].name;
+                    }
+                }
+
+                
                 if($scope.checkPlan == true){
                     for (var i = array.transportCards.length - 1; i >= 0; i--) {
 
@@ -1655,6 +1671,34 @@ app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, auth
         console.log(cardsIds);
         ApiService.putCheckPlan(cardsIds).success(function() {
         });
+        $modalInstance.close();
+
+    }
+});
+app.controller('UserAcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+
+
+    $scope.UserAcceptedPlan = function() {
+
+        $modalInstance.close();
+
+    }
+});
+
+
+app.controller('UserNoAcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    }
+
+
+    $scope.UserAcceptedPlan = function() {
+
         $modalInstance.close();
 
     }
