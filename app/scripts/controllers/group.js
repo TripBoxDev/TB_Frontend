@@ -1282,7 +1282,6 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
 /**
  * Gestiona la información del modal para crear una card de transporte
  */
-
 app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($rootScope, $scope, $modalInstance, $modal, $routeParams, ApiService, placeToSleepCards, destinations, infoUser, destiSelectedService) {
 
     $scope.isCreatingCard = false;
