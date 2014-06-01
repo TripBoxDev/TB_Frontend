@@ -82,7 +82,6 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     newCardReturned.average = 0;
                     $scope.infoGroup.transportCards.push(newCardReturned);
                     groupService.setGroup($scope.infoGroup);
-                    $log.info($scope.infoGroup.transportCards);
                     notificationFactory.success('Nueva card de transporte añadida con éxito!');
                 }, function() {
                     // TODO Muestra notificación de error.
@@ -106,6 +105,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createPlace2SleepCardModalInstanceCtrl.result.then(function(newCardReturned) {
+                    newCardReturned.average = 0;
                     $scope.infoGroup.placeToSleepCards.push(newCardReturned);
                     groupService.setGroup($scope.infoGroup);
                     notificationFactory.success('Nueva card de alojamiento añadida con éxito!');
@@ -132,6 +132,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createOtherCardModalInstanceCtrl.result.then(function(newCardReturned) {
+                    newCardReturned.average = 0;
                     $scope.infoGroup.otherCards.push(newCardReturned);
                     groupService.setGroup($scope.infoGroup);
                     notificationFactory.success('Nueva card añadida con éxito!');
@@ -988,8 +989,6 @@ app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInst
                     finalDate: data.finalDate,
                     transportType: data.transportType
                 }
-
-                console.log(newCardReturn);
 
                 console.log("Card de tipus Transport Card creada");
                 $scope.isCreatingCard = false;
