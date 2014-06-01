@@ -168,8 +168,8 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 j++;
              }
         if ( j <= 4){
-            var a=$scope.infoGroup.otherCards;
-            $scope.others = a;
+            
+            $scope.others = $scope.infoGroup.otherCards;
 
         }else{
        while(total < 4) {
