@@ -127,6 +127,12 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
             });
             
 
+        },
+        /**
+         * Añade un plan de viaje
+         */
+        putCheckPlan: function(cardsIds) {
+            return $http.put(endpoint + 'group/' + cardsIds.groupId + '/transport/' + cardsIds.transportCardId + '/sleep/' + cardsIds.sleepCardId);
         }
     }
 })

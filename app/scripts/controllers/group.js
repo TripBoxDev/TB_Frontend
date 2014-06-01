@@ -562,6 +562,8 @@ $scope.editCardTransport = function(card) {
     };
     $scope.AcceptedPlan = function(card) {
         $scope.cartaId = card;
+        $scope.isCollapsed = true;
+        $rootScope.destinationSelected = true;
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/AcceptedPlan.html',
             controller: 'AcceptedPlanInstanceCtrl'
@@ -1481,7 +1483,19 @@ app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, auth
     }
 
 
-    $scope.confirmAcceptedPlan = function() {
+    $scope.confirmAcceptedPlan = function(transportCardId, sleepCardId) {
+        $scope.groupId = $routeParams.groupId;
+        console.log(transportCardId);
+        console.log(sleepCardId);
+        console.log($scope.groupId);
+        var cardsIds = {
+            groupId: $scope.groupId,
+            transportCardId: transportCardId,
+            sleepCardId: sleepCardId
+        };
+        console.log(cardsIds);
+        ApiService.putCheckPlan(cardsIds).success(function() {
+        });
         $modalInstance.close();
 
     }
