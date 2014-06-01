@@ -94,7 +94,8 @@
 
         <div id="cardsContainer">
             <div class="breadcrumb" ng-show="destinationSelected && checkPlan">
-                <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Posible plan!</button>&nbsp&nbsp Aqui puedes ver el plan que nosotros te recomendamos a traves de tus votaciones!
+                <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Posible plan!</button>&nbsp<a  href="#/groups/{{infoGroup.id}}/check"><button class="btn btn-default btn-primary">Ver información del plan</button></a>&nbsp&nbsp Aqui puedes ver el plan que nosotros te recomendamos a traves de tus votaciones!
+                
                 </br>
                 <div collapse="isCollapsed">
                     </br>
