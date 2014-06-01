@@ -1,24 +1,27 @@
 <!-- MENU PARA ACEPTAR PLAN --> 
             
-<div class="modal-header">
+<div class="modal-header" ng-controller="GroupCtrl">
    
     <button type="button" class="close" ng-click="cancel()">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Confirmar plan</h4>
+    <h4 class="modal-title" id="myModalLabel">Confirmar plan para ir a {{destinationMoreVotated}}</h4>
 
 </div>
-<div class="modal-body">
+<div class="modal-body" ng-controller="GroupCtrl">
     
     <div class="input-group">
        
-        ¿Estás seguro de que quiere aceptar este plan?
-    
+        ¿Estás seguro de que quiere aceptar este plan? </br></br>
+        Destino: {{destinationMoreVotated}} </br>
+        Transporte: {{transportMoreVoted.name}} </br>
+        Alojamiento: {{sleepMoreVoted.name}} </br>
+    	
     </div>
 
 </div>
-<div class="modal-footer">
+<div class="modal-footer" ng-controller="GroupCtrl">
     
     <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-    <button type="button" class="btn btn-primary" ng-click="confirmAcceptedPlan()">Aceptar</button>
+    <button type="button" class="btn btn-primary" ng-click="confirmAcceptedPlan(transportMoreVoted.cardId, sleepMoreVoted.cardId)">Aceptar</button>
     
 </div>
 

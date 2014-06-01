@@ -131,18 +131,7 @@
                                                         </div>
                                                         <div class="date"><i class="fa fa-calendar"></i>{{transportMoreVoted.initDate | date:'dd/MM/yy'}}-{{transportMoreVoted.finalDate | date:'dd/MM/yy'}}</div>
                                                     </div>
-                                                    <div class="bottom-box">
-                                                        <div class="mean-valoration">
-                                                            <span>{{transportMoreVoted.average}}</span>
-                                                        </div>
-                                                        <div class="stars-wrapper">
-
-                                                            <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType);">
-
-                                                        </div>
-                                                        <div class="link-btn" ng-click="triggerLink(card)" ng-class="{ 'under-linking': isCardStartLink(card) }"><i class="fa fa-chain "></i>
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -164,18 +153,7 @@
                                                         </div>
                                                         <div class="date"><i class="fa fa-calendar"></i>{{sleepMoreVoted.initDate | date:'dd/MM/yy'}}-{{sleepMoreVoted.finalDate | date:'dd/MM/yy'}}</div>
                                                     </div>
-                                                    <div class="bottom-box">
-                                                        <div class="mean-valoration">
-                                                            <span>{{sleepMoreVoted.average}}</span>
-                                                        </div>
-                                                        <div class="stars-wrapper">
-
-                                                            <rating value="transportVotes[card.cardId]" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,transportVotes[card.cardId],card.cardType); $event.stopPropagation();">
-
-                                                        </div>
-                                                        <div class="link-btn"><i class="fa fa-chain"></i>
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>

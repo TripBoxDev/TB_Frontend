@@ -1587,7 +1587,16 @@ app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, auth
     }
 
 
-    $scope.confirmAcceptedPlan = function() {
+    $scope.confirmAcceptedPlan = function(transportCardId, sleepCardId) {
+        $scope.groupId = $routeParams.groupId;
+        var cardsIds = {
+            groupId: $scope.groupId,
+            transportCardId: transportCardId,
+            sleepCardId: sleepCardId
+        };
+        console.log(cardsIds);
+        ApiService.putCheckPlan(cardsIds).success(function() {
+        });
         $modalInstance.close();
 
     }
