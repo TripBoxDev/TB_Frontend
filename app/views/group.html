@@ -94,9 +94,14 @@
 
         <div id="cardsContainer">
             <div class="breadcrumb" ng-show="checkPlan">
-                <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Posible plan!</button>&nbsp<a  href="#/groups/{{infoGroup.id}}/check"><button class="btn btn-default btn-primary">Ver información del plan</button></a>&nbsp&nbsp Aqui puedes ver el plan que nosotros te recomendamos a traves de tus votaciones!
+                <div ng-hide="bestPackTrue">
+                    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Posible plan!</button>&nbsp&nbsp Aqui puedes ver el plan que nosotros te recomendamos a traves de tus votaciones!
+                </div>
+                <div ng-show="bestPackTrue">
+                    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Posible plan!</button>&nbsp<a  href="#/groups/{{infoGroup.id}}/check"><button class="btn btn-default btn-primary">Ver información del plan</button></a>&nbsp&nbsp Aqui puede ver y votar el plan que se esta eligiendo!
+                </div>
                 
-                </br>
+                
                 <div collapse="isCollapsed">
                     </br>
                     <div>
