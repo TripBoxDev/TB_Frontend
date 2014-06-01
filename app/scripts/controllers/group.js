@@ -1676,7 +1676,7 @@ app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, auth
     }
 });
 app.controller('UserAcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
-
+    console.log("entra modal");
     $scope.cancel = function() {
         $modalInstance.dismiss();
     }
@@ -1692,7 +1692,7 @@ app.controller('UserAcceptedPlanInstanceCtrl', function($scope, $modalInstance, 
 
 
 app.controller('UserNoAcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
-
+    console.log("entra modal");
     $scope.cancel = function() {
         $modalInstance.dismiss();
     }
@@ -1700,7 +1700,7 @@ app.controller('UserNoAcceptedPlanInstanceCtrl', function($scope, $modalInstance
 
     $scope.UserNoAcceptedPlan = function() {
         var decision = false;
-        ApiService.putVotePlan(decision).success(function() {});
+        ApiService.putVotePlan(decision);
         $modalInstance.close();
 
     }
