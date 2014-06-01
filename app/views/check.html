@@ -1,0 +1,298 @@
+<div class="cl_content">
+
+    <!-- TOOLBAR CON LOGO TRIPBOX Y USUARIO -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://localhost:9000/#/groups">Tripbox</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">{{ infoUser.name }} {{ infoUser.lastName }} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="logoutUser()">Salir de la cuenta</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <ol class="breadcrumb" ng-controller="DestinationCtrl">
+        <li><a href="#/groups">Groups</a>
+        </li>
+        <li><a href="#/groups/{{infoGroup.id}}">{{infoGroup.name}}</a>
+        </li>
+        <li class="active">Confirmación de viaje a {{infoGroupCheck.name}}</li>
+
+    </ol>
+
+    <div class="generalContainer">
+
+        <div class="plan">
+
+            <div class="principal">
+
+                <div class="row">
+
+                    <div class="transport">
+
+                        <div class="col-md-3 col-md-offset-2">
+                            <center>
+                                <h4>Como ir!</h4>
+                            </center>
+                            <div class="thumbnail">
+                                <div id="cardinfo">
+                                    <div id="userCreator">
+                                        {{card.nameCreator}} {{card.lastNameCreator}}
+                                    </div>
+                                    <div id="line">
+                                        <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                    </div>
+                                    <div id="typeCard" align="center">
+
+                                        <div id="name">
+
+                                            {{card.name}}</br>
+                                        </div>
+
+
+                                        <div id="price">
+
+                                            {{card.price}}€</br>
+                                        </div>
+                                        <div id="link">
+
+                                            <a href="{{card.link}}">Link de la card</a>
+                                            </br>
+                                        </div>
+                                        </br>
+                                        </br>
+                                        <div id="MoreInfo">
+                                            <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                Precio:    {{card.price}}€  </br>
+                                Destino:     {{card.destination}}   </br>
+                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
+                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="sleep">
+
+                            <div class="col-md-3 col-md-offset-2">
+                                <center>
+                                    <h4>Donde dormir!</h4>
+                                </center>
+                                <div class="thumbnail">
+                                    <div id="cardinfo">
+                                        <div id="userCreator">
+                                            {{card.nameCreator}} {{card.lastNameCreator}}
+                                        </div>
+                                        <div id="line">
+                                            <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                        </div>
+                                        <div id="typeCard" align="center">
+
+                                            <div id="name">
+
+                                                {{card.name}}</br>
+                                            </div>
+
+
+                                            <div id="price">
+
+                                                {{card.price}}€</br>
+                                            </div>
+                                            <div id="link">
+
+                                                <a href="{{card.link}}">Link de la card</a>
+                                                </br>
+                                            </div>
+                                            </br>
+                                            </br>
+                                            <div id="MoreInfo">
+                                                <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                Precio:    {{card.price}}€  </br>
+                                Destino:     {{card.destination}}   </br>
+                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
+                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="otherCards">
+
+                        <div class="row">
+                            
+
+
+
+                            <div class="col-md-2 col-md-offset-1" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}">
+                                <h4>Que hacer alli!</h4>
+                                <div ng-repeat="card in infoGroup.otherCards">
+                                    <div class="thumbnail">
+                                        <div id="cardinfo">
+                                            <div id="userCreator">
+                                                {{card.nameCreator}} {{card.lastNameCreator}}
+                                            </div>
+                                            <div id="line">
+                                                <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
+                                            </div>
+                                            <div id="typeCard" align="center">
+
+                                                <div id="name">
+
+                                                    {{card.name}}</br>
+                                                </div>
+
+
+                                                <div id="price">
+
+                                                    {{card.price}}€</br>
+                                                </div>
+                                                <div id="link">
+
+                                                    <a href="{{card.link}}">Link de la card</a>
+                                                    </br>
+                                                </div>
+                                                </br>
+                                                </br>
+                                                <div id="MoreInfo">
+                                                    <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
+                                Precio:    {{card.price}}€  </br>
+                                Destino:     {{card.destination}}   </br>
+                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
+                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <br><br>
+                        <br><br>
+
+                        <div class="Buttoms Plan">
+
+                            <div class="row">
+
+                                <div class="col-md-1 col-md-offset-3">
+
+                                    <button class="btn-lg btn-primary btn-success" ng-click="openAcceptModal()">SI!</button>
+
+                                </div>
+                                <div class="col-md-1 col-md-offset-4">
+
+                                    <button class="btn-lg btn-primary btn-danger" ng-click="openNoAcceptedModal()">NO!</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <br><br>
+
+                        <div class="Persons">
+
+                            <div class="row">
+                                
+                                <div class="col-md-2 col-md-offset-2">
+                                    <center>Aceptan el plan:</center>
+                                    <div class="thumbnail">
+                                        <div id="cardinfoAccept">
+                                            
+
+                                                uno <br>
+                                                dos <br>
+                                                tres 
+
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2 col-md-offset-1">
+                                    <center>No han contestado:</center>
+                                    <div class="thumbnail">
+                                        <div id="cardinfoIndecis">
+                                            
+
+                                                cuatro <br>
+                                                cinco <br>
+                                                seis <br>
+                                                siete
+
+                                           
+
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2 col-md-offset-1">
+                                    <center>No aceptan el plan</center>
+                                    <div class="thumbnail">
+                                        <div id="cardinfoNoAccept">
+                                            
+                                                ocho <br>
+                                                nueve
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
