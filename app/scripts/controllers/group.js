@@ -186,7 +186,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     $scope.others[0]= $scope.infoGroup.otherCards[numbers[0]];
     $scope.others[1]= $scope.infoGroup.otherCards[numbers[1]];
     $scope.others[2]= $scope.infoGroup.otherCards[numbers[2]];
-    $scope.others[2]= $scope.infoGroup.otherCards[numbers[3]];
+    $scope.others[3]= $scope.infoGroup.otherCards[numbers[3]];
     
 }
 
