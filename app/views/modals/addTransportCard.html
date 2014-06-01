@@ -1,3 +1,5 @@
+<script type="text/javascript" src="scripts/bootstrap-filestyle.min.js"></script>
+
 <div class="modal-header">
 
     <button type="button" class="close" ng-click="cancel()">&times;</button>
@@ -131,6 +133,19 @@
                     </div>
                 </div>
             </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-picture"></span>
+                </span>
+                    <fieldset>
+                        <div>
+                            <input type="file" class="filestyle" data-buttonName="btn-primary" class="file" data-file="param.file" ng-model="fileP">
+                        </div>
+                    </fieldset>
+            </div>
+            <small>Sólo son validos ficheros JPEG</small>
+            
             </br>
             <center><a type="button" ng-click="masinfo = 0" data-toggle="dropdown">Menos datos <b class="caret" data-toggle="dropdown"></b></a></center>
         </div>

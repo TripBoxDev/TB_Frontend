@@ -71,6 +71,11 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
             return $http.put(endpoint + "group/" + groupId + "/image", image, {headers: {"Content-Type":"image/jpeg"}})
         },
 
+        uploadCardImage: function(cardId, image){
+            //Lamada a la API para subir una imagen a una card asociada
+            return $http.put(endpoint + "group/" + cardId + "/image/card", image, {headers: {"Content-Type":"image/jpeg"}})
+        },
+
         unFollowGroupUser: function(datos) {
 
             //Se hace una petición de eliminación del usuario determinado al grupo pertinente
