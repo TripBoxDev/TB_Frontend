@@ -586,66 +586,68 @@ $scope.editCardTransport = function(card) {
                     $scope.destinationMoreVotated = arrayDesti[i].name;
                 }
             }
-            for (var i = array.transportCards.length - 1; i >= 0; i--) {
+            if($scope.checkPlan == true){
+                for (var i = array.transportCards.length - 1; i >= 0; i--) {
 
-                if (array.transportCards[i].destination == $scope.destinationMoreVotated) {
+                    if (array.transportCards[i].destination == $scope.destinationMoreVotated) {
 
-                    if (array.transportCards[i].average >= $scope.percentage) {
+                        if (array.transportCards[i].average >= $scope.percentage) {
 
-                        $scope.percentage = array.transportCards[i].average;
-                        $scope.transportMoreVoted = {
-                            cardId: array.transportCards[i].cardId,
-                            name: array.transportCards[i].name,
-                            price: array.transportCards[i].price,
-                            initDate: array.transportCards[i].initDate,
-                            finalDate: array.transportCards[i].finalDate,
-                            description: array.transportCards[i].description,
-                            childCardsId: array.transportCards[i].childCardsId
+                            $scope.percentage = array.transportCards[i].average;
+                            $scope.transportMoreVoted = {
+                                cardId: array.transportCards[i].cardId,
+                                name: array.transportCards[i].name,
+                                price: array.transportCards[i].price,
+                                initDate: array.transportCards[i].initDate,
+                                finalDate: array.transportCards[i].finalDate,
+                                description: array.transportCards[i].description,
+                                childCardsId: array.transportCards[i].childCardsId
+                            }
                         }
                     }
                 }
-            }
 
-            //Todas las cards de Sleep:
-            var arraySleep = $scope.transportMoreVoted.childCardsId;
-            var maxVote = 0;
+                //Todas las cards de Sleep:
+                var arraySleep = $scope.transportMoreVoted.childCardsId;
+                var maxVote = 0;
+                
+                for (var i = $scope.transportMoreVoted.childCardsId.length -1; i >= 0; i--){
 
-            for (var i = $scope.transportMoreVoted.childCardsId.length -1; i >= 0; i--){
+                    for (var e = array.placeToSleepCards.length -1; e >= 0; e--){
 
-                for (var e = array.placeToSleepCards.length -1; e >= 0; e--){
+                        if($scope.transportMoreVoted.childCardsId[i] == array.placeToSleepCards[e].cardId){
 
-                    if($scope.transportMoreVoted.childCardsId[i] == array.placeToSleepCards[e].cardId){
+                            if (maxVote < array.placeToSleepCards[e].average){
+                               
+                                $scope.cardsSleep = {"cardId": array.placeToSleepCards[e].cardId, "average": array.placeToSleepCards[e].average};
+                                var maxVote = array.placeToSleepCards[e].average;
+                                
+                            }
 
-                        if (maxVote < array.placeToSleepCards[e].average){
-                           
-                            $scope.cardsSleep = {"cardId": array.placeToSleepCards[e].cardId, "average": array.placeToSleepCards[e].average};
-                            var maxVote = array.placeToSleepCards[e].average;
-                            
                         }
 
-                    }
 
+                    }
+                   
 
                 }
-               
+                for (var i = array.placeToSleepCards.length -1; i >= 0; i--){
 
-            }
-            for (var i = array.placeToSleepCards.length -1; i >= 0; i--){
-
-                if(array.placeToSleepCards[i].cardId == $scope.cardsSleep.cardId){
-                    
-                    $scope.sleepMoreVoted = {
-                        cardId: array.placeToSleepCards[i].cardId,
-                        name: array.placeToSleepCards[i].name,
-                        price: array.placeToSleepCards[i].price,
-                        initDate: array.placeToSleepCards[i].initDate,
-                        finalDate: array.placeToSleepCards[i].finalDate,
-                        description: array.placeToSleepCards[i].description,
-                        childCardsId: array.placeToSleepCards[i].parentCardIds
+                    if(array.placeToSleepCards[i].cardId == $scope.cardsSleep.cardId){
+                        
+                        $scope.sleepMoreVoted = {
+                            cardId: array.placeToSleepCards[i].cardId,
+                            name: array.placeToSleepCards[i].name,
+                            price: array.placeToSleepCards[i].price,
+                            initDate: array.placeToSleepCards[i].initDate,
+                            finalDate: array.placeToSleepCards[i].finalDate,
+                            description: array.placeToSleepCards[i].description,
+                            childCardsId: array.placeToSleepCards[i].parentCardIds
+                        }
+                        
                     }
-                    
-                }
 
+                }
             }
         });
     }
