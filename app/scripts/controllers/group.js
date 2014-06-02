@@ -57,9 +57,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
      *
      */
 
-    $scope.addNewCardToList = function(information,type,message){
-        $scope.infoGroup.destinations = information.destinations;
-        var newCardReturned = information.newCard;
+    $scope.addNewCardToList = function(newCardReturned,type,message){
         newCardReturned.average = 0;
 
          switch (type) {
@@ -101,8 +99,8 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     }
                 });
 
-                createTransportCardModalInstanceCtrl.result.then(function(information) {
-                    $scope.addNewCardToList(information,typeSelected," de transporte");
+                createTransportCardModalInstanceCtrl.result.then(function(newCard) {
+                    $scope.addNewCardToList(newCard,typeSelected," de transporte");
                 }, function() {
                     // TODO Muestra notificación de error.
                 })
@@ -124,8 +122,8 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     }
                 });
 
-                createPlace2SleepCardModalInstanceCtrl.result.then(function(information) {
-                    $scope.addNewCardToList(information,typeSelected," de alojamiento");
+                createPlace2SleepCardModalInstanceCtrl.result.then(function(newCard) {
+                    $scope.addNewCardToList(newCard,typeSelected," de alojamiento");
                 }, function() {
                     // TODO Muestra notificación de error
                 })
@@ -146,8 +144,8 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     }
                 });
 
-                createOtherCardModalInstanceCtrl.result.then(function(information) {
-                    $scope.addNewCardToList(information,typeSelected,"");
+                createOtherCardModalInstanceCtrl.result.then(function(newCard) {
+                    $scope.addNewCardToList(newCard,typeSelected,"");
                 }, function() {
                     // TODO Muestra notificación de error
                 })
@@ -1432,9 +1430,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
         ApiService.putTransportCard($routeParams.groupId, newCard)
             .success(function(data, status) {
 
-                var information = [];
-                information.destinations = $scope.destinations;
-                information.newCard = {
+               var newCardReturn = {
                     cardId: data.cardId,
                     creationDate: data.creationDate,
                     cardType: data.cardType,
@@ -1453,7 +1449,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
 
                 console.log("Card de tipus Transport Card creada");
                 $scope.isCreatingCard = false;
-                $modalInstance.close(information);
+                $modalInstance.close(newCardReturn);
 
             })
 
@@ -1533,9 +1529,7 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($rootScope, $s
         ApiService.putPlaceToSleepCard($routeParams.groupId, newCard)
             .success(function(data, status) {
 
-                var information = [];
-                information.destinations = $scope.destinations;
-                information.newCard = {
+                var newCardReturn = {
                     parentCardIds: data.parentCardIds,
                     cardId: data.cardId,
                     creationDate: data.creationDate,
@@ -1554,7 +1548,7 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($rootScope, $s
                 }
 
                 console.log("Card de tipus placeToSleep Card creada");
-                $modalInstance.close(information);
+                $modalInstance.close(newCardReturn);
             })
             .error(function(data, status) {
                 console.log("Error al insertar placeToSleepCard!");
@@ -1632,9 +1626,7 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($rootScope, $scope, 
             .success(function(data, status) {
 
                 $scope.isCreatingCard = false;
-                var information = [];
-                information.destinations = $scope.destinations;
-                information.newCard = {
+                var newCardReturn = {
                     cardId: data.cardId,
                     creationDate: data.creationDate,
                     cardType: data.cardType,
@@ -1650,7 +1642,7 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($rootScope, $scope, 
                 }
 
                 console.log("Card de tipus Other Card creada");
-                $modalInstance.close(information);
+                $modalInstance.close(newCardReturn);
             })
             .error(function(data, status) {
                 $scope.isCreatingCard = false;
