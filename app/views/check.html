@@ -50,7 +50,7 @@
 
             <div class="principal">
 
-                <div class="row" >
+                <div class="row">
 
                     <div class="Cards">
                         <div id="transportCardsRow">
@@ -97,126 +97,103 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="otherCards">
-
-                        <div class="row">
-
-                            <div class="col-md-2 col-md-offset-1" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}">
-                                <h4>Que hacer alli!</h4>
-                                <div ng-repeat="card in infoGroup.otherCards">
-                                    <div class="thumbnail">
-                                        <div id="cardinfo">
-                                            <div id="userCreator">
-                                                {{card.nameCreator}} {{card.lastNameCreator}}
-                                            </div>
-                                            <div id="line">
-                                                <img src="images/system/group/linia.png" height="1px" width="100%" ondragstart="return false" onselectstart="return false" oncontextmenu="return false" />
-                                            </div>
-                                            <div id="typeCard" align="center">
-
-                                                <div id="name">
-
-                                                    {{card.name}}</br>
-                                                </div>
-
-
-                                                <div id="price">
-
-                                                    {{card.price}}€</br>
-                                                </div>
-                                                <div id="link">
-
-                                                    <a href="{{card.link}}">Link de la card</a>
-                                                    </br>
-                                                </div>
-                                                </br>
-                                                </br>
-                                                <div id="MoreInfo">
-                                                    <p tooltip-html-unsafe="Descripcion:  {{card.description}} </br>
-                                Precio:    {{card.price}}€  </br>
-                                Destino:     {{card.destination}}   </br>
-                                Creador: {{card.nameCreator}} {{card.lastNameCreator}}  </br> 
-                                Fecha: {{card.eventDate}}" popover-trigger="mouseenter">Más info</p>
-                                                </div>
-
-                                            </div>
-
+                <div class="row">
+                    <div id="otherCards">
+                        <div class="card-wrapper" ng-repeat="card in infoGroup.otherCards">
+                            <div class="card item other" ng-click="editCardOther(card)">
+                                <div class="bubble">
+                                    <i class="fa fa-plus-square"></i>
+                                </div>
+                                <div class="grey-box">
+                                    <div class="content">
+                                        <div class="caption">
+                                            <h2>{{card.name}}</h2>
                                         </div>
+                                        <div class="description">{{card.description}}</div>
+                                        <div class="money"><i class="fa fa-money"></i>{{card.price}}€
+                                        </div>
+                                        <div class="date"><i class="fa fa-calendar"></i>{{card.initDate | date:'dd/MM/yy'}}-{{card.finalDate | date:'dd/MM/yy'}}</div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                    </div>
+                </div>
 
-                        
-                        <br>
-                        <br>
+                <br>
+                <br>
 
-                        <div class="Persons">
+                <div class="Persons">
+                    <center><h1> ¿COMO VA LA ACEPTACIÓN DE ESTE PLAN? </h1></center>
+                    <br>
+                    <div ng-controller="GroupCtrl">
+                        <center>
+                        <button class="btn-lg btn-primary btn-success" ng-click="UserAcceptedPlan()">Acepto!</button>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+                        <button class="btn-lg btn-primary btn-danger" ng-click="UserNoAcceptedPlan()">No acepto!</button>
+                        </center>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
 
-                            <div class="row">
+                        <div class="col-md-2 col-md-offset-2">
+                            <center>Aceptan el plan:</center>
+                            <div class="thumbnail">
+                                <div id="cardinfoIndecis" ng-repeat="users in infoUserVoteSi">
 
-                                <div class="col-md-2 col-md-offset-2">
-                                    <center>Aceptan el plan:</center>
-                                    <div class="thumbnail">
-                                        <div id="cardinfoIndecis" ng-repeat="users in infoUserVoteSi">
-
-                                            {{users.name}} {{users.lastName}}
+                                    {{users.name}} {{users.lastName}}
 
 
-                                        </div>
-                                    </div>
                                 </div>
-
-                                <div class="col-md-2 col-md-offset-1">
-                                    <center>No han contestado:</center>
-                                    <div class="thumbnail">
-                                        <div id="cardinfoIndecis" ng-repeat="users in infoUserNotVote">
-
-                                            {{users.name}} {{users.lastName}}
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2 col-md-offset-1">
-                                    <center>No aceptan el plan</center>
-                                    <div class="thumbnail">
-                                         <div id="cardinfoIndecis" ng-repeat="users in infoUserVoteNo">
-
-                                            {{users.name}} {{users.lastName}}
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
                             </div>
-
-
-
                         </div>
 
+                        <div class="col-md-2 col-md-offset-1">
+                            <center>No han contestado:</center>
+                            <div class="thumbnail">
+                                <div id="cardinfoIndecis" ng-repeat="users in infoUserNotVote">
+
+                                    {{users.name}} {{users.lastName}}
 
 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-md-offset-1">
+                            <center>No aceptan el plan</center>
+                            <div class="thumbnail">
+                                <div id="cardinfoIndecis" ng-repeat="users in infoUserVoteNo">
+
+                                    {{users.name}} {{users.lastName}}
 
 
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>
 
 
 
-
-
-
-
                 </div>
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
