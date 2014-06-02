@@ -556,23 +556,16 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
        editCardPlace2SleepModalInstance.result.then(function(editCard) {
             if (editCard != null){
                 for (var x in $scope.infoGroup.placeToSleepCards) {
-            
-            if ($scope.infoGroup.placeToSleepCards[x].cardId === editCard){
-                
-                $scope.infoGroup.placeToSleepCards[x]=  editCard;           
-            groupService.setGroup($scope.infoGroup);
+                    if ($scope.infoGroup.placeToSleepCards[x].cardId === editCard){
+                        $scope.infoGroup.placeToSleepCards[x]=  editCard;           
+                        groupService.setGroup($scope.infoGroup);
+                    }
+                }
+            }else{
+                $scope.infoGroup= getGroup();
+                groupService.setGroup($scope.infoGroup); 
             }
-}
-}else{
-            $scope.infoGroup= getGroup();
-            groupService.setGroup($scope.infoGroup);
-
-            
-         }
-
-        
-       }); 
-
+        }); 
     };
 
      /**
@@ -905,14 +898,16 @@ app.controller('deleteDestiInfoInstanceCtrl', function($scope, $modalInstance, a
 
 app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser,destiSelectedService,card) {
     $scope.isCreatingCard = false;
-    $scope.destinations = destinations.filter(function(v) {
-        return v !== ''
-    });
+    $scope.destinations = destinations;
+    //$scope.destinationsFiltered = destinations.filter(function(v) {
+        //return v !== ''
+    //});
     $scope.infoUser = infoUser;
     $scope.newCard = card;
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
     $scope.destiSelected=destiSelectedService.getDesti();
+    console.log()
 
     $scope.ifDesti = function(){
 
@@ -932,6 +927,7 @@ app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInst
         });
 
         modalInstance.result.then(function(destino) {
+            //WaAA
             $scope.destinations.push(destino);
         })
     }
@@ -1059,7 +1055,6 @@ $scope.destiSelected=destiSelectedService.getDesti();
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/createDestination.html',
             controller: 'addDestinationModalInstanceCtrl'
-
         });
 
         modalInstance.result.then(function(destino) {
@@ -1356,9 +1351,10 @@ app.controller('CreateCardModalInstanceCtrl', function($scope, $modalInstance) {
 app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser, destiSelectedService) {
 
     $scope.isCreatingCard = false;
-    $scope.destinations = destinations.filter(function(v) {
-        return v !== ''
-    });
+    $scope.destinations = destinations;
+    //$scope.destinationsFiltered = destinations.filter(function(v) {
+        //return v !== ''
+    //});
     $scope.infoUser = infoUser;
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
