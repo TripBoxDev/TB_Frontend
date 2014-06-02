@@ -67,15 +67,17 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 $scope.infoGroup.transportCards.push(newCardReturned);
                 break;
             case 'place2sleep':
+                $scope.infoGroup.placeToSleepCards.push(newCardReturned);
                 break;
             case 'other':
+                $scope.infoGroup.otherCards.push(newCardReturned);
                 break;
             default:
                 //TODO//
         }
-        
+
         groupService.setGroup($scope.infoGroup);
-        notificationFactory.success('¡Nueva card de ' + message + ' añadida con éxito!');
+        notificationFactory.success('¡Nueva card' + message + ' añadida con éxito!');
     }
 
     $rootScope.openCreateTypeCardModal = function(typeSelected) {
@@ -100,7 +102,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createTransportCardModalInstanceCtrl.result.then(function(information) {
-                    $scope.addNewCardToList(information,typeSelected,"transporte");
+                    $scope.addNewCardToList(information,typeSelected," de transporte");
                 }, function() {
                     // TODO Muestra notificación de error.
                 })
@@ -122,13 +124,8 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     }
                 });
 
-                createPlace2SleepCardModalInstanceCtrl.result.then(function(newCardReturned) {
-                    newCardReturned.average = 0;
-                    $scope.infoGroup.placeToSleepCards.push(newCardReturned);
-                    groupService.setGroup($scope.infoGroup);
-                    notificationFactory.success('Nueva card de alojamiento añadida con éxito!');
-
-
+                createPlace2SleepCardModalInstanceCtrl.result.then(function(information) {
+                    $scope.addNewCardToList(information,typeSelected," de alojamiento");
                 }, function() {
                     // TODO Muestra notificación de error
                 })
@@ -149,13 +146,8 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     }
                 });
 
-                createOtherCardModalInstanceCtrl.result.then(function(newCardReturned) {
-                    newCardReturned.average = 0;
-                    $scope.infoGroup.otherCards.push(newCardReturned);
-                    groupService.setGroup($scope.infoGroup);
-                    notificationFactory.success('Nueva card añadida con éxito!');
-
-
+                createOtherCardModalInstanceCtrl.result.then(function(information) {
+                    $scope.addNewCardToList(information,typeSelected,"");
                 }, function() {
                     // TODO Muestra notificación de error
                 })
@@ -1444,8 +1436,8 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
         ApiService.putTransportCard($routeParams.groupId, newCard)
             .success(function(data, status) {
 
-                debugger;
                 var information = [];
+                information.destinations = $scope.destinations;
                 information.newCard = {
                     cardId: data.cardId,
                     creationDate: data.creationDate,
@@ -1462,7 +1454,6 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
                     finalDate: data.finalDate,
                     transportType: data.transportType
                 }
-                information.destinations = $scope.destinations;
 
                 console.log("Card de tipus Transport Card creada");
                 $scope.isCreatingCard = false;
@@ -1546,7 +1537,9 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($rootScope, $s
         ApiService.putPlaceToSleepCard($routeParams.groupId, newCard)
             .success(function(data, status) {
 
-                var newCardReturn = {
+                var information = [];
+                information.destinations = $scope.destinations;
+                information.newCard = {
                     parentCardIds: data.parentCardIds,
                     cardId: data.cardId,
                     creationDate: data.creationDate,
@@ -1565,9 +1558,7 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($rootScope, $s
                 }
 
                 console.log("Card de tipus placeToSleep Card creada");
-                console.log(newCardReturn.parentCardIds);
-                $modalInstance.close(newCardReturn);
-                //$scope.infoGroup.placeToSleepCards.push(newCardReturn);
+                $modalInstance.close(information);
             })
             .error(function(data, status) {
                 console.log("Error al insertar placeToSleepCard!");
@@ -1643,8 +1634,11 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($rootScope, $scope, 
         //Llamada PUT a la API para insertar la card de tipo other
         ApiService.putOtherCard($routeParams.groupId, newCard)
             .success(function(data, status) {
+
                 $scope.isCreatingCard = false;
-                var newCardReturn = {
+                var information = [];
+                information.destinations = $scope.destinations;
+                information.newCard = {
                     cardId: data.cardId,
                     creationDate: data.creationDate,
                     cardType: data.cardType,
@@ -1660,8 +1654,7 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($rootScope, $scope, 
                 }
 
                 console.log("Card de tipus Other Card creada");
-                console.log(newCardReturn);
-                $modalInstance.close(newCardReturn);
+                $modalInstance.close(information);
             })
             .error(function(data, status) {
                 $scope.isCreatingCard = false;
