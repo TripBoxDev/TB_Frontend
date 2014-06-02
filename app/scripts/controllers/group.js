@@ -164,9 +164,9 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     }
 
      $scope.tornarVistaGroup=function(){
-  destiSelectedService.setDesti(null);
+    destiSelectedService.setDesti(null);
               $scope.destinationChoosed1=destiSelectedService.getDesti();
-             $scope.destinationSelected=false;
+             $rootScope.destinationSelected=false;
             $scope.mapDestSelectedIds={};
   }
 
