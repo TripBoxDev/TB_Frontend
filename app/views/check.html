@@ -28,6 +28,17 @@
 
                         </ul>
                     </li>
+                    <li class="dropdown" ng-controller="GroupCtrl">
+                        <a class="dropdown-toggle"data-toggle="dropdown"><b  class="glyphicon glyphicon-user" ></b></a>
+                        <ul class="dropdown-menu">
+                            <li ><center>Usuarios de este grupo: </center><hr>
+                            </li>
+
+                            <li ng-repeat="infoGroupUser in infoGroupUser"><a><center>{{infoGroupUser.name}} {{infoGroupUser.lastName}}</center></a>
+                            </li>
+
+                        </ul> 
+                    </li>
 
                 </ul>
             </div>

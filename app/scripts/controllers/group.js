@@ -278,6 +278,7 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
             $scope.infoGroup = angular.copy(response);
             groupService.setGroup(response);
             rando();
+            getUser();
 
         });
 
@@ -827,6 +828,20 @@ $scope.editCardTransport = function(card) {
     }
 
     destinationMoreVotated();
+
+    var getUser = function() {
+        $scope.infoGroupUser = [];
+        for (var i = $scope.infoGroup.users.length - 1; i >= 0; i--) {
+            ApiService.getUser($scope.infoGroup.users[i]).success(function(response) {
+                $scope.infoGroupUser.push({
+                    'name': response.name,
+                    'lastName': response.lastName
+                });
+            })
+        };
+    }
+
+    
 
 });
 
