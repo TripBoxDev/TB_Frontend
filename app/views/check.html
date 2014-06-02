@@ -35,15 +35,17 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <ol class="breadcrumb" ng-controller="DestinationCtrl">
-        <li><a href="#/groups">Groups</a>
-        </li>
-        <li><a href="#/groups/{{infoGroup.id}}">{{infoGroup.name}}</a>
-        </li>
-        <li class="active">Confirmación de viaje a {{infoGroupCheck.name}}</li>
+    <div id="generalContainer" ng-controller="GroupCtrl">
 
-    </ol>
+        <ol class="breadcrumb" ng-show="!destinationSelected">
+            <li><a href="#/groups" ng-click="Reset()">Groups</a>
+            </li>
+            <li><a href="#/groups/{{infoGroup.id}}" ng-click="Reset()">{{infoGroup.name}}</a>
+            </li>
+            <li class="active">Plan para ir a: {{destinationMoreVotated}}</li>
+        </ol>
 
+    </div>
     <div class="generalContainer">
 
         <div class="plan">
@@ -131,7 +133,11 @@
                     <div ng-controller="GroupCtrl">
                         <center>
                         <button class="btn-lg btn-primary btn-success" ng-click="UserAcceptedPlan()">Acepto!</button>
+
+
                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+
+
                         <button class="btn-lg btn-primary btn-danger" ng-click="UserNoAcceptedPlan()">No acepto!</button>
                         </center>
                     </div>
