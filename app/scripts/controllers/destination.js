@@ -23,10 +23,7 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
     $scope.hoveredCard = {};
 
-    $rootScope.resetDesti = function() {
-        $scope.destinationChoosed = destiSelectedService.getDesti().name;
-        $scope.group = groupService.getGroup();
-    }
+    
 
     var getGroup = function() {
 
@@ -34,6 +31,7 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
 
             $scope.group = angular.copy(response);
             groupService.setGroup(response);
+            calculateMaxPagesOfRows();
         });
     }
 
@@ -315,5 +313,86 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
             return false;
         }
     };
+    var maxCardsOnRow=3;
+    $scope.maxtransportCardsPages=0;
+    $scope.maxplaceToSleepCardsPages=0;
+    $scope.maxotherCardsPages=0;
+    $scope.transportCardsPage=0;
+    $scope.placeToSleepCardsPage=0;
+    $scope.otherCardsPage=0;
+    $scope.itemOnView=function(index, cardType){
+
+        var initIndexOfPage;
+        if(cardType=="transport"){
+            initIndexOfPage=$scope.transportCardsPage*maxCardsOnRow;
+
+        }else if(cardType=="placeToSleep"){
+            initIndexOfPage=$scope.placeToSleepCardsPage*maxCardsOnRow;
+        }else if(cardType=="other"){
+            initIndexOfPage=$scope.otherCardsPage*maxCardsOnRow;
+        }
+
+        
+        if (initIndexOfPage<=index && initIndexOfPage+maxCardsOnRow>index) return true;
+    }
+
+    $scope.nextPage=function(cardsType){
+        if(cardsType=="transport"){
+            $scope.transportCardsPage+=1;
+
+        }else if(cardsType=="placeToSleep"){
+           $scope.placeToSleepCardsPage+=1;
+        }else if(cardsType=="other"){
+            $scope.otherCardsPage+=1;
+        }
+    }
+    $scope.previousPage=function(cardsType){
+        if(cardsType=="transport"){
+            if($scope.transportCardsPage!=0)
+            $scope.transportCardsPage-=1;
+
+        }else if(cardsType=="placeToSleep"){
+            if($scope.placeToSleepCardsPage!=0)
+           $scope.placeToSleepCardsPage-=1;
+        }else if(cardsType=="other"){
+            if($scope.otherCardsPage!=0)
+            $scope.otherCardsPage-=1;
+        }
+    }
+
+    var calculateMaxPagesOfRows = function(){
+        var count = 0;
+  
+        angular.forEach($scope.group.transportCards, function(card){
+        if(card.destination==destiSelectedService.getDesti().name) count++;
+        });
+        
+        $scope.maxtransportCardsPages=Math.ceil(count/maxCardsOnRow)-1;
+        if(count==0) $scope.maxtransportCardsPages=0;
+       
+        count = 0;
+        angular.forEach($scope.group.placeToSleepCards, function(card){
+        if(card.destination==destiSelectedService.getDesti().name) count++;
+        });
+        
+        $scope.maxplaceToSleepCardsPages=Math.ceil(count/maxCardsOnRow)-1;
+        if(count==0) $scope.maxplaceToSleepCardsPages=0;
+        
+        console.log(count);
+        
+        count = 0;
+        angular.forEach($scope.group.otherCards, function(card){
+        if(card.destination==destiSelectedService.getDesti().name){
+                count++;
+        } 
+        });
+    
+       $scope.maxotherCardsPages=Math.ceil(count/maxCardsOnRow)-1;
+       if(count==0) $scope.maxotherCardsPages=0;
+ 
+        
+    }
+    
+calculateMaxPagesOfRows();
 
 });

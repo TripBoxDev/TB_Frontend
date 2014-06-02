@@ -4,7 +4,7 @@
     <h4>
         <span class="fa fa-road"></span>Transporte</h4>
     <div class="cardsRow row" id="transportCardsRow">
-        <div class="card-wrapper" ng-class="{ 'disabled' : isCardDisabled(card.cardId), 'linked-card' : isThisCardLinked(card)}" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}">
+        <div class="card-wrapper" ng-class="{ 'disabled' : isCardDisabled(card.cardId), 'linked-card' : isThisCardLinked(card)}" ng-repeat="card in group.transportCards | filter:{destination: destinationChoosed}" ng-if="itemOnView($index, 'transport')">
             <div class="card item transport" ng-click="editCard(card)">
                 <div class="bubble">
                     <i class="fa fa-road"></i>
@@ -43,14 +43,20 @@
         </div>
 
     </div>
+    <button type="button" class="btn btn-default " ng-click="previousPage('transport')" ng-disabled="0===transportCardsPage">
+        <span class="glyphicon glyphicon-chevron-left"></span>Previous
+    </button>
+    <button type="button" class="btn btn-default " ng-click="nextPage('transport')" ng-disabled="maxtransportCardsPages===transportCardsPage">
+        Next
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </button>
     <h4>
         <span class="fa fa-home"></span>Alojamiento</h4>
     <div class="cardsRow row" id="placeToCardsRow">
-
-        <div class="card-wrapper" ng-class="{ 'disabled' : isCardDisabled(card.cardId), 'linked-card' : isThisCardLinked(card)}" ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}">
-            <div class="card item placeToSleep" ng-click="editCardPlace2Sleep(card)">
+        <div class="card-wrapper" ng-class="{ 'disabled' : isCardDisabled(card.cardId), 'linked-card' : isThisCardLinked(card)}" ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}" ng-if="itemOnView($index, 'placeToSleep')">
+            <div class="card item placeToSleep" ng-click="editCard(card)">
                 <div class="bubble">
-                    <i class="fa fa-home"></i>
+                    <i class="fa fa-road"></i>
                 </div>
                 <div class="grey-box">
                     <div class="content">
@@ -58,26 +64,28 @@
                             <h2>{{card.name}}</h2>
                         </div>
                         <div class="description">{{card.description}}</div>
-                        <div class="money"><i class="fa fa-money"></i>{{ card.price}}€
+                        <div class="money"><i class="fa fa-money"></i>{{ card.price }}
                         </div>
-                        <div class="date"><i class="fa fa-calendar"></i>{{card.initDate | date:'dd/MM/yy'}}-{{card.finalDate | date:'dd/MM/yy'}}</div>
+                        <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
                     </div>
                     <div class="bottom-box">
                         <div class="mean-valoration">
-                            <span>{{card.average}}</span>
+                            <span>3.7</span>
                         </div>
                         <div class="stars-wrapper">
 
-                            <rating value="sleepVotes[card.cardId]" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,sleepVotes[card.cardId],card.cardType); $event.stopPropagation();">
+                            <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
 
                         </div>
-                        <div class="link-btn"><i class="fa fa-chain"></i>
+
+                        <div class="link-btn" ng-click="triggerLink(card)" ng-class="{ 'under-linking': isCardStartLink(card) }"><i class="fa fa-chain"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
+
         <div class="card-wrapper">
             <div class="card group create" ng-click="openCreateTypeCardModal('place2sleep')">
                 <i class="fa fa-plus-circle"></i>
@@ -85,15 +93,20 @@
             </div>
         </div>
     </div>
+    <button type="button" class="btn btn-default " ng-click="previousPage('placeToSleep')" ng-disabled="0===placeToSleepCardsPage">
+        <span class="glyphicon glyphicon-chevron-left"></span>Previous
+    </button>
+    <button type="button" class="btn btn-default " ng-click="nextPage('placeToSleep')" ng-disabled="maxplaceToSleepCardsPages===placeToSleepCardsPage">
+        Next
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </button>
     <h4>
         <span class="fa fa-plus-square"></span>Otros</h4>
     <div class="cardsRow row" id="otherCardsRow">
-
-
-        <div class="card-wrapper" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}">
-            <div class="card item other" ng-click="editCardOther(card)">
+        <div class="card-wrapper" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}" ng-if="itemOnView($index, 'other')">
+            <div class="card item other" ng-click="editCard(card)">
                 <div class="bubble">
-                    <i class="fa fa-plus-square"></i>
+                    <i class="fa fa-road"></i>
                 </div>
                 <div class="grey-box">
                     <div class="content">
@@ -101,24 +114,25 @@
                             <h2>{{card.name}}</h2>
                         </div>
                         <div class="description">{{card.description}}</div>
-                        <div class="money"><i class="fa fa-money"></i>{{card.price}}€
+                        <div class="money"><i class="fa fa-money"></i>{{ card.price }}
                         </div>
-                        <div class="date"><i class="fa fa-calendar"></i>{{card.initDate | date:'dd/MM/yy'}}-{{card.finalDate | date:'dd/MM/yy'}}</div>
+                        <div class="date"><i class="fa fa-calendar"></i>2014 - 2015</div>
                     </div>
                     <div class="bottom-box">
                         <div class="mean-valoration">
-                            <span>{{card.average}}</span>
+                            <span>3.7</span>
                         </div>
                         <div class="stars-wrapper">
 
-                            <rating value="otherVotes[card.cardId]" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,otherVotes[card.cardId],card.cardType); $event.stopPropagation();">
+                            <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" ng-click="putVote(card.cardId,rate,card.cardType); $event.stopPropagation();">
 
                         </div>
-                        <div class="link-btn"><i class="fa fa-chain"></i>
-                        </div>
+
+
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="card-wrapper">
             <div class="card group create" ng-click="openCreateTypeCardModal('other')">
@@ -127,4 +141,11 @@
             </div>
         </div>
     </div>
+    <button type="button" class="btn btn-default " ng-click="previousPage('other')" ng-disabled="0===otherCardsPage">
+        <span class="glyphicon glyphicon-chevron-left"></span>Previous
+    </button>
+    <button type="button" class="btn btn-default " ng-click="nextPage('other')" ng-disabled="maxotherCardsPages===otherCardsPage">
+        Next
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </button>
 </div>

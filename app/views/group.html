@@ -44,7 +44,7 @@
         <li class="active">{{infoGroup.name}}</li>
 
     </ol>
-    <ol class="breadcrumb" ng-show="destinationSelected" ng-controller="DestinationCtrl">
+    <ol class="breadcrumb" ng-show="destinationSelected">
         <li><a href="#/groups">Groups</a>
         </li>
 
@@ -289,7 +289,7 @@
                 </div>
             </div>
 
-            <div ng-include="'views/destination.html'" ng-show="destinationSelected"></div>
+            <div ng-include="'views/destination.html'" ng-if="destinationSelected"></div>
         </div>
     </div>
 </div>

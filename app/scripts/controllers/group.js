@@ -397,8 +397,16 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         $scope.myVote = rate;
         console.log($scope.myVote);
     };
-   
+
     $scope.mapDestSelectedIds = {};
+    
+   $scope.tornarVistaGroup = function() {
+         destiSelectedService.setDesti(null);
+         $scope.destinationChoosed1 = destiSelectedService.getDesti();
+         $rootScope.destinationSelected = false;
+         $scope.mapDestSelectedIds = {};
+     };
+   
 
     /**
      * Función para mostrar vista de destino
@@ -422,12 +430,18 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         } else {
             destiSelectedService.setDesti(destino);
             $scope.destinationChoosed1 = destiSelectedService.getDesti();
+            $rootScope.destinationSelected = false;
             $rootScope.destinationSelected = true;
             $rootScope.resetDesti();
 
         }
 
 
+    }
+
+    $rootScope.resetDesti = function() {
+        $rootScope.destinationChoosed = destiSelectedService.getDesti().name;
+        
     }
 
     /**
@@ -1382,6 +1396,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
             console.log($scope.destiSelected.name);
             return true;
         }
+
     }
 
     $scope.openAddDestinationModal = function() {
@@ -1426,6 +1441,9 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
         /**
          * Card que será enviada a la API
          */
+         if ($rootScope.destinationSelected) {
+            submittedCard.destination = $scope.destiSelected.name;
+         }
 
         var newCard = {
             cardType: "transport",
@@ -1524,6 +1542,9 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($rootScope, $s
         // Todo obtener parentCardIds de la card, en caso de estar modificandola.
         var parentCardIds = [];
         if (typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
+        if ($rootScope.destinationSelected) {
+            submittedCard.destination = $scope.destiSelected.name;
+         }
         var newCard = {
             parentCardIds: parentCardIds,
             cardType: "placeToSleep",
