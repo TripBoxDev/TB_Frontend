@@ -51,20 +51,19 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
 
     $rootScope.destinationSelected = false;
 
-    //Recibe que tipo de card se quiere crear y muestra el modal asociado
     /**
-     *
+     * Recibe la card que se quiere crear, su tipo y el mensaje y realiza las
+     * funciones comunes de añadir una nueva card a las existentes.
      *
      */
-
-    $scope.addNewCardToList = function(newCardReturned,type,message){
+    $scope.addNewCardToList = function(newCardReturned,message){
         newCardReturned.average = 0;
 
-         switch (type) {
+         switch (newCardReturned.cardType) {
             case 'transport':
                 $scope.infoGroup.transportCards.push(newCardReturned);
                 break;
-            case 'place2sleep':
+            case 'placeToSleep':
                 $scope.infoGroup.placeToSleepCards.push(newCardReturned);
                 break;
             case 'other':
@@ -78,6 +77,10 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         notificationFactory.success('¡Nueva card' + message + ' añadida con éxito!');
     }
 
+    /**
+     * Recibe que tipo de card se quiere crear y muestra el modal asociado
+     *
+     */
     $rootScope.openCreateTypeCardModal = function(typeSelected) {
         switch (typeSelected) {
             case 'transport':
@@ -100,7 +103,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createTransportCardModalInstanceCtrl.result.then(function(newCard) {
-                    $scope.addNewCardToList(newCard,typeSelected," de transporte");
+                    $scope.addNewCardToList(newCard," de transporte");
                 }, function() {
                     // TODO Muestra notificación de error.
                 })
@@ -123,7 +126,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createPlace2SleepCardModalInstanceCtrl.result.then(function(newCard) {
-                    $scope.addNewCardToList(newCard,typeSelected," de alojamiento");
+                    $scope.addNewCardToList(newCard," de alojamiento");
                 }, function() {
                     // TODO Muestra notificación de error
                 })
@@ -145,7 +148,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createOtherCardModalInstanceCtrl.result.then(function(newCard) {
-                    $scope.addNewCardToList(newCard,typeSelected,"");
+                    $scope.addNewCardToList(newCard,"");
                 }, function() {
                     // TODO Muestra notificación de error
                 })
@@ -324,8 +327,6 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
 
     };
 
-    
-
     $scope.max = 5;
     $scope.isReadonly = false;
 
@@ -428,14 +429,6 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         return $scope.mapDestSelectedIds[id];
     };
 
-   
-
-
-
-
-    
-
-
     /**
      * Abre el modal para añadir un nuevo destino
      */
@@ -533,7 +526,6 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
 
     $scope.editCardPlace2Sleep = function(card) {
 
-        
         var editCardPlace2SleepModalInstance = $modal.open({
             templateUrl: 'views/modals/editCardPlace2SleepModalContent.html',
             controller: 'editPlace2SleepCardModalInstanceCtrl',
@@ -905,7 +897,7 @@ app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInst
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
     $scope.destiSelected=destiSelectedService.getDesti();
-    console.log()
+    console.log($modalInstance);
 
     $scope.ifDesti = function(){
 
@@ -925,7 +917,6 @@ app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInst
         });
 
         modalInstance.result.then(function(destino) {
-            //WaAA
             $scope.destinations.push(destino);
         })
     }
@@ -1377,7 +1368,6 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
 
         modalInstance.result.then(function(destino) {
             $scope.destinations.push(destino);
-            console.log($scope);
         })
     }
 
