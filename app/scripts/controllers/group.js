@@ -487,6 +487,11 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
                     $scope.infoGroup.destinations.splice(i, 1);
                 }
             }
+             destiSelectedService.setDesti(null);
+         $scope.destinationChoosed1 = destiSelectedService.getDesti();
+         $rootScope.destinationSelected = false;
+         $scope.mapDestSelectedIds = {};
+         $scope.infoGroup= getGroup();
             groupService.setGroup($scope.infoGroup);
         });
         });
