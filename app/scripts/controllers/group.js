@@ -57,6 +57,27 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
      *
      */
 
+    $scope.addNewCardToList = function(information,type,message){
+        $scope.infoGroup.destinations = information.destinations;
+        var newCardReturned = information.newCard;
+        newCardReturned.average = 0;
+
+         switch (type) {
+            case 'transport':
+                $scope.infoGroup.transportCards.push(newCardReturned);
+                break;
+            case 'place2sleep':
+                break;
+            case 'other':
+                break;
+            default:
+                //TODO//
+        }
+        
+        groupService.setGroup($scope.infoGroup);
+        notificationFactory.success('¡Nueva card de ' + message + ' añadida con éxito!');
+    }
+
     $rootScope.openCreateTypeCardModal = function(typeSelected) {
         switch (typeSelected) {
             case 'transport':
@@ -79,13 +100,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createTransportCardModalInstanceCtrl.result.then(function(information) {
-                    $scope.infoGroup.destinations = information.destinations;
-                    var newCardReturned = information.newCard;
-                    newCardReturned.average = 0;
-                    $scope.infoGroup.transportCards.push(newCardReturned);
-                    
-                    groupService.setGroup($scope.infoGroup);
-                    notificationFactory.success('Nueva card de transporte añadida con éxito!');
+                    $scope.addNewCardToList(information,typeSelected,"transporte");
                 }, function() {
                     // TODO Muestra notificación de error.
                 })
