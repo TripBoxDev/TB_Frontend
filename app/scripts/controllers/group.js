@@ -163,13 +163,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         }
     }
 
-     $scope.tornarVistaGroup=function(){
-    destiSelectedService.setDesti(null);
-              $scope.destinationChoosed1=destiSelectedService.getDesti();
-             $rootScope.destinationSelected=false;
-            $scope.mapDestSelectedIds={};
-  }
-
+     
     
 
     $scope.infoGroup = {};
@@ -399,7 +393,9 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
     };
 
     $scope.mapDestSelectedIds = {};
-    
+    $scope.Reset = function(){
+        destiSelectedService.setDesti(null);
+    }
    $scope.tornarVistaGroup = function() {
          destiSelectedService.setDesti(null);
          $scope.destinationChoosed1 = destiSelectedService.getDesti();
