@@ -367,20 +367,28 @@ app.controller("DestinationCtrl", function($rootScope, $scope, $routeParams, aut
         if(card.destination==destiSelectedService.getDesti().name) count++;
         });
         
-        maxtransportCardsPages=Math.floor(count/maxCardsOnRow)-1;
+        $scope.maxtransportCardsPages=Math.ceil(count/maxCardsOnRow)-1;
+        if(count==0) $scope.maxtransportCardsPages=0;
+       
         count = 0;
-        angular.forEach($scope.group.placeTooSleepCards, function(card){
+        angular.forEach($scope.group.placeToSleepCards, function(card){
         if(card.destination==destiSelectedService.getDesti().name) count++;
         });
         
-        maxplaceToSleepCardsPages=Math.floor(count/maxCardsOnRow)-1;
+        $scope.maxplaceToSleepCardsPages=Math.ceil(count/maxCardsOnRow)-1;
+        if(count==0) $scope.maxplaceToSleepCardsPages=0;
+        
+        console.log(count);
+        
         count = 0;
         angular.forEach($scope.group.otherCards, function(card){
-        if(card.destination==destiSelectedService.getDesti().name) count++;
+        if(card.destination==destiSelectedService.getDesti().name){
+                count++;
+        } 
         });
-        
-        maxotherCardsPages=Math.floor(count/maxCardsOnRow)-1;
-        
+    
+       $scope.maxotherCardsPages=Math.ceil(count/maxCardsOnRow)-1;
+       if(count==0) $scope.maxotherCardsPages=0;
  
         
     }

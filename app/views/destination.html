@@ -43,18 +43,18 @@
                     </div>
 
                 </div>
-                <button type="button" class="btn btn-default btn-lg" ng-click="previousPage('transport')">
+                <button type="button" class="btn btn-default " ng-click="previousPage('transport')" ng-disabled="0===transportCardsPage">
                   <span class="glyphicon glyphicon-chevron-left"></span> Previous
                 </button>
-                <button type="button" class="btn btn-default btn-lg" ng-click="nextPage('transport')" ng-disabled="{maxtransportCardsPages:transportCardsPage}">
+                <button type="button" class="btn btn-default " ng-click="nextPage('transport')" ng-disabled="maxtransportCardsPages===transportCardsPage">
                     Next
                   <span class="glyphicon glyphicon-chevron-right"></span> 
                 </button>
                 <h4>
                     <span class="fa fa-home"></span>Alojamiento</h4>
                 <div class="cardsRow row" id="placeToCardsRow">
-                    <div class="card-wrapper" ng-class="{ 'disabled' : isCardDisabled(card.cardId), 'linked-card' : isThisCardLinked(card)}" ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}">
-                        <div class="card item transport" ng-click="editCard(card)">
+                    <div class="card-wrapper" ng-class="{ 'disabled' : isCardDisabled(card.cardId), 'linked-card' : isThisCardLinked(card)}" ng-repeat="card in group.placeToSleepCards | filter:{destination: destinationChoosed}" ng-if="itemOnView($index, 'placeToSleep')">
+                        <div class="card item placeToSleep" ng-click="editCard(card)">
                             <div class="bubble">
                                 <i class="fa fa-road"></i>
                             </div>
@@ -93,11 +93,18 @@
                         </div>
                     </div>
                 </div>
+                 <button type="button" class="btn btn-default " ng-click="previousPage('placeToSleep')" ng-disabled="0===placeToSleepCardsPage">
+                  <span class="glyphicon glyphicon-chevron-left"></span> Previous
+                </button>
+                <button type="button" class="btn btn-default " ng-click="nextPage('placeToSleep')" ng-disabled="maxplaceToSleepCardsPages===placeToSleepCardsPage">
+                    Next
+                  <span class="glyphicon glyphicon-chevron-right"></span> 
+                </button>
                 <h4>
                     <span class="fa fa-plus-square"></span>Otros</h4>
                 <div class="cardsRow row" id="otherCardsRow">
-                    <div class="card-wrapper" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}">
-                        <div class="card item transport" ng-click="editCard(card)">
+                    <div class="card-wrapper" ng-repeat="card in group.otherCards | filter:{destination: destinationChoosed}" ng-if="itemOnView($index, 'other')">
+                        <div class="card item other" ng-click="editCard(card)">
                             <div class="bubble">
                                 <i class="fa fa-road"></i>
                             </div>
@@ -134,4 +141,11 @@
                         </div>
                     </div>
                 </div>
+                 <button type="button" class="btn btn-default " ng-click="previousPage('other')" ng-disabled="0===otherCardsPage">
+                  <span class="glyphicon glyphicon-chevron-left"></span> Previous
+                </button>
+                <button type="button" class="btn btn-default " ng-click="nextPage('other')" ng-disabled="maxotherCardsPages===otherCardsPage">
+                    Next
+                  <span class="glyphicon glyphicon-chevron-right"></span> 
+                </button>
             </div>
