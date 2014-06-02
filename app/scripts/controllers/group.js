@@ -17,6 +17,10 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     $scope.sleepMoreVoted = 0;
     $scope.bestPackTrue = false;
 
+    /**
+     * Función para abrir o cerrar el collapse
+     *
+     */
     function CollapseDemoCtrl($scope) {
         $scope.isCollapsed = false;
     }
@@ -626,6 +630,10 @@ $scope.editCardTransport = function(card) {
 
     }
 
+    /**
+     * Función para abrir modal de Usuari Acepta el plan
+     * 
+     */
 
     $scope.UserAcceptedPlan = function() {
         var modalInstance = $modal.open({
@@ -634,6 +642,11 @@ $scope.editCardTransport = function(card) {
         });
 
     }
+
+    /**
+     * Función para abrir modal de Usuari no Acepta el plan
+     * 
+     */
 
     $scope.UserNoAcceptedPlan = function() {
         var modalInstance = $modal.open({
@@ -644,7 +657,7 @@ $scope.editCardTransport = function(card) {
     }
 
     /**
-     * 
+     * Busca el pack que se a seleccionado como mejor pack
      *
      */
 
@@ -695,6 +708,11 @@ $scope.editCardTransport = function(card) {
 
     }
     bestPackShare();
+
+    /**
+     * Función para buscar el destino y sus cards mas votadas
+     * 
+     */
 
     var destinationMoreVotated = function() {
         $scope.transportMoreVoted;
@@ -1643,10 +1661,10 @@ app.controller('CreateOtherCardModalInstanceCtrl', function($rootScope, $scope, 
     };
 });
 
-    /**
-     * Controlador para el modal de acceptar plan
-     *
-     */
+/**
+ * Controlador para el modal de acceptar plan
+ *
+ */
 
 app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
@@ -1669,6 +1687,12 @@ app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, auth
 
     }
 });
+
+/**
+ * Controlador para el modal de user acceptar plan
+ *
+ */
+
 app.controller('UserAcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
     console.log("entra modal");
     $scope.cancel = function() {
@@ -1684,6 +1708,10 @@ app.controller('UserAcceptedPlanInstanceCtrl', function($scope, $modalInstance, 
     }
 });
 
+/**
+ * Controlador para el modal de user no acceptar plan
+ *
+ */
 
 app.controller('UserNoAcceptedPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
     console.log("entra modal");
