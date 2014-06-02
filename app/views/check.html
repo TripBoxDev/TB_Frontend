@@ -29,15 +29,20 @@
                         </ul>
                     </li>
                     <li class="dropdown" ng-controller="GroupCtrl">
-                        <a class="dropdown-toggle"data-toggle="dropdown"><b  class="glyphicon glyphicon-user" ></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown"><b  class="glyphicon glyphicon-user" ></b></a>
                         <ul class="dropdown-menu">
-                            <li ><center>Usuarios de este grupo: </center><hr>
+                            <li>
+                                <center>Usuarios de este grupo:</center>
+                                <hr>
                             </li>
 
-                            <li ng-repeat="infoGroupUser in infoGroupUser"><a><center>{{infoGroupUser.name}} {{infoGroupUser.lastName}}</center></a>
+                            <li ng-repeat="infoGroupUser in infoGroupUser">
+                                <a>
+                                    <center>{{infoGroupUser.name}} {{infoGroupUser.lastName}}</center>
+                                </a>
                             </li>
 
-                        </ul> 
+                        </ul>
                     </li>
 
                 </ul>
@@ -139,17 +144,19 @@
                 <br>
 
                 <div class="Persons">
-                    <center><h1> ¿COMO VA LA ACEPTACIÓN DE ESTE PLAN? </h1></center>
+                    <center>
+                        <h1>¿COMO VA LA ACEPTACIÓN DE ESTE PLAN?</h1>
+                    </center>
                     <br>
                     <div ng-controller="GroupCtrl">
                         <center>
-                        <button class="btn-lg btn-primary btn-success" ng-click="UserAcceptedPlan()">Acepto!</button>
+                            <button class="btn-lg btn-primary btn-success" ng-click="UserAcceptedPlan()">Acepto!</button>
 
 
-                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
 
-                        <button class="btn-lg btn-primary btn-danger" ng-click="UserNoAcceptedPlan()">No acepto!</button>
+                            <button class="btn-lg btn-primary btn-danger" ng-click="UserNoAcceptedPlan()">No acepto!</button>
                         </center>
                     </div>
                     <br>
@@ -184,33 +191,30 @@
                             <center>No aceptan el plan</center>
                             <div class="thumbnail">
                                 <div id="cardinfoIndecis" ng-repeat="users in infoUserVoteNo">
-
                                     {{users.name}} {{users.lastName}}
-
-
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                    </br>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="thumbnail">
+                                <center>
+                                    </br>
+                                    Eliminar este plan y vuelver a mostrar las cartas mas valoradas del grupo.
+                                    </br></br>
+                                    <button class="btn-lg btn-primary" ng-click="ResetPlan()">Check Plan!</button>
+                                </center>
+                                </br>
+                            </div>
+                        </div>
 
                     </div>
 
 
 
+
                 </div>
-
-
-
-
-
-
-
             </div>
-
-
-
-
-
-
-
         </div>

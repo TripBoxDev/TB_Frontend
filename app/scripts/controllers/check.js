@@ -9,7 +9,7 @@ app.controller('CheckCtrl', function($rootScope, $scope, $q, $routeParams, $loca
     $scope.destinationMoreVotated = 0;
     $scope.transportMoreVoted = 0;
     $scope.sleepMoreVoted = 0;
-    $scope.bestPackTrue = false;
+    $scope.finalPropositionTrue = false;
     $scope.aceptanPlan = 0;
     $scope.rechazanPlan = 0;
     $scope.infoGroup;
@@ -33,7 +33,7 @@ app.controller('CheckCtrl', function($rootScope, $scope, $q, $routeParams, $loca
     };
 
     getGroup().then(function() {
-        bestPackShare();
+        finalPropositionShare();
         aceptanRechazanPlan();
         noVoted();
         getUser();
@@ -44,8 +44,8 @@ app.controller('CheckCtrl', function($rootScope, $scope, $q, $routeParams, $loca
      *
      */
 
-    var bestPackShare = function() {
-        $scope.bestPackTrue;
+    var finalPropositionShare = function() {
+        $scope.finalPropositionTrue;
         $scope.destinationMoreVotated;
         $scope.transportMoreVoted;
         $scope.sleepMoreVoted;
@@ -57,14 +57,14 @@ app.controller('CheckCtrl', function($rootScope, $scope, $q, $routeParams, $loca
             var infoGroupDesti = infoGroup.destinations;
 
             for (var i = infoGroup.transportCards.length - 1; i >= 0; i--) {
-                if (infoGroup.transportCards[i].bestPack == true) {
+                if (infoGroup.transportCards[i].finalProposition == true) {
                     $scope.destinationMoreVotated = infoGroup.transportCards[i].destination;
-                    $scope.bestPackTrue = true;
+                    $scope.finalPropositionTrue = true;
                 }
             }
             for (var i = infoGroup.transportCards.length - 1; i >= 0; i--) {
                 if (infoGroup.transportCards[i].destination == $scope.destinationMoreVotated) {
-                    if (infoGroup.transportCards[i].bestPack == true) {
+                    if (infoGroup.transportCards[i].finalProposition == true) {
                         $scope.transportMoreVoted = infoGroup.transportCards[i];
                         $scope.checkPlan = true;
                     }
@@ -72,7 +72,7 @@ app.controller('CheckCtrl', function($rootScope, $scope, $q, $routeParams, $loca
             }
             for (var i = infoGroup.placeToSleepCards.length - 1; i >= 0; i--) {
                 if (infoGroup.placeToSleepCards[i].destination == $scope.destinationMoreVotated) {
-                    if (infoGroup.placeToSleepCards[i].bestPack == true) {
+                    if (infoGroup.placeToSleepCards[i].finalProposition == true) {
                         $scope.sleepMoreVoted = infoGroup.placeToSleepCards[i];
                     }
                 }

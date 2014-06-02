@@ -15,7 +15,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
     $scope.destinationMoreVotated = 0;
     $scope.transportMoreVoted = 0;
     $scope.sleepMoreVoted = 0;
-    $scope.bestPackTrue = false;
+    $scope.finalPropositionTrue = false;
 
     /**
      * Función para abrir o cerrar el collapse
@@ -684,8 +684,8 @@ $scope.editCardTransport = function(card) {
      *
      */
 
-     var bestPackShare = function() {
-        $scope.bestPackTrue;
+     var finalPropositionShare = function() {
+        $scope.finalPropositionTrue;
         $scope.destinationMoreVotated;
         $scope.transportMoreVoted;
         $scope.sleepMoreVoted;
@@ -698,9 +698,9 @@ $scope.editCardTransport = function(card) {
 
             for (var i = array.transportCards.length - 1; i >= 0; i--) {
                
-                if (array.transportCards[i].bestPack == true){
+                if (array.transportCards[i].finalProposition == true){
                     $scope.destinationMoreVotated = array.transportCards[i].destination;
-                    $scope.bestPackTrue = true;                    
+                    $scope.finalPropositionTrue = true;                   
                 }
                 
             }
@@ -709,7 +709,7 @@ $scope.editCardTransport = function(card) {
 
                 if (array.transportCards[i].destination == $scope.destinationMoreVotated) {
 
-                    if (array.transportCards[i].bestPack == true){
+                    if (array.transportCards[i].finalProposition == true){
                         $scope.transportMoreVoted = array.transportCards[i];
                         $scope.checkPlan = true;
                     }
@@ -720,7 +720,7 @@ $scope.editCardTransport = function(card) {
 
                 if (array.placeToSleepCards[i].destination == $scope.destinationMoreVotated) {
 
-                    if (array.placeToSleepCards[i].bestPack == true){
+                    if (array.placeToSleepCards[i].finalProposition == true){
                         $scope.sleepMoreVoted = array.placeToSleepCards[i];
 
                     }
@@ -730,7 +730,7 @@ $scope.editCardTransport = function(card) {
         });
 
     }
-    bestPackShare();
+    finalPropositionShare();
 
     /**
      * Función para buscar el destino y sus cards mas votadas
@@ -748,7 +748,7 @@ $scope.editCardTransport = function(card) {
             var arrayDesti = array.destinations;
 
 
-            if($scope.bestPackTrue == false){
+            if($scope.finalPropositionTrue == false){
 
 
                 for (var i = arrayDesti.length - 1; i >= 0; i--) {
