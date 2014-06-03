@@ -21,11 +21,12 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
      * Función para abrir o cerrar el collapse
      *
      */
+
     function CollapseDemoCtrl($scope) {
         $scope.isCollapsed = false;
     }
 
-   /**
+    /**
      * Función para abrir el model de invitación de usuario
      *
      */
@@ -60,10 +61,10 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
      * funciones comunes de añadir una nueva card a las existentes.
      *
      */
-    $scope.addNewCardToList = function(newCardReturned,message){
+    $scope.addNewCardToList = function(newCardReturned, message) {
         newCardReturned.average = 0;
 
-         switch (newCardReturned.cardType) {
+        switch (newCardReturned.cardType) {
             case 'transport':
                 $scope.infoGroup.transportCards.push(newCardReturned);
                 break;
@@ -107,7 +108,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createTransportCardModalInstanceCtrl.result.then(function(newCard) {
-                    $scope.addNewCardToList(newCard," de transporte");
+                    $scope.addNewCardToList(newCard, " de transporte");
                 }, function() {
                     // TODO Muestra notificación de error.
                 })
@@ -130,7 +131,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createPlace2SleepCardModalInstanceCtrl.result.then(function(newCard) {
-                    $scope.addNewCardToList(newCard," de alojamiento");
+                    $scope.addNewCardToList(newCard, " de alojamiento");
                 }, function() {
                     // TODO Muestra notificación de error
                 })
@@ -152,7 +153,7 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                 });
 
                 createOtherCardModalInstanceCtrl.result.then(function(newCard) {
-                    $scope.addNewCardToList(newCard,"");
+                    $scope.addNewCardToList(newCard, "");
                 }, function() {
                     // TODO Muestra notificación de error
                 })
@@ -163,107 +164,107 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
         }
     }
 
-     
-    
+
+
 
     $scope.infoGroup = {};
 
-   /**
+    /**
      * Función para mostrar las cards random
-     * 
+     *
      */
 
- var rando = function(){
-    var j = 0;
+    var rando = function() {
+        var j = 0;
         var total = 0;
-        var keys=[];
-        var numbers=[];
-        $scope.others=[];
-        $scope.trans=[];
-        $scope.place =[];
-        
-             for (var x in $scope.infoGroup.otherCards) {
+        var keys = [];
+        var numbers = [];
+        $scope.others = [];
+        $scope.trans = [];
+        $scope.place = [];
 
-                
-                j++;
-             }
-        if ( j <= 4){
-            
+        for (var x in $scope.infoGroup.otherCards) {
+
+
+            j++;
+        }
+        if (j <= 4) {
+
             $scope.others = $scope.infoGroup.otherCards;
 
-        }else{
-       while(total < 4) {
-        x = Math.floor(Math.random() * (j-1));
-            
-        if(keys[x] == undefined) { 
-        keys[x] = 1;
-        numbers.push(x);
-        total++;
-        
-    }
-    }
-    
-    $scope.others[0]= $scope.infoGroup.otherCards[numbers[0]];
-    $scope.others[1]= $scope.infoGroup.otherCards[numbers[1]];
-    $scope.others[2]= $scope.infoGroup.otherCards[numbers[2]];
-    $scope.others[3]= $scope.infoGroup.otherCards[numbers[3]];
-    
-}
+        } else {
+            while (total < 4) {
+                x = Math.floor(Math.random() * (j - 1));
 
-total =0;
-keys=[];
-numbers=[];
-j=0;
-    for (var x in $scope.infoGroup.transportCards) {
-        j++;
-    }
-    if ( j<= 4){
-        $scope.trans = $scope.infoGroup.transportCards;
-    }else{
-        while(total < 4) {
-            x = Math.floor(Math.random() * (j-1));
-            
-            if(keys[x] == undefined) { 
-                keys[x] = 1;
-                numbers.push(x);
-                total++;
+                if (keys[x] == undefined) {
+                    keys[x] = 1;
+                    numbers.push(x);
+                    total++;
+
+                }
             }
+
+            $scope.others[0] = $scope.infoGroup.otherCards[numbers[0]];
+            $scope.others[1] = $scope.infoGroup.otherCards[numbers[1]];
+            $scope.others[2] = $scope.infoGroup.otherCards[numbers[2]];
+            $scope.others[3] = $scope.infoGroup.otherCards[numbers[3]];
+
         }
-        $scope.trans[0]= $scope.infoGroup.transportCards[numbers[0]];
-        $scope.trans[1]= $scope.infoGroup.transportCards[numbers[1]];
-        $scope.trans[2]= $scope.infoGroup.transportCards[numbers[2]];
-        $scope.trans[3]= $scope.infoGroup.transportCards[numbers[3]];
-    }
 
-total =0;
-keys=[];
-numbers=[];
-j=0;
-for (var x in $scope.infoGroup.placeToSleepCards) {
+        total = 0;
+        keys = [];
+        numbers = [];
+        j = 0;
+        for (var x in $scope.infoGroup.transportCards) {
+            j++;
+        }
+        if (j <= 4) {
+            $scope.trans = $scope.infoGroup.transportCards;
+        } else {
+            while (total < 4) {
+                x = Math.floor(Math.random() * (j - 1));
 
-                j++;
-             }
-        if ( j<= 4){
+                if (keys[x] == undefined) {
+                    keys[x] = 1;
+                    numbers.push(x);
+                    total++;
+                }
+            }
+            $scope.trans[0] = $scope.infoGroup.transportCards[numbers[0]];
+            $scope.trans[1] = $scope.infoGroup.transportCards[numbers[1]];
+            $scope.trans[2] = $scope.infoGroup.transportCards[numbers[2]];
+            $scope.trans[3] = $scope.infoGroup.transportCards[numbers[3]];
+        }
+
+        total = 0;
+        keys = [];
+        numbers = [];
+        j = 0;
+        for (var x in $scope.infoGroup.placeToSleepCards) {
+
+            j++;
+        }
+        if (j <= 4) {
             $scope.place = $scope.infoGroup.placeToSleepCards;
-        }else{
-       while(total < 4) {
-        x = Math.floor(Math.random() * (j-1));
-           
-        if(keys[x] == undefined) { 
-        keys[x] = 1;
-        numbers.push(x);
-        total++;
-        
-    }
-    }
+        } else {
+            while (total < 4) {
+                x = Math.floor(Math.random() * (j - 1));
 
-    $scope.place[0]= $scope.infoGroup.placeToSleepCards[numbers[0]];
-    $scope.place[1]= $scope.infoGroup.placeToSleepCards[numbers[1]];
-    $scope.place[2]= $scope.infoGroup.placeToSleepCards[numbers[2]];
-    $scope.place[3]= $scope.infoGroup.placeToSleepCards[numbers[3]];
-    
-}
- }
+                if (keys[x] == undefined) {
+                    keys[x] = 1;
+                    numbers.push(x);
+                    total++;
+
+                }
+            }
+
+            $scope.place[0] = $scope.infoGroup.placeToSleepCards[numbers[0]];
+            $scope.place[1] = $scope.infoGroup.placeToSleepCards[numbers[1]];
+            $scope.place[2] = $scope.infoGroup.placeToSleepCards[numbers[2]];
+            $scope.place[3] = $scope.infoGroup.placeToSleepCards[numbers[3]];
+
+        }
+    }
 
     /**
      * Función para leer la información de un grupo
@@ -360,18 +361,44 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
         return ApiService.putVote(cardId, newVote).success(function(response) {
 
             var arrayCard;
+            var randomType;
+
             if (cardType == 'placeToSleep') {
                 arrayCard = $scope.infoGroup.placeToSleepCards;
+                randomType = 'sleep';
             } else if (cardType == 'transport') {
                 arrayCard = $scope.infoGroup.transportCards;
+                randomType = 'transport';
             } else {
                 arrayCard = $scope.infoGroup.otherCards;
+                randomType = 'other';
             }
 
             for (var i = arrayCard.length - 1; i >= 0; i--) {
                 console.log(arrayCard.length);
                 if (arrayCard[i].cardId == cardId) {
                     arrayCard.splice(i, 1, response);
+
+                    //Actualizamos el average de las cards
+                    if (randomType == 'transport') {
+                        for (var j = $scope.trans.length - 1; j >= 0; j--) {
+                            if ($scope.trans[j].cardId == cardId) {
+                                $scope.trans.splice(j, 1, response);
+                            }
+                        }
+                    } else if (randomType == 'sleep') {
+                        for (var k = $scope.place.length - 1; k >= 0; k--) {
+                            if ($scope.place[k].cardId == cardId) {
+                                $scope.place.splice(k, 1, response);
+                            }
+                        }
+                    } else {
+                        for (var l = $scope.others.length - 1; l >= 0; l--) {
+                            if ($scope.others[l].cardId == cardId) {
+                                $scope.others.splice(l, 1, response);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -394,16 +421,16 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
     };
 
     $scope.mapDestSelectedIds = {};
-    $scope.Reset = function(){
+    $scope.Reset = function() {
         destiSelectedService.setDesti(null);
     }
-   $scope.tornarVistaGroup = function() {
-         destiSelectedService.setDesti(null);
-         $scope.destinationChoosed1 = destiSelectedService.getDesti();
-         $rootScope.destinationSelected = false;
-         $scope.mapDestSelectedIds = {};
-     };
-   
+    $scope.tornarVistaGroup = function() {
+        destiSelectedService.setDesti(null);
+        $scope.destinationChoosed1 = destiSelectedService.getDesti();
+        $rootScope.destinationSelected = false;
+        $scope.mapDestSelectedIds = {};
+    };
+
 
     /**
      * Función para mostrar vista de destino
@@ -438,7 +465,7 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
 
     $rootScope.resetDesti = function() {
         $rootScope.destinationChoosed = destiSelectedService.getDesti().name;
-        
+
     }
 
     /**
@@ -474,27 +501,27 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
      * Reibe la id del dstino
      */
 
-     $scope.deleteDestination = function(idDest){
-        
+    $scope.deleteDestination = function(idDest) {
+
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/deleteDestiniInfo.html',
             controller: 'deleteDestiInfoInstanceCtrl'
         });
 
         modalInstance.result.then(function() {
-             return ApiService.deleteDestination(idDest).success(function(response) {
-            for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
-                if ($scope.infoGroup.destinations[i].id == idDest) {
-                    $scope.infoGroup.destinations.splice(i, 1);
+            return ApiService.deleteDestination(idDest).success(function(response) {
+                for (var i = $scope.infoGroup.destinations.length - 1; i >= 0; i--) {
+                    if ($scope.infoGroup.destinations[i].id == idDest) {
+                        $scope.infoGroup.destinations.splice(i, 1);
+                    }
                 }
-            }
-             destiSelectedService.setDesti(null);
-         $scope.destinationChoosed1 = destiSelectedService.getDesti();
-         $rootScope.destinationSelected = false;
-         $scope.mapDestSelectedIds = {};
-         $scope.infoGroup= getGroup();
-            groupService.setGroup($scope.infoGroup);
-        });
+                destiSelectedService.setDesti(null);
+                $scope.destinationChoosed1 = destiSelectedService.getDesti();
+                $rootScope.destinationSelected = false;
+                $scope.mapDestSelectedIds = {};
+                $scope.infoGroup = getGroup();
+                groupService.setGroup($scope.infoGroup);
+            });
         });
 
     }
@@ -504,9 +531,9 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
      * Recibe una card other
      */
 
-     $scope.editCardOther = function(card) {
+    $scope.editCardOther = function(card) {
 
-        $scope.cardother= card;
+        $scope.cardother = card;
         var editCardOtherModalInstance = $modal.open({
             templateUrl: 'views/modals/editCardOtherModalContent.html',
             controller: 'editOtherCardModalInstanceCtrl',
@@ -519,30 +546,30 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
                 },
                 infoUser: function() {
                     return $scope.infoUser;
-                        }
+                }
             }
         });
 
-        
+
 
         editCardOtherModalInstance.result.then(function(editCard) {
-              if (editCard != null){
+            if (editCard != null) {
                 for (var x in $scope.infoGroup.otherCards) {
-            
-            if ($scope.infoGroup.otherCards[x].cardId === editCard){
-                
-                $scope.infoGroup.otherCards[x]=  editCard;           
-            groupService.setGroup($scope.infoGroup);
-            }
-}
-}  else{
-             $scope.infoGroup= getGroup();
-            groupService.setGroup($scope.infoGroup);
-            
-         }
 
-        
-        }); 
+                    if ($scope.infoGroup.otherCards[x].cardId === editCard) {
+
+                        $scope.infoGroup.otherCards[x] = editCard;
+                        groupService.setGroup($scope.infoGroup);
+                    }
+                }
+            } else {
+                $scope.infoGroup = getGroup();
+                groupService.setGroup($scope.infoGroup);
+
+            }
+
+
+        });
 
     };
 
@@ -565,34 +592,34 @@ for (var x in $scope.infoGroup.placeToSleepCards) {
                 },
                 infoUser: function() {
                     return $scope.infoUser;
-                        }
+                }
             }
         });
-        
 
-       editCardPlace2SleepModalInstance.result.then(function(editCard) {
-            if (editCard != null){
+
+        editCardPlace2SleepModalInstance.result.then(function(editCard) {
+            if (editCard != null) {
                 for (var x in $scope.infoGroup.placeToSleepCards) {
-                    if ($scope.infoGroup.placeToSleepCards[x].cardId === editCard){
-                        $scope.infoGroup.placeToSleepCards[x]=  editCard;           
+                    if ($scope.infoGroup.placeToSleepCards[x].cardId === editCard) {
+                        $scope.infoGroup.placeToSleepCards[x] = editCard;
                         groupService.setGroup($scope.infoGroup);
                     }
                 }
-            }else{
-                $scope.infoGroup= getGroup();
-                groupService.setGroup($scope.infoGroup); 
+            } else {
+                $scope.infoGroup = getGroup();
+                groupService.setGroup($scope.infoGroup);
             }
-        }); 
+        });
     };
 
-     /**
+    /**
      * Función para editar una card transport
      * Recibe una card transport
      */
 
-$scope.editCardTransport = function(card) {
+    $scope.editCardTransport = function(card) {
 
-        
+
         var editCardTransportModalInstance = $modal.open({
             templateUrl: 'views/modals/editCardTransportModalContent.html',
             controller: 'editTransportCardModalInstanceCtrl',
@@ -601,41 +628,41 @@ $scope.editCardTransport = function(card) {
                     return card;
                 },
                 transports: function() {
-                            return $scope.infoGroup.transportCards;
-                        },
-                        
+                    return $scope.infoGroup.transportCards;
+                },
+
                 destinations: function() {
                     return $scope.infoGroup.destinations;
                 },
                 infoUser: function() {
                     return $scope.infoUser;
-                        }
+                }
             }
         });
 
-        
+
 
         editCardTransportModalInstance.result.then(function(editCard) {
-            if (editCard != null){
+            if (editCard != null) {
                 for (var x in $scope.infoGroup.transportCards) {
-            
-            if ($scope.infoGroup.transportCards[x].cardId === editCard){
-                
-                $scope.infoGroup.transportCards[x]=  editCard;            
-            groupService.setGroup($scope.infoGroup);
-        }
-    }
 
-            }else{
+                    if ($scope.infoGroup.transportCards[x].cardId === editCard) {
+
+                        $scope.infoGroup.transportCards[x] = editCard;
+                        groupService.setGroup($scope.infoGroup);
+                    }
+                }
+
+            } else {
 
 
-            $scope.infoGroup= getGroup();
-            groupService.setGroup($scope.infoGroup);
-            
-         }
+                $scope.infoGroup = getGroup();
+                groupService.setGroup($scope.infoGroup);
 
-        
-        }); 
+            }
+
+
+        });
 
     };
 
@@ -655,7 +682,7 @@ $scope.editCardTransport = function(card) {
 
     /**
      * Función para abrir modal de Usuari Acepta el plan
-     * 
+     *
      */
 
     $scope.UserAcceptedPlan = function() {
@@ -668,7 +695,7 @@ $scope.editCardTransport = function(card) {
 
     /**
      * Función para abrir modal de Usuari no Acepta el plan
-     * 
+     *
      */
 
     $scope.UserNoAcceptedPlan = function() {
@@ -684,7 +711,7 @@ $scope.editCardTransport = function(card) {
      *
      */
 
-     var finalPropositionShare = function() {
+    var finalPropositionShare = function() {
         $scope.finalPropositionTrue;
         $scope.destinationMoreVotated;
         $scope.transportMoreVoted;
@@ -697,19 +724,19 @@ $scope.editCardTransport = function(card) {
             var arrayDesti = array.destinations;
 
             for (var i = array.transportCards.length - 1; i >= 0; i--) {
-               
-                if (array.transportCards[i].finalProposition == true){
+
+                if (array.transportCards[i].finalProposition == true) {
                     $scope.destinationMoreVotated = array.transportCards[i].destination;
-                    $scope.finalPropositionTrue = true;                   
+                    $scope.finalPropositionTrue = true;
                 }
-                
+
             }
 
             for (var i = array.transportCards.length - 1; i >= 0; i--) {
 
                 if (array.transportCards[i].destination == $scope.destinationMoreVotated) {
 
-                    if (array.transportCards[i].finalProposition == true){
+                    if (array.transportCards[i].finalProposition == true) {
                         $scope.transportMoreVoted = array.transportCards[i];
                         $scope.checkPlan = true;
                     }
@@ -720,13 +747,13 @@ $scope.editCardTransport = function(card) {
 
                 if (array.placeToSleepCards[i].destination == $scope.destinationMoreVotated) {
 
-                    if (array.placeToSleepCards[i].finalProposition == true){
+                    if (array.placeToSleepCards[i].finalProposition == true) {
                         $scope.sleepMoreVoted = array.placeToSleepCards[i];
 
                     }
                 }
             }
-            
+
         });
 
     }
@@ -734,7 +761,7 @@ $scope.editCardTransport = function(card) {
 
     /**
      * Función para buscar el destino y sus cards mas votadas
-     * 
+     *
      */
 
     var destinationMoreVotated = function() {
@@ -748,7 +775,7 @@ $scope.editCardTransport = function(card) {
             var arrayDesti = array.destinations;
 
 
-            if($scope.finalPropositionTrue == false){
+            if ($scope.finalPropositionTrue == false) {
 
 
                 for (var i = arrayDesti.length - 1; i >= 0; i--) {
@@ -759,8 +786,8 @@ $scope.editCardTransport = function(card) {
                     }
                 }
 
-                
-                if($scope.checkPlan == true){
+
+                if ($scope.checkPlan == true) {
                     for (var i = array.transportCards.length - 1; i >= 0; i--) {
 
                         if (array.transportCards[i].destination == $scope.destinationMoreVotated) {
@@ -784,31 +811,34 @@ $scope.editCardTransport = function(card) {
                     //Todas las cards de Sleep:
                     var arraySleep = $scope.transportMoreVoted.childCardsId;
                     var maxVote = 0;
-                    
-                    for (var i = $scope.transportMoreVoted.childCardsId.length -1; i >= 0; i--){
 
-                        for (var e = array.placeToSleepCards.length -1; e >= 0; e--){
+                    for (var i = $scope.transportMoreVoted.childCardsId.length - 1; i >= 0; i--) {
 
-                            if($scope.transportMoreVoted.childCardsId[i] == array.placeToSleepCards[e].cardId){
+                        for (var e = array.placeToSleepCards.length - 1; e >= 0; e--) {
 
-                                if (maxVote < array.placeToSleepCards[e].average){
-                                   
-                                    $scope.cardsSleep = {"cardId": array.placeToSleepCards[e].cardId, "average": array.placeToSleepCards[e].average};
+                            if ($scope.transportMoreVoted.childCardsId[i] == array.placeToSleepCards[e].cardId) {
+
+                                if (maxVote < array.placeToSleepCards[e].average) {
+
+                                    $scope.cardsSleep = {
+                                        "cardId": array.placeToSleepCards[e].cardId,
+                                        "average": array.placeToSleepCards[e].average
+                                    };
                                     var maxVote = array.placeToSleepCards[e].average;
-                                    
+
                                 }
 
                             }
 
 
                         }
-                       
+
 
                     }
-                    for (var i = array.placeToSleepCards.length -1; i >= 0; i--){
+                    for (var i = array.placeToSleepCards.length - 1; i >= 0; i--) {
 
-                        if(array.placeToSleepCards[i].cardId == $scope.cardsSleep.cardId){
-                            
+                        if (array.placeToSleepCards[i].cardId == $scope.cardsSleep.cardId) {
+
                             $scope.sleepMoreVoted = {
                                 cardId: array.placeToSleepCards[i].cardId,
                                 name: array.placeToSleepCards[i].name,
@@ -818,7 +848,7 @@ $scope.editCardTransport = function(card) {
                                 description: array.placeToSleepCards[i].description,
                                 childCardsId: array.placeToSleepCards[i].parentCardIds
                             }
-                            
+
                         }
 
                     }
@@ -841,14 +871,14 @@ $scope.editCardTransport = function(card) {
         };
     }
 
-    
+
 
 });
 
-    /**
-     * Controlador para modal de invitación de usuarios
-     *
-     */
+/**
+ * Controlador para modal de invitación de usuarios
+ *
+ */
 
 app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, ApiService, $routeParams, notificationFactory) {
     $scope.users = [];
@@ -900,17 +930,17 @@ app.controller('InvitationModalInstanceCtrl', function($scope, $modalInstance, A
     };
 });
 
-    /**
-     * Controlador para el modal de eliminar card
-     *
-     */
+/**
+ * Controlador para el modal de eliminar card
+ *
+ */
 
 app.controller('deleteCardInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
         $modalInstance.dismiss();
     }
-    
+
 
     $scope.confirmDeleteCard = function() {
         $modalInstance.close();
@@ -918,17 +948,17 @@ app.controller('deleteCardInstanceCtrl', function($scope, $modalInstance, authSe
     }
 });
 
-    /**
-     * Controlador para el modal de eliminar destino
-     *
-     */
+/**
+ * Controlador para el modal de eliminar destino
+ *
+ */
 
 app.controller('deleteDestiInfoInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
         $modalInstance.dismiss();
     }
-    
+
 
     $scope.confirmDeleteCard = function() {
         $modalInstance.close();
@@ -936,29 +966,29 @@ app.controller('deleteDestiInfoInstanceCtrl', function($scope, $modalInstance, a
     }
 });
 
-    /**
-     * Controlador para el modal de editar card tipo transport
-     *
-     */
+/**
+ * Controlador para el modal de editar card tipo transport
+ *
+ */
 
-app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser,destiSelectedService,card) {
+app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, authService, transports, destinations, infoUser, destiSelectedService, card) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     //$scope.destinationsFiltered = destinations.filter(function(v) {
-        //return v !== ''
+    //return v !== ''
     //});
     $scope.infoUser = infoUser;
     $scope.newCard = card;
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
     $scope.transportType = $scope.transportTypes[0];
-    $scope.destiSelected=destiSelectedService.getDesti();
+    $scope.destiSelected = destiSelectedService.getDesti();
     console.log($modalInstance);
 
-    $scope.ifDesti = function(){
+    $scope.ifDesti = function() {
 
-        if($scope.destiSelected==null){
+        if ($scope.destiSelected == null) {
             return false;
-        }else{
+        } else {
             console.log($scope.destiSelected.name);
             return true;
         }
@@ -975,17 +1005,17 @@ app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInst
             $scope.destinations.push(destino);
         })
     }
-    $scope.deleteCard = function(){
-       
+    $scope.deleteCard = function() {
+
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/deleteCard.html',
             controller: 'deleteCardInstanceCtrl'
         });
 
         modalInstance.result.then(function() {
-             ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
-            $modalInstance.close();
-        }); 
+            ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
+                $modalInstance.close();
+            });
         });
 
     }
@@ -1014,8 +1044,8 @@ app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInst
          */
         $scope.isCreatingCard = true;
 
-         var init = new Date (submittedCard.initDate);
-        var fina = new Date (submittedCard.finalDate);
+        var init = new Date(submittedCard.initDate);
+        var fina = new Date(submittedCard.finalDate);
         /**
          * Card que será enviada a la API
          */
@@ -1071,26 +1101,26 @@ app.controller('editTransportCardModalInstanceCtrl', function($scope, $modalInst
     };
 });
 
-    /**
-     * Controlador para model de editar card PlaceToSleep
-     *
-     */
+/**
+ * Controlador para model de editar card PlaceToSleep
+ *
+ */
 
-app.controller('editPlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, groupService, infoUser,destiSelectedService,card) {
-   $scope.isCreatingCard = false;
-   $scope.Group = {};
+app.controller('editPlace2SleepCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, groupService, infoUser, destiSelectedService, card) {
+    $scope.isCreatingCard = false;
+    $scope.Group = {};
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
-    $scope.newCard=card;
+    $scope.newCard = card;
     $scope.placeTypes = ['Apartamento', 'Cámping', 'Couchsurfing', 'Hotel', 'Modo Aventura', 'Refugio', 'Otro'];
     $scope.placeType = $scope.placeTypes[0];
-$scope.destiSelected=destiSelectedService.getDesti();
+    $scope.destiSelected = destiSelectedService.getDesti();
 
-    $scope.ifDesti = function(){
+    $scope.ifDesti = function() {
 
-        if($scope.destiSelected==null){
+        if ($scope.destiSelected == null) {
             return false;
-        }else{
+        } else {
             console.log($scope.destiSelected.name);
             return true;
         }
@@ -1106,33 +1136,33 @@ $scope.destiSelected=destiSelectedService.getDesti();
         })
     }
 
-   
-    $scope.deleteCard = function(){
-       
+
+    $scope.deleteCard = function() {
+
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/deleteCard.html',
             controller: 'deleteCardInstanceCtrl'
         });
 
         modalInstance.result.then(function() {
-             ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
-            $modalInstance.close();
-        }); 
+            ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
+                $modalInstance.close();
+            });
         });
 
     }
     /**
      * Cierra el modal actual abortando la acción
      */
-   $scope.cancel = function() {
+    $scope.cancel = function() {
         $modalInstance.dismiss();
     }
 
     $scope.addCardPlaceToSleep = function(submittedCard) {
 
         $scope.isCreatingCard = true;
-        var init = new Date (submittedCard.initDate);
-        var fina = new Date (submittedCard.finalDate);
+        var init = new Date(submittedCard.initDate);
+        var fina = new Date(submittedCard.finalDate);
         // Todo obtener parentCardIds de la card, en caso de estar modificandola.
         var parentCardIds = [];
         if (typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
@@ -1152,7 +1182,7 @@ $scope.destiSelected=destiSelectedService.getDesti();
             finalDate: fina.valueOf(),
             placeType: submittedCard.type
         }
- 
+
 
         ApiService.putPlaceToSleepCard($routeParams.groupId, newCard)
             .success(function(data, status) {
@@ -1177,7 +1207,7 @@ $scope.destiSelected=destiSelectedService.getDesti();
 
                 console.log("Card de tipus placeToSleep Card creada");
                 console.log(newCardReturn.parentCardIds);
-                $modalInstance.close(newCardReturn); 
+                $modalInstance.close(newCardReturn);
                 //$scope.infoGroup.placeToSleepCards.push(newCardReturn);
             })
             .error(function(data, status) {
@@ -1187,25 +1217,25 @@ $scope.destiSelected=destiSelectedService.getDesti();
     }
 });
 
-    /**
-     * Controlador para modal de editar card tipo other
-     *
-     */
+/**
+ * Controlador para modal de editar card tipo other
+ *
+ */
 
-app.controller('editOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser,destiSelectedService,card) {
+app.controller('editOtherCardModalInstanceCtrl', function($scope, $modalInstance, $modal, $routeParams, ApiService, destinations, infoUser, destiSelectedService, card) {
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     $scope.infoUser = infoUser;
-    $scope.newCard=card;
-    
- 
-$scope.destiSelected=destiSelectedService.getDesti();
+    $scope.newCard = card;
 
-    $scope.ifDesti = function(){
 
-        if($scope.destiSelected==null){
+    $scope.destiSelected = destiSelectedService.getDesti();
+
+    $scope.ifDesti = function() {
+
+        if ($scope.destiSelected == null) {
             return false;
-        }else{
+        } else {
             console.log($scope.destiSelected.name);
             return true;
         }
@@ -1224,17 +1254,17 @@ $scope.destiSelected=destiSelectedService.getDesti();
     /**
      * Cierra el modal actual abortando la acción
      */
-     $scope.deleteCard = function(){
-       
+    $scope.deleteCard = function() {
+
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/deleteCard.html',
             controller: 'deleteCardInstanceCtrl'
         });
 
         modalInstance.result.then(function() {
-             ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
-            $modalInstance.close();
-        }); 
+            ApiService.deleteCard($routeParams.groupId, card.cardId).success(function(data, status) {
+                $modalInstance.close();
+            });
         });
 
     }
@@ -1246,7 +1276,7 @@ $scope.destiSelected=destiSelectedService.getDesti();
         $scope.isCreatingCard = true;
         //Nueva Card 
         console.log(submittedCard.destination);
-        var date = new Date (submittedCard.eventDate);
+        var date = new Date(submittedCard.eventDate);
 
         var editCard = {
             cardId: $scope.newCard.cardId,
@@ -1261,7 +1291,7 @@ $scope.destiSelected=destiSelectedService.getDesti();
             lastNameCreator: $scope.infoUser.lastName,
             eventDate: date.valueOf()
         }
-        
+
         //Llamada PUT a la API para insertar la card de tipo other
         ApiService.putOtherCard($routeParams.groupId, editCard)
             .success(function(data, status) {
@@ -1294,10 +1324,10 @@ $scope.destiSelected=destiSelectedService.getDesti();
     };
 });
 
-    /**
-     * Controlador para modal de añadir destino
-     * 
-     */
+/**
+ * Controlador para modal de añadir destino
+ *
+ */
 app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
 
     $scope.cancel = function() {
@@ -1317,7 +1347,7 @@ app.controller('addDestinationModalInstanceCtrl', function($scope, $modalInstanc
 
         if (!$scope.destinationExists(destino)) {
 
-           
+
             ApiService.putDestination(destino)
                 .success(function(data, status) {
                     var newDestination = {
@@ -1397,7 +1427,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
     $scope.isCreatingCard = false;
     $scope.destinations = destinations;
     //$scope.destinationsFiltered = destinations.filter(function(v) {
-        //return v !== ''
+    //return v !== ''
     //});
     $scope.infoUser = infoUser;
     $scope.transportTypes = ['Autobús', 'Avión', 'Barco', 'Coche', 'Tren', 'Otro'];
@@ -1457,9 +1487,9 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
         /**
          * Card que será enviada a la API
          */
-         if ($rootScope.destinationSelected) {
+        if ($rootScope.destinationSelected) {
             submittedCard.destination = $scope.destiSelected.name;
-         }
+        }
 
         var newCard = {
             cardType: "transport",
@@ -1479,7 +1509,7 @@ app.controller('CreateTransportCardModalInstanceCtrl', function($rootScope, $sco
         ApiService.putTransportCard($routeParams.groupId, newCard)
             .success(function(data, status) {
 
-               var newCardReturn = {
+                var newCardReturn = {
                     cardId: data.cardId,
                     creationDate: data.creationDate,
                     cardType: data.cardType,
@@ -1560,7 +1590,7 @@ app.controller('CreatePlace2SleepCardModalInstanceCtrl', function($rootScope, $s
         if (typeof submittedCard.parentCardId !== "undefined") parentCardIds.push(submittedCard.parentCardId);
         if ($rootScope.destinationSelected) {
             submittedCard.destination = $scope.destiSelected.name;
-         }
+        }
         var newCard = {
             parentCardIds: parentCardIds,
             cardType: "placeToSleep",
@@ -1725,8 +1755,7 @@ app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, auth
             sleepCardId: sleepCardId
         };
         console.log(cardsIds);
-        ApiService.putCheckPlan(cardsIds).success(function() {
-        });
+        ApiService.putCheckPlan(cardsIds).success(function() {});
         $modalInstance.close();
 
     }
@@ -1772,10 +1801,10 @@ app.controller('UserNoAcceptedPlanInstanceCtrl', function($scope, $modalInstance
     }
 });
 
-    /**
-     * Controlador para los inputs de fechas
-     *
-     */
+/**
+ * Controlador para los inputs de fechas
+ *
+ */
 
 var DatepickerDemoCtrl = function($scope) {
     $scope.today = function() {
@@ -1817,5 +1846,3 @@ var DatepickerDemoCtrl = function($scope) {
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
     $scope.format = $scope.formats[0];
 };
-
-
