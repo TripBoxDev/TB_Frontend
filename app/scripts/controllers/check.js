@@ -100,8 +100,15 @@ app.controller('CheckCtrl', function($rootScope, $scope, $q, $routeParams, $loca
     */
 
 
-    $scope.resetPlan = function() {
-        
+    $scope.resetPlan = function(resetPlan) {
+
+        /*$scope.transportMoreVoted;
+        $scope.sleepMoreVoted;
+        $scope.resetPlan = {
+            "transCardId": $scope.transportMoreVoted.cardId,
+            "sleepCardId": $scope.sleepMoreVoted.cardId
+        }
+        console.log($scope.resetPlan);*/
         var modalInstance = $modal.open({
             templateUrl: 'views/modals/resetPlan.html',
             controller: 'resetPlanInstanceCtrl'
@@ -177,9 +184,15 @@ app.controller('resetPlanInstanceCtrl', function($scope, $modalInstance, authSer
     }
 
 
-    $scope.resetPlan = function() {
-        console.log("Entre en acepto");
-        //ApiService.putCheckPlan(cardsIds).success(function() {});
+    $scope.resetPlan = function(transportCardId, sleepCardId) {
+        console.log("Modal");
+        $scope.groupId = $routeParams.groupId;
+        var resetPlan = {
+            groupId: $scope.groupId,
+            transportCardId: transportCardId,
+            sleepCardId: sleepCardId
+        };
+        ApiService.deleteCheckPlan(resetPlan).success(function() {});
         $modalInstance.close();
 
 

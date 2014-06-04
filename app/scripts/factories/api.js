@@ -128,6 +128,7 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
             
 
         },
+
         /**
          * Añade un plan de viaje
          */
@@ -135,6 +136,12 @@ app.factory('ApiService', function($http, $routeParams, $location, authService, 
             return $http.put(endpoint + 'group/' + cardsIds.groupId + '/transport/' + cardsIds.transportCardId + '/sleep/' + cardsIds.sleepCardId);
         },
 
+        /**
+         * Elimina el plan de viaje
+         */
+        deleteCheckPlan: function(cardsIds) {
+            return $http.delete(endpoint + 'group/' + cardsIds.groupId + '/transport/' + cardsIds.transportCardId + '/alojamiento/' + cardsIds.sleepCardId + '/deleteProp');
+        },
 
 
         putVotePlan: function(decision) {

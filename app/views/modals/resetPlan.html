@@ -3,22 +3,23 @@
 <div class="modal-header" ng-controller="CheckCtrl">
    
     <button type="button" class="close" ng-click="cancel()">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Resetear plan a </h4>
+    <h4 class="modal-title" id="myModalLabel">Resetear plan a {{destinationMoreVotated}}</h4>
 
 </div>
 <div class="modal-body" ng-controller="GroupCtrl">
     
     <div class="input-group">
        
-        Estas seguro que quieres reiniciar el plan? Se volvera a el plan mas votado realizado a traves de las votaciones
+        Estas seguro que quieres reiniciar el plan? </br>
+        Se volvera a el plan mas votado obtenido a traves de todas las votaciones realizadas
     	
     </div>
 
 </div>
-<div class="modal-footer">
+<div class="modal-footer" ng-controller="GroupCtrl">
     
     <button type="button" class="btn btn-default" ng-click="cancel()">Cancelo</button>
-    <button type="button" class="btn btn-primary btn-danger" ng-click="resetPlan()">Resetear</button>
+    <button type="button" class="btn btn-primary btn-danger" ng-click="resetPlan(transportMoreVoted.cardId, sleepMoreVoted.cardId)">Resetear</button>
     
 </div>
 
