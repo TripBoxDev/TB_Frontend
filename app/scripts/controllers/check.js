@@ -95,6 +95,21 @@ app.controller('CheckCtrl', function($rootScope, $scope, $q, $routeParams, $loca
     }
 
     /**
+    * Función para abrir modal de reset plan
+    *
+    */
+
+
+    $scope.resetPlan = function() {
+        
+        var modalInstance = $modal.open({
+            templateUrl: 'views/modals/resetPlan.html',
+            controller: 'resetPlanInstanceCtrl'
+        });
+
+    }
+
+    /**
      * Función para obtener los usuarios que no han votado
      *
      */
@@ -151,5 +166,22 @@ app.controller('CheckCtrl', function($rootScope, $scope, $q, $routeParams, $loca
                 });
             })
         };
+    }
+});
+
+app.controller('resetPlanInstanceCtrl', function($scope, $modalInstance, authService, $http, $routeParams, ApiService, groupService) {
+
+    $scope.cancel = function() {
+        console.log("Entre en rechazo");
+        $modalInstance.dismiss();
+    }
+
+
+    $scope.resetPlan = function() {
+        console.log("Entre en acepto");
+        //ApiService.putCheckPlan(cardsIds).success(function() {});
+        $modalInstance.close();
+
+
     }
 });

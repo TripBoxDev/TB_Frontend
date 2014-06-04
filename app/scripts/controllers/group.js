@@ -812,29 +812,49 @@ app.controller("GroupCtrl", function($rootScope, $scope, $routeParams, $location
                     var arraySleep = $scope.transportMoreVoted.childCardsId;
                     var maxVote = 0;
 
-                    for (var i = $scope.transportMoreVoted.childCardsId.length - 1; i >= 0; i--) {
+                    console.log($scope.transportMoreVoted.childCardsId.length);
+                    if ($scope.transportMoreVoted.childCardsId.length == 0) {
 
-                        for (var e = array.placeToSleepCards.length - 1; e >= 0; e--) {
+                        $scope.percentage = 0;
 
-                            if ($scope.transportMoreVoted.childCardsId[i] == array.placeToSleepCards[e].cardId) {
+                        for (var i = array.placeToSleepCards.length - 1; i >= 0; i--) {
 
-                                if (maxVote < array.placeToSleepCards[e].average) {
+                            if (array.placeToSleepCards[i].destination == $scope.destinationMoreVotated) {
 
+                                if (array.placeToSleepCards[i].average >= $scope.percentage) {
+
+                                    $scope.percentage = array.transportCards[i].average;
                                     $scope.cardsSleep = {
-                                        "cardId": array.placeToSleepCards[e].cardId,
-                                        "average": array.placeToSleepCards[e].average
+                                        "cardId": array.placeToSleepCards[i].cardId,
+                                        "average": array.placeToSleepCards[i].average
                                     };
-                                    var maxVote = array.placeToSleepCards[e].average;
 
                                 }
-
                             }
-
-
                         }
 
+                    } else {
+
+                        for (var i = $scope.transportMoreVoted.childCardsId.length - 1; i >= 0; i--) {
+
+                            for (var e = array.placeToSleepCards.length - 1; e >= 0; e--) {
+
+                                if ($scope.transportMoreVoted.childCardsId[i] == array.placeToSleepCards[e].cardId) {
+
+                                    if (maxVote < array.placeToSleepCards[e].average) {
+
+                                        $scope.cardsSleep = {
+                                            "cardId": array.placeToSleepCards[e].cardId,
+                                            "average": array.placeToSleepCards[e].average
+                                        };
+                                        var maxVote = array.placeToSleepCards[e].average;
+                                    }
+                                }
+                            }
+                        }
 
                     }
+
                     for (var i = array.placeToSleepCards.length - 1; i >= 0; i--) {
 
                         if (array.placeToSleepCards[i].cardId == $scope.cardsSleep.cardId) {
