@@ -1776,6 +1776,7 @@ app.controller('AcceptedPlanInstanceCtrl', function($scope, $modalInstance, auth
         };
         console.log(cardsIds);
         ApiService.putCheckPlan(cardsIds).success(function() {});
+        window.location.href = '#/groups/' + $scope.groupId + '/check';
         $modalInstance.close();
 
     }

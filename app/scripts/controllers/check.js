@@ -192,7 +192,9 @@ app.controller('resetPlanInstanceCtrl', function($scope, $modalInstance, authSer
             transportCardId: transportCardId,
             sleepCardId: sleepCardId
         };
-        ApiService.deleteCheckPlan(resetPlan).success(function() {});
+        ApiService.deleteCheckPlan(resetPlan).success(function() {
+        });
+        window.location.href = '#/groups/' + $scope.groupId;
         $modalInstance.close();
 
 
